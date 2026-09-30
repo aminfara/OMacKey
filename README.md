@@ -1,0 +1,2 @@
+# OMacKey
+Omarchy Macintosh Keybindings
