@@ -52,7 +52,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 
 | Phase | Title | Status |
 | --- | --- | --- |
-| 0 | Foundation & spike (first key: ⌘← → Home) | [ ] |
+| 0 | Foundation & spike (first key: ⌘← → Home) | [x] |
 | 1 | Relocate Omarchy bindings: 1a WM → ⌃⌥ · 1b Spaces → ⌃ · 1c Launchers → ⌃⌥⌘ · 1d Utilities & help | [ ] |
 | 2 | Cursor movement, selection, deletion | [ ] |
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [ ] |
@@ -146,73 +146,81 @@ Do not re-litigate these without asking the user.
   best-effort.
 - VS Code, Nautilus, Obsidian and LibreOffice.
 
-**D11 — Persian.** The user sometimes types Persian, so every phase's
-acceptance tests include one pass with a Persian layout active.
+**D11 — Persian (deferred by the user, 2026-10-01).** The user sometimes types
+Persian. Sending by keycode (D4) is kept so non-Latin layouts are likely to
+work, but Persian test passes (spike S4, §8.2 step 6) are skipped until the
+user asks for them.
 
 ---
 
 ## 4. Architecture
 
-### 4.1 Repo layout (target)
+### 4.1 Repo layout
+
+Files marked (Phase N) are created by that phase.
 
 ```text
 OMacKey/
 ├── CLAUDE.md                 agent guide
 ├── PLAN.md                   this file
 ├── README.md                 user-facing docs (Phase 8)
-├── install.sh                symlink + marker lines in ~/.config/hypr/hyprland.lua, then reload + check
-├── uninstall.sh
+├── install.sh                symlink + guarded loader lines in ~/.config/hypr/hyprland.lua, then scripts/check.sh
+├── uninstall.sh              removes both (backs up hyprland.lua first)
+├── .luarc.json               LuaLS: Hyprland stubs + globals hl, o, omackey
 ├── omackey/                  → symlinked to ~/.config/hypr/omackey (Lua module prefix: hypr.omackey)
-│   ├── pre.lua               loaded BEFORE Omarchy defaults (relocation hook, approach A in 4.3)
-│   ├── init.lua              loaded AFTER Omarchy defaults: unhook, load enabled feature modules
-│   ├── config.lua            feature flags per module/phase, tunables (release delay, profile lists)
+│   ├── load.lua              entry points pre()/init() called from hyprland.lua; pcall-guarded, errors → notification;
+│   │                         defines the `omackey` global (status(), fired(id), trigger(id)) for hyprctl repl
+│   ├── init.lua              loads the feature modules listed in config.modules
+│   ├── config.lua            module list, release_ms, app profiles
 │   ├── relocations.lua       §6 as data
 │   ├── lib/
 │   │   ├── keys.lua          key name → "code:N" (XKB keycode = evdev + 8)
-│   │   ├── send.lua          tap / sequence of synthetic chords, with retained timers
-│   │   ├── apps.lua          active window → profile ("vscode", "ghostty", "terminal", "browser", …)
-│   │   └── bind.lua          mac{} helper: per-profile dispatch, descriptions, registry for docs
-│   ├── text.lua              Phase 2
-│   ├── editing.lua           Phase 3
-│   ├── windows.lua           Phase 4
-│   ├── system.lua            Phase 5
-│   ├── apps/                 Phase 6 profile overrides (terminal, browser, vscode, nautilus, obsidian, libreoffice)
-│   └── catchall.lua          Phase 7
+│   │   ├── send.lua          tap() (seq() in Phase 2) with retained timers
+│   │   ├── apps.lua          active window → profile chain, e.g. { "terminal", "default" }
+│   │   ├── bind.lua          mac{} helper: per-profile dispatch, auto_consuming, registry, press counter
+│   │   └── relocate.lua      hl.bind hook/unhook + key normalization (approach A, 4.3)
+│   ├── text.lua              Phase 2 (⌘← added in Phase 0.6)
+│   ├── editing.lua           (Phase 3)
+│   ├── windows.lua           (Phase 4)
+│   ├── system.lua            (Phase 5)
+│   ├── apps/                 (Phase 6) profile overrides
+│   └── catchall.lua          (Phase 7)
 ├── scripts/
-│   ├── check.sh              reload, configerrors, duplicate-bind detector, help-menu grep
-│   └── gen-docs.lua          Phase 8: mock hl, load modules, write docs/KEYBINDINGS.md
+│   ├── check.sh              reload, configerrors, omackey.status(), duplicate-bind detector, help-menu grep
+│   ├── keylog.py             GTK4 key-event logger used as the test app (wev alternative, no install)
+│   └── gen-docs.lua          (Phase 8)
 └── docs/
-    └── KEYBINDINGS.md        generated (Phase 8)
+    └── KEYBINDINGS.md        (Phase 8, generated)
 ```
 
-`~/.config/hypr/hyprland.lua` after install (sketch):
+`~/.config/hypr/hyprland.lua` after install:
 
 ```lua
-dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/bootstrap.lua")
+-- Load Omarchy defaults.
 -- >>> OMacKey pre (managed by OMacKey install.sh)
-require("hypr.omackey.pre")
+do local ok, loader = pcall(require, "hypr.omackey.load"); if ok then loader.pre() end end
 -- <<< OMacKey pre
 require("default.hypr.omarchy")
 -- >>> OMacKey (managed by OMacKey install.sh)
-require("hypr.omackey.init")
+do local ok, loader = pcall(require, "hypr.omackey.load"); if ok then loader.init() end end
 -- <<< OMacKey
 require("hypr.monitors")
 require("hypr.input")
 require("hypr.bindings")   -- user's personal overrides still win
-...
 ```
 
 Notes:
-- Omarchy's `bootstrap.lua` adds `~/.config/?.lua` to `package.path`. There is
-  no `?/init.lua` entry, so the module must be required as
-  `"hypr.omackey.init"`.
-- Modules with the prefix `hypr.` are dropped from `package.loaded` on every
-  reload, so `hyprctl reload` picks up edits.
-- Edits behind the symlink may not trigger Hyprland's auto-reload. Always run
-  `hyprctl reload`.
-- Phase 0.2 decides whether the loader lines are wrapped in a guard (`pcall`
-  plus an `hl.notification`). The guard would stop an OMacKey bug from
-  preventing the user's own config from loading.
+- **Two layers of guarding.** If the repo or symlink is missing, `pcall(require)`
+  makes the loader lines a silent no-op. If OMacKey code throws, `load.lua`
+  reports the error as a Hyprland notification and records it in
+  `omackey.status()`. Either way, Omarchy's defaults and the user's files still
+  load.
+- **Module paths.** Omarchy's `bootstrap.lua` adds `~/.config/?.lua` to
+  `package.path`, with no `?/init.lua` entry, so modules are required by full
+  name.
+- **Reloads.** Every reload starts a fresh Lua state: globals are gone and `hl`
+  is a new table (§9 F1). Edits behind the symlink may not trigger Hyprland's
+  auto-reload, so run `scripts/check.sh` or `hyprctl reload`.
 
 ### 4.2 How a translated key works
 
@@ -283,17 +291,19 @@ Profiles (`lib/apps.lua`):
 - Omarchy web apps (classes like `chrome-<host>__…-Default`) are deliberately
   left on the default profile.
 
-### 4.3 Relocation mechanism (decided by spike S7)
+### 4.3 Relocation mechanism — approach A chosen (spike S7, §9 F1)
 
 Both approaches keep the data in `relocations.lua`. Key strings are normalized
 (modifier order and case) because Omarchy writes both
 `"SUPER + SHIFT + ALT + …"` and `"SUPER + ALT + SHIFT + …"`.
 
-- **A. Rewrite at registration time (preferred).**
-  - How it works: `pre.lua` runs before `require("default.hypr.omarchy")` and
-    wraps `hl.bind` with a lookup in `relocations.lua`. Omarchy's own `o.bind`
-    calls then register straight onto the new keys. `init.lua` restores the
-    original `hl.bind`.
+- **A. Rewrite at registration time — implemented in `lib/relocate.lua`.**
+  - How it works: `load.pre()` runs before `require("default.hypr.omarchy")`
+    and wraps `hl.bind` with a lookup in `relocations.lua`. Omarchy's own
+    `o.bind` calls then register straight onto the new keys. `load.init()`
+    restores the original `hl.bind`.
+  - `omackey.status()` reports `unused_relocations` when an Omarchy key in the
+    table was never registered, i.e. Omarchy changed it.
   - Pros: Omarchy's dispatchers, descriptions and conditions are preserved
     (`omarchy_preinstalled_bindings`, voxtype presence). Relocations follow
     Omarchy updates automatically. The table is pure data, ready for the docs.
@@ -340,43 +350,46 @@ own notes.
 **Goal:** one Mac shortcut, ⌘← → Home, working end-to-end through the final
 architecture, and the open technical questions answered and recorded in §9.
 
-- [ ] 0.1 Scaffold the layout from §4.1: empty feature modules, plus
-  `config.lua` with per-module feature flags.
-- [ ] 0.2 `install.sh` and `uninstall.sh`:
-  - idempotent, using marker lines;
-  - back up `hyprland.lua` before editing it;
-  - refuse to overwrite a non-symlink `~/.config/hypr/omackey`;
-  - run `hyprctl reload` and `hyprctl configerrors` at the end;
-  - decide on the guarded loader;
-  - document that `omarchy refresh hyprland` removes the lines, so the user
-    must re-run install.
-- [ ] 0.3 `scripts/check.sh`:
-  - reload, then `configerrors`;
-  - a duplicate detector that parses `hyprctl binds` for any `(modmask, key)`
-    bound twice;
-  - an optional `grep` of `omarchy menu keybindings --print`.
-- [ ] 0.4 `lib/keys.lua`, `lib/send.lua`, `lib/apps.lua`, `lib/bind.lua` (with
-  the registry).
-- [ ] 0.5 Spikes S1–S11 below. Record each result in §9.
-- [ ] 0.6 First key: ⌘← → `Home` (Term: `Home`). In the same change, relocate
-  Omarchy's `SUPER + LEFT` (focus left) to `CTRL + ALT + LEFT` using the chosen
-  relocation mechanism.
+- [x] 0.1 Scaffold (§4.1). Feature modules are created by their own phase;
+  `config.modules` lists the enabled ones.
+- [x] 0.2 `install.sh` and `uninstall.sh`:
+  - idempotent marker blocks with guarded loader lines;
+  - back up `hyprland.lua` and verify the insertion (restoring the backup if
+    it failed);
+  - refuse to replace a non-symlink `~/.config/hypr/omackey`;
+  - tested in a scratch HOME (install, re-install, uninstall gives back an
+    identical config), then installed live.
+  - Note for the README: `omarchy refresh hyprland` removes the loader lines,
+    so re-run `./install.sh` after it.
+- [x] 0.3 `scripts/check.sh`:
+  - reload, `configerrors`, `omackey.status()`;
+  - the duplicate detector (per submap, modmask, key and release flag;
+    Omarchy's intentional ALT+TAB doubles are allowed);
+  - optional help-menu grep (`scripts/check.sh "line start"`).
+- [x] 0.4 `lib/keys.lua`, `lib/send.lua`, `lib/apps.lua`, `lib/bind.lua` (with
+  the registry and press counter), `lib/relocate.lua`, `load.lua`.
+  - Test tool: `scripts/keylog.py`.
+- [x] 0.5 Spikes S1–S11 (results in §9 F1). S4 is deferred (D11), S5 moves to
+  Phase 2 (first ⌥ key), and S9 waits for an XWayland app.
+- [x] 0.6 First key: ⌘← → `Home`, and `SUPER + LEFT` (focus left) relocated to
+  `CTRL + ALT + LEFT`. Passed the user's physical tests in keylog, Brave, VS
+  Code and foot; ⌃⌥← focuses left; the help menu shows both.
 
 **Spike checklist**
 
-| # | Question | How to check |
+| # | Question | Status |
 | --- | --- | --- |
-| S1 | With ⌘ held, does `send_key_state` with `mods = ""` deliver a plain `Home` (no Super) to the client? | `wev`, and a browser textarea |
-| S2 | Release delay (Omarchy uses 50 ms, Reddit 5 ms) combined with `repeating = true`: does holding the key repeat cleanly? Any stuck keys after 50 rapid presses followed by normal typing? | hold ⌘← / ⌥← |
-| S3 | Should we omit `window` (focused surface) or pass `window = "activewindow"`? Does text navigation work inside Omarchy's launcher/menu search field (layer shell)? | ⌘Space, type, then ⌘← |
-| S4 | Persian: (a) xkb `us,ir` with `grp:alts_toggle`; (b) fcitx5 with `keyboard-ir`. Do key-name binds fire, and do keycode-sent chords arrive correctly? | ⌘← and ⌘C with Persian active |
-| S5 | ⌥ chords: does releasing ⌥ after ⌥← focus the menu bar in VS Code, Obsidian, LibreOffice or Firefox? | press ⌥←, then type |
-| S6 | Does `auto_consuming = true` plus `return { ok = false }` pass the raw key through from a function bind? | profile set to `"pass"` |
-| S7 | Relocation approach A: is `hl` writable at runtime? Are wrapped binds correct in `hyprctl binds` and in the help menu? Does Omarchy's runtime `hl.bind` (slurp selection binds in `utilities.lua`) still work after unwrapping? | |
-| S8 | The help menu (SUPER+K for now) shows the new bind with its description, and `code:` keys display properly | `omarchy menu keybindings --print` |
-| S9 | Does an XWayland client receive the synthetic keys? | any XWayland app, if one is available |
-| S10 | Which Lua version is embedded in Hyprland (`_VERSION` via `hl.notification.create`)? The help-menu mock runs system `lua` 5.5. | |
-| S11 | Can `wtype` (virtual keyboard) trigger our binds? That would allow automated smoke tests (`wtype -M logo -k Left -m logo`). | `wev` |
+| S1 | With ⌘ held, does `send_key_state` with `mods = ""` deliver a plain `Home` (no Super) to the client? | ✅ physical ⌘← arrives as `Home`, `mods=-` |
+| S2 | Release delay (Omarchy uses 50 ms, Reddit 5 ms) combined with `repeating = true`: does holding the key repeat cleanly? Any stuck keys after rapid presses followed by normal typing? | ✅ 20 ms release: holding repeats and stops on release; rapid taps leave nothing stuck |
+| S3 | Should we omit `window` (focused surface) or pass `window = "activewindow"`? Does text navigation work inside Omarchy's launcher/menu search field (layer shell)? | ✅ omitted `window` reaches normal windows. The Omarchy launcher's search field has no cursor movement at all (not even arrows or Home), so it can't show anything; not an OMacKey issue. Retest layer-shell delivery with ⌘C/⌘V in Phase 3 |
+| S4 | Persian: (a) xkb `us,ir` with `grp:alts_toggle`; (b) fcitx5 with `keyboard-ir`. Do key-name binds fire, and do keycode-sent chords arrive correctly? | deferred by the user (D11) |
+| S5 | ⌥ chords: does releasing ⌥ after ⌥← focus the menu bar in VS Code, Obsidian, LibreOffice or Firefox? | deferred to the first ⌥ key (Phase 2, ⌥←) |
+| S6 | Does `auto_consuming = true` plus `return { ok = false }` pass the raw key through from a function bind? | ✅ the probe on ⌃⌥⌘⇧Y returning `{ ok = false }` passed the raw key through to keylog |
+| S7 | Relocation approach A: is `hl` writable, are wrapped binds correct, does `hl.bind` get restored? | ✅ |
+| S8 | The help menu shows the new and relocated binds with their descriptions | ✅ |
+| S9 | Does an XWayland client receive the synthetic keys? | deferred: no XWayland app running |
+| S10 | Embedded Lua version | ✅ Lua 5.5 |
+| S11 | Can `wtype` (virtual keyboard) trigger our binds? | ✅ No. Automated tests use `omackey.trigger(id)` instead |
 
 ### Phase 1 — Relocate Omarchy bindings
 
@@ -790,8 +803,19 @@ Keep the conditions Omarchy uses (`o.preinstalled_bindings_enabled()`,
 
 ### 8.1 Test bench
 
-- Install `wev`: `omarchy pkg add wev`. It shows exactly what a client receives:
-  keysym, modifiers, and press/release.
+- **`scripts/keylog.py`** (GTK4, nothing to install) is the test app. It has
+  an editable sample text and logs every press, release and modifier change
+  the app receives: keysym, keycode, modifiers, and the cursor and selection
+  after the event. `--log FILE` also writes the log to a file. Its window class
+  is `omackey.keylog`. (`wev` would also work, but needs installing.)
+- **Automated handler tests** (no key presses): focus keylog with
+  `hyprctl dispatch 'hl.dsp.focus({ window = "class:omackey.keylog" })'`,
+  run `hyprctl repl 'return omackey.trigger("<id>")'`, then read the log.
+  - Check focus in the same command: focus tends to jump back to VS Code
+    between commands.
+  - `omackey.fired("<id>")` counts real presses since the last reload.
+  - `wtype` can't test binds: virtual-keyboard input never triggers Hyprland
+    binds (§9 F1).
 - A plain text field:
   `data:text/html,<textarea autofocus style="width:100%;height:95vh"></textarea>`
   opened in Brave Origin and in Chromium.
@@ -814,13 +838,15 @@ The agent can't press keys, so the user runs steps 2–7 and reports back.
 
 1. `hyprctl reload && hyprctl configerrors` is clean, and `scripts/check.sh`
    reports no duplicate binds.
-2. In `wev`, the client receives exactly the target key and modifiers: no
-   SUPER/ALT leaking through, and exactly one press and release per tap.
+2. In `scripts/keylog.py`, the app receives exactly the target key and
+   modifiers: no SUPER/ALT leaking through, and exactly one press and release
+   per tap.
 3. Real apps: browser textarea, VS Code, foot+bash, plus the profiles the key
    touches.
 4. Hold the key (repeating binds) and release: repeat stops immediately.
 5. Press the chord 20× fast, then type normally: no stuck modifier or key.
-6. Persian active: repeat steps 2–3 for one GUI app and the terminal.
+6. (Deferred, D11.) With Persian active, repeat steps 2–3 for one GUI app and
+   the terminal.
 7. The help menu (SUPER+K until 1d, then ⌘?) finds the bind by its
    description. Relocated Omarchy binds show their new keys.
 8. For WM and workspace items: repeat on both `dwindle` and `scrolling`.
@@ -920,6 +946,45 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   PC with no trackpad or lid. Layout `us`; fcitx5 runs as
   `hl-virtual-keyboard-fcitx5`.
 
+**F1 — Phase 0 spike results (2026-10-01)**
+
+- **S10.** Hyprland embeds **Lua 5.5**, the same as the system `lua` used by the
+  help-menu replay.
+- **REPL.** `hyprctl repl '<lua>'` (and `hyprctl eval`) runs Lua in the live
+  config state and prints the return values. This is the main tool for
+  automated checks.
+- **Reloads** create a fresh Lua state: globals are gone and `hl` is a new
+  table. So there's no double-wrapping or leaking across reloads.
+- **S7 (approach A works).**
+  - `hl` is a plain table with no metatable, so `hl.bind` can be replaced.
+  - The wrapped Omarchy bind registers as `CTRL ALT + LEFT → Focus on left
+    window`, both live and in the help menu (whose mock `hl.bind` gets wrapped
+    the same way).
+  - After `load.init()`, `debug.getinfo(hl.bind).what == "C"`: the native
+    function is back.
+- **S8.** `omarchy menu keybindings --print` shows `SUPER + LEFT → Line start`
+  and `CTRL ALT + LEFT → Focus on left window`.
+- **S6 (partial).** `auto_consuming` is accepted although the type stubs don't
+  list it: `hyprctl binds` shows the flag letters `bindead` (repeating,
+  auto-consuming, described), and the returned `Keybind.auto_consuming` is
+  `true`. Physical pass-through is still untested.
+- **S1/S2/S3 (partial).** `omackey.trigger("line-start")` with keylog focused
+  logged `press Home code=110 mods=-`, then `release` 20 ms later, and the
+  cursor moved from column 12 to 0.
+  - So keycode sending, `mods = ""`, the omitted `window`, and timer retention
+    all work.
+  - Not covered yet: a physically held ⌘, and layer-shell surfaces.
+- **S11.** Input from `wtype`'s virtual keyboard **never triggers Hyprland
+  binds**. A probe bind on ⌃⌥⌘⇧Y got 0 hits from
+  `wtype -M logo -M ctrl -M alt -M shift -k y`.
+  - wtype also uploads its own keymap: End arrived as keycode 9. So it can't
+    test keycode-based sends either.
+- **The `hyprctl binds` key field** holds just the key (`LEFT`); modifiers are
+  in `modmask`. Flag letters follow `bind`.
+- **install.sh pitfall:** `awk -v` processes backslash escapes, which broke the
+  anchor regex. Pass regexes through `ENVIRON`.
+- **S9.** No XWayland clients are running; retest when one is available.
+
 ---
 
 ## 10. References
@@ -952,3 +1017,18 @@ and the next step.
   - Wrote PLAN.md and CLAUDE.md.
   - **Next:** Phase 0.1–0.3 (scaffold, installer, check script), then spikes
     S1–S11 with ⌘← as the first key.
+- **2026-10-01 — Phase 0 build.**
+  - Built the libraries, loader, relocation hook (approach A),
+    install/uninstall, `check.sh` and `keylog.py`.
+  - Tested install in a scratch HOME (including the help-menu replay), then
+    installed live. `check.sh` is clean: `bindings=1 relocated=1`, no
+    duplicates.
+  - Live changes: ⌘← → Home; Omarchy's focus-left moved to ⌃⌥←.
+  - Automated spikes done: S7, S8, S10, S11; S1/S2/S3/S6 partially (F1).
+  - The user's physical tests all passed: ⌘← in keylog, Brave, VS Code and
+    foot; repeat and rapid taps; ⌃⌥← focus; the pass-through probe; the help
+    menu.
+  - The Omarchy launcher has no cursor movement at all, so S3 is inconclusive
+    for layer shell and is retested with ⌘C/⌘V in Phase 3.
+  - The user deferred Persian testing (D11). Phase 0 is done.
+  - **Next:** Phase 1a, relocating window management to ⌃⌥ (§6.1).

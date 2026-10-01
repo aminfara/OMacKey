@@ -1,0 +1,14 @@
+{
+  "runtime": {
+    "version": "Lua 5.4"
+  },
+  "workspace": {
+    "library": [
+      "/usr/share/hypr/stubs"
+    ],
+    "checkThirdParty": false
+  },
+  "diagnostics": {
+    "globals": ["hl", "o", "omackey"]
+  }
+}

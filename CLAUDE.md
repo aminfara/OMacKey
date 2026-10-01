@@ -20,9 +20,10 @@ keys. Don't run ahead into later phases.
 2. Confirm the scope of the session with the user if it's ambiguous: which
    key(s), which phase item.
 3. Implement, then validate the config (below).
-4. You can't press physical keys. Give the user the §8.2 test steps for the
-   exact keys you changed, and wait for their results. If spike S11 proves that
-   `wtype` triggers binds, automated smoke tests may replace part of this.
+4. Test what you can yourself (see "Testing without pressing keys"). Then give
+   the user the §8.2 steps for the exact keys you changed and wait for their
+   results. Only physical presses prove that a bind fires and that held
+   modifiers don't leak.
 5. Update PLAN.md:
    - tick the items;
    - add facts to §9;
@@ -38,18 +39,19 @@ keys. Don't run ahead into later phases.
 - **Hardware:** NuPhy Air75 V2 keyboard in Mac mode (⌘ = Super, next to the
   space bar), Logitech G305 mouse. Desktop PC: no trackpad, no lid.
 - **Input:** xkb layout `us`, fcitx5 running (`hl-virtual-keyboard-fcitx5`).
-  The user **sometimes types Persian**, so every phase gets a Persian test
-  pass (D11).
+  The user sometimes types Persian. Keys are still sent by keycode, but
+  Persian testing is deferred until the user asks (D11).
 - **Apps:**
   - foot (default terminal, bash) and Brave Origin (default browser, class
     `brave-origin`);
   - Chromium, VS Code (class `code`), Obsidian, Nautilus, LibreOffice;
   - Ghostty and Google Chrome must be supported too, but may need installing
     for testing.
-- **Lua:** system `lua` is 5.5.1, which Omarchy's help menu uses to replay the
-  config; `luajit` is also installed. Hyprland's embedded Lua version is not
-  verified yet (spike S10).
-- **Not installed:** `wev`. Install with `omarchy pkg add wev`, after asking.
+- **Lua:** Hyprland embeds Lua 5.5, and system `lua` (used by the help-menu
+  replay) is 5.5.1. `luac5.5 -p file.lua` checks syntax.
+- **OMacKey is installed live:** `~/.config/hypr/omackey` →
+  `~/Work/OMacKey/omackey`. Edits in the repo apply on the next reload.
+- **Not installed:** `wev`. Use `scripts/keylog.py` instead.
 
 ## Hard rules
 
@@ -79,27 +81,65 @@ keys. Don't run ahead into later phases.
 ## Validate after every change
 
 ```bash
-hyprctl reload && hyprctl configerrors          # must report no errors
-scripts/check.sh                                 # from Phase 0: reload, errors, duplicate binds
-hyprctl binds | grep -B3 -A12 'description: Line start'
-omarchy menu keybindings --print | grep -i 'line start'
+for f in $(find omackey -name '*.lua'); do luac5.5 -p "$f"; done  # syntax first
+scripts/check.sh                       # reload, configerrors, omackey.status(), duplicate binds
+scripts/check.sh "line start"          # … plus a help-menu (omarchy menu keybindings) search
+hyprctl binds | grep -B8 -A4 'description: Line start'   # flags: e=repeat a=auto_consuming d=desc
 ```
 
-Files behind the `~/.config/hypr/omackey` symlink may not trigger Hyprland's
-auto-reload, so always run `hyprctl reload` explicitly.
+`check.sh` must print three ✓ lines. `omackey.status()` reports load errors
+and `unused_relocations`: Omarchy keys in `relocations.lua` that no longer
+exist. Files behind the symlink may not trigger Hyprland's auto-reload, and
+`check.sh` reloads.
+
+For risky changes to the loader or relocation, dry-run first in a scratch HOME:
+copy `~/.config/hypr`, run `HOME=<scratch> ./install.sh --no-reload`, then
+replay the config the way the help menu does. Extract the Lua heredoc from
+`$(which omarchy-menu-keybindings)` and run it with `HOME=<scratch> lua5.5`.
+
+## Testing without pressing keys
+
+- `hyprctl repl '<lua>'` runs Lua in the live config state and prints the
+  results. Helpers:
+  - `omackey.status()`
+  - `omackey.trigger("<id>")` runs a binding's handler as if pressed
+  - `omackey.fired("<id>")` counts real presses since the last reload
+  - `require("hypr.omackey.lib.bind").by_id`
+- **Handler test:**
+  1. Start `scripts/keylog.py --log <scratchpad>/keylog.txt` in the
+     background.
+  2. Focus it: `hyprctl dispatch 'hl.dsp.focus({ window = "class:omackey.keylog" })'`.
+  3. Run `omackey.trigger`, then read the log. It shows the keysym, keycode,
+     modifiers and cursor position the app saw.
+  4. Close it with `kill <pid>`. Not `pkill -f keylog.py`: that matches and
+     kills your own shell.
+- **Check focus in the same command, right before injecting.** Focus jumps
+  back to VS Code between tool calls, and stray keys would land in the user's
+  editor.
+- **`wtype` input never triggers Hyprland binds**, and it uses its own keymap,
+  so it can't replace physical tests.
 
 ## How it works — read before writing binds
 
 - **Load order** (after install):
   1. Omarchy `bootstrap.lua`
-  2. `hypr.omackey.pre` (relocation hook)
-  3. `default.hypr.omarchy` (Omarchy defaults)
-  4. `hypr.omackey.init` (Mac binds)
+  2. `load.pre()`: `lib/relocate.lua` wraps `hl.bind`
+  3. `default.hypr.omarchy` (Omarchy defaults, registered on relocated keys)
+  4. `load.init()`: unwrap `hl.bind`, then `init.lua` loads `config.modules`
+     (the Mac binds)
   5. the user's `hypr.*` files, so the user's `bindings.lua` overrides still
      win.
+- **Errors.** Both loader stages are `pcall`-guarded. An error becomes a
+  Hyprland notification plus an entry in `omackey.status()`; it does not show
+  up in `hyprctl configerrors`.
+- **No stdout at load.** Omarchy's help menu replays this config and parses
+  stdout, so never `print` from OMacKey at load time.
 - **Module paths:** `bootstrap.lua` adds `~/.config/?.lua`, with no `?/init.lua`
-  entry, so require `"hypr.omackey.init"` and `"hypr.omackey.lib.send"`
-  explicitly. `hypr.*` modules are dropped from `package.loaded` on reload.
+  entry, so require full names like `"hypr.omackey.lib.send"`. Every reload
+  starts a fresh Lua state.
+- **Moving an Omarchy bind:** add a row to `omackey/relocations.lua`, with
+  `from` exactly as written in Omarchy's file (matching ignores modifier order
+  and case). Don't `hl.unbind` and redeclare it.
 - **Omarchy helpers aren't limiting.** `o.bind(keys, desc, dispatcher, opts)`
   is a thin wrapper over `hl.bind(keys, dispatcher, opts)` that sets
   `opts.description`.
