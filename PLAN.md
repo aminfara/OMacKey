@@ -428,8 +428,8 @@ Implement §6 one group per session. After each group:
     Omarchy's own binds move via `relocations.lua`.
 
   Test on dwindle and scrolling, and with two monitors if available.
-- [ ] **1c — Launchers → ⌃⌥⌘** (§6.3), including resolving the collisions with
-  ⌃⌥⌘B/W/D.
+- [x] **1c — Launchers → ⌃⌥⌘** (§6.3). The info popups time, battery,
+  weather and calendar moved to ⌃⌘⇧ T/B/W/D. Tested by the user.
 - [ ] **1d — Utilities & help** (§6.4). Help moves to ⌘?.
 
 After Phase 1, the only SUPER, SUPER+SHIFT and SUPER+ALT binds left are
@@ -763,13 +763,19 @@ macOS. Deviation from macOS: ⌃←/→ switch windows, not Spaces.
 | `SUPER + CTRL + ALT + B` | Show battery remaining | `CTRL + SUPER + SHIFT + B` (collides with the browser launcher) |
 | `SUPER + CTRL + ALT + W` | Toggle weather | `CTRL + SUPER + SHIFT + W` (collides with Omawrite) |
 | `SUPER + CTRL + ALT + D` | Calendar panel | `CTRL + SUPER + SHIFT + D` (collides with Docker) |
+| `SUPER + CTRL + ALT + T` | Show time | `CTRL + SUPER + SHIFT + T` (no collision; moved to keep the info popups together, user's choice) |
 
 Unchanged (no collision): `SUPER + ALT + RETURN` (Tmux), `SUPER + CTRL +
-RETURN` (Herdr), `SUPER + SHIFT + CTRL + G` (Google Messages), `SUPER + CTRL +
-ALT + T/R/Z/Delete`.
+RETURN` (Herdr), `SUPER + SHIFT + CTRL + G` (Google Messages), and `SUPER +
+CTRL + ALT + R/Z/Delete`. Those three are Omarchy's ⌥-variants of ⌃⌘R/Z/Delete
+(show reminders, reset zoom, mirroring), so they stay next to their siblings.
+`⌃⌘⇧R` is already "Clear reminders".
 
 Keep the conditions Omarchy uses (`o.preinstalled_bindings_enabled()`,
-`o.cmd_present`). Approach A preserves them automatically.
+`o.cmd_present`). Approach A preserves them automatically. Rows for
+conditional Omarchy binds carry `optional = true`, so `omackey.status()`
+doesn't report them as unused when the condition is off. Verified with
+`omarchy_preinstalled_bindings = false`: 85 rows applied, none reported.
 
 ### 6.4 Utilities & help (Phase 1d)
 
@@ -1079,3 +1085,15 @@ and the next step.
   - The user retested on both layouts. 75 relocations, 7 bindings, no
     duplicates.
   - **Next:** Phase 1c, launchers → ⌃⌥⌘ (§6.3).
+- **2026-10-02 — Phase 1c.**
+  - 29 more relocations, 104 in total: launchers ⌘⇧/⌘⇧⌥ + letter → ⌃⌥⌘ /
+    ⌃⌥⌘⇧ + the same letter; terminal ⌘⏎ → ⌃⌥⌘⏎.
+  - The info popups time, battery, weather and calendar → ⌃⌘⇧ T/B/W/D. Time
+    moved by the user's choice, to keep the group together.
+  - New `optional = true` rows for conditional Omarchy binds. With
+    preinstalled apps off: 85 applied, none reported unused.
+  - Considered ⌃⌘⇧ for launchers instead: 2 clashes (Agent, Google
+    Messages) and a spread-out grip. Kept ⌃⌥⌘.
+  - Tested by the user.
+  - **Next:** Phase 1d, utilities and help (§6.4): help → ⌘?, dismiss
+    notification → ⌃⌥,, calculator → ⌃⌥⌘Q, background switcher → ⌃⌥⌘Space.

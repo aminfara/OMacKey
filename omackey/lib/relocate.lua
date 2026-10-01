@@ -75,11 +75,13 @@ function M.unhook()
 end
 
 -- Relocations whose Omarchy key was never registered: Omarchy changed or
--- dropped that bind, so the table needs updating.
+-- dropped that bind, so the table needs updating. Rows marked `optional` are
+-- skipped: Omarchy only registers those binds under a condition (e.g.
+-- preinstalled apps enabled).
 function M.unused()
   local unused = {}
   for _, relocation in ipairs(relocations) do
-    if not relocation.used then
+    if not relocation.used and not relocation.optional then
       table.insert(unused, relocation.from)
     end
   end

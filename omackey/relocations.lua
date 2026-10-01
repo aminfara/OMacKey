@@ -3,7 +3,8 @@
 -- `from` is Omarchy's key as written in
 -- /usr/share/omarchy/default/hypr/bindings/*.lua (matching ignores modifier
 -- order and case); `to` is the new key. Omarchy's action, description and
--- conditions are kept as they are.
+-- conditions are kept as they are. `optional = true` marks binds Omarchy only
+-- registers under a condition, so their absence isn't reported as drift.
 
 local relocations = {
   -- §6.1 Window management → ⌃⌥ (Phase 1a)
@@ -67,6 +68,44 @@ local relocations = {
   -- spaces.lua adds ⌃⌥↑/↓ and the ⌃⌥⇧ arrows.
   { from = "SUPER + TAB", to = "CTRL + ALT + RIGHT" }, -- Next workspace (⌘Tab: switch window)
   { from = "SUPER + SHIFT + TAB", to = "CTRL + ALT + LEFT" }, -- Previous workspace
+
+  -- §6.3 Launchers → ⌃⌥⌘ + Omarchy's letter, ⌃⌥⌘⇧ for the SUPER+SHIFT+ALT
+  -- variants (Phase 1c). Frees ⌘⏎ and ⌘⇧ + letters for apps.
+  { from = "SUPER + RETURN", to = "CTRL + ALT + SUPER + RETURN" }, -- Terminal
+  { from = "SUPER + SHIFT + RETURN", to = "CTRL + ALT + SUPER + SHIFT + RETURN" }, -- Browser
+  { from = "SUPER + SHIFT + F", to = "CTRL + ALT + SUPER + F" }, -- File manager
+  { from = "SUPER + ALT + SHIFT + F", to = "CTRL + ALT + SUPER + SHIFT + F" }, -- File manager (cwd)
+  { from = "SUPER + SHIFT + B", to = "CTRL + ALT + SUPER + B" }, -- Browser
+  { from = "SUPER + SHIFT + ALT + B", to = "CTRL + ALT + SUPER + SHIFT + B" }, -- Browser (private)
+  { from = "SUPER + SHIFT + N", to = "CTRL + ALT + SUPER + N" }, -- Editor
+
+  -- Preinstalled apps and web apps (only when omarchy_preinstalled_bindings is on).
+  { from = "SUPER + SHIFT + M", to = "CTRL + ALT + SUPER + M", optional = true }, -- Music
+  { from = "SUPER + SHIFT + ALT + M", to = "CTRL + ALT + SUPER + SHIFT + M", optional = true }, -- Music TUI
+  { from = "SUPER + SHIFT + D", to = "CTRL + ALT + SUPER + D", optional = true }, -- Docker
+  { from = "SUPER + SHIFT + G", to = "CTRL + ALT + SUPER + G", optional = true }, -- Signal
+  { from = "SUPER + SHIFT + ALT + G", to = "CTRL + ALT + SUPER + SHIFT + G", optional = true }, -- WhatsApp
+  { from = "SUPER + SHIFT + O", to = "CTRL + ALT + SUPER + O", optional = true }, -- Obsidian
+  { from = "SUPER + SHIFT + W", to = "CTRL + ALT + SUPER + W", optional = true }, -- Omawrite
+  { from = "SUPER + SHIFT + SLASH", to = "CTRL + ALT + SUPER + SLASH", optional = true }, -- Passwords (frees ⌘?)
+  { from = "SUPER + SHIFT + A", to = "CTRL + ALT + SUPER + A", optional = true }, -- ChatGPT
+  { from = "SUPER + SHIFT + ALT + A", to = "CTRL + ALT + SUPER + SHIFT + A", optional = true }, -- Grok
+  { from = "SUPER + SHIFT + C", to = "CTRL + ALT + SUPER + C", optional = true }, -- Calendar
+  { from = "SUPER + SHIFT + E", to = "CTRL + ALT + SUPER + E", optional = true }, -- Email
+  { from = "SUPER + SHIFT + ALT + E", to = "CTRL + ALT + SUPER + SHIFT + E", optional = true }, -- New email
+  { from = "SUPER + SHIFT + Y", to = "CTRL + ALT + SUPER + Y", optional = true }, -- YouTube
+  { from = "SUPER + SHIFT + P", to = "CTRL + ALT + SUPER + P", optional = true }, -- Google Photos
+  { from = "SUPER + SHIFT + S", to = "CTRL + ALT + SUPER + S", optional = true }, -- Google Maps
+  { from = "SUPER + SHIFT + X", to = "CTRL + ALT + SUPER + X", optional = true }, -- X
+  { from = "SUPER + SHIFT + ALT + X", to = "CTRL + ALT + SUPER + SHIFT + X", optional = true }, -- X Post
+
+  -- Omarchy info popups → ⌃⌘⇧ T/B/W/D. B, W and D collide with launcher
+  -- letters; time moves with them to keep the group together. ⌃⌥⌘R/Z/Delete
+  -- stay next to their ⌃⌘ siblings (show reminders, reset zoom, mirroring).
+  { from = "SUPER + CTRL + ALT + T", to = "CTRL + SUPER + SHIFT + T" }, -- Show time
+  { from = "SUPER + CTRL + ALT + B", to = "CTRL + SUPER + SHIFT + B" }, -- Show battery remaining
+  { from = "SUPER + CTRL + ALT + W", to = "CTRL + SUPER + SHIFT + W" }, -- Toggle weather
+  { from = "SUPER + CTRL + ALT + D", to = "CTRL + SUPER + SHIFT + D" }, -- Calendar panel
 }
 
 -- Workspaces 1–10 (Omarchy binds digits by keycode: code:10 = 1 … code:19 = 0).

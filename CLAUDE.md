@@ -139,7 +139,9 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   starts a fresh Lua state.
 - **Moving an Omarchy bind:** add a row to `omackey/relocations.lua`, with
   `from` exactly as written in Omarchy's file (matching ignores modifier order
-  and case). Don't `hl.unbind` and redeclare it.
+  and case). Don't `hl.unbind` and redeclare it. Add `optional = true` when
+  Omarchy only registers that bind under a condition, such as
+  `if o.preinstalled_bindings_enabled()` or `o.cmd_present(...)`.
 - **Omarchy helpers aren't limiting.** `o.bind(keys, desc, dispatcher, opts)`
   is a thin wrapper over `hl.bind(keys, dispatcher, opts)` that sets
   `opts.description`.
