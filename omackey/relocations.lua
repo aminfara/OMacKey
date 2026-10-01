@@ -5,7 +5,7 @@
 -- order and case); `to` is the new key. Omarchy's action, description and
 -- conditions are kept as they are.
 
-return {
+local relocations = {
   -- §6.1 Window management → ⌃⌥ (Phase 1a)
   { from = "SUPER + W", to = "CTRL + ALT + W" }, -- Close window (⌘W: close tab)
   { from = "SUPER + J", to = "CTRL + ALT + J" }, -- Toggle window split
@@ -17,15 +17,18 @@ return {
   { from = "SUPER + O", to = "CTRL + ALT + O" }, -- Pop window out
   { from = "SUPER + L", to = "CTRL + ALT + L" }, -- Toggle workspace layout
 
-  { from = "SUPER + LEFT", to = "CTRL + ALT + LEFT" }, -- Focus window
-  { from = "SUPER + RIGHT", to = "CTRL + ALT + RIGHT" },
-  { from = "SUPER + UP", to = "CTRL + ALT + UP" },
-  { from = "SUPER + DOWN", to = "CTRL + ALT + DOWN" },
+  -- Arrows: ⌃ moves focus and ⌃⇧ takes the window along, within the
+  -- workspace (the most frequent tiling actions get the cheapest chord);
+  -- ⌃⌥ / ⌃⌥⇧ do the same one level up, between workspaces (§6.2, spaces.lua).
+  { from = "SUPER + LEFT", to = "CTRL + LEFT" }, -- Focus window
+  { from = "SUPER + RIGHT", to = "CTRL + RIGHT" },
+  { from = "SUPER + UP", to = "CTRL + UP" },
+  { from = "SUPER + DOWN", to = "CTRL + DOWN" },
 
-  { from = "SUPER + SHIFT + LEFT", to = "CTRL + ALT + SHIFT + LEFT" }, -- Swap window
-  { from = "SUPER + SHIFT + RIGHT", to = "CTRL + ALT + SHIFT + RIGHT" },
-  { from = "SUPER + SHIFT + UP", to = "CTRL + ALT + SHIFT + UP" },
-  { from = "SUPER + SHIFT + DOWN", to = "CTRL + ALT + SHIFT + DOWN" },
+  { from = "SUPER + SHIFT + LEFT", to = "CTRL + SHIFT + LEFT" }, -- Swap window
+  { from = "SUPER + SHIFT + RIGHT", to = "CTRL + SHIFT + RIGHT" },
+  { from = "SUPER + SHIFT + UP", to = "CTRL + SHIFT + UP" },
+  { from = "SUPER + SHIFT + DOWN", to = "CTRL + SHIFT + DOWN" },
 
   { from = "SUPER + ALT + LEFT", to = "CTRL + ALT + SUPER + LEFT" }, -- Move window into group
   { from = "SUPER + ALT + RIGHT", to = "CTRL + ALT + SUPER + RIGHT" },
@@ -59,4 +62,20 @@ return {
   { from = "SUPER + SHIFT + BACKSPACE", to = "CTRL + ALT + SHIFT + BACKSPACE" }, -- Toggle window gaps
   { from = "SUPER + ALT + code:34", to = "CTRL + ALT + code:34" }, -- Webcam overlay smaller (⌘⌥[: fold)
   { from = "SUPER + ALT + code:35", to = "CTRL + ALT + code:35" }, -- Webcam overlay larger
+
+  -- §6.2 Spaces (Phase 1b): numbers on ⌃ like macOS, arrows on ⌃⌥.
+  -- spaces.lua adds ⌃⌥↑/↓ and the ⌃⌥⇧ arrows.
+  { from = "SUPER + TAB", to = "CTRL + ALT + RIGHT" }, -- Next workspace (⌘Tab: switch window)
+  { from = "SUPER + SHIFT + TAB", to = "CTRL + ALT + LEFT" }, -- Previous workspace
 }
+
+-- Workspaces 1–10 (Omarchy binds digits by keycode: code:10 = 1 … code:19 = 0).
+-- ⌘1–9 switch tabs and ⌘⇧3/4/5 take screenshots on a Mac.
+for code = 10, 19 do
+  local key = "code:" .. code
+  table.insert(relocations, { from = "SUPER + " .. key, to = "CTRL + " .. key }) -- Switch to workspace
+  table.insert(relocations, { from = "SUPER + SHIFT + " .. key, to = "CTRL + SHIFT + " .. key }) -- Move window
+  table.insert(relocations, { from = "SUPER + SHIFT + ALT + " .. key, to = "CTRL + ALT + SHIFT + " .. key }) -- … silently
+end
+
+return relocations

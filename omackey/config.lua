@@ -4,6 +4,7 @@ return {
   -- Feature modules loaded after Omarchy's defaults, in this order
   -- (omackey/<name>.lua). Each phase appends its module here.
   modules = {
+    "spaces", -- Phase 1b: workspaces on ⌃ (vertical pair, move window)
     "text", -- Phase 2: cursor movement, selection, deletion
   },
 

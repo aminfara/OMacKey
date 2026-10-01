@@ -62,7 +62,8 @@ function omackey.status()
   return table.concat(parts, " ")
 end
 
--- How often a binding fired since the last reload (automated tests).
+-- How often a mac{} binding fired since the last reload (automated tests;
+-- action{} bindings are not counted).
 function omackey.fired(id)
   local bind = package.loaded["hypr.omackey.lib.bind"]
   local spec = bind and bind.by_id[id]
@@ -76,6 +77,11 @@ function omackey.trigger(id)
   local spec = bind and bind.by_id[id]
   if not spec then
     return "unknown binding id: " .. tostring(id)
+  end
+
+  if spec.dispatcher then
+    hl.dispatch(spec.dispatcher)
+    return "dispatched"
   end
 
   local result = spec.handler()

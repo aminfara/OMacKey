@@ -5,7 +5,7 @@ config). It is plain Hyprland Lua, layered on top of Omarchy's default
 bindings and installed into `~/.config/hypr`. It's for people who switch
 daily between a work Mac and an Omarchy machine.
 
-**`PLAN.md` is the source of truth.** It holds the decisions (D1–D11), the
+**`PLAN.md` is the source of truth.** It holds the decisions (D1–D12), the
 architecture, the per-phase key tables, the Omarchy relocation table (§6), the
 unmapped list (§7), the test protocol (§8), findings (§9), references (§10)
 and the session log (§11). Read the relevant parts before changing anything.
@@ -75,7 +75,7 @@ keys. Don't run ahead into later phases.
 - **Keep it simple.** No daemons, no external remappers, no blocking calls. If
   a Mac behaviour needs more than a small Lua function, document it in §7
   instead.
-- **Decisions D1–D11 are confirmed.** Raise concerns with the user rather than
+- **Decisions D1–D12 are confirmed.** Raise concerns with the user rather than
   quietly deviating.
 
 ## Validate after every change
@@ -146,8 +146,14 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   - Every `hl.bind` flag passes through.
   - Strings become `exec_cmd`; `{ launch = … }` / `{ webapp = … }` tables
     become Omarchy launcher commands.
-  - Use OMacKey's `mac{}` helper (`lib/bind.lua`) for Mac binds. It handles
-    profiles, descriptions and the docs registry.
+  - Use OMacKey's helpers in `lib/bind.lua`. Both handle descriptions and the
+    docs registry:
+    - `mac{}` for keys whose behaviour depends on the app (synthetic chords,
+      per-profile actions);
+    - `action{}` for plain Hyprland actions that are the same everywhere
+      (workspaces, windows).
+  - Users opt out of a default with `hl.unbind` in their own `bindings.lua`.
+    Don't add config flags for that; flags are for opt-in extras only (D12).
 - **Sending keys:**
   - Only through `lib/send.lua`: `send_key_state` down, then a timer sends up.
   - Never use `hl.dsp.send_shortcut` (Hyprland #14099: stuck or repeating
@@ -201,8 +207,10 @@ replay the config the way the help menu does. Extract the Lua heredoc from
 - Modifier roles (D1):
   - ⌘ = app shortcuts and text navigation;
   - ⌥ = word navigation;
-  - ⌃ = passthrough plus Spaces;
-  - ⌃⌥ = window management;
+  - ⌃ = passthrough, except ⌃ + arrows (focus), ⌃⇧ + arrows (swap window)
+    and ⌃1–0 / ⌃⇧1–0 (workspace N);
+  - ⌃⌥ = window management; ⌃⌥ + arrows switch workspace, ⌃⌥⇧ + arrows take
+    the window along (arrow rule, PLAN §6.2);
   - ⌃⌘ = Omarchy utilities;
   - ⌃⌥⌘ = launchers.
 

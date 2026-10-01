@@ -36,15 +36,25 @@ local function run(spec)
   return { ok = false }
 end
 
-function M.mac(spec)
-  for _, field in ipairs({ "id", "keys", "desc", "actions" }) do
+local function check(kind, spec, fields)
+  for _, field in ipairs(fields) do
     if spec[field] == nil then
-      error("OMacKey: mac{} needs '" .. field .. "' (" .. tostring(spec.id or spec.keys) .. ")", 2)
+      error("OMacKey: " .. kind .. "{} needs '" .. field .. "' (" .. tostring(spec.id or spec.keys) .. ")", 3)
     end
   end
   if M.by_id[spec.id] then
-    error("OMacKey: duplicate binding id '" .. spec.id .. "'", 2)
+    error("OMacKey: duplicate binding id '" .. spec.id .. "'", 3)
   end
+end
+
+local function register(spec)
+  table.insert(M.registry, spec)
+  M.by_id[spec.id] = spec
+  return spec
+end
+
+function M.mac(spec)
+  check("mac", spec, { "id", "keys", "desc", "actions" })
 
   spec.fired = 0 -- press count, for tests: hyprctl repl 'return omackey.fired("line-start")'
   spec.handler = function()
@@ -59,9 +69,26 @@ function M.mac(spec)
     auto_consuming = true,
   })
 
-  table.insert(M.registry, spec)
-  M.by_id[spec.id] = spec
-  return spec
+  return register(spec)
+end
+
+-- action{}: a Hyprland action on a key, the same in every app (workspaces,
+-- windows). Recorded in the registry like mac{}.
+--
+--   action({
+--     id = "workspace-next-down", category = "Spaces", mac = "⌃↓",
+--     keys = "CTRL + DOWN", desc = "Next workspace",
+--     dispatcher = hl.dsp.focus({ workspace = "e+1" }),
+--   })
+function M.action(spec)
+  check("action", spec, { "id", "keys", "desc", "dispatcher" })
+
+  hl.bind(spec.keys, spec.dispatcher, {
+    description = spec.desc,
+    repeating = spec.repeating,
+  })
+
+  return register(spec)
 end
 
 return M

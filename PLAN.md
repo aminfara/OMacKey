@@ -81,8 +81,8 @@ Do not re-litigate these without asking the user.
 | --- | --- | --- |
 | ⌘ | `SUPER` | App shortcuts translated to Ctrl (Ctrl+Shift/Insert variants in terminals). Text navigation (⌘arrows, ⌘⌫). A few Mac system shortcuts: ⌘Space, ⌘Tab, ⌘\`, ⌘Q, ⌘H, ⌘M, ⌘⇧3/4/5, ⌘? |
 | ⌥ | `ALT` | Word-wise navigation and deletion (⌥←/→, ⌥⇧←/→, ⌥⌫, ⌥⌦). Everything else passes through, so Meta keeps working in bash/tmux/nvim. No Mac special characters. |
-| ⌃ | `CTRL` | Passes through to apps (⌃C in terminals, ⌃Tab, ⌃G in VS Code). The exception is Mac "Spaces" keys: ⌃←/→, ⌃1–0, ⌃⇧1–0, ⌃⇧←/→. |
-| ⌃⌥ | `CTRL + ALT` | Window management, Rectangle/Magnet style: focus, swap, resize, float, fullscreen variants, groups, scratchpad, layout toggle, scrolling-column ops |
+| ⌃ | `CTRL` | Passes through to apps (⌃C in terminals, ⌃Tab, ⌃G in VS Code). Exceptions: ⌃ + arrows focus windows, ⌃⇧ + arrows move windows within the workspace, ⌃1–0 / ⌃⇧1–0 go to / move to workspace N (as macOS ⌃1–9). Changed in Phase 1b, see §6.2 |
+| ⌃⌥ | `CTRL + ALT` | Window management, Rectangle/Magnet style: resize, float, fullscreen variants, groups, scratchpad, layout toggle, close. Arrows step up a level: ⌃⌥ + arrows switch workspace, ⌃⌥⇧ + arrows take the window to the previous/next workspace |
 | ⌃⌘ | `CTRL + SUPER` | Omarchy system utilities, panels and toggles (mostly unchanged), plus the Mac ⌃⌘ shortcuts: ⌃⌘F fullscreen, ⌃⌘Q lock, ⌃⌘Space emoji |
 | ⌃⌥⌘ | `CTRL + ALT + SUPER` | App launchers, keeping Omarchy's letters (B browser, F files, N editor…). ⌃⌥⌘⇧ holds the variants that used SUPER+SHIFT+ALT. |
 | ⌃⌘⇧ | `CTRL + SUPER + SHIFT` | Omarchy's info toggles that collided with launcher letters (battery, weather, calendar), plus Omarchy's existing ⌃⌘⇧ binds (theme menu, agent, reminders) |
@@ -151,6 +151,16 @@ Persian. Sending by keycode (D4) is kept so non-Latin layouts are likely to
 work, but Persian test passes (spike S4, §8.2 step 6) are skipped until the
 user asks for them.
 
+**D12 — Customization (confirmed with the user, 2026-10-02).**
+- Opting *out* of an OMacKey default means unbinding it in the user's
+  `~/.config/hypr/bindings.lua`, which loads after OMacKey:
+  `hl.unbind("CTRL + UP")`. The key then reaches apps again.
+- Config flags are only for opt-*in* extras that add unexpected behaviour,
+  e.g. 7c Emacs keys, 7d Mac-mode toggle, 7e Alt/Super swap. There are no
+  flags for removing defaults.
+- So the docs (8.1, 8.2) must show the exact key string for every binding,
+  because `hl.unbind` matches the original string exactly, including case.
+
 ---
 
 ## 4. Architecture
@@ -179,6 +189,7 @@ OMacKey/
 │   │   ├── apps.lua          active window → profile chain, e.g. { "terminal", "default" }
 │   │   ├── bind.lua          mac{} helper: per-profile dispatch, auto_consuming, registry, press counter
 │   │   └── relocate.lua      hl.bind hook/unhook + key normalization (approach A, 4.3)
+│   ├── spaces.lua            Phase 1b: ⌃↑/↓ and ⌃⇧ arrows (workspaces), via action{}
 │   ├── text.lua              Phase 2 (⌘← added in Phase 0.6)
 │   ├── editing.lua           (Phase 3)
 │   ├── windows.lua           (Phase 4)
@@ -373,7 +384,8 @@ architecture, and the open technical questions answered and recorded in §9.
   Phase 2 (first ⌥ key), and S9 waits for an XWayland app.
 - [x] 0.6 First key: ⌘← → `Home`, and `SUPER + LEFT` (focus left) relocated to
   `CTRL + ALT + LEFT`. Passed the user's physical tests in keylog, Brave, VS
-  Code and foot; ⌃⌥← focuses left; the help menu shows both.
+  Code and foot; ⌃⌥← focuses left (moved to ⌃← in 1b); the help menu shows
+  both.
 
 **Spike checklist**
 
@@ -400,15 +412,20 @@ Implement §6 one group per session. After each group:
 
 - [x] **1a — Window management → ⌃⌥** (§6.1). 43 relocations; tested by the
   user on `dwindle` and `scrolling`, and the help menu shows the new keys.
-- [ ] **1b — Spaces → ⌃** (§6.2). This is the user's "workspace controls"
-  category:
-  - ⌃←/→ go to the previous/next workspace;
-  - ⌃1–0 jump to workspace N;
-  - ⌃⇧1–0 move the window to workspace N;
-  - ⌃⌥⇧1–0 move the window there silently;
-  - ⌃⇧←/→ move the window to the previous/next workspace (new);
-  - ⌃↑ (Mission Control) is unmapped unless the user opts into an overview
-    plugin (decide in session).
+- [x] **1b — Spaces and the arrow rule** (§6.2). Tested by the user on
+  scrolling and dwindle. This is the user's
+  "workspace controls" category, following the arrow rule in §6.2:
+  - ⌃ + arrows focus windows, and ⌃⇧ + arrows swap windows. These replace
+    1a's ⌃⌥ / ⌃⌥⇧ arrows.
+  - ⌃⌥←/↑ and ⌃⌥→/↓ go to the previous/next existing workspace. Omarchy's
+    ⌘ + scroll-down is "next", which matches the vertical pair.
+  - ⌃⌥⇧ + arrows (new) move the window to the previous/next existing
+    workspace, the same target as ⌃⌥ + arrows.
+  - ⌃1–0 jumps to workspace N; ⌃⇧1–0 moves the window there; ⌃⌥⇧1–0 moves it
+    silently.
+  - Mission Control and App Exposé are unmapped (§7).
+  - The new binds live in `omackey/spaces.lua` (the `action{}` helper);
+    Omarchy's own binds move via `relocations.lua`.
 
   Test on dwindle and scrolling, and with two monitors if available.
 - [ ] **1c — Launchers → ⌃⌥⌘** (§6.3), including resolving the collisions with
@@ -646,7 +663,8 @@ rules cover most of it.
   - the unmapped list.
 - [ ] 8.2 README: what OMacKey is, the modifier model (D1), install and
   uninstall, the PC-keyboard option, troubleshooting, and links to the
-  generated docs.
+  generated docs. Include the D12 recipe for turning a default off:
+  `hl.unbind("<exact key string>")` in `~/.config/hypr/bindings.lua`.
 - [ ] 8.3 Conflict and drift check for `omarchy update`:
   - snapshot hashes of `/usr/share/omarchy/default/hypr/bindings/*.lua`;
   - warn when they change;
@@ -679,8 +697,8 @@ another relocation needs. Everything not listed here stays unchanged (§6.5).
 | `SUPER + ALT + F` | Full width (maximize) | ⌘⌥F replace | `CTRL + ALT + RETURN` (Rectangle "maximize") |
 | `SUPER + O` | Pop window out | ⌘O | `CTRL + ALT + O` |
 | `SUPER + L` | Toggle workspace layout | ⌘L | `CTRL + ALT + L` |
-| `SUPER + LEFT/RIGHT/UP/DOWN` | Focus window | ⌘arrows | `CTRL + ALT + arrows` (LEFT in Phase 0.6) |
-| `SUPER + SHIFT + arrows` | Swap window | ⌘⇧arrows select | `CTRL + ALT + SHIFT + arrows` |
+| `SUPER + LEFT/RIGHT/UP/DOWN` | Focus window | ⌘arrows | `CTRL + arrows`. It was `CTRL + ALT + arrows` until Phase 1b swapped it with workspaces (§6.2) |
+| `SUPER + SHIFT + arrows` | Swap window | ⌘⇧arrows select | `CTRL + SHIFT + arrows` (was `CTRL + ALT + SHIFT`, same swap) |
 | `SUPER + ALT + arrows` | Move window into group | ⌘⌥←/→ tabs, ⌘⌥↑/↓ cursors | `CTRL + ALT + SUPER + arrows` |
 | `SUPER + SHIFT + ALT + arrows` | Move workspace to monitor | ⌘⇧⌥arrows column select | `CTRL + ALT + SUPER + SHIFT + arrows` |
 | `SUPER + G` | Toggle grouping | ⌘G find next | `CTRL + ALT + G` |
@@ -706,10 +724,19 @@ another relocation needs. Everything not listed here stays unchanged (§6.5).
 | `SUPER + code:10..19` | Switch to workspace 1–10 | ⌘1–9 tabs, ⌘0 zoom | `CTRL + code:10..19` (Mac "Switch to Desktop N") |
 | `SUPER + SHIFT + code:10..19` | Move window to workspace | ⌘⇧3/4/5 screenshots | `CTRL + SHIFT + code:10..19` |
 | `SUPER + SHIFT + ALT + code:10..19` | Move window silently | (frees ⌘⇧⌥) | `CTRL + ALT + SHIFT + code:10..19` |
-| `SUPER + TAB` | Next workspace | ⌘Tab | `CTRL + RIGHT` (Mac ⌃→) |
-| `SUPER + SHIFT + TAB` | Previous workspace | ⌘⇧Tab | `CTRL + LEFT` (Mac ⌃←) |
-| new | Move window to next/previous workspace | — | `CTRL + SHIFT + RIGHT/LEFT` |
-| new | Mission Control (⌃↑) / App Exposé (⌃↓) | — | Unmapped unless an overview plugin is chosen (§7) |
+| `SUPER + TAB` | Next workspace | ⌘Tab | `CTRL + ALT + RIGHT` |
+| `SUPER + SHIFT + TAB` | Previous workspace | ⌘⇧Tab | `CTRL + ALT + LEFT` |
+| new | Previous / next workspace (vertical pair) | — | `CTRL + ALT + UP` / `CTRL + ALT + DOWN` |
+| new | Move window to previous / next workspace | — | `CTRL + ALT + SHIFT + LEFT` and `UP` / `CTRL + ALT + SHIFT + RIGHT` and `DOWN` |
+
+**The arrow rule** (user's decision, 2026-10-02): ⌃ + arrows move focus
+between windows, and ⌃⇧ + arrows take the window along within the
+workspace. Focus is the most frequent tiling action, so it gets one modifier;
+in scrolling, ⌃→ slides to the next column, which looks like a Mac Space
+switch. ⌥ steps up a level: ⌃⌥ + arrows switch workspace, and ⌃⌥⇧ + arrows
+take the window there. Numbers only mean workspaces, so they stay on ⌃ like
+macOS. Deviation from macOS: ⌃←/→ switch windows, not Spaces.
+| new | Mission Control / App Exposé (Mac ⌃↑ / ⌃↓) | — | Unmapped (§7). ⌃↑/↓ switch workspaces instead |
 
 ### 6.3 Launchers → ⌃⌥⌘ (Phase 1c)
 
@@ -786,7 +813,7 @@ Keep the conditions Omarchy uses (`o.preinstalled_bindings_enabled()`,
 
 | Item | Why | Workaround |
 | --- | --- | --- |
-| ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview; Omarchy ships none | an overview plugin (e.g. hyprexpo) only if the user opts in |
+| ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview and Omarchy ships none. ⌃↑/↓ switch workspaces instead (1b) | ⌘\` cycles the active app's windows (Phase 4) |
 | ⌘Tab as MRU *app* switcher | `cycle_next` cycles windows; there's no app grouping and no MRU overlay | ⌘\` for the same app's windows |
 | ⌘⌥H hide others, ⌥⌘M minimize all | no simple equivalent | — |
 | ⌘-click (open link in new tab, go to definition, multi-select) | compositor binds can't add Ctrl to a pointer click | physical ⌃-click (on a Mac, ⌃-click is right-click) |
@@ -1040,3 +1067,15 @@ and the next step.
   - The user tested every key on scrolling and dwindle; the help menu is
     updated.
   - **Next:** Phase 1b, Spaces on ⌃ (§6.2).
+- **2026-10-02 — Phase 1b.**
+  - Workspaces: 32 more relocations (⌃1–0, ⌃⇧1–0, ⌃⌥⇧1–0, Omarchy's
+    SUPER+TAB pair). New `spaces.lua` with the vertical pair and the
+    move-window-to-adjacent-workspace keys, via a new `action{}` helper.
+  - D12 agreed: opt out of a default with `hl.unbind`; flags only for opt-in
+    extras.
+  - After first testing, the user switched to the **arrow rule**: arrows with
+    ⌃ / ⌃⇧ focus and swap windows (taken from 1a's ⌃⌥ / ⌃⌥⇧), and arrows
+    with ⌃⌥ / ⌃⌥⇧ handle workspaces. Numbers stay on ⌃.
+  - The user retested on both layouts. 75 relocations, 7 bindings, no
+    duplicates.
+  - **Next:** Phase 1c, launchers → ⌃⌥⌘ (§6.3).
