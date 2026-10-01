@@ -106,6 +106,14 @@ local relocations = {
   { from = "SUPER + CTRL + ALT + B", to = "CTRL + SUPER + SHIFT + B" }, -- Show battery remaining
   { from = "SUPER + CTRL + ALT + W", to = "CTRL + SUPER + SHIFT + W" }, -- Toggle weather
   { from = "SUPER + CTRL + ALT + D", to = "CTRL + SUPER + SHIFT + D" }, -- Calendar panel
+
+  -- §6.4 Utilities & help (Phase 1d).
+  { from = "SUPER + K", to = "SUPER + SHIFT + SLASH" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps
+  -- Next to ⌘⇧, (dismiss all) and the ⌃⌘⇧ info popups; ⌘, is preferences.
+  -- xkbcommon names the keysym "comma"; upper-case "COMMA" does not match.
+  { from = "SUPER + comma", to = "CTRL + SUPER + SHIFT + comma" }, -- Dismiss last notification
+  { from = "SUPER + CTRL + Q", to = "CTRL + ALT + SUPER + Q" }, -- Calculator (⌃⌘Q: lock screen)
+  { from = "SUPER + CTRL + SPACE", to = "CTRL + ALT + SUPER + SPACE" }, -- Background switcher (⌃⌘Space: emoji)
 }
 
 -- Workspaces 1–10 (Omarchy binds digits by keycode: code:10 = 1 … code:19 = 0).

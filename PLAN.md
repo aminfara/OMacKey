@@ -53,7 +53,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | Phase | Title | Status |
 | --- | --- | --- |
 | 0 | Foundation & spike (first key: ⌘← → Home) | [x] |
-| 1 | Relocate Omarchy bindings: 1a WM → ⌃⌥ · 1b Spaces → ⌃ · 1c Launchers → ⌃⌥⌘ · 1d Utilities & help | [ ] |
+| 1 | Relocate Omarchy bindings: 1a WM → ⌃⌥ · 1b Spaces & arrow rule · 1c Launchers → ⌃⌥⌘ · 1d Utilities & help | [x] |
 | 2 | Cursor movement, selection, deletion | [ ] |
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [ ] |
 | 4 | Window & tab controls | [ ] |
@@ -430,7 +430,9 @@ Implement §6 one group per session. After each group:
   Test on dwindle and scrolling, and with two monitors if available.
 - [x] **1c — Launchers → ⌃⌥⌘** (§6.3). The info popups time, battery,
   weather and calendar moved to ⌃⌘⇧ T/B/W/D. Tested by the user.
-- [ ] **1d — Utilities & help** (§6.4). Help moves to ⌘?.
+- [x] **1d — Utilities & help** (§6.4). Help moved to ⌘?; dismiss last
+  notification to ⌃⌘⇧,; calculator to ⌃⌥⌘Q; background switcher to
+  ⌃⌥⌘Space. Tested by the user.
 
 After Phase 1, the only SUPER, SUPER+SHIFT and SUPER+ALT binds left are
 Mac-compatible:
@@ -782,7 +784,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Omarchy key | Action | Mac collision | New key |
 | --- | --- | --- | --- |
 | `SUPER + K` | Keybindings (help) | ⌘K | `SUPER + SHIFT + slash` (⌘?) |
-| `SUPER + comma` | Dismiss last notification | ⌘, preferences | `CTRL + ALT + comma` |
+| `SUPER + comma` | Dismiss last notification | ⌘, preferences | `CTRL + SUPER + SHIFT + comma` (user's choice: next to ⌘⇧, dismiss all and the ⌃⌘⇧ info popups; the whole notification family stays on ⌘ + comma) |
 | `SUPER + CTRL + Q` | Calculator | ⌃⌘Q lock | `CTRL + ALT + SUPER + Q` |
 | `SUPER + CTRL + SPACE` | Background switcher | ⌃⌘Space emoji | `CTRL + ALT + SUPER + SPACE` |
 | `SUPER + C` / `V` / `X` | Universal copy/paste/cut | none (already Mac-like) | stay until Phase 3 replaces them with terminal-aware ⌘C/V/X |
@@ -1096,4 +1098,15 @@ and the next step.
     Messages) and a spread-out grip. Kept ⌃⌥⌘.
   - Tested by the user.
   - **Next:** Phase 1d, utilities and help (§6.4): help → ⌘?, dismiss
-    notification → ⌃⌥,, calculator → ⌃⌥⌘Q, background switcher → ⌃⌥⌘Space.
+    notification → ⌃⌘⇧, (changed from ⌃⌥, in 1d), calculator → ⌃⌥⌘Q,
+    background switcher → ⌃⌥⌘Space.
+- **2026-10-02 — Phase 1d. Phase 1 complete.**
+  - 4 more relocations, 108 in total: keybindings help ⌘K → ⌘?; dismiss last
+    notification ⌘, → ⌃⌘⇧, (the user's choice, so the notification family
+    stays on ⌘ + comma); calculator ⌃⌘Q → ⌃⌥⌘Q; background switcher
+    ⌃⌘Space → ⌃⌥⌘Space.
+  - The sweep of the remaining ⌘ / ⌘⇧ / ⌘⌥ / ⌘⌥⇧ binds matches the "after
+    Phase 1" list.
+  - Tested by the user.
+  - **Next:** Phase 2, cursor movement, selection and deletion. Starts with ⌘→
+    and includes spike S5 (⌥ menu-bar focus) with the first ⌥ key.
