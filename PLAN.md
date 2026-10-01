@@ -398,8 +398,8 @@ Implement §6 one group per session. After each group:
 - the help menu shows the new keys with Omarchy's original descriptions;
 - the user lives with the new keys for a day before the next group.
 
-- [ ] **1a — Window management → ⌃⌥** (§6.1). Test on both `dwindle` and
-  `scrolling` (toggle with the relocated layout key ⌃⌥L).
+- [x] **1a — Window management → ⌃⌥** (§6.1). 43 relocations; tested by the
+  user on `dwindle` and `scrolling`, and the help menu shows the new keys.
 - [ ] **1b — Spaces → ⌃** (§6.2). This is the user's "workspace controls"
   category:
   - ⌃←/→ go to the previous/next workspace;
@@ -420,7 +420,8 @@ Mac-compatible:
 - ⌘Space, ⌘⌥Space, ⌘⇧Space, ⌘Esc
 - ⌘C/V/X (Omarchy's universal clipboard until Phase 3)
 - ⌘Home and ⌘⌥Home
-- ⌘⇧, ⌘⌥, ⌘⇧⌥, (notifications), ⌘⌥Tab, ⌘⌥1–5 (groups)
+- ⌘⇧, ⌘⌥, ⌘⇧⌥, (notifications), ⌘⌥Tab, ⌘⌥1–5 (groups), ⌘⌥-/= and
+  ⌘⌥⇧-/= (±25 px resize)
 - mouse binds and PRINT variants
 
 ### Phase 2 — Cursor movement, selection, deletion
@@ -690,7 +691,7 @@ another relocation needs. Everything not listed here stays unchanged (§6.5).
 | `SUPER + SHIFT + code:20/21` | Resize vertically ±100 | ⌘⇧- / ⌘+ | `CTRL + ALT + SHIFT + minus/equal` |
 | `SUPER + CTRL + code:20/21` | Resize horizontally ±300 | (frees space) | `CTRL + ALT + SUPER + minus/equal` |
 | `SUPER + CTRL + SHIFT + code:20/21` | Resize vertically ±300 | (frees space) | `CTRL + ALT + SUPER + SHIFT + minus/equal` |
-| `SUPER + ALT + code:20/21`, `SUPER + SHIFT + ALT + code:20/21` | Resize ±25 | ⌘⌥-/= | **Unmapped** (§7; use ⌘ + right-drag) |
+| `SUPER + ALT + code:20/21`, `SUPER + SHIFT + ALT + code:20/21` | Resize ±25 | none: no Mac binding uses ⌘⌥-/=, so it stays (D9; changed from "unmapped" in Phase 1a) | unchanged |
 | `SUPER + SLASH` | Monitor scaling up | ⌘/ comment | `CTRL + ALT + slash` |
 | `SUPER + ALT + SLASH` | Monitor scaling down | ⌘⌥/ | `CTRL + ALT + SHIFT + slash` |
 | `SUPER + BACKSPACE` | Toggle transparency | ⌘⌫ delete line | `CTRL + ALT + BACKSPACE` |
@@ -793,7 +794,6 @@ Keep the conditions Omarchy uses (`o.preinstalled_bindings_enabled()`,
 | Mac Home/End (scroll to document top/bottom) | Linux semantics kept | ⌘↑/⌘↓ |
 | ⌘←/⌘→ as browser back/forward outside text fields | focus inside the page can't be detected | ⌘[ / ⌘] |
 | Physical ⌃←/⌃→ word jump in Linux apps | ⌃←/→ now switch Spaces (as on a Mac) | ⌥←/⌥→ |
-| Omarchy's ±25 px resize (`SUPER + ALT + minus/equal` and the vertical variant) | ran out of sensible modifiers | ⌃⌥ ±100, ⌃⌥⌘ ±300, ⌘ + right-drag |
 | Nautilus ⌘D duplicate, ⌘⇧⌫ empty trash, ⏎ to rename | no direct Nautilus action | F2 renames |
 | Browser ⌘, (settings) | no Linux shortcut | pending 6b |
 
@@ -1032,3 +1032,11 @@ and the next step.
     for layer shell and is retested with ⌘C/⌘V in Phase 3.
   - The user deferred Persian testing (D11). Phase 0 is done.
   - **Next:** Phase 1a, relocating window management to ⌃⌥ (§6.1).
+- **2026-10-01 — Phase 1a.**
+  - Moved all of §6.1 into `relocations.lua`: 43 rows, all applied, no
+    duplicates.
+  - Deviation: Omarchy's ±25 px resize stays on ⌘⌥-/= (D9: no Mac
+    collision) instead of being dropped.
+  - The user tested every key on scrolling and dwindle; the help menu is
+    updated.
+  - **Next:** Phase 1b, Spaces on ⌃ (§6.2).
