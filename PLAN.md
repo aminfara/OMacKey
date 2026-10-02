@@ -458,10 +458,10 @@ Implement key by key in this order.
 | [x] | ⌥→ | word right | `Ctrl+Right` | `Ctrl+Right` | |
 | [x] | ⌥⇧← | select word left | `Ctrl+Shift+Left` | consume | |
 | [x] | ⌥⇧→ | select word right | `Ctrl+Shift+Right` | consume | |
-| [ ] | ⌘↑ | document start | `Ctrl+Home` | consume | 6a may map scrollback |
-| [ ] | ⌘↓ | document end | `Ctrl+End` | consume | |
-| [ ] | ⌘⇧↑ | select to doc start | `Ctrl+Shift+Home` | consume | |
-| [ ] | ⌘⇧↓ | select to doc end | `Ctrl+Shift+End` | consume | |
+| [x] | ⌘↑ | document start | `Ctrl+Home` | consume | 6a may map scrollback |
+| [x] | ⌘↓ | document end | `Ctrl+End` | consume | |
+| [x] | ⌘⇧↑ | select to doc start | `Ctrl+Shift+Home` | consume | |
+| [x] | ⌘⇧↓ | select to doc end | `Ctrl+Shift+End` | consume | |
 | [ ] | ⌥⌫ | delete word left | `Ctrl+BackSpace` | pass | Alt+BackSpace is readline backward-kill-word |
 | [ ] | ⌥⌦ | delete word right | `Ctrl+Delete` | `Alt+d` | |
 | [ ] | ⌘⌫ | delete to line start | `seq(Shift+Home, BackSpace)` | `Ctrl+U` | Nautilus overrides this in 6d |
@@ -1182,3 +1182,14 @@ and the next step.
     selection grew and shrank by word.
   - The user's physical tests (§8.2) passed. Firefox also passes S5 (§9 F2).
   - **Next:** ⌘↑/↓ and ⌘⇧↑/↓ (document start/end and selecting to them).
+- **2026-10-02 — Phase 2: ⌘↑/↓ and ⌘⇧↑/↓.**
+  - Added `document-start` / `document-end` / `select-document-start` /
+    `select-document-end` in `text.lua`: `Ctrl+Home`, `Ctrl+End` and the
+    `Ctrl+Shift` versions in GUI apps, consumed in terminals, `repeating`.
+    The keys were free (focus and swap-window moved to ⌃ / ⌃⇧ in 1b). 18
+    bindings, 108 relocations, no duplicates.
+  - Handler test in a private keylog copy: `mods=CTRL` / `CTRL+SHIFT`, no
+    SUPER; the cursor went to the end and start of the text, and the selection
+    covered it.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** the deletion keys: ⌥⌫, ⌥⌦, ⌘⌫, ⌘⌦.

@@ -102,3 +102,55 @@ mac({
     terminal = "consume",
   },
 })
+
+mac({
+  id = "document-start",
+  category = "Cursor",
+  mac = "⌘↑",
+  keys = "SUPER + UP",
+  desc = "Document start",
+  repeating = true,
+  actions = {
+    default = tap("CTRL", "Home"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "document-end",
+  category = "Cursor",
+  mac = "⌘↓",
+  keys = "SUPER + DOWN",
+  desc = "Document end",
+  repeating = true,
+  actions = {
+    default = tap("CTRL", "End"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "select-document-start",
+  category = "Cursor",
+  mac = "⌘⇧↑",
+  keys = "SUPER + SHIFT + UP",
+  desc = "Select to document start",
+  repeating = true,
+  actions = {
+    default = tap("CTRL + SHIFT", "Home"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "select-document-end",
+  category = "Cursor",
+  mac = "⌘⇧↓",
+  keys = "SUPER + SHIFT + DOWN",
+  desc = "Select to document end",
+  repeating = true,
+  actions = {
+    default = tap("CTRL + SHIFT", "End"),
+    terminal = "consume",
+  },
+})
