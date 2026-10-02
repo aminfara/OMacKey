@@ -52,3 +52,27 @@ mac({
     terminal = "consume",
   },
 })
+
+mac({
+  id = "word-left",
+  category = "Cursor",
+  mac = "⌥←",
+  keys = "ALT + LEFT",
+  desc = "Word left",
+  repeating = true,
+  actions = {
+    default = tap("CTRL", "Left"), -- terminals too: /etc/inputrc maps Ctrl+Left to backward-word
+  },
+})
+
+mac({
+  id = "word-right",
+  category = "Cursor",
+  mac = "⌥→",
+  keys = "ALT + RIGHT",
+  desc = "Word right",
+  repeating = true,
+  actions = {
+    default = tap("CTRL", "Right"), -- terminals too: /etc/inputrc maps Ctrl+Right to forward-word
+  },
+})

@@ -395,7 +395,7 @@ architecture, and the open technical questions answered and recorded in §9.
 | S2 | Release delay (Omarchy uses 50 ms, Reddit 5 ms) combined with `repeating = true`: does holding the key repeat cleanly? Any stuck keys after rapid presses followed by normal typing? | ✅ 20 ms release: holding repeats and stops on release; rapid taps leave nothing stuck |
 | S3 | Should we omit `window` (focused surface) or pass `window = "activewindow"`? Does text navigation work inside Omarchy's launcher/menu search field (layer shell)? | ✅ omitted `window` reaches normal windows. The Omarchy launcher's search field has no cursor movement at all (not even arrows or Home), so it can't show anything; not an OMacKey issue. Retest layer-shell delivery with ⌘C/⌘V in Phase 3 |
 | S4 | Persian: (a) xkb `us,ir` with `grp:alts_toggle`; (b) fcitx5 with `keyboard-ir`. Do key-name binds fire, and do keycode-sent chords arrive correctly? | deferred by the user (D11) |
-| S5 | ⌥ chords: does releasing ⌥ after ⌥← focus the menu bar in VS Code, Obsidian, LibreOffice or Firefox? | deferred to the first ⌥ key (Phase 2, ⌥←) |
+| S5 | ⌥ chords: does releasing ⌥ after ⌥← focus the menu bar in VS Code, Obsidian, LibreOffice or Firefox? | ✅ no workaround needed: in VS Code and LibreOffice ⌥←/→ moves by word without focusing the menu, and Obsidian has no menu to focus (§9 F2). Firefox untested (not installed) |
 | S6 | Does `auto_consuming = true` plus `return { ok = false }` pass the raw key through from a function bind? | ✅ the probe on ⌃⌥⌘⇧Y returning `{ ok = false }` passed the raw key through to keylog |
 | S7 | Relocation approach A: is `hl` writable, are wrapped binds correct, does `hl.bind` get restored? | ✅ |
 | S8 | The help menu shows the new and relocated binds with their descriptions | ✅ |
@@ -454,8 +454,8 @@ Implement key by key in this order.
 | [x] | ⌘→ | line end | `End` | `End` | |
 | [x] | ⌘⇧← | select to line start | `Shift+Home` | consume | |
 | [x] | ⌘⇧→ | select to line end | `Shift+End` | consume | |
-| [ ] | ⌥← | word left | `Ctrl+Left` | `Ctrl+Left` | `/etc/inputrc` maps `\e[1;5D` to backward-word; nvim uses `<C-Left>` |
-| [ ] | ⌥→ | word right | `Ctrl+Right` | `Ctrl+Right` | |
+| [x] | ⌥← | word left | `Ctrl+Left` | `Ctrl+Left` | `/etc/inputrc` maps `\e[1;5D` to backward-word; nvim uses `<C-Left>` |
+| [x] | ⌥→ | word right | `Ctrl+Right` | `Ctrl+Right` | |
 | [ ] | ⌥⇧← | select word left | `Ctrl+Shift+Left` | consume | |
 | [ ] | ⌥⇧→ | select word right | `Ctrl+Shift+Right` | consume | |
 | [ ] | ⌘↑ | document start | `Ctrl+Home` | consume | 6a may map scrollback |
@@ -469,8 +469,9 @@ Implement key by key in this order.
 
 - ⌥↑/↓ deliberately **pass**, because VS Code uses Alt+Up/Down to move a line,
   just like on the Mac.
-- Spike S5's result decides whether ⌥ chords need a menu-bar workaround.
-  Options: app settings such as VS Code
+- Spike S5 is answered (§9 F2): ⌥←/→ need no menu-bar workaround in VS Code,
+  LibreOffice or Obsidian. If a later app (Firefox is untested) does focus its
+  menu, the options are an app setting such as VS Code
   `"window.customMenuBarAltFocus": false` or Firefox
   `ui.key.menuAccessKeyFocuses=false`, or sending a dummy key first (Kinto's
   Alt+F19 trick).
@@ -595,7 +596,7 @@ rules cover most of it.
 | physical ⌃- / ⌃⇧- | `Ctrl+Alt+minus` / `Ctrl+Shift+minus` | navigate back/forward. Optional, since it intercepts physical Ctrl in one app |
 | ⌘K chords, ⌘P, ⌘⇧P, ⌘D, ⌘⇧L, ⌘⇧K, ⌘⏎, ⌘B, ⌘J, ⌘\\ | generic Ctrl translation (Phases 3, 4, 7) | verify chords: ⌘K ⌘S → Ctrl+K Ctrl+S |
 | ⌃Space suggest | physical Ctrl+Space | fcitx5's default trigger is Ctrl+Space and may eat it. Document |
-| ⌥ menu focus | `"window.customMenuBarAltFocus": false` | if S5 shows the problem; tell the user rather than editing VS Code settings |
+| ⌥ menu focus | none needed | S5 passed for ⌥←/→ (§9 F2). Recheck only if another ⌥ chord shows the problem |
 
 **6d — Nautilus** (`org.gnome.Nautilus`; ideas from Kinto and xremap; verify each)
 
@@ -616,7 +617,8 @@ rules cover most of it.
   tab-switch rule).
 - Tab switching via ⌘⇧[ ] stays generic.
 - Check ⌘P, ⌘O, ⌘E, ⌘, and ⌘⇧F through the generic rules.
-- Check whether ⌥ focuses a menu bar.
+- ⌥ menu focus: checked in Phase 2 (S5). A bare ⌥ does nothing in Obsidian
+  here, so there is nothing to work around.
 
 **6f — LibreOffice** (classes `libreoffice-*` / `soffice`; verify)
 - ⌘⇧Z → `Ctrl+Y` (redo).
@@ -851,6 +853,8 @@ doesn't report them as unused when the condition is off. Verified with
   - `omackey.fired("<id>")` counts real presses since the last reload.
   - `wtype` can't test binds: virtual-keyboard input never triggers Hyprland
     binds (§9 F1).
+  - `keylog.py` is single-instance, so a second launch only focuses a running
+    one and logs nothing (§9 F2 has a private-copy recipe).
 - A plain text field:
   `data:text/html,<textarea autofocus style="width:100%;height:95vh"></textarea>`
   opened in Brave Origin and in Chromium.
@@ -1020,6 +1024,33 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   anchor regex. Pass regexes through `ENVIRON`.
 - **S9.** No XWayland clients are running; retest when one is available.
 
+**F2 — Phase 2 findings (2026-10-02)**
+
+- **S5 (answered).** Releasing ⌥ after ⌥←/→ does not focus a menu bar.
+  - VS Code: a bare ⌥ tap still highlights the menu (normal), and ⌥←/→ moves
+    by word without it.
+  - LibreOffice: fine.
+  - Obsidian: word movement works, and a bare ⌥ does nothing at all. It shows
+    no menu bar here (the user suspects Hyprland's missing window
+    decorations), so there is nothing to focus.
+  - Firefox is not installed, so it is untested.
+  - Presumably the synthetic arrow between the physical ⌥ press and release
+    counts as another key, which cancels the menu activation.
+- **Synthetic keys with ⌥ held.** In keylog, `word-left` arrives as `Left`
+  with `mods=CTRL` and no ALT, as explicit `mods` replace the held ⌥. The
+  cursor moved by a word.
+- **`ALT + LEFT/RIGHT` were free:** no Omarchy bind and no relocation used
+  them.
+- **keylog is single-instance** (GApplication id `omackey.keylog`). If one is
+  already open (the user often leaves one), a second launch only focuses it
+  and writes nothing to `--log`. For an automated test, run a private copy
+  and focus it by pid:
+  - `DBUS_SESSION_BUS_ADDRESS=disabled: scripts/keylog.py --log FILE &`
+    (no session bus, so it doesn't forward to the running instance);
+  - `hyprctl dispatch 'hl.dsp.focus({ window = "pid:<pid>" })'`;
+  - check `hyprctl activewindow -j` for that pid right before each
+    `omackey.trigger`, so stray keys can't land in another window.
+
 ---
 
 ## 10. References
@@ -1127,3 +1158,16 @@ and the next step.
     the app is single-instance, so my copy only focused it.
   - The user's physical tests (§8.2) passed.
   - **Next:** ⌥←/→ (word left/right) and ⌥⇧←/→, which include spike S5.
+- **2026-10-02 — Phase 2: ⌥←/→ and spike S5.**
+  - Added `word-left` / `word-right` in `text.lua`: ⌥← / ⌥→ send `Ctrl+Left`
+    / `Ctrl+Right` in all apps. Terminals use the same keys through
+    `/etc/inputrc` (`backward-word` / `forward-word`). `repeating`.
+    12 bindings, 108 relocations, no duplicates.
+  - Handler test in a private keylog copy: `Left` / `Right` with `mods=CTRL`,
+    no ALT; the cursor moved by a word.
+  - The user's physical tests (§8.2) passed in keylog, Brave, VS Code, foot
+    and LibreOffice, and Obsidian's word movement works.
+  - **S5 answered:** no menu-bar workaround is needed (§9 F2). A bare ⌥ does
+    nothing in Obsidian, which has no menu bar here. Firefox is untested.
+  - **Next:** ⌥⇧←/→ (select word left/right; consume in terminals), then the
+    ⌘↑/↓ document keys.
