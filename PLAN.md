@@ -456,8 +456,8 @@ Implement key by key in this order.
 | [x] | ⌘⇧→ | select to line end | `Shift+End` | consume | |
 | [x] | ⌥← | word left | `Ctrl+Left` | `Ctrl+Left` | `/etc/inputrc` maps `\e[1;5D` to backward-word; nvim uses `<C-Left>` |
 | [x] | ⌥→ | word right | `Ctrl+Right` | `Ctrl+Right` | |
-| [ ] | ⌥⇧← | select word left | `Ctrl+Shift+Left` | consume | |
-| [ ] | ⌥⇧→ | select word right | `Ctrl+Shift+Right` | consume | |
+| [x] | ⌥⇧← | select word left | `Ctrl+Shift+Left` | consume | |
+| [x] | ⌥⇧→ | select word right | `Ctrl+Shift+Right` | consume | |
 | [ ] | ⌘↑ | document start | `Ctrl+Home` | consume | 6a may map scrollback |
 | [ ] | ⌘↓ | document end | `Ctrl+End` | consume | |
 | [ ] | ⌘⇧↑ | select to doc start | `Ctrl+Shift+Home` | consume | |
@@ -1173,3 +1173,12 @@ and the next step.
     the user, is fine too.
   - **Next:** ⌥⇧←/→ (select word left/right; consume in terminals), then the
     ⌘↑/↓ document keys.
+- **2026-10-02 — Phase 2: ⌥⇧←/→.**
+  - Added `select-word-left` / `select-word-right` in `text.lua`:
+    `Ctrl+Shift+Left` / `Ctrl+Shift+Right` in GUI apps, consumed in terminals,
+    `repeating`. `ALT + SHIFT + LEFT/RIGHT` were free. 14 bindings, 108
+    relocations, no duplicates.
+  - Handler test in a private keylog copy: `mods=CTRL+SHIFT`, no ALT; the
+    selection grew and shrank by word.
+  - The user's physical tests (§8.2) passed. Firefox also passes S5 (§9 F2).
+  - **Next:** ⌘↑/↓ and ⌘⇧↑/↓ (document start/end and selecting to them).
