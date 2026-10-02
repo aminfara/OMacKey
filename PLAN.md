@@ -55,7 +55,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 0 | Foundation & spike (first key: ⌘← → Home) | [x] |
 | 1 | Relocate Omarchy bindings: 1a WM → ⌃⌥ · 1b Spaces & arrow rule · 1c Launchers → ⌃⌥⌘ · 1d Utilities & help | [x] |
 | 2 | Cursor movement, selection, deletion | [x] |
-| 3 | Core editing (clipboard, undo/redo, select all, find, save) | [ ] |
+| 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [ ] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [ ] |
 | 6 | App-specific: 6a terminals · 6b browsers · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
@@ -492,8 +492,8 @@ Implement key by key in this order.
 | [x] | ⌘⇧G | find previous | `Shift+F3` | consume | Nautilus: go to location (6d) |
 | [x] | ⌘S | save | `Ctrl+S` | consume | |
 | [x] | ⌘⇧S | save as | `Ctrl+Shift+S` | consume | |
-| [ ] | ⌘B / ⌘I / ⌘U | bold / italic / underline | `Ctrl+B/I/U` | consume | |
-| [ ] | ⌘/ | toggle comment | `Ctrl+/` | consume | |
+| [x] | ⌘B / ⌘I / ⌘U | bold / italic / underline | `Ctrl+B/I/U` | consume | |
+| [x] | ⌘/ | toggle comment | `Ctrl+/` | consume | |
 
 Acceptance extra: ⌘C/⌘V also work inside Omarchy's menus (layer shell, see
 S3) and the clipboard manager (⌃⌘V) is unaffected.
@@ -619,6 +619,10 @@ rules cover most of it.
 - Check ⌘P, ⌘O, ⌘E, ⌘, and ⌘⇧F through the generic rules.
 - ⌥ menu focus: checked in Phase 2 (S5). A bare ⌥ does nothing in Obsidian
   here, so there is nothing to work around.
+- **Open:** ⌘U (sent as `Ctrl+U`) does something odd in Obsidian. The user
+  saw what looked like a jump table (Phase 3 test). Find out which Obsidian
+  command owns `Ctrl+U` (Settings → Hotkeys) and decide on an override or a
+  §7 entry.
 
 **6f — LibreOffice** (classes `libreoffice-*` / `soffice`; verify)
 - ⌘⇧Z → `Ctrl+Y` (redo).
@@ -1269,3 +1273,17 @@ and the next step.
   - LibreOffice (F3 is AutoText) and Nautilus (⌘⇧G is go-to-location) keep
     their overrides in 6f / 6d.
   - **Next:** ⌘B / ⌘I / ⌘U and ⌘/ (toggle comment), which finish Phase 3.
+- **2026-10-02 — Phase 3: ⌘B / ⌘I / ⌘U and ⌘/. Phase 3 table complete.**
+  - Added `bold`, `italic`, `underline` and `toggle-comment` in `editing.lua`:
+    `Ctrl+B`, `Ctrl+I`, `Ctrl+U` and `Ctrl+/` in GUI apps, consumed in
+    terminals (readline / Tab / line-kill keys). Not `repeating`. The keys were
+    free (monitor scaling up had moved to ⌃⌥/ in 1a). 38 bindings, 108
+    relocations, no duplicates.
+  - Handler tests: keylog got `b`, `i`, `u` and `slash` with `mods=CTRL`
+    (GTK's Ctrl+/ selected all); a foot probe got no bytes.
+  - The user's physical tests (§8.2) passed (Brave, VS Code, foot and the
+    rest). **One oddity:** ⌘U in Obsidian does something unexpected (looks like
+    a jump table). Recorded as an open item under 6e.
+  - Phase 3 acceptance extras were covered earlier: ⌘V in the Omarchy
+    launcher, and the clipboard manager on ⌃⌘V is unaffected.
+  - **Next:** Phase 4, window and tab controls.

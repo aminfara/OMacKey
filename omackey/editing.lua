@@ -158,3 +158,51 @@ mac({
     terminal = "consume",
   },
 })
+
+mac({
+  id = "bold",
+  category = "Editing",
+  mac = "⌘B",
+  keys = "SUPER + B",
+  desc = "Bold",
+  actions = {
+    default = tap("CTRL", "B"),
+    terminal = "consume", -- Ctrl+B is readline's backward-char (and tmux's prefix)
+  },
+})
+
+mac({
+  id = "italic",
+  category = "Editing",
+  mac = "⌘I",
+  keys = "SUPER + I",
+  desc = "Italic",
+  actions = {
+    default = tap("CTRL", "I"),
+    terminal = "consume", -- Ctrl+I is Tab
+  },
+})
+
+mac({
+  id = "underline",
+  category = "Editing",
+  mac = "⌘U",
+  keys = "SUPER + U",
+  desc = "Underline",
+  actions = {
+    default = tap("CTRL", "U"),
+    terminal = "consume", -- Ctrl+U deletes the line (⌘⌫ owns that)
+  },
+})
+
+mac({
+  id = "toggle-comment",
+  category = "Editing",
+  mac = "⌘/",
+  keys = "SUPER + SLASH",
+  desc = "Toggle comment",
+  actions = {
+    default = tap("CTRL", "slash"),
+    terminal = "consume",
+  },
+})
