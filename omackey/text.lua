@@ -76,3 +76,29 @@ mac({
     default = tap("CTRL", "Right"), -- terminals too: /etc/inputrc maps Ctrl+Right to forward-word
   },
 })
+
+mac({
+  id = "select-word-left",
+  category = "Cursor",
+  mac = "⌥⇧←",
+  keys = "ALT + SHIFT + LEFT",
+  desc = "Select word left",
+  repeating = true,
+  actions = {
+    default = tap("CTRL + SHIFT", "Left"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "select-word-right",
+  category = "Cursor",
+  mac = "⌥⇧→",
+  keys = "ALT + SHIFT + RIGHT",
+  desc = "Select word right",
+  repeating = true,
+  actions = {
+    default = tap("CTRL + SHIFT", "Right"),
+    terminal = "consume",
+  },
+})

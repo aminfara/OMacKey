@@ -395,7 +395,7 @@ architecture, and the open technical questions answered and recorded in §9.
 | S2 | Release delay (Omarchy uses 50 ms, Reddit 5 ms) combined with `repeating = true`: does holding the key repeat cleanly? Any stuck keys after rapid presses followed by normal typing? | ✅ 20 ms release: holding repeats and stops on release; rapid taps leave nothing stuck |
 | S3 | Should we omit `window` (focused surface) or pass `window = "activewindow"`? Does text navigation work inside Omarchy's launcher/menu search field (layer shell)? | ✅ omitted `window` reaches normal windows. The Omarchy launcher's search field has no cursor movement at all (not even arrows or Home), so it can't show anything; not an OMacKey issue. Retest layer-shell delivery with ⌘C/⌘V in Phase 3 |
 | S4 | Persian: (a) xkb `us,ir` with `grp:alts_toggle`; (b) fcitx5 with `keyboard-ir`. Do key-name binds fire, and do keycode-sent chords arrive correctly? | deferred by the user (D11) |
-| S5 | ⌥ chords: does releasing ⌥ after ⌥← focus the menu bar in VS Code, Obsidian, LibreOffice or Firefox? | ✅ no workaround needed: in VS Code and LibreOffice ⌥←/→ moves by word without focusing the menu, and Obsidian has no menu to focus (§9 F2). Firefox untested (not installed) |
+| S5 | ⌥ chords: does releasing ⌥ after ⌥← focus the menu bar in VS Code, Obsidian, LibreOffice or Firefox? | ✅ no workaround needed: in VS Code and LibreOffice ⌥←/→ moves by word without focusing the menu, and Obsidian has no menu to focus (§9 F2). Firefox also fine (tested by the user) |
 | S6 | Does `auto_consuming = true` plus `return { ok = false }` pass the raw key through from a function bind? | ✅ the probe on ⌃⌥⌘⇧Y returning `{ ok = false }` passed the raw key through to keylog |
 | S7 | Relocation approach A: is `hl` writable, are wrapped binds correct, does `hl.bind` get restored? | ✅ |
 | S8 | The help menu shows the new and relocated binds with their descriptions | ✅ |
@@ -470,8 +470,8 @@ Implement key by key in this order.
 - ⌥↑/↓ deliberately **pass**, because VS Code uses Alt+Up/Down to move a line,
   just like on the Mac.
 - Spike S5 is answered (§9 F2): ⌥←/→ need no menu-bar workaround in VS Code,
-  LibreOffice or Obsidian. If a later app (Firefox is untested) does focus its
-  menu, the options are an app setting such as VS Code
+  LibreOffice, Obsidian or Firefox. If a later app does focus its menu, the
+  options are an app setting such as VS Code
   `"window.customMenuBarAltFocus": false` or Firefox
   `ui.key.menuAccessKeyFocuses=false`, or sending a dummy key first (Kinto's
   Alt+F19 trick).
@@ -1033,7 +1033,8 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   - Obsidian: word movement works, and a bare ⌥ does nothing at all. It shows
     no menu bar here (the user suspects Hyprland's missing window
     decorations), so there is nothing to focus.
-  - Firefox is not installed, so it is untested.
+  - Firefox (installed and tested later by the user): a bare ⌥ tap shows the
+    menu, and ⌥←/→ moves by word without it.
   - Presumably the synthetic arrow between the physical ⌥ press and release
     counts as another key, which cancels the menu activation.
 - **Synthetic keys with ⌥ held.** In keylog, `word-left` arrives as `Left`
@@ -1168,6 +1169,7 @@ and the next step.
   - The user's physical tests (§8.2) passed in keylog, Brave, VS Code, foot
     and LibreOffice, and Obsidian's word movement works.
   - **S5 answered:** no menu-bar workaround is needed (§9 F2). A bare ⌥ does
-    nothing in Obsidian, which has no menu bar here. Firefox is untested.
+    nothing in Obsidian, which has no menu bar here. Firefox, tested afterwards by
+    the user, is fine too.
   - **Next:** ⌥⇧←/→ (select word left/right; consume in terminals), then the
     ⌘↑/↓ document keys.
