@@ -42,4 +42,21 @@ function M.tap(mods, key)
   end
 end
 
+-- send.seq(send.tap(...), send.tap(...)) → function that taps each chord in
+-- order, spaced so one is released before the next goes down.
+function M.seq(...)
+  local steps = { ... }
+  local gap = config.release_ms + 5
+
+  return function()
+    for i, step in ipairs(steps) do
+      if i == 1 then
+        step()
+      else
+        after((i - 1) * gap, step)
+      end
+    end
+  end
+end
+
 return M

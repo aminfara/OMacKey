@@ -54,7 +54,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | --- | --- | --- |
 | 0 | Foundation & spike (first key: ⌘← → Home) | [x] |
 | 1 | Relocate Omarchy bindings: 1a WM → ⌃⌥ · 1b Spaces & arrow rule · 1c Launchers → ⌃⌥⌘ · 1d Utilities & help | [x] |
-| 2 | Cursor movement, selection, deletion | [ ] |
+| 2 | Cursor movement, selection, deletion | [x] |
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [ ] |
 | 4 | Window & tab controls | [ ] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [ ] |
@@ -185,7 +185,7 @@ OMacKey/
 │   ├── relocations.lua       §6 as data
 │   ├── lib/
 │   │   ├── keys.lua          key name → "code:N" (XKB keycode = evdev + 8)
-│   │   ├── send.lua          tap() (seq() in Phase 2) with retained timers
+│   │   ├── send.lua          tap(), seq() with retained timers
 │   │   ├── apps.lua          active window → profile chain, e.g. { "terminal", "default" }
 │   │   ├── bind.lua          mac{} helper: per-profile dispatch, auto_consuming, registry, press counter
 │   │   └── relocate.lua      hl.bind hook/unhook + key normalization (approach A, 4.3)
@@ -462,10 +462,10 @@ Implement key by key in this order.
 | [x] | ⌘↓ | document end | `Ctrl+End` | consume | |
 | [x] | ⌘⇧↑ | select to doc start | `Ctrl+Shift+Home` | consume | |
 | [x] | ⌘⇧↓ | select to doc end | `Ctrl+Shift+End` | consume | |
-| [ ] | ⌥⌫ | delete word left | `Ctrl+BackSpace` | pass | Alt+BackSpace is readline backward-kill-word |
-| [ ] | ⌥⌦ | delete word right | `Ctrl+Delete` | `Alt+d` | |
-| [ ] | ⌘⌫ | delete to line start | `seq(Shift+Home, BackSpace)` | `Ctrl+U` | Nautilus overrides this in 6d |
-| [ ] | ⌘⌦ | delete to line end | `seq(Shift+End, Delete)` | `Ctrl+K` | |
+| [x] | ⌥⌫ | delete word left | `Ctrl+BackSpace` | pass | Alt+BackSpace is readline backward-kill-word |
+| [x] | ⌥⌦ | delete word right | `Ctrl+Delete` | `Alt+d` | |
+| [x] | ⌘⌫ | delete to line start | `seq(Shift+Home, BackSpace)` | `Ctrl+U` | Nautilus overrides this in 6d |
+| [x] | ⌘⌦ | delete to line end | `seq(Shift+End, Delete)` | `Ctrl+K` | |
 
 - ⌥↑/↓ deliberately **pass**, because VS Code uses Alt+Up/Down to move a line,
   just like on the Mac.
@@ -1193,3 +1193,20 @@ and the next step.
     covered it.
   - The user's physical tests (§8.2) passed.
   - **Next:** the deletion keys: ⌥⌫, ⌥⌦, ⌘⌫, ⌘⌦.
+- **2026-10-02 — Phase 2: deletion keys. Phase 2 complete.**
+  - Added `delete-word-left` / `delete-word-right` / `delete-line-start` /
+    `delete-line-end` in `text.lua` (category "Editing"), all `repeating`:
+    - ⌥⌫: `Ctrl+BackSpace`; terminals pass the raw key (readline
+      backward-kill-word).
+    - ⌥⌦: `Ctrl+Delete`; terminals `Alt+d`.
+    - ⌘⌫: `seq(Shift+Home, BackSpace)`; terminals `Ctrl+U`.
+    - ⌘⌦: `seq(Shift+End, Delete)`; terminals `Ctrl+K`.
+  - New `send.seq()` taps chords in order, spaced `release_ms + 5` so each is
+    released before the next goes down.
+  - The keys were free. 22 bindings, 108 relocations, no duplicates.
+  - Handler tests: keylog got the expected chords; a foot probe that prints
+    raw bytes got `ESC d`, `^U` and `^K`. ⌥⌫ in a terminal is a pass-through,
+    so only the physical test covers it.
+  - The user's physical tests (§8.2) passed for all four.
+  - **Next:** Phase 3, core editing (clipboard, undo/redo, select all, find,
+    save). Omarchy's ⌘C/⌘V/⌘X universal clipboard binds are replaced there.

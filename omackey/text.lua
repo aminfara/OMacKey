@@ -1,7 +1,8 @@
 -- Phase 2: cursor movement, selection and deletion (PLAN.md §5).
 
 local mac = require("hypr.omackey.lib.bind").mac
-local tap = require("hypr.omackey.lib.send").tap
+local send = require("hypr.omackey.lib.send")
+local tap, seq = send.tap, send.seq
 
 mac({
   id = "line-start",
@@ -152,5 +153,57 @@ mac({
   actions = {
     default = tap("CTRL + SHIFT", "End"),
     terminal = "consume",
+  },
+})
+
+mac({
+  id = "delete-word-left",
+  category = "Editing",
+  mac = "⌥⌫",
+  keys = "ALT + BACKSPACE",
+  desc = "Delete word left",
+  repeating = true,
+  actions = {
+    default = tap("CTRL", "BackSpace"),
+    terminal = "pass", -- readline: Alt+BackSpace is backward-kill-word
+  },
+})
+
+mac({
+  id = "delete-word-right",
+  category = "Editing",
+  mac = "⌥⌦",
+  keys = "ALT + DELETE",
+  desc = "Delete word right",
+  repeating = true,
+  actions = {
+    default = tap("CTRL", "Delete"),
+    terminal = tap("ALT", "d"), -- readline kill-word
+  },
+})
+
+mac({
+  id = "delete-line-start",
+  category = "Editing",
+  mac = "⌘⌫",
+  keys = "SUPER + BACKSPACE",
+  desc = "Delete to line start",
+  repeating = true,
+  actions = {
+    default = seq(tap("SHIFT", "Home"), tap("", "BackSpace")),
+    terminal = tap("CTRL", "u"), -- readline unix-line-discard
+  },
+})
+
+mac({
+  id = "delete-line-end",
+  category = "Editing",
+  mac = "⌘⌦",
+  keys = "SUPER + DELETE",
+  desc = "Delete to line end",
+  repeating = true,
+  actions = {
+    default = seq(tap("SHIFT", "End"), tap("", "Delete")),
+    terminal = tap("CTRL", "k"), -- readline kill-line
   },
 })
