@@ -56,3 +56,29 @@ mac({
     terminal = tap("SHIFT", "Insert"), -- terminals paste plain text already
   },
 })
+
+mac({
+  id = "undo",
+  category = "Editing",
+  mac = "⌘Z",
+  keys = "SUPER + Z",
+  desc = "Undo",
+  repeating = true,
+  actions = {
+    default = tap("CTRL", "Z"),
+    terminal = "consume", -- Ctrl+Z would suspend the foreground job
+  },
+})
+
+mac({
+  id = "redo",
+  category = "Editing",
+  mac = "⌘⇧Z",
+  keys = "SUPER + SHIFT + Z",
+  desc = "Redo",
+  repeating = true,
+  actions = {
+    default = tap("CTRL + SHIFT", "Z"), -- LibreOffice uses Ctrl+Y (6f)
+    terminal = "consume",
+  },
+})

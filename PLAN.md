@@ -484,8 +484,8 @@ Implement key by key in this order.
 | [x] | ⌘V | paste | `Ctrl+V` | `Shift+Insert` | replaces Omarchy's universal paste |
 | [x] | ⌘X | cut | `Ctrl+X` | consume | Omarchy currently sends Ctrl+X to terminals as well |
 | [x] | ⌘⇧V | paste plain | `Ctrl+Shift+V` | `Shift+Insert` | LibreOffice override in 6f |
-| [ ] | ⌘Z | undo | `Ctrl+Z` | consume | never send Ctrl+Z to a terminal |
-| [ ] | ⌘⇧Z | redo | `Ctrl+Shift+Z` | consume | LibreOffice → `Ctrl+Y` (6f) |
+| [x] | ⌘Z | undo | `Ctrl+Z` | consume | never send Ctrl+Z to a terminal |
+| [x] | ⌘⇧Z | redo | `Ctrl+Shift+Z` | consume | LibreOffice → `Ctrl+Y` (6f) |
 | [ ] | ⌘A | select all | `Ctrl+A` | consume | Ghostty select-all in 6a |
 | [ ] | ⌘F | find | `Ctrl+F` | consume | terminal search in 6a |
 | [ ] | ⌘G | find next | `F3` | consume | F3 works in Chromium, Firefox, VS Code and GTK. LibreOffice: F3 is AutoText, so override in 6f |
@@ -1236,3 +1236,13 @@ and the next step.
     Chromium, Obsidian and VS Code. As expected, LibreOffice opens Paste
     Special, which 6f overrides.
   - **Next:** ⌘Z / ⌘⇧Z (undo, redo), then ⌘A, ⌘F, ⌘G / ⌘⇧G, ⌘S / ⌘⇧S.
+- **2026-10-02 — Phase 3: ⌘Z / ⌘⇧Z.**
+  - Added `undo` / `redo` in `editing.lua`: `Ctrl+Z` / `Ctrl+Shift+Z` in GUI
+    apps, consumed in terminals (Ctrl+Z would suspend the foreground job),
+    `repeating`. The keys were free (only ⌃⌘Z / ⌃⌥⌘Z zoom binds use Z). 28
+    bindings, 108 relocations, no duplicates.
+  - Handler tests: keylog got `z` with `mods=CTRL` and `Z` with
+    `mods=CTRL+SHIFT`; a foot probe got no bytes.
+  - The user's physical tests (§8.2) passed.
+  - LibreOffice redo (`Ctrl+Y`) stays a 6f override.
+  - **Next:** ⌘A (select all), then ⌘F, ⌘G / ⌘⇧G, ⌘S / ⌘⇧S.
