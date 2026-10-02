@@ -14,3 +14,15 @@ mac({
     default = tap("", "Home"), -- terminals too: readline/nvim treat Home as line start
   },
 })
+
+mac({
+  id = "line-end",
+  category = "Cursor",
+  mac = "⌘→",
+  keys = "SUPER + RIGHT",
+  desc = "Line end",
+  repeating = true,
+  actions = {
+    default = tap("", "End"), -- terminals too: readline/nvim treat End as line end
+  },
+})

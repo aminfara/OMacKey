@@ -450,8 +450,8 @@ Implement key by key in this order.
 
 | ✓ | Mac | Meaning | GUI apps | Term | Notes |
 | --- | --- | --- | --- | --- | --- |
-| [ ] | ⌘← | line start | `Home` | `Home` | Phase 0.6 |
-| [ ] | ⌘→ | line end | `End` | `End` | |
+| [x] | ⌘← | line start | `Home` | `Home` | Phase 0.6 |
+| [x] | ⌘→ | line end | `End` | `End` | |
 | [ ] | ⌘⇧← | select to line start | `Shift+Home` | consume | |
 | [ ] | ⌘⇧→ | select to line end | `Shift+End` | consume | |
 | [ ] | ⌥← | word left | `Ctrl+Left` | `Ctrl+Left` | `/etc/inputrc` maps `\e[1;5D` to backward-word; nvim uses `<C-Left>` |
@@ -1110,3 +1110,11 @@ and the next step.
   - Tested by the user.
   - **Next:** Phase 2, cursor movement, selection and deletion. Starts with ⌘→
     and includes spike S5 (⌥ menu-bar focus) with the first ⌥ key.
+- **2026-10-02 — Phase 2: ⌘→.**
+  - Added `line-end` in `text.lua`: ⌘→ sends `End` in all apps, terminals
+    included, `repeating`. `SUPER + RIGHT` was already free (focus right moved
+    to ⌃→ in 1b). 8 bindings, 108 relocations, no duplicates.
+  - Handler test in keylog: one `End` press and release, `mods=-`.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** ⌘⇧←/→ (select to line start/end; consume in terminals), then the
+    ⌥ word keys, which include spike S5.
