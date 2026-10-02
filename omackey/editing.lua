@@ -82,3 +82,39 @@ mac({
     terminal = "consume",
   },
 })
+
+mac({
+  id = "select-all",
+  category = "Editing",
+  mac = "⌘A",
+  keys = "SUPER + A",
+  desc = "Select all",
+  actions = {
+    default = tap("CTRL", "A"),
+    terminal = "consume", -- Ctrl+A is readline's line start; Ghostty select-all comes in 6a
+  },
+})
+
+mac({
+  id = "save",
+  category = "Editing",
+  mac = "⌘S",
+  keys = "SUPER + S",
+  desc = "Save",
+  actions = {
+    default = tap("CTRL", "S"),
+    terminal = "consume", -- Ctrl+S freezes terminal output (XOFF)
+  },
+})
+
+mac({
+  id = "save-as",
+  category = "Editing",
+  mac = "⌘⇧S",
+  keys = "SUPER + SHIFT + S",
+  desc = "Save as",
+  actions = {
+    default = tap("CTRL + SHIFT", "S"),
+    terminal = "consume",
+  },
+})
