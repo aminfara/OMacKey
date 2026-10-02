@@ -487,9 +487,9 @@ Implement key by key in this order.
 | [x] | ⌘Z | undo | `Ctrl+Z` | consume | never send Ctrl+Z to a terminal |
 | [x] | ⌘⇧Z | redo | `Ctrl+Shift+Z` | consume | LibreOffice → `Ctrl+Y` (6f) |
 | [x] | ⌘A | select all | `Ctrl+A` | consume | Ghostty select-all in 6a |
-| [ ] | ⌘F | find | `Ctrl+F` | consume | terminal search in 6a |
-| [ ] | ⌘G | find next | `F3` | consume | F3 works in Chromium, Firefox, VS Code and GTK. LibreOffice: F3 is AutoText, so override in 6f |
-| [ ] | ⌘⇧G | find previous | `Shift+F3` | consume | Nautilus: go to location (6d) |
+| [x] | ⌘F | find | `Ctrl+F` | consume | terminal search in 6a |
+| [x] | ⌘G | find next | `F3` | consume | F3 works in Chromium, Firefox, VS Code and GTK. LibreOffice: F3 is AutoText, so override in 6f |
+| [x] | ⌘⇧G | find previous | `Shift+F3` | consume | Nautilus: go to location (6d) |
 | [x] | ⌘S | save | `Ctrl+S` | consume | |
 | [x] | ⌘⇧S | save as | `Ctrl+Shift+S` | consume | |
 | [ ] | ⌘B / ⌘I / ⌘U | bold / italic / underline | `Ctrl+B/I/U` | consume | |
@@ -1258,3 +1258,14 @@ and the next step.
     it.
   - The user's physical tests (§8.2) passed.
   - **Next:** find: ⌘F, ⌘G, ⌘⇧G. Then ⌘B / ⌘I / ⌘U and ⌘/.
+- **2026-10-02 — Phase 3: find (⌘F, ⌘G, ⌘⇧G).**
+  - Added `find`, `find-next` and `find-previous` in `editing.lua`: `Ctrl+F`,
+    `F3` and `Shift+F3` in GUI apps, consumed in terminals. ⌘G / ⌘⇧G are
+    `repeating`. The keys were free (group toggle and the Signal launcher had
+    already moved). 34 bindings, 108 relocations, no duplicates.
+  - Handler tests: keylog got `f` with `mods=CTRL`, `F3`, and `F3` with
+    `mods=SHIFT`; a foot probe got no bytes.
+  - The user's physical tests (§8.2) passed, in every browser tried.
+  - LibreOffice (F3 is AutoText) and Nautilus (⌘⇧G is go-to-location) keep
+    their overrides in 6f / 6d.
+  - **Next:** ⌘B / ⌘I / ⌘U and ⌘/ (toggle comment), which finish Phase 3.

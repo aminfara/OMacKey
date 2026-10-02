@@ -118,3 +118,43 @@ mac({
     terminal = "consume",
   },
 })
+
+mac({
+  id = "find",
+  category = "Editing",
+  mac = "⌘F",
+  keys = "SUPER + F",
+  desc = "Find",
+  actions = {
+    default = tap("CTRL", "F"),
+    terminal = "consume", -- Ctrl+F is readline's forward-char; terminal search comes in 6a
+  },
+})
+
+-- F3 works in Chromium, Firefox, VS Code and GTK. LibreOffice (6f) and
+-- Nautilus (6d) override these.
+mac({
+  id = "find-next",
+  category = "Editing",
+  mac = "⌘G",
+  keys = "SUPER + G",
+  desc = "Find next",
+  repeating = true,
+  actions = {
+    default = tap("", "F3"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "find-previous",
+  category = "Editing",
+  mac = "⌘⇧G",
+  keys = "SUPER + SHIFT + G",
+  desc = "Find previous",
+  repeating = true,
+  actions = {
+    default = tap("SHIFT", "F3"),
+    terminal = "consume",
+  },
+})
