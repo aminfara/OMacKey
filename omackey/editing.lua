@@ -44,3 +44,15 @@ mac({
     terminal = "consume", -- Ctrl+X is a readline prefix; a terminal has nothing to cut
   },
 })
+
+mac({
+  id = "paste-plain",
+  category = "Editing",
+  mac = "⌘⇧V",
+  keys = "SUPER + SHIFT + V",
+  desc = "Paste without formatting",
+  actions = {
+    default = tap("CTRL + SHIFT", "V"),
+    terminal = tap("SHIFT", "Insert"), -- terminals paste plain text already
+  },
+})

@@ -483,7 +483,7 @@ Implement key by key in this order.
 | [x] | ⌘C | copy | `Ctrl+C` | `Ctrl+Insert` | replaces Omarchy's universal copy (unbind `SUPER + C`); fixes the dropped timer handle |
 | [x] | ⌘V | paste | `Ctrl+V` | `Shift+Insert` | replaces Omarchy's universal paste |
 | [x] | ⌘X | cut | `Ctrl+X` | consume | Omarchy currently sends Ctrl+X to terminals as well |
-| [ ] | ⌘⇧V | paste plain | `Ctrl+Shift+V` | `Shift+Insert` | LibreOffice override in 6f |
+| [x] | ⌘⇧V | paste plain | `Ctrl+Shift+V` | `Shift+Insert` | LibreOffice override in 6f |
 | [ ] | ⌘Z | undo | `Ctrl+Z` | consume | never send Ctrl+Z to a terminal |
 | [ ] | ⌘⇧Z | redo | `Ctrl+Shift+Z` | consume | LibreOffice → `Ctrl+Y` (6f) |
 | [ ] | ⌘A | select all | `Ctrl+A` | consume | Ghostty select-all in 6a |
@@ -1226,3 +1226,13 @@ and the next step.
   - The user's physical tests (§8.2) passed, including ⌘V in the Omarchy
     launcher (S3 layer-shell retest) and the clipboard manager.
   - **Next:** ⌘⇧V (paste plain), then ⌘Z / ⌘⇧Z, ⌘A, find and save.
+- **2026-10-02 — Phase 3: ⌘⇧V.**
+  - Added `paste-plain` in `editing.lua`: `Ctrl+Shift+V` in GUI apps; terminals
+    `Shift+Insert`. Not `repeating`. `SUPER + SHIFT + V` was free. 26
+    bindings, 108 relocations, no duplicates.
+  - Handler tests: keylog got `V` with `mods=CTRL+SHIFT`; a foot probe got the
+    pasted text. keylog can't show plain versus rich paste.
+  - The user's physical tests (§8.2) passed: rich text pastes plain in Brave,
+    Chromium, Obsidian and VS Code. As expected, LibreOffice opens Paste
+    Special, which 6f overrides.
+  - **Next:** ⌘Z / ⌘⇧Z (undo, redo), then ⌘A, ⌘F, ⌘G / ⌘⇧G, ⌘S / ⌘⇧S.
