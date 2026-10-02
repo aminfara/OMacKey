@@ -6,6 +6,7 @@ return {
   modules = {
     "spaces", -- Phase 1b: workspaces on ⌃ (vertical pair, move window)
     "text", -- Phase 2: cursor movement, selection, deletion
+    "editing", -- Phase 3: clipboard, undo/redo, find, save
   },
 
   -- How long a synthetic key stays down before its release is sent.

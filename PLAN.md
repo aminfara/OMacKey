@@ -393,7 +393,7 @@ architecture, and the open technical questions answered and recorded in §9.
 | --- | --- | --- |
 | S1 | With ⌘ held, does `send_key_state` with `mods = ""` deliver a plain `Home` (no Super) to the client? | ✅ physical ⌘← arrives as `Home`, `mods=-` |
 | S2 | Release delay (Omarchy uses 50 ms, Reddit 5 ms) combined with `repeating = true`: does holding the key repeat cleanly? Any stuck keys after rapid presses followed by normal typing? | ✅ 20 ms release: holding repeats and stops on release; rapid taps leave nothing stuck |
-| S3 | Should we omit `window` (focused surface) or pass `window = "activewindow"`? Does text navigation work inside Omarchy's launcher/menu search field (layer shell)? | ✅ omitted `window` reaches normal windows. The Omarchy launcher's search field has no cursor movement at all (not even arrows or Home), so it can't show anything; not an OMacKey issue. Retest layer-shell delivery with ⌘C/⌘V in Phase 3 |
+| S3 | Should we omit `window` (focused surface) or pass `window = "activewindow"`? Does text navigation work inside Omarchy's launcher/menu search field (layer shell)? | ✅ omitted `window` reaches normal windows. The Omarchy launcher's search field has no cursor movement at all (not even arrows or Home), so it can't show anything; not an OMacKey issue. Layer-shell delivery retested in Phase 3: ⌘V pastes into the launcher's search field ✅ |
 | S4 | Persian: (a) xkb `us,ir` with `grp:alts_toggle`; (b) fcitx5 with `keyboard-ir`. Do key-name binds fire, and do keycode-sent chords arrive correctly? | deferred by the user (D11) |
 | S5 | ⌥ chords: does releasing ⌥ after ⌥← focus the menu bar in VS Code, Obsidian, LibreOffice or Firefox? | ✅ no workaround needed: in VS Code and LibreOffice ⌥←/→ moves by word without focusing the menu, and Obsidian has no menu to focus (§9 F2). Firefox also fine (tested by the user) |
 | S6 | Does `auto_consuming = true` plus `return { ok = false }` pass the raw key through from a function bind? | ✅ the probe on ⌃⌥⌘⇧Y returning `{ ok = false }` passed the raw key through to keylog |
@@ -437,7 +437,7 @@ Implement §6 one group per session. After each group:
 After Phase 1, the only SUPER, SUPER+SHIFT and SUPER+ALT binds left are
 Mac-compatible:
 - ⌘Space, ⌘⌥Space, ⌘⇧Space, ⌘Esc
-- ⌘C/V/X (Omarchy's universal clipboard until Phase 3)
+- ⌘C/V/X (Omarchy's universal clipboard until Phase 3; replaced there)
 - ⌘Home and ⌘⌥Home
 - ⌘⇧, ⌘⌥, ⌘⇧⌥, (notifications), ⌘⌥Tab, ⌘⌥1–5 (groups), ⌘⌥-/= and
   ⌘⌥⇧-/= (±25 px resize)
@@ -480,9 +480,9 @@ Implement key by key in this order.
 
 | ✓ | Mac | Meaning | GUI apps | Term | Notes |
 | --- | --- | --- | --- | --- | --- |
-| [ ] | ⌘C | copy | `Ctrl+C` | `Ctrl+Insert` | replaces Omarchy's universal copy (unbind `SUPER + C`); fixes the dropped timer handle |
-| [ ] | ⌘V | paste | `Ctrl+V` | `Shift+Insert` | replaces Omarchy's universal paste |
-| [ ] | ⌘X | cut | `Ctrl+X` | consume | Omarchy currently sends Ctrl+X to terminals as well |
+| [x] | ⌘C | copy | `Ctrl+C` | `Ctrl+Insert` | replaces Omarchy's universal copy (unbind `SUPER + C`); fixes the dropped timer handle |
+| [x] | ⌘V | paste | `Ctrl+V` | `Shift+Insert` | replaces Omarchy's universal paste |
+| [x] | ⌘X | cut | `Ctrl+X` | consume | Omarchy currently sends Ctrl+X to terminals as well |
 | [ ] | ⌘⇧V | paste plain | `Ctrl+Shift+V` | `Shift+Insert` | LibreOffice override in 6f |
 | [ ] | ⌘Z | undo | `Ctrl+Z` | consume | never send Ctrl+Z to a terminal |
 | [ ] | ⌘⇧Z | redo | `Ctrl+Shift+Z` | consume | LibreOffice → `Ctrl+Y` (6f) |
@@ -789,7 +789,7 @@ doesn't report them as unused when the condition is off. Verified with
 | `SUPER + comma` | Dismiss last notification | ⌘, preferences | `CTRL + SUPER + SHIFT + comma` (user's choice: next to ⌘⇧, dismiss all and the ⌃⌘⇧ info popups; the whole notification family stays on ⌘ + comma) |
 | `SUPER + CTRL + Q` | Calculator | ⌃⌘Q lock | `CTRL + ALT + SUPER + Q` |
 | `SUPER + CTRL + SPACE` | Background switcher | ⌃⌘Space emoji | `CTRL + ALT + SUPER + SPACE` |
-| `SUPER + C` / `V` / `X` | Universal copy/paste/cut | none (already Mac-like) | stay until Phase 3 replaces them with terminal-aware ⌘C/V/X |
+| `SUPER + C` / `V` / `X` | Universal copy/paste/cut | none (already Mac-like) | replaced in Phase 3 by terminal-aware ⌘C/V/X (`hl.unbind`, `editing.lua`) |
 
 ### 6.5 Unchanged Omarchy binds (no collision)
 
@@ -1210,3 +1210,19 @@ and the next step.
   - The user's physical tests (§8.2) passed for all four.
   - **Next:** Phase 3, core editing (clipboard, undo/redo, select all, find,
     save). Omarchy's ⌘C/⌘V/⌘X universal clipboard binds are replaced there.
+- **2026-10-02 — Phase 3: ⌘C, ⌘V, ⌘X.**
+  - New `editing.lua` (added to `config.modules`). It runs `hl.unbind` on
+    Omarchy's `SUPER + C/V/X` (universal copy/paste/cut) and declares:
+    - ⌘C: `Ctrl+C`; terminals `Ctrl+Insert`.
+    - ⌘V: `Ctrl+V`; terminals `Shift+Insert`.
+    - ⌘X: `Ctrl+X`; terminals consume (Omarchy sent Ctrl+X there too).
+  - Not `repeating`. Our `send.tap` keeps its timer handles, so the dropped
+    timer in Omarchy's version is gone. 25 bindings, 108 relocations, no
+    duplicates. `SUPER + CTRL + V` (clipboard manager) and `SUPER + CTRL + C`
+    (capture menu) are untouched.
+  - foot's `foot.ini` binds `Control+Insert` to clipboard-copy, so a raw-byte
+    probe sees nothing for ⌘C there; ⌘V arrives as the pasted text.
+  - Handler tests: keylog got `c`, `v`, `x` with `mods=CTRL`; ⌘V pasted.
+  - The user's physical tests (§8.2) passed, including ⌘V in the Omarchy
+    launcher (S3 layer-shell retest) and the clipboard manager.
+  - **Next:** ⌘⇧V (paste plain), then ⌘Z / ⌘⇧Z, ⌘A, find and save.
