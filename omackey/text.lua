@@ -26,3 +26,29 @@ mac({
     default = tap("", "End"), -- terminals too: readline/nvim treat End as line end
   },
 })
+
+mac({
+  id = "select-line-start",
+  category = "Cursor",
+  mac = "⌘⇧←",
+  keys = "SUPER + SHIFT + LEFT",
+  desc = "Select to line start",
+  repeating = true,
+  actions = {
+    default = tap("SHIFT", "Home"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "select-line-end",
+  category = "Cursor",
+  mac = "⌘⇧→",
+  keys = "SUPER + SHIFT + RIGHT",
+  desc = "Select to line end",
+  repeating = true,
+  actions = {
+    default = tap("SHIFT", "End"),
+    terminal = "consume",
+  },
+})

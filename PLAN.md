@@ -452,8 +452,8 @@ Implement key by key in this order.
 | --- | --- | --- | --- | --- | --- |
 | [x] | ⌘← | line start | `Home` | `Home` | Phase 0.6 |
 | [x] | ⌘→ | line end | `End` | `End` | |
-| [ ] | ⌘⇧← | select to line start | `Shift+Home` | consume | |
-| [ ] | ⌘⇧→ | select to line end | `Shift+End` | consume | |
+| [x] | ⌘⇧← | select to line start | `Shift+Home` | consume | |
+| [x] | ⌘⇧→ | select to line end | `Shift+End` | consume | |
 | [ ] | ⌥← | word left | `Ctrl+Left` | `Ctrl+Left` | `/etc/inputrc` maps `\e[1;5D` to backward-word; nvim uses `<C-Left>` |
 | [ ] | ⌥→ | word right | `Ctrl+Right` | `Ctrl+Right` | |
 | [ ] | ⌥⇧← | select word left | `Ctrl+Shift+Left` | consume | |
@@ -1118,3 +1118,12 @@ and the next step.
   - The user's physical tests (§8.2) passed.
   - **Next:** ⌘⇧←/→ (select to line start/end; consume in terminals), then the
     ⌥ word keys, which include spike S5.
+- **2026-10-02 — Phase 2: ⌘⇧←/→.**
+  - Added `select-line-start` / `select-line-end` in `text.lua`: `Shift+Home` /
+    `Shift+End` in GUI apps, consumed in terminals, `repeating`. Both keys were
+    free (swap window moved to ⌃⇧ in 1b). 10 bindings, 108 relocations, no
+    duplicates.
+  - No automated keylog run: the user's keylog instance was already open and
+    the app is single-instance, so my copy only focused it.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** ⌥←/→ (word left/right) and ⌥⇧←/→, which include spike S5.
