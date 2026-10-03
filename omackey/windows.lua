@@ -411,3 +411,19 @@ mac({
     end,
   },
 })
+
+-- Preferences. Omarchy's "dismiss last notification" moved off ⌘, in Phase 1d.
+-- VS Code, Obsidian and Nautilus open their settings on Ctrl+, ; browsers and
+-- LibreOffice have no such shortcut (6b, 6f) and Ghostty's open-config key comes
+-- in 6a. Terminals consume it: Ctrl+, is not a control character.
+mac({
+  id = "preferences",
+  category = "Windows",
+  mac = "⌘,",
+  keys = "SUPER + comma",
+  desc = "Preferences",
+  actions = {
+    default = tap("CTRL", "comma"),
+    terminal = "consume",
+  },
+})

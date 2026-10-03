@@ -56,7 +56,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 1 | Relocate Omarchy bindings: 1a WM → ⌃⌥ · 1b Spaces & arrow rule · 1c Launchers → ⌃⌥⌘ · 1d Utilities & help | [x] |
 | 2 | Cursor movement, selection, deletion | [x] |
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
-| 4 | Window & tab controls | [ ] |
+| 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [ ] |
 | 6 | App-specific: 6a terminals · 6b browsers · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest | [ ] |
@@ -537,9 +537,12 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘\` / ⌘⇧\` | cycle the active app's windows | windows of the active class on every workspace, ordered by `stable_id`, focus next / previous (wraps) | same | ids `next-app-window`, `previous-app-window`. Fixed ring, not recency. A one-window app does nothing |
 | [-] | ⌘M | minimize | not mapped (D13) | same | Hyprland and Omarchy have no minimize and there is no dock to restore from. Use Omarchy's scratchpad (⌃⌥⇧S moves a window in, ⌃⌥S shows it). Consumed once the catch-all exists (7a) |
 | [-] | ⌘H | hide app | not mapped (D13) | same | as ⌘M; ⌘⌥H (hide others) is unmapped too |
-| [ ] | ⌘, | preferences | `Ctrl+comma` | Ghostty `Ctrl+comma` (open config); else consume | browsers/LibreOffice in 6b/6f |
+| [x] | ⌘, | preferences | `Ctrl+comma` | consume | id `preferences`. VS Code, Obsidian and Nautilus open their settings on `Ctrl+,`. Browsers and LibreOffice have no such shortcut (6b, 6f); Ghostty's open-config `Ctrl+comma` comes in 6a. Omarchy's dismiss-last-notification left ⌘, in 1d |
 
 `[-]` marks a key deliberately left unmapped (§7).
+
+Phase 4 is complete (2026-10-03). What it left for later is already in the 6a–6f
+tables below, §7 and 7a (§11 has the list).
 
 ### Phase 5 — OS controls
 
@@ -1665,3 +1668,29 @@ and the next step.
     to implement them. For keys whose Linux counterpart is doubtful, ask whether
     to map them at all.
   - **Next:** ⌘, (preferences), the last Phase 4 row.
+- **2026-10-03 — Phase 4: ⌘,.**
+  - Committed the D13 docs first (b21a5ae).
+  - Added `preferences` to `windows.lua`: `Ctrl+comma` in GUI apps, consumed in
+    terminals. Not `repeating`. `SUPER + comma` was free (Omarchy's dismiss-last
+    moved in 1d; the other notification binds use other modifiers). 73 bindings,
+    108 relocations, no duplicates.
+  - Handler tests: keylog got `comma` with `mods=CTRL`; a foot probe got no
+    bytes.
+  - The user's physical tests (§8.2) passed. **Phase 4 is complete.**
+  - Phase 4 in short: `windows.lua` (73 bindings in total, 108 relocations, no
+    duplicates) with ⌘W / ⌘⇧W / ⌘Q, ⌘N / ⌘⇧N / ⌘T / ⌘⇧T, ⌘O / ⌘P / ⌘R / ⌘L,
+    ⌘1–⌘9, zoom, ⌘[ / ⌘], tab switching, ⌘Tab app switching (`lib/switcher.lua`),
+    ⌘` and ⌘,. ⌘M and ⌘H were dropped (D13).
+  - **Carried into later phases** (each is in its own table already):
+    - 6a: Ghostty and kitty tab keys (⌘W `Ctrl+Shift+W`, ⌘T `Ctrl+Shift+T`,
+      ⌘1–9 `Alt+N`, tab switching `Ctrl+Page_Up/Down`, ⌘, `Ctrl+comma`). For
+      now ⌘W closes their window and ⌘T opens a new one.
+    - 6b: ⌘, in browsers; Firefox ⌘⇧N → `Ctrl+Shift+P`.
+    - 6c: optional VS Code ⌘0 → `Ctrl+KP_0` (§9 F4).
+    - 6d: Nautilus ⌘1 / ⌘2 swapped to match Finder, ⌘3 / ⌘4 consumed (§9 F5).
+    - 6e: Obsidian ⌘⌥← / ⌘⌥→ back / forward, and the ⌘U oddity.
+    - 6f: LibreOffice ⌘, → `Alt+F12`.
+    - 7a: consume ⌘M and ⌘H (D13). 7j: optional ⌘Tab overlay. 8.3: watch for
+      Omarchy adding `Super + Grave` (§9 F7).
+  - **Next:** Phase 5 (OS controls) and Phase 6 (app-specific), in a later
+    session. Start with the Status board and this entry.
