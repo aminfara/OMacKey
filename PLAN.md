@@ -557,7 +557,7 @@ tables below, §7 and 7a (§11 has the list).
 | [x] | ⌃⌘⇧3 | screen to clipboard | `omarchy-capture-screenshot fullscreen copy` | id `screenshot-screen-clipboard` |
 | [x] | ⌘⇧4 | region to file | `omarchy-capture-screenshot region save` | id `screenshot-region-file`, `SUPER + SHIFT + code:13`. Omarchy's picker: ⏎ captures the window under the cursor, ≈ Mac's Space |
 | [x] | ⌃⌘⇧4 | region to clipboard | `omarchy-capture-screenshot region copy` | id `screenshot-region-clipboard` |
-| [ ] | ⌘⇧5 | capture menu | `omarchy-menu toggle capture` | also covers screen recording |
+| [x] | ⌘⇧5 | capture menu | `omarchy-menu toggle capture` | id `capture-menu`, `SUPER + SHIFT + code:14`. Also covers screen recording; Omarchy's own `SUPER + CTRL + C` opens the same menu |
 | [ ] | ⌘? (⌘⇧/) | help | `omarchy-menu-keybindings` | added in 1d, verify here |
 | [ ] | ⌃⌘Space | emoji & symbols | `omarchy-shell shell toggle omarchy.emojis` | the background switcher moved off ⌃⌘Space in 1d |
 | [ ] | ⌥⌘D | show/hide Dock | `omarchy-toggle-bar` (top bar) | ⌘⇧Space still works |
@@ -1734,3 +1734,10 @@ and the next step.
   - Handler test: the picker (slurp) starts and I closed it without capturing.
     Dragging a region, Return and the saved file are left to the physical test.
   - **Next:** ⌘⇧5 (capture menu), then ⌘⌥Esc, emoji, ⌥⌘D, verify-only items.
+- **2026-10-03 — Phase 5: ⌘⇧5.**
+  - Committed ⌘⇧4 / ⌃⌘⇧4 first (8a85649; the user's tests passed).
+  - Added `capture-menu` to `system.lua`: ⌘⇧5 runs `omarchy-menu toggle
+    capture`. Key was free. 79 bindings, 108 relocations, no duplicates.
+  - Not triggered by me (it opens a menu over the user's screen); awaiting the
+    physical test.
+  - **Next:** ⌘⌥Esc (force quit), then emoji, ⌥⌘D, verify-only items.

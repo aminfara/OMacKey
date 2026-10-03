@@ -50,3 +50,13 @@ action({
   desc = "Screenshot of a region to clipboard",
   dispatcher = hl.dsp.exec_cmd("omarchy-capture-screenshot region copy"),
 })
+
+-- Capture menu: Omarchy's, which also covers screen recording.
+action({
+  id = "capture-menu",
+  category = "System",
+  mac = "⌘⇧5",
+  keys = "SUPER + SHIFT + code:14",
+  desc = "Capture menu",
+  dispatcher = hl.dsp.exec_cmd("omarchy-menu toggle capture"),
+})
