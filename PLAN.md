@@ -301,6 +301,8 @@ Profiles (`lib/apps.lua`):
   browser tag regex.
 - Omarchy web apps (classes like `chrome-<host>__…-Default`) are deliberately
   left on the default profile.
+- A `no-tabs` profile (empty at first) lists GUI window classes where ⌘W closes
+  the window instead of sending `Ctrl+W`.
 
 ### 4.3 Relocation mechanism — approach A chosen (spike S7, §9 F1)
 
@@ -502,7 +504,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 
 | ✓ | Mac | Meaning | GUI apps | Term | Notes |
 | --- | --- | --- | --- | --- | --- |
-| [ ] | ⌘W | close tab / window | `Ctrl+W` | foot/Alacritty: `hl:close`; Ghostty/kitty: `Ctrl+Shift+W` | keep a "no-tabs" class list where ⌘W → `hl:close` (grow it from Findings) |
+| [x] | ⌘W | close tab / window | `Ctrl+W` | `hl:close` in every terminal (foot, Alacritty, Omarchy TUIs); Ghostty/kitty `Ctrl+Shift+W` waits for 6a | `no-tabs` profile in `config.lua` (empty): ⌘W → `hl:close` for the classes listed there, grown from findings. VS Code with no editor open ignores ⌘W (§7) |
 | [ ] | ⌘⇧W | close window | browsers/VS Code: `Ctrl+Shift+W`; default `hl:close` | `hl:close` | |
 | [ ] | ⌘Q | quit app | close every window of the active class (`hl.get_windows`, then close each) | same | Mac semantics: all windows of the app |
 | [ ] | ⌘N | new window | `Ctrl+N` | `Ctrl+Shift+N` | |
@@ -552,7 +554,7 @@ the app's own Linux keybindings before implementing. Record app quirks in §9.
 | --- | --- | --- |
 | ⌘T | `Ctrl+Shift+N` (no tabs: new window) | `Ctrl+Shift+T` |
 | ⌘N | `Ctrl+Shift+N` | `Ctrl+Shift+N` |
-| ⌘W | `hl:close` | `Ctrl+Shift+W` |
+| ⌘W | `hl:close` (done in Phase 4) | `Ctrl+Shift+W` (until Ghostty gets its own profile, Phase 4's ⌘W closes the whole window; kitty too, verify) |
 | ⌘1–9 | consume | `Alt+1–9` |
 | ⌘⇧[ ⌘⇧] / ⌘⌥← ⌘⌥→ | consume | `Ctrl+Page_Up/Page_Down` (verify) |
 | ⌘F | `Ctrl+Shift+R` (scrollback search) | verify (`Ctrl+Shift+F` in 1.2+?) |
@@ -581,7 +583,8 @@ Firefox best-effort)
 | ⌘, | investigate (open `brave://settings` / `chrome://settings`?) or unmapped | |
 | ⌘←/→ outside text fields | not emulated (Mac: back/forward) | §7 |
 
-**6c — VS Code** (class `code`; also `code-oss` / `Code`). Linux VS Code
+**6c — VS Code** (class `com.microsoft.VSCode` on this machine, native
+Wayland; also `code`, `code-oss` / `Code` elsewhere). Linux VS Code
 defaults mostly mirror the Mac ones with Ctrl in place of ⌘, so the generic
 rules cover most of it.
 
@@ -837,6 +840,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Physical ⌃←/⌃→ word jump in Linux apps | ⌃←/→ now switch Spaces (as on a Mac) | ⌥←/⌥→ |
 | Nautilus ⌘D duplicate, ⌘⇧⌫ empty trash, ⏎ to rename | no direct Nautilus action | F2 renames |
 | Browser ⌘, (settings) | no Linux shortcut | pending 6b |
+| VS Code ⌘W with no editor open | Linux VS Code ignores `Ctrl+W` on an empty window (macOS closes the window). Listing VS Code under `no-tabs` would close the window while editors are open | ⌘⇧W (`Ctrl+Shift+W` closes the window) |
 
 ---
 
@@ -854,11 +858,15 @@ doesn't report them as unused when the condition is off. Verified with
   run `hyprctl repl 'return omackey.trigger("<id>")'`, then read the log.
   - Check focus in the same command: focus tends to jump back to VS Code
     between commands.
+  - For a handler that acts on the window itself (⌘W closes it), check and
+    trigger in one `repl` call so focus can't change in between:
+    `hyprctl repl "local w = hl.get_active_window(); if w and w.pid == <pid> then return omackey.trigger('<id>') end; return 'wrong window'"`.
   - `omackey.fired("<id>")` counts real presses since the last reload.
   - `wtype` can't test binds: virtual-keyboard input never triggers Hyprland
     binds (§9 F1).
   - `keylog.py` is single-instance, so a second launch only focuses a running
-    one and logs nothing (§9 F2 has a private-copy recipe).
+    one and logs nothing (§9 F2 has a private-copy recipe). A private copy's
+    window class is `keylog.py`, not `omackey.keylog`, so focus it by pid.
 - A plain text field:
   `data:text/html,<textarea autofocus style="width:100%;height:95vh"></textarea>`
   opened in Brave Origin and in Chromium.
@@ -1055,6 +1063,23 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   - `hyprctl dispatch 'hl.dsp.focus({ window = "pid:<pid>" })'`;
   - check `hyprctl activewindow -j` for that pid right before each
     `omackey.trigger`, so stray keys can't land in another window.
+
+**F3 — Phase 4 findings (2026-10-03)**
+
+- **VS Code's window class** here is `com.microsoft.VSCode` (native Wayland,
+  installed in `/usr/share/code`), not `code` as CLAUDE.md and 6c assumed.
+  The 6c profile has to use it.
+- **⌘W in VS Code** closes the active editor (also inside editor groups). With
+  no editor open it does not close the window: that is native Linux behaviour,
+  macOS closes it. `Ctrl+Shift+W` closes the window (⌘⇧W, next). VS Code stays
+  off the `no-tabs` list, which would close the window with editors open (§7).
+- **Terminal tag coverage.** Omarchy's `terminal` tag matches `Alacritty`,
+  `kitty`, `com.mitchellh.ghostty`, `foot`, `wezterm`, `org.omarchy.*` and
+  `TUI.*`, so ⌘W also closes Omarchy's TUI windows (btop and friends).
+- **`window.pid`** is readable from Lua, so a test can check the active window
+  and fire a handler in one `hyprctl repl` call (§8.1).
+- **A private keylog copy** (D-Bus disabled) has window class `keylog.py`, not
+  `omackey.keylog`. Focus it by pid.
 
 ---
 
@@ -1287,3 +1312,22 @@ and the next step.
   - Phase 3 acceptance extras were covered earlier: ⌘V in the Omarchy
     launcher, and the clipboard manager on ⌃⌘V is unaffected.
   - **Next:** Phase 4, window and tab controls.
+- **2026-10-03 — Phase 4: ⌘W.**
+  - New `windows.lua` (added to `config.modules`) with `close-tab`: ⌘W sends
+    `Ctrl+W` in GUI apps and closes the window (`hl.dsp.window.close()`) in
+    every terminal. Not `repeating`. `SUPER + W` was free (Omarchy's close
+    moved to ⌃⌥W in 1a). 39 bindings, 108 relocations, no duplicates.
+  - New, still empty `no-tabs` profile in `config.lua`: classes listed there
+    get the close-window action too. Nothing needs it yet.
+  - Deviation: the Ghostty/kitty `Ctrl+Shift+W` variant waits for 6a. Neither
+    is installed, and the plan marks Ghostty's defaults "verify".
+  - Handler tests: keylog got `w` with `mods=CTRL`. A foot probe window was
+    closed (SIGHUP, no `^W` byte). With the keylog's class added to `no-tabs`
+    in memory, the window closed and the app received no key. Each trigger
+    checked the active window's pid in the same `repl` call.
+  - The user's physical tests (§8.2) passed: keylog, Brave Origin, foot, hold
+    and rapid presses, the other apps and the help menu. VS Code closes editor
+    tabs (also in editor groups) but not the window once every editor is
+    closed. That is native behaviour (§7, F3).
+  - **Next:** ⌘⇧W (close window), then ⌘Q (quit app: every window of the
+    class).

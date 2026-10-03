@@ -44,7 +44,8 @@ keys. Don't run ahead into later phases.
 - **Apps:**
   - foot (default terminal, bash) and Brave Origin (default browser, class
     `brave-origin`);
-  - Chromium, VS Code (class `code`), Obsidian, Nautilus, LibreOffice;
+  - Chromium, VS Code (class `com.microsoft.VSCode`), Obsidian, Nautilus,
+    LibreOffice;
   - Ghostty and Google Chrome must be supported too, but may need installing
     for testing.
 - **Lua:** Hyprland embeds Lua 5.5, and system `lua` (used by the help-menu

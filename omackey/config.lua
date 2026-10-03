@@ -7,6 +7,7 @@ return {
     "spaces", -- Phase 1b: workspaces on ⌃ (vertical pair, move window)
     "text", -- Phase 2: cursor movement, selection, deletion
     "editing", -- Phase 3: clipboard, undo/redo, find, save
+    "windows", -- Phase 4: window and tab controls
   },
 
   -- How long a synthetic key stays down before its release is sent.
@@ -24,5 +25,8 @@ return {
       -- Omarchy's browser tag regex does not cover Brave Origin.
       classes = { "brave-origin" },
     },
+    -- GUI apps where Ctrl+W doesn't close the window: ⌘W closes it instead.
+    -- Add a window class here (hyprctl clients) when ⌘W does nothing.
+    { name = "no-tabs", classes = {} },
   },
 }
