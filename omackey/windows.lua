@@ -120,7 +120,7 @@ mac({
 })
 
 -- Private window in browsers, new folder in file managers. Firefox's private
--- window is Ctrl+Shift+P (6b).
+-- window is Ctrl+Shift+P.
 mac({
   id = "new-window-private",
   category = "Windows",
@@ -130,6 +130,7 @@ mac({
   actions = {
     default = tap("CTRL + SHIFT", "N"),
     terminal = "consume",
+    firefox = tap("CTRL + SHIFT", "P"),
   },
 })
 
@@ -433,8 +434,11 @@ mac({
 })
 
 -- Preferences. Omarchy's "dismiss last notification" moved off ⌘, in Phase 1d.
--- VS Code, Obsidian and Nautilus open their settings on Ctrl+, ; browsers and
--- LibreOffice have no such shortcut (6b, 6f). In terminals the preferences are
+-- VS Code, Obsidian and Nautilus open their settings on Ctrl+, ; LibreOffice
+-- has no such shortcut (6f). Browsers have none either. Firefox opens
+-- about:preferences when run with that URL; the Chromium family turns a
+-- chrome:// URL given on the command line into a blank tab, so there ⌘, sends the
+-- generic Ctrl+, (some web apps use it) and settings stay unmapped (§7). In terminals the preferences are
 -- the config file: kitty opens it on Ctrl+Shift+F2. Ghostty's own Ctrl+, runs
 -- xdg-open, which starts nvim without a terminal and shows nothing (§9 F10), so
 -- Ghostty gets Omarchy's editor launcher instead. Other terminals consume it.
@@ -447,6 +451,9 @@ mac({
   actions = {
     default = tap("CTRL", "comma"),
     terminal = "consume",
+    firefox = function()
+      hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
+    end,
     ghostty = function()
       hl.dispatch(hl.dsp.exec_cmd('omarchy-launch-editor "$HOME/.config/ghostty/config"'))
     end,

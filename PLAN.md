@@ -58,7 +58,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals ✅ · 6b browsers · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
@@ -210,6 +210,7 @@ OMacKey/
 │   ├── editing.lua           (Phase 3)
 │   ├── windows.lua           (Phase 4)
 │   ├── system.lua            (Phase 5)
+│   ├── browsers.lua          Phase 6b: DevTools, history, downloads, bookmarks, clear data (Firefox entries sit on the keys they extend)
 │   ├── terminals.lua         Phase 6a: ⌘K clear, ⌘D / ⌘⇧D splits (other terminal entries sit on the keys they extend)
 │   ├── apps/                 (Phase 6) profile overrides
 │   └── catchall.lua          (Phase 7)
@@ -608,19 +609,36 @@ tmux: Hyprland can't tell that tmux is running, so tmux is treated as a plain
 terminal (confirmed as the default).
 
 **6b — Browsers** (Brave, Brave Origin `brave-origin`, Chromium, Google Chrome;
-Firefox best-effort)
+Firefox best-effort) — done 2026-10-04
 
-| Mac | Action | Notes |
-| --- | --- | --- |
-| ⌘[ / ⌘] | `Alt+Left` / `Alt+Right` | back / forward |
-| ⌘⌥I / ⌘⌥J / ⌘⌥C | `Ctrl+Shift+I` / `J` / `C` | devtools / console / inspect |
-| ⌘⌥U | `Ctrl+U` | view source |
-| ⌘Y | `Ctrl+H` | history |
-| ⌘⇧J | `Ctrl+J` | downloads (Firefox: `Ctrl+Shift+Y`) |
-| ⌘⌥B | `Ctrl+Shift+O` | bookmark manager |
-| ⌘⇧N | Firefox: `Ctrl+Shift+P` | private window |
-| ⌘, | investigate (open `brave://settings` / `chrome://settings`?) or unmapped | |
-| ⌘←/→ outside text fields | not emulated (Mac: back/forward) | §7 |
+Scope confirmed with the user: ⌘⇧⌫ is added (not in the original plan);
+Firefox follows the Chrome habit for ⌘⇧J; ⌘, is Firefox-only. New profile
+`firefox` (family `browser`) in `config.lua`; new module `browsers.lua`. Keys
+checked against Chrome's own Mac/Linux shortcut page and Firefox's DevTools
+docs (§9 F11). ⌘[ / ⌘] were done in Phase 4.
+
+| Mac | Chromium family | Firefox | Notes |
+| --- | --- | --- | --- |
+| ⌘⌥I | `Ctrl+Shift+I` | same | every GUI app (Obsidian toggles DevTools on it too); terminals and VS Code consume (VS Code: Format Document owns that key, §9 F11). id `devtools` |
+| ⌘⌥J | `Ctrl+Shift+J` | same (Browser Console) | console. id `devtools-console` |
+| ⌘⌥C | `Ctrl+Shift+C` | same | inspect element. id `devtools-inspect` |
+| ⌘⌥U | `Ctrl+U` | same | view source. id `view-source` |
+| ⌘Y | `Ctrl+H` | same | history. id `history` |
+| ⌘⇧J | `Ctrl+J` | `Ctrl+Shift+Y` | downloads; Firefox follows Chrome's key (user's choice). id `downloads` |
+| ⌘⌥B | `Ctrl+Shift+O` | same | bookmark manager. id `bookmark-manager` |
+| ⌘⇧⌫ | `Ctrl+Shift+Delete` | same | clear browsing data (opens a dialog, deletes nothing until confirmed). id `clear-browsing-data` |
+| ⌘⇧N | `Ctrl+Shift+N` | `Ctrl+Shift+P` | private window (Phase 4's key, new Firefox entry) |
+| ⌘, | generic `Ctrl+,` | runs `firefox about:preferences` | Chromium family: no settings shortcut and the CLI route fails (§7, §9 F11) |
+| ⌘←/→ outside text fields | not emulated (Mac: back/forward) | | §7 |
+
+- [x] Profile `firefox`, module `browsers.lua`, Firefox entries on ⌘⇧N and ⌘,
+  (`windows.lua`).
+- [-] ⌘⌥K (Firefox web console): Omarchy's tmux-keybindings bind owns
+  `SUPER + ALT + K` (§6.5); not worth a relocation.
+- [x] Physical tests by the user (§8.2) in Brave Origin, Chromium, Firefox and
+  Obsidian passed. VS Code ⌘⌥I did nothing: fixed, see F11.
+- [x] Profile `vscode` (`config.lua`), created here because ⌘⌥I needs it; 6c
+  adds the VS Code entries.
 
 **6c — VS Code** (class `com.microsoft.VSCode` on this machine, native
 Wayland; also `code`, `code-oss` / `Code` elsewhere). Linux VS Code
@@ -904,7 +922,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Nautilus ⌘D duplicate, ⌘⇧⌫ empty trash, ⏎ to rename | no direct Nautilus action | F2 renames |
 | ⌘⇧Q log out | no instant logout wanted; Omarchy's system menu is not one | ⌘Esc opens the system menu |
 | F3 Mission Control key (`XF86LaunchA`) | same reason as ⌃↑ Mission Control: no overview in Hyprland or Omarchy (user's choice, 2026-10-03) | none |
-| Browser ⌘, (settings) | no Linux shortcut | pending 6b |
+| Chromium-family ⌘, (settings) | no Linux shortcut, and Chromium turns a `chrome://` URL on the command line into a blank tab (§9 F11); a typed-URL key sequence was judged too hacky (user's choice, 2026-10-04) | menu, or type `chrome://settings` / `brave://settings` (Firefox ⌘, works) |
 | VS Code ⌘W with no editor open | Linux VS Code ignores `Ctrl+W` on an empty window (macOS closes the window). Listing VS Code under `no-tabs` would close the window while editors are open | ⌘⇧W (`Ctrl+Shift+W` closes the window) |
 | Terminal ⌘G / ⌘⇧G (find next / previous) | they only act while a search is open, which Hyprland can't see: foot's keys are `Ctrl+S` / `Ctrl+R` (a stray `Ctrl+S` freezes output outside search) and Ghostty's Linux defaults have none (the Mac's ⌘G is `performable`, so it passes through when no search is open) | optional Ghostty line `keybind = performable:ctrl+g=navigate_search:next` in the Ghostty config, not applied |
 | Ghostty ⌘W in a split | Linux Ghostty's `Ctrl+Shift+W` closes the whole tab; closing one split needs a `close_surface` keybind in the user's config | optional, not applied |
@@ -1335,6 +1353,52 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   - Terminal-internal features (splits, search, scrolling): `grim -g` of the
     window geometry, read as an image.
   - `kitty` starts its own process by default; `foot` too (class `foot`).
+
+**F11 — Browser keys (6b, 2026-10-04)**
+
+- **Sources.** Chrome's keyboard-shortcut page (Mac and Linux columns; its
+  summary listed `Ctrl+Shift+J` for DevTools, but Chrome's DevTools key on Linux
+  is `Ctrl+Shift+I`, which the test confirmed), and Firefox's DevTools shortcut
+  docs (Mac ⌘⌥I / ⌘⌥K / ⌘⌥C = toolbox / Web Console / Inspector; Linux the
+  same letters with `Ctrl+Shift`). The fetched summary also gave ⌘⌥J for the
+  Browser Console, but a search result says ⌘⇧J, so treat ⌘⌥J in Firefox as
+  unverified (it sends `Ctrl+Shift+J`, which is Firefox's Browser Console on
+  Linux). Firefox's general shortcut page would not load.
+- **The Mac letters carry over.** ⌘⌥ + I/J/C → `Ctrl+Shift` + the same letter
+  in both families. Firefox's ⌘⌥K needs `SUPER + ALT + K`, which Omarchy binds
+  to tmux keybindings.
+- **Differences per browser.** Chrome Mac: ⌘⌥U source, ⌘Y history, ⌘⇧J downloads,
+  ⌘⌥B bookmark manager, ⌘⇧⌫ clear data. Firefox Mac (⌘J downloads and ⌘⇧J
+  Browser Console confirmed by a search result; ⌘U source, ⌘⇧H history, ⌘⇧O
+  library, ⌘⇧P private from memory, not checked): OMacKey uses
+  the Chrome set in both (user's choice for ⌘⇧J), except ⌘⇧N → `Ctrl+Shift+P`
+  in Firefox.
+- **Firefox 155** shows "Clear browsing data and cookies" as a modal inside
+  the window: until it is dismissed (Esc), further shortcuts do nothing. Its
+  downloads (`Ctrl+Shift+Y`), bookmarks (`Ctrl+Shift+O`) and private window each
+  open a separate window of the same process; the history is a sidebar.
+- **Chromium (152) rewrites `chrome://` and `about:` URLs given on the
+  command line to a new-tab page**, both for a running instance and on a fresh
+  start (`chromium chrome://settings`, `chrome://version`, `about:version`
+  all gave `chrome://newtab/`). No policy in `/etc/chromium/policies` causes it.
+  Not confirmed for Brave Origin (a fresh profile showed Brave's startup page
+  instead), assumed the same. `Alt+F` did not open the Chromium menu through
+  synthetic keys. Firefox does accept `firefox about:preferences` (opened the
+  Settings tab in the running instance).
+- **VS Code ⌘⌥I (found by the user's physical test).** Toggle Developer Tools is
+  `Ctrl+Shift+I` on Linux (`primary:3111`; ⌥⌘I on the Mac, `2599`), but so is
+  Format Document (`kbExpr: editorTextFocus`, `linux: { primary: 3111 }`), and
+  it wins with the editor focused. Read from the installed
+  `workbench.desktop.main.js`. So the synthetic key would reformat the file, not
+  open DevTools. VS Code now consumes ⌘⌥I (profile `vscode`); DevTools stay on
+  the command palette (`Developer: Toggle Developer Tools`) or Help menu.
+- **Test recipes.** Chromium: `chromium --user-data-dir=DIR --no-first-run
+  --remote-debugging-port=PORT`; `curl localhost:PORT/json` lists the tabs, so
+  history, downloads, bookmarks, view-source, clear data and DevTools show up as
+  tabs or targets. Firefox: `firefox --no-remote --profile DIR`, its windows
+  from `hyprctl clients`, screenshots for the sidebar and DevTools. Close extra
+  windows by address between keys: a new window takes focus. The Brave profile
+  needs its own first-run handling, so Brave was not driven.
 
 ---
 
@@ -1937,3 +2001,38 @@ and the next step.
   - The user's physical tests (§8.2) in foot, Ghostty and kitty passed. **6a is
     complete.** Committed.
   - **Next:** 6b, browsers.
+- **2026-10-04 — Phase 6b: browsers.**
+  - Committed 6a first (7e800df) after the user's manual tests passed.
+  - Checked the keys against Chrome's Mac/Linux shortcut page and Firefox's
+    DevTools docs (§9 F11). Decisions with the user: add ⌘⇧⌫ (clear browsing
+    data); Firefox ⌘⇧J follows Chrome (`Ctrl+Shift+Y`); ⌘, opens settings
+    through the browser CLI. ⌘⌥K dropped: Omarchy owns `SUPER + ALT + K`.
+  - Code: profile `firefox` (family `browser`); new `browsers.lua` with
+    `devtools` (all GUI apps, terminals consume), `devtools-console`,
+    `devtools-inspect`, `view-source`, `history`, `downloads`,
+    `clear-browsing-data`, `bookmark-manager`; Firefox entries on ⌘⇧N and ⌘,
+    (`windows.lua`). 97 bindings, 108 relocations, no duplicates; the help menu
+    lists them.
+  - **Deviation from the choice made on ⌘,:** the CLI route does not work in the
+    Chromium family (`chrome://` becomes a blank tab, §9 F11), so I came back to
+    the user; they chose to leave Chromium-family ⌘, unmapped (§7) and keep the
+    CLI for Firefox only. The `browser_settings` map was removed again.
+  - Handler tests on throwaway browsers with their own profiles (the user's
+    Brave was not touched):
+    - Chromium: ⌘Y, ⌘⇧J, ⌘⌥B, ⌘⌥U, ⌘⇧⌫ opened the history, downloads,
+      bookmarks, view-source and clear-data pages (tab list from the debugging
+      port); ⌘⌥I, ⌘⌥J, ⌘⌥C opened and toggled DevTools.
+    - Firefox: ⌘⇧J opened the Library, ⌘⇧⌫ the clear-data dialog, ⌘⇧N a private
+      window, ⌘⌥B the Library, ⌘⌥U a view-source tab, ⌘Y the history sidebar,
+      ⌘⌥I the toolbox (screenshots/window titles).
+    - Not triggered: ⌘, in Firefox (it would start or use the user's own Firefox
+      profile; the command itself was run by hand against the throwaway
+      profile), and any key in Brave Origin (same `browser` profile as Chromium).
+  - **Open:** the user's physical tests (§8.2) in Brave Origin, Chromium and
+    Firefox.
+  - **Next:** 6c, VS Code.
+  - The user's physical tests passed for the browsers and Obsidian. ⌘⌥I did
+    nothing in VS Code: Linux VS Code binds `Ctrl+Shift+I` to Format Document
+    too, which wins with the editor focused (§9 F11). New `vscode` profile
+    (`config.lua`, reused by 6c); ⌘⌥I is consumed there so it can never reformat
+    a file. **6b is complete.**

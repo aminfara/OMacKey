@@ -10,6 +10,7 @@ return {
     "windows", -- Phase 4: window and tab controls
     "system", -- Phase 5: OS controls (lock, screenshots, emoji)
     "terminals", -- Phase 6a: terminal-only keys (clear, split)
+    "browsers", -- Phase 6b: devtools, history, downloads, bookmarks
   },
 
   -- How long a synthetic key stays down before its release is sent.
@@ -27,12 +28,16 @@ return {
     { name = "kitty", family = "terminal", classes = { "kitty" } },
     { name = "foot", family = "terminal", classes = { "foot", "org.codeberg.dnkl.foot" } },
     { name = "terminal", tags = { "terminal" } },
+    -- Firefox differs from the Chromium family in a few shortcuts (Phase 6b).
+    { name = "firefox", family = "browser", tags = { "firefox-based-browser" } },
     {
       name = "browser",
       tags = { "chromium-based-browser", "firefox-based-browser" },
       -- Omarchy's browser tag regex does not cover Brave Origin.
       classes = { "brave-origin" },
     },
+    -- VS Code (class com.microsoft.VSCode here; the others for other installs).
+    { name = "vscode", classes = { "com.microsoft.VSCode", "code", "code-oss", "Code" } },
     -- Nautilus: Alt+Left/Right go back/forward, so ⌘[ / ⌘] (6d adds the rest).
     { name = "nautilus", classes = { "org.gnome.Nautilus" } },
     -- GUI apps where Ctrl+W doesn't close the window: ⌘W closes it instead.
