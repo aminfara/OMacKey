@@ -2,7 +2,10 @@
 
 local bind = require("hypr.omackey.lib.bind")
 local tap = require("hypr.omackey.lib.send").tap
+local switcher = require("hypr.omackey.lib.switcher")
 local mac, action = bind.mac, bind.action
+
+switcher.start()
 
 local function close_window()
   hl.dispatch(hl.dsp.window.close())
@@ -29,55 +32,6 @@ local function quit_app()
   end
 end
 
--- An "app" is a window class, as in ⌘Q. Returns the most recently focused
--- window of every app except the one in front, newest first, using Hyprland's
--- own focus history. Scratchpad windows are left out.
-local function other_apps()
-  local active = hl.get_active_window()
-  local front = active and (active.class ~= "" and active.class or active.address)
-  local latest = {}
-
-  for _, window in ipairs(hl.get_windows({ mapped = true })) do
-    local app = window.class ~= "" and window.class or window.address
-    local workspace = window.workspace
-    if app ~= front and not window.hidden and not (workspace and workspace.special) then
-      local seen = latest[app]
-      if not seen or window.focus_history_id < seen.focus_history_id then
-        latest[app] = window
-      end
-    end
-  end
-
-  local apps = {}
-  for _, window in pairs(latest) do
-    table.insert(apps, window)
-  end
-  table.sort(apps, function(a, b)
-    return a.focus_history_id < b.focus_history_id
-  end)
-
-  return apps
-end
-
-local function focus_window(window)
-  hl.dispatch(hl.dsp.focus({ window = window }))
-  if window.floating then
-    hl.dispatch(hl.dsp.window.bring_to_top())
-  end
-end
-
--- macOS app switching without the overlay. The target becomes the most recent
--- app, so pressing ⌘Tab again comes back: two apps can be flipped between.
-local function switch_app(oldest)
-  local apps = other_apps()
-  local target = oldest and apps[#apps] or apps[1]
-  if not target then
-    return
-  end
-
-  focus_window(target)
-end
-
 -- ⌘` and ⌘⇧`: step through the windows of the active app (same class, every
 -- workspace) in a fixed order, wrapping around. Not recency: with three windows
 -- the ring visits all of them, as on a Mac.
@@ -100,7 +54,7 @@ local function cycle_app_windows(step)
 
   for index, window in ipairs(windows) do
     if window.address == active.address then
-      focus_window(windows[(index - 1 + step) % #windows + 1])
+      switcher.focus(windows[(index - 1 + step) % #windows + 1])
       return
     end
   end
@@ -401,32 +355,31 @@ mac({
   },
 })
 
--- ⌘Tab goes to the app used before this one, ⌘⇧Tab to the app used longest
--- ago (repeat it to walk through every app). Holding ⌘ to step deeper with the
--- overlay is not supported (§7). Omarchy's workspace switching on these keys
--- moved to ⌃⌥← / ⌃⌥→ in Phase 1b; ⌥Tab still cycles windows in layout order.
+-- ⌘Tab flips between the last two apps and, with ⌘ held, steps further along
+-- the recency list (lib/switcher.lua). Omarchy's workspace switching on these
+-- keys moved to ⌃⌥← / ⌃⌥→ in Phase 1b; ⌥Tab still cycles windows in layout order.
 mac({
   id = "switch-app",
   category = "Windows",
   mac = "⌘Tab",
   keys = "SUPER + TAB",
-  desc = "Switch to last app",
+  desc = "Switch app",
   actions = {
     default = function()
-      switch_app(false)
+      switcher.step(true)
     end,
   },
 })
 
 mac({
-  id = "switch-app-oldest",
+  id = "switch-app-back",
   category = "Windows",
   mac = "⌘⇧Tab",
   keys = "SUPER + SHIFT + TAB",
-  desc = "Switch to oldest app",
+  desc = "Switch app backwards",
   actions = {
     default = function()
-      switch_app(true)
+      switcher.step(false)
     end,
   },
 })

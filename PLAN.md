@@ -188,6 +188,7 @@ OMacKey/
 │   │   ├── send.lua          tap(), seq() with retained timers
 │   │   ├── apps.lua          active window → profile chain, e.g. { "terminal", "default" }
 │   │   ├── bind.lua          mac{} helper: per-profile dispatch, auto_consuming, registry, press counter
+│   │   ├── switcher.lua      ⌘Tab app switching (Phase 4): recency list from focus events, one session while ⌘ is held
 │   │   └── relocate.lua      hl.bind hook/unhook + key normalization (approach A, 4.3)
 │   ├── spaces.lua            Phase 1b: ⌃↑/↓ and ⌃⇧ arrows (workspaces), via action{}
 │   ├── text.lua              Phase 2 (⌘← added in Phase 0.6)
@@ -517,7 +518,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | ids `back`, `forward`. New `nautilus` profile (class `org.gnome.Nautilus`) in `config.lua`; 6d adds its other overrides. Descriptions have no comma: the help menu cuts them there |
 | [x] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a adds Ghostty and kitty | ids `previous-tab`, `next-tab` |
 | [x] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a | ids `previous-tab-arrow`, `next-tab-arrow`. Obsidian: back/forward (6e) |
-| [x] | ⌘Tab / ⌘⇧Tab | switch app (most recently used) | ⌘Tab: the most recent window of the app used before this one; ⌘⇧Tab: of the app used longest ago. Both from Hyprland's focus history (§9 F6) | same | ids `switch-app`, `switch-app-oldest`. An app is a window class, as in ⌘Q. Pressing ⌘Tab again flips back. No overlay and no hold-⌘ stepping (§7). Changed from the plan's window cycling at the user's request |
+| [x] | ⌘Tab / ⌘⇧Tab | switch app (most recently used) | ⌘Tab: next app in recency order, so a tap flips between the last two apps; pressing it again while ⌘ is held steps deeper. ⌘⇧Tab steps back (from the front app: the app used longest ago). Each stop focuses that app's latest window, crossing workspaces | same | ids `switch-app`, `switch-app-back`. An app is a window class, as in ⌘Q. The session ends when ⌘ is released, or when focus moves to another app (§9 F6). Code in `lib/switcher.lua`. No overlay (§7). Changed from the plan's window cycling at the user's request |
 | [x] | ⌘\` / ⌘⇧\` | cycle the active app's windows | windows of the active class on every workspace, ordered by `stable_id`, focus next / previous (wraps) | same | ids `next-app-window`, `previous-app-window`. Fixed ring, not recency. A one-window app does nothing |
 | [ ] | ⌘M | minimize | move the window to `special:minimized` (silent) | same | ⌃⌥M shows/hides minimized windows. Restore design: decide with the user at the start of this phase |
 | [ ] | ⌘H | hide app | proposal: all windows of the class → `special:minimized` | same | ⌘⌥H "hide others" is unmapped |
@@ -665,11 +666,28 @@ rules cover most of it.
   then document it.
 - [ ] **7h** Trackpad gestures (3-/4-finger swipes, as on a Mac) for laptop
   users: documentation only, since this machine is a desktop.
-- [ ] **7i** ⌘Tab hold-⌘ stepping (user's wish, 2026-10-03). Today ⌘Tab only
-  flips between the last two apps (§7). Find out whether it can step deeper
-  while ⌘ is held: a release bind on `Super_L` / `Super_R` (non-consuming) to end
-  the session, our own focus history that ignores the intermediate stops, and
-  maybe a small overlay. Revisit once the rest of Phase 4 is done.
+- [x] **7i** ⌘Tab hold-⌘ stepping (user's wish, 2026-10-03): done in Phase 4,
+  see `lib/switcher.lua` and §9 F6. Only the overlay is left (7j, §7).
+- [ ] **7j** (optional, later) ⌘Tab overlay: a QuickShell indicator that shows
+  the app icons while ⌘ is held, like the Mac switcher (user's idea,
+  2026-10-03).
+  - Omarchy's shell is QuickShell 0.3.1 (`/usr/share/omarchy/shell`, the
+    process is `quickshell -n -p /usr/share/omarchy/shell`). Its plugins have
+    kinds `overlay`, `panel`, `bar-widget`, `service` and `menu`; the emojis,
+    clipboard, image picker and reminders are overlays, so this would be an
+    overlay. `~/.config/omarchy/plugins` exists (not looked into). IPC is
+    `omarchy-shell [-q] <target> <method> [args]`, where `-q` is best-effort.
+  - Data is ready: `switcher.snapshot()` has the ring (app classes), the
+    position and the stop. `switcher.step` and `switcher.finish` are the
+    hooks: show or refresh on each step, hide at the end. Bind callbacks must
+    not block, so call out with `hl.dsp.exec_cmd`. Open question: whether a
+    process spawn per step is fast enough, or whether the plugin should read the
+    state some other way.
+  - Icons: map the window class to a desktop entry (QuickShell's
+    `DesktopEntries.heuristicLookup`, to verify).
+  - It adds a plugin to the user's Omarchy shell, so ask before touching
+    `~/.config/omarchy`, and make it an opt-in flag in `config.lua` (D12:
+    flags are for opt-in extras).
 
 ### Phase 8 — Docs generator, README, maintenance
 
@@ -837,7 +855,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Item | Why | Workaround |
 | --- | --- | --- |
 | ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview and Omarchy ships none. ⌃↑/↓ switch workspaces instead (1b) | ⌘\` cycles the active app's windows (Phase 4) |
-| ⌘Tab overlay and hold-⌘ stepping | there is no overlay, and a bind can't tell that ⌘ is still held between presses. ⌘Tab flips between the last two apps and ⌘⇧Tab jumps to the oldest | repeat ⌘⇧Tab to walk through every app; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
+| ⌘Tab overlay (app icons and names) | Hyprland has no switcher UI; the focus change itself is the feedback, and intermediate stops visibly flip workspaces. A QuickShell overlay is an optional idea, 7j | ⌘Tab / ⌘⇧Tab step through apps while ⌘ is held; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
 | ⌘⌥H hide others, ⌥⌘M minimize all | no simple equivalent | — |
 | ⌘-click (open link in new tab, go to definition, multi-select) | compositor binds can't add Ctrl to a pointer click | physical ⌃-click (on a Mac, ⌃-click is right-click) |
 | ⌥ + letter special characters (å ß ∂ …) | ⌥ stays Meta for terminals | Omarchy's compose key (Caps Lock) |
@@ -1120,20 +1138,43 @@ Sessions append facts learned here: spike results, app quirks, surprises.
 **F6 — App and window switching (2026-10-03)**
 
 - **`HL.Window.focus_history_id`** is Hyprland's own focus order: 0 is the
-  focused window, 1 the one before, and so on. Readable from Lua, so ⌘Tab
-  needs no event hooks or state, and it survives reloads.
+  focused window, 1 the one before, and so on. Readable from Lua. It ranks the
+  windows *within* an app, and the apps until OMacKey has seen a focus change.
+- **`hl.on("window.active", fn(window))`** fires once per focus change, with an
+  `HL.Window`. `lib/switcher.lua` keeps its own app recency list from it. Why:
+  stepping through apps with ⌘Tab focuses every stop, and Hyprland's history
+  would then rank the stops above the app you came from, so the next ⌘Tab
+  would not flip back. Outside a ⌘Tab session every focus change is recorded
+  (clicks, launches, other shortcuts). Inside one the stops are not, and when
+  it ends the list becomes [stop, then the rest in their old order], which is
+  what macOS does.
+- **`hl.on("input.keyboard.key", fn(keycode, time, state))`** reports every key
+  press (`state` 1) and release (0), physical ones included, with XKB keycodes:
+  Super_L is 133 (Super_R 134), Tab 23, Shift_L 50. The user's ⌘ + Tab test
+  showed `133:1 23:1 23:0 133:0`. Events can come twice (fcitx5's virtual
+  keyboard re-injects keys; consumed binds like Tab are not repeated). This is
+  how a ⌘Tab session knows ⌘ was released, so the subscription exists only
+  while a session is open. A subscription can remove itself inside its own
+  callback (`sub:remove()`), tested with wtype, whose virtual keyboard also
+  fires the event but with its own keycodes.
+- **The session survives changes it did not make.** Its ring holds app names,
+  not windows, and each step looks the windows up again: an app whose windows
+  are all gone is skipped, and new apps join at the next session. If focus
+  moved to another app since the last stop (a click, ⌥Tab, a window closing or
+  opening), the next press starts a new session from where focus is. There is
+  no timer: a missed ⌘ release would end at the next ⌘ release, whichever
+  shortcut it belongs to.
 - **`hl.dsp.focus({ window = <HL.Window> })`** also switches to the window's
   workspace (seen: 2 → 5 → 2 → 1 → 5 on the user's windows).
 - **`window.workspace.special`** marks scratchpad windows. ⌘Tab leaves them out.
 - **`hl.dsp.window.cycle_next()`** walks a ring of the windows on the current
   workspace (layout order), and `{ next = false }` retraces it. Omarchy's ⌥Tab
   follows each cycle with `bring_to_top`, which reorders that ring, so its
-  reverse no longer retraces (next, next, next, then prev, prev landed on a
-  window already visited). Not used by OMacKey.
+  reverse no longer retraces. Not used by OMacKey.
 - **macOS ⌘Tab** switches *apps* by recency: one press flips between the two
   most recent apps (the latest window of each), and holding ⌘ while pressing
-  Tab walks deeper in the list. The first version here cycled windows; the user
-  corrected it.
+  Tab (or ⇧Tab) walks along the list. The first version here cycled windows;
+  the user corrected it, then asked for the deeper stepping.
 
 ---
 
@@ -1525,4 +1566,38 @@ and the next step.
     matched the `stableId` order from `hyprctl clients -j`. Obsidian, with one
     window, stayed put.
   - The user's physical tests (§8.2) passed.
-  - **Next:** ⌘Tab hold-⌘ stepping (7i), brought forward by the user.
+- **2026-10-03 — Phase 4: ⌘Tab hold-⌘ stepping (7i brought forward).**
+  - Committed ⌘` / ⌘⇧` first (e6a1442).
+  - ⌘Tab now runs a session: the first press builds a ring (front app, then
+    the others by recency), each press steps along it (⌘Tab forward, ⌘⇧Tab
+    back; from the front app ⌘⇧Tab reaches the oldest app), and the focus
+    change is the feedback. The session ends when ⌘ is released (keycodes 133 /
+    134 on `input.keyboard.key`, subscribed only during a session). The app you
+    stopped on becomes the most recent and the rest keep their order. Renamed
+    `switch-app-oldest` to `switch-app-back`. 72 bindings, 108 relocations, no
+    duplicates.
+  - The user tested a first version (it worked) and called it hacky: loose
+    module variables reassigned by closures, test hooks bolted onto the bind
+    spec, a timer with a generation counter, and a ring of window objects that
+    go stale. Rewrote it as `lib/switcher.lua`: one state table, a ring of app
+    names looked up again at every step, no timer, and `snapshot()` / `finish()`
+    as the test interface. `windows.lua` only binds the keys and `switcher.focus`
+    is shared with ⌘`.
+  - Tests on the user's live windows (focus changes only, no keys sent; focus
+    restored; throwaway `foot -a omackey.*` windows):
+    - model of the macOS behaviour: tap, tap back, hold forward ×3, forward ×2
+      then back, back ×1, back ×3 and forward ×7 (wrapping) all matched, and so
+      did the order after each session;
+    - changes outside the keyboard: focus changes outside a session are
+      recorded; an app closing mid-session is skipped; closing the current stop
+      restarts from where focus landed; a click on another app mid-session and
+      a new window opening mid-session restart and flip back to where we came
+      from; new apps are in the next ring. The suite passed 6 of 7 runs; the
+      one failure was a timing race in the test (the closing window was still
+      mapped when the step ran).
+    - Sessions ended through `switcher.finish()`, because a script can't
+      release ⌘. A self-removing subscription works inside its own callback.
+  - The user's physical retest passed ("works perfectly"). An optional QuickShell
+    overlay with app icons is noted as 7j.
+  - **Next:** ⌘M and ⌘H (minimize and hide); the restore design needs a decision
+    with the user first.
