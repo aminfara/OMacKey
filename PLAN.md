@@ -518,7 +518,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a adds Ghostty and kitty | ids `previous-tab`, `next-tab` |
 | [x] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a | ids `previous-tab-arrow`, `next-tab-arrow`. Obsidian: back/forward (6e) |
 | [x] | ⌘Tab / ⌘⇧Tab | switch app (most recently used) | ⌘Tab: the most recent window of the app used before this one; ⌘⇧Tab: of the app used longest ago. Both from Hyprland's focus history (§9 F6) | same | ids `switch-app`, `switch-app-oldest`. An app is a window class, as in ⌘Q. Pressing ⌘Tab again flips back. No overlay and no hold-⌘ stepping (§7). Changed from the plan's window cycling at the user's request |
-| [ ] | ⌘\` / ⌘⇧\` | cycle the active app's windows | Lua: windows of the active class, ordered by `stable_id`, focus next | — | |
+| [x] | ⌘\` / ⌘⇧\` | cycle the active app's windows | windows of the active class on every workspace, ordered by `stable_id`, focus next / previous (wraps) | same | ids `next-app-window`, `previous-app-window`. Fixed ring, not recency. A one-window app does nothing |
 | [ ] | ⌘M | minimize | move the window to `special:minimized` (silent) | same | ⌃⌥M shows/hides minimized windows. Restore design: decide with the user at the start of this phase |
 | [ ] | ⌘H | hide app | proposal: all windows of the class → `special:minimized` | same | ⌘⌥H "hide others" is unmapped |
 | [ ] | ⌘, | preferences | `Ctrl+comma` | Ghostty `Ctrl+comma` (open config); else consume | browsers/LibreOffice in 6b/6f |
@@ -1510,3 +1510,19 @@ and the next step.
   - The user's physical tests (§8.2) passed. They want deeper ⌘Tab stepping
     later: noted as 7i.
   - **Next:** ⌘` / ⌘⇧` (cycle the active app's windows).
+- **2026-10-03 — Phase 4: ⌘` and ⌘⇧`.**
+  - Committed ⌘Tab / ⌘⇧Tab first (ab4f815). The user's wish to step deeper
+    with ⌘ held is recorded as 7i.
+  - Added `next-app-window` and `previous-app-window` to `windows.lua`: the
+    windows of the active window's class (every workspace, scratchpad and
+    hidden ones left out) in `stable_id` order, wrapping; the target gets
+    focus, switching workspace if needed, and a floating one is raised. Not
+    `repeating`. The keys were free. 72 bindings, 108 relocations, no
+    duplicates. `focus_window()` is now shared with ⌘Tab.
+  - Tests on the user's live windows (focus changes only; focus restored):
+    Brave (4 windows on workspaces 1 and 3), VS Code (2, on 2 and 4) and
+    Nautilus (3) were each walked forward and backward past the wrap-around and
+    matched the `stableId` order from `hyprctl clients -j`. Obsidian, with one
+    window, stayed put.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** ⌘Tab hold-⌘ stepping (7i), brought forward by the user.

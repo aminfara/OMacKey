@@ -59,6 +59,13 @@ local function other_apps()
   return apps
 end
 
+local function focus_window(window)
+  hl.dispatch(hl.dsp.focus({ window = window }))
+  if window.floating then
+    hl.dispatch(hl.dsp.window.bring_to_top())
+  end
+end
+
 -- macOS app switching without the overlay. The target becomes the most recent
 -- app, so pressing ⌘Tab again comes back: two apps can be flipped between.
 local function switch_app(oldest)
@@ -68,9 +75,34 @@ local function switch_app(oldest)
     return
   end
 
-  hl.dispatch(hl.dsp.focus({ window = target }))
-  if target.floating then
-    hl.dispatch(hl.dsp.window.bring_to_top())
+  focus_window(target)
+end
+
+-- ⌘` and ⌘⇧`: step through the windows of the active app (same class, every
+-- workspace) in a fixed order, wrapping around. Not recency: with three windows
+-- the ring visits all of them, as on a Mac.
+local function cycle_app_windows(step)
+  local active = hl.get_active_window()
+  if not active or active.class == "" then
+    return
+  end
+
+  local windows = {}
+  for _, window in ipairs(hl.get_windows({ mapped = true })) do
+    local workspace = window.workspace
+    if window.class == active.class and not window.hidden and not (workspace and workspace.special) then
+      table.insert(windows, window)
+    end
+  end
+  table.sort(windows, function(a, b)
+    return a.stable_id < b.stable_id
+  end)
+
+  for index, window in ipairs(windows) do
+    if window.address == active.address then
+      focus_window(windows[(index - 1 + step) % #windows + 1])
+      return
+    end
   end
 end
 
@@ -395,6 +427,34 @@ mac({
   actions = {
     default = function()
       switch_app(true)
+    end,
+  },
+})
+
+-- Fixed-order ring of the active app's windows, across workspaces. With one
+-- window nothing happens.
+mac({
+  id = "next-app-window",
+  category = "Windows",
+  mac = "⌘`",
+  keys = "SUPER + grave",
+  desc = "Next window of this app",
+  actions = {
+    default = function()
+      cycle_app_windows(1)
+    end,
+  },
+})
+
+mac({
+  id = "previous-app-window",
+  category = "Windows",
+  mac = "⌘⇧`",
+  keys = "SUPER + SHIFT + grave",
+  desc = "Previous window of this app",
+  actions = {
+    default = function()
+      cycle_app_windows(-1)
     end,
   },
 })
