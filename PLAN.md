@@ -552,7 +552,7 @@ tables below, §7 and 7a (§11 has the list).
 | [ ] | ⌘⌥Space | Finder search | Omarchy apps menu (unchanged) | |
 | [x] | ⌃⌘Q | lock screen | `omarchy-system-lock` | id `lock-screen` in `system.lua`. The calculator moved off ⌃⌘Q in 1d; ⌃⌘L still locks too |
 | [-] | ⌘⇧Q | log out | not mapped (user's choice, 2026-10-03): the system menu is not an instant logout and ⌘Esc already opens it | Ctrl+Shift+Q quits Chrome on Linux, so the catch-all must never send it, and consumes ⌘⇧Q (7a) |
-| [ ] | ⌘⌥Esc | force quit | `hl.dsp.window.kill()` on the active window | Mac shows a dialog; this kills directly. Confirmed with the user (2026-10-03): map it, direct kill |
+| [x] | ⌘⌥Esc | force quit | `hl.dsp.window.kill()` on the active window | Mac shows a dialog; this kills directly. Confirmed with the user (2026-10-03): map it, direct kill. id `force-quit`, `SUPER + ALT + ESCAPE` |
 | [x] | ⌘⇧3 | screenshot of screen to file | `omarchy-capture-screenshot fullscreen save` | id `screenshot-screen-file`, key `SUPER + SHIFT + code:12`. Focused monitor only, file only (§9 F8). Relies on 1b having moved ⌘⇧1–0 |
 | [x] | ⌃⌘⇧3 | screen to clipboard | `omarchy-capture-screenshot fullscreen copy` | id `screenshot-screen-clipboard` |
 | [x] | ⌘⇧4 | region to file | `omarchy-capture-screenshot region save` | id `screenshot-region-file`, `SUPER + SHIFT + code:13`. Omarchy's picker: ⏎ captures the window under the cursor, ≈ Mac's Space |
@@ -1741,3 +1741,11 @@ and the next step.
   - Not triggered by me (it opens a menu over the user's screen); awaiting the
     physical test.
   - **Next:** ⌘⌥Esc (force quit), then emoji, ⌥⌘D, verify-only items.
+- **2026-10-03 — Phase 5: ⌘⌥Esc.**
+  - Committed ⌘⇧5 first (44595c3; the user's tests passed).
+  - Added `force-quit` to `system.lua`: `hl.dsp.window.kill()` on the active
+    window (SIGKILL, no dialog), as agreed with the user. `SUPER + ALT + ESCAPE`
+    was free. 80 bindings, 108 relocations, no duplicates.
+  - Handler test on a throwaway `foot -a omackey.killtest sleep 300`, focused by
+    pid and guarded by pid in the same `repl` call: the process died.
+  - **Next:** ⌃⌘Space (emoji), ⌥⌘D (bar toggle), then the verify-only items.

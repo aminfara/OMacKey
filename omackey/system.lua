@@ -60,3 +60,14 @@ action({
   desc = "Capture menu",
   dispatcher = hl.dsp.exec_cmd("omarchy-menu toggle capture"),
 })
+
+-- Force quit: the Mac asks which app in a dialog; here the active window's
+-- process is killed (SIGKILL) at once, with no confirmation.
+action({
+  id = "force-quit",
+  category = "System",
+  mac = "⌘⌥Esc",
+  keys = "SUPER + ALT + ESCAPE",
+  desc = "Force quit the active window",
+  dispatcher = hl.dsp.window.kill(),
+})
