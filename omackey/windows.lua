@@ -122,3 +122,54 @@ mac({
     terminal = "consume",
   },
 })
+
+-- ⌘O/⌘P/⌘R/⌘L: Omarchy's pop, pseudo and layout binds moved to ⌃⌥ in Phase 1a.
+-- Ctrl+O/P/R/L are readline keys in a terminal (history, reverse search,
+-- clear screen) and terminals have no matching feature, so they swallow ⌘.
+mac({
+  id = "open",
+  category = "Windows",
+  mac = "⌘O",
+  keys = "SUPER + O",
+  desc = "Open",
+  actions = {
+    default = tap("CTRL", "O"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "print",
+  category = "Windows",
+  mac = "⌘P",
+  keys = "SUPER + P",
+  desc = "Print or quick open",
+  actions = {
+    default = tap("CTRL", "P"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "reload",
+  category = "Windows",
+  mac = "⌘R",
+  keys = "SUPER + R",
+  desc = "Reload",
+  actions = {
+    default = tap("CTRL", "R"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "location",
+  category = "Windows",
+  mac = "⌘L",
+  keys = "SUPER + L",
+  desc = "Focus address bar",
+  actions = {
+    default = tap("CTRL", "L"),
+    terminal = "consume",
+  },
+})

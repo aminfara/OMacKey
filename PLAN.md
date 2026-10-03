@@ -511,7 +511,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘⇧N | new folder / private window | `Ctrl+Shift+N` | consume | Firefox → `Ctrl+Shift+P` (6b) |
 | [x] | ⌘T | new tab | `Ctrl+T` | `Ctrl+Shift+N` (new window) in every terminal; Ghostty/kitty `Ctrl+Shift+T` waits for 6a | |
 | [x] | ⌘⇧T | reopen closed tab | `Ctrl+Shift+T` | consume | |
-| [ ] | ⌘O / ⌘P / ⌘R / ⌘L | open / print or quick-open / reload / location | `Ctrl+O/P/R/L` | consume | |
+| [x] | ⌘O / ⌘P / ⌘R / ⌘L | open / print or quick-open / reload / location | `Ctrl+O/P/R/L` | consume | ids `open`, `print`, `reload`, `location`; Omarchy's O/P/L were relocated in Phase 1a |
 | [ ] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | |
 | [ ] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot font size) | bind both `SUPER + equal` and `SUPER + SHIFT + equal` |
 | [ ] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | |
@@ -1361,3 +1361,16 @@ and the next step.
     permission check, so the user closed them.
   - The user's physical tests (§8.2) passed.
   - **Next:** ⌘O / ⌘P / ⌘R / ⌘L, then zoom (⌘= ⌘+ ⌘- ⌘0).
+- **2026-10-03 — Phase 4: ⌘O, ⌘P, ⌘R, ⌘L.**
+  - Added `open`, `print`, `reload` and `location` to `windows.lua`:
+    `Ctrl+O`, `Ctrl+P`, `Ctrl+R`, `Ctrl+L` in GUI apps, consumed in terminals
+    (readline history, reverse search and clear screen). Not `repeating`. The
+    keys were free (pop window, pseudo and layout toggle moved in 1a). 49
+    bindings, 108 relocations, no duplicates.
+  - Each key is its own explicit `mac{}` block, like every other bind, so
+    Phase 6 can add per-app entries to any one of them. A first version used a
+    shared helper; the user rejected it for that reason.
+  - Handler tests: keylog got `o`, `p`, `r`, `l` with `mods=CTRL`; a foot probe
+    got no bytes.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** zoom (⌘= ⌘+ ⌘- ⌘0).
