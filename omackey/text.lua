@@ -113,7 +113,11 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "Home"),
-    terminal = "consume",
+    -- Scrollback up a page. Ghostty does what Terminal.app does and jumps to
+    -- the previous prompt; kitty's page-scroll key carries Ctrl (§9 F10).
+    terminal = tap("SHIFT", "Page_Up"),
+    ghostty = tap("CTRL + SHIFT", "Page_Up"),
+    kitty = tap("CTRL + SHIFT", "Page_Up"),
   },
 })
 
@@ -126,7 +130,9 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "End"),
-    terminal = "consume",
+    terminal = tap("SHIFT", "Page_Down"),
+    ghostty = tap("CTRL + SHIFT", "Page_Down"),
+    kitty = tap("CTRL + SHIFT", "Page_Down"),
   },
 })
 

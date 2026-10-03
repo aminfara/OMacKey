@@ -58,7 +58,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals · 6b browsers · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
@@ -210,6 +210,7 @@ OMacKey/
 │   ├── editing.lua           (Phase 3)
 │   ├── windows.lua           (Phase 4)
 │   ├── system.lua            (Phase 5)
+│   ├── terminals.lua         Phase 6a: ⌘K clear, ⌘D / ⌘⇧D splits (other terminal entries sit on the keys they extend)
 │   ├── apps/                 (Phase 6) profile overrides
 │   └── catchall.lua          (Phase 7)
 ├── scripts/
@@ -520,19 +521,19 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 
 | ✓ | Mac | Meaning | GUI apps | Term | Notes |
 | --- | --- | --- | --- | --- | --- |
-| [x] | ⌘W | close tab / window | `Ctrl+W` | `hl:close` in every terminal (foot, Alacritty, Omarchy TUIs); Ghostty/kitty `Ctrl+Shift+W` waits for 6a | `no-tabs` profile in `config.lua` (empty): ⌘W → `hl:close` for the classes listed there, grown from findings. VS Code with no editor open ignores ⌘W (§7) |
+| [x] | ⌘W | close tab / window | `Ctrl+W` | `hl:close` in every terminal (foot, Alacritty, Omarchy TUIs); Ghostty/kitty `Ctrl+Shift+W` (done in 6a) | `no-tabs` profile in `config.lua` (empty): ⌘W → `hl:close` for the classes listed there, grown from findings. VS Code with no editor open ignores ⌘W (§7) |
 | [x] | ⌘⇧W | close window | `hl:close` in every app | `hl:close` | one action everywhere: the compositor close ends in the same path as an app's own shortcut, so the planned `Ctrl+Shift+W` for browsers/VS Code (and a VS Code profile) wasn't needed |
 | [x] | ⌘Q | quit app | close every window of the active class (`hl.get_windows`, then close each) | same | Mac semantics: all windows of the app, no confirmation (foot has no close prompt). Apps with unsaved work still ask |
 | [x] | ⌘N | new window | `Ctrl+N` | `Ctrl+Shift+N` | |
 | [x] | ⌘⇧N | new folder / private window | `Ctrl+Shift+N` | consume | Firefox → `Ctrl+Shift+P` (6b) |
-| [x] | ⌘T | new tab | `Ctrl+T` | `Ctrl+Shift+N` (new window) in every terminal; Ghostty/kitty `Ctrl+Shift+T` waits for 6a | |
+| [x] | ⌘T | new tab | `Ctrl+T` | `Ctrl+Shift+N` (new window) in every terminal; Ghostty/kitty `Ctrl+Shift+T` (done in 6a) | |
 | [x] | ⌘⇧T | reopen closed tab | `Ctrl+Shift+T` | consume | |
 | [x] | ⌘O / ⌘P / ⌘R / ⌘L | open / print or quick-open / reload / location | `Ctrl+O/P/R/L` | consume | ids `open`, `print`, `reload`, `location`; Omarchy's O/P/L were relocated in Phase 1a |
 | [x] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | ids `tab-1`…`tab-9`, a loop over digits (like `spaces.lua`) with its own `actions` table. ⌘9 is the last tab in browsers. The synthetic `Ctrl+N` does not trigger the physical ⌃N workspace binds. VS Code: ⌘N focuses editor group N, as on a Mac (§9 F5). Nautilus keeps `Ctrl+N` until 6d: ⌘1 is list view and ⌘2 grid view, the reverse of Finder, and ⌘3–9 do nothing |
 | [x] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot and Ghostty font size) | ids `zoom-in` (`SUPER + equal`), `zoom-in-plus` (`SUPER + SHIFT + equal`), `zoom-out`, `zoom-reset`. Descriptions end in "(app)" so the help menu tells them from Omarchy's desktop zoom (⌃⌘Z). Not `repeating` |
 | [x] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | ids `back`, `forward`. New `nautilus` profile (class `org.gnome.Nautilus`) in `config.lua`; 6d adds its other overrides. Descriptions have no comma: the help menu cuts them there |
-| [x] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a adds Ghostty and kitty | ids `previous-tab`, `next-tab` |
-| [x] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a | ids `previous-tab-arrow`, `next-tab-arrow`. Obsidian: back/forward (6e) |
+| [x] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume (Ghostty and kitty done in 6a) | ids `previous-tab`, `next-tab` |
+| [x] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume (Ghostty and kitty done in 6a) | ids `previous-tab-arrow`, `next-tab-arrow`. Obsidian: back/forward (6e) |
 | [x] | ⌘Tab / ⌘⇧Tab | switch app (most recently used) | ⌘Tab: next app in recency order, so a tap flips between the last two apps; pressing it again while ⌘ is held steps deeper. ⌘⇧Tab steps back (from the front app: the app used longest ago). Each stop focuses that app's latest window, crossing workspaces | same | ids `switch-app`, `switch-app-back`. An app is a window class, as in ⌘Q. The session ends when ⌘ is released, or when focus moves to another app (§9 F6). Code in `lib/switcher.lua`. No overlay (§7). Changed from the plan's window cycling at the user's request |
 | [x] | ⌘\` / ⌘⇧\` | cycle the active app's windows | windows of the active class on every workspace, ordered by `stable_id`, focus next / previous (wraps) | same | ids `next-app-window`, `previous-app-window`. Fixed ring, not recency. A one-window app does nothing |
 | [-] | ⌘M | minimize | not mapped (D13) | same | Hyprland and Omarchy have no minimize and there is no dock to restore from. Use Omarchy's scratchpad (⌃⌥⇧S moves a window in, ⌃⌥S shows it). Consumed once the catch-all exists (7a) |
@@ -569,25 +570,42 @@ tables below, §7 and 7a (§11 has the list).
 One sub-phase per session. Every value marked "verify" must be checked against
 the app's own Linux keybindings before implementing. Record app quirks in §9.
 
-**6a — Terminals** (foot, Ghostty; Alacritty and kitty use the generic rules)
+**6a — Terminals** (foot, Ghostty and kitty; Alacritty and the Omarchy TUIs use
+the generic terminal rules) — done 2026-10-03
 
-| Mac | foot | Ghostty (verify with `ghostty +list-keybinds --default`) |
-| --- | --- | --- |
-| ⌘T | `Ctrl+Shift+N` (no tabs: new window) | `Ctrl+Shift+T` |
-| ⌘N | `Ctrl+Shift+N` | `Ctrl+Shift+N` |
-| ⌘W | `hl:close` (done in Phase 4) | `Ctrl+Shift+W` (until Ghostty gets its own profile, Phase 4's ⌘W closes the whole window; kitty too, verify) |
-| ⌘1–9 | consume | `Alt+1–9` |
-| ⌘⇧[ ⌘⇧] / ⌘⌥← ⌘⌥→ | consume | `Ctrl+Page_Up/Page_Down` (verify) |
-| ⌘F | `Ctrl+Shift+R` (scrollback search) | verify (`Ctrl+Shift+F` in 1.2+?) |
-| ⌘A | consume (no select-all in foot) | `Ctrl+Shift+A` |
-| ⌘K (clear) | `Ctrl+L` (approximation) | `Ctrl+L`, or document a `clear_screen` keybind |
-| ⌘D / ⌘⇧D (split) | consume | `Ctrl+Shift+O` / `Ctrl+Shift+E` (verify) |
-| ⌘↑ / ⌘↓ (scroll) | `Shift+Page_Up` / `Shift+Page_Down` (verify) | verify |
-| ⌘, | consume | `Ctrl+comma` |
-| ⌘. (interrupt) | `Ctrl+C` (Phase 7b) | `Ctrl+C` |
+Scope confirmed with the user: kitty is included (D10 widened: it is installed
+and in use, and Phase 4's zoom keys did not reach it); ⌘↑/⌘↓ jump prompts in
+Ghostty and scroll a page elsewhere; ⌘K clears the screen; no edits to the
+terminals' config files. Profiles `ghostty`, `kitty` and `foot` in
+`config.lua`, each with family `terminal`. Keys were checked against each
+terminal's real defaults (§9 F10). `—` means the generic terminal action is
+used.
 
-Open question for the user: tmux. Hyprland can't tell that tmux is running, so
-the default is to treat tmux as a plain terminal.
+| Mac | foot | Ghostty | kitty | generic terminal |
+| --- | --- | --- | --- | --- |
+| ⌘T | — | `Ctrl+Shift+T` | `Ctrl+Shift+T` | `Ctrl+Shift+N` (new window) |
+| ⌘N | — | — | — | `Ctrl+Shift+N` |
+| ⌘W | — | `Ctrl+Shift+W` | `Ctrl+Shift+W` | `hl:close` |
+| ⌘1–9 | — | `Alt+1–9` (⌘9 last tab) | — | consume (kitty has no key for tab N) |
+| ⌘⇧[ ⌘⇧] / ⌘⌥← ⌘⌥→ | — | `Ctrl+Page_Up/Down` | `Ctrl+Shift+Left/Right` | consume |
+| ⌘F | `Ctrl+Shift+R` | `Ctrl+Shift+F` | `Ctrl+Shift+/` | consume |
+| ⌘G / ⌘⇧G | — | — | — | consume (§9 F10) |
+| ⌘A | — | `Ctrl+Shift+A` | — | consume |
+| ⌘K (new) | — | — | — | `Ctrl+L` |
+| ⌘D / ⌘⇧D (new) | — | `Ctrl+Shift+O` / `Ctrl+Shift+E` | — | consume |
+| ⌘↑ / ⌘↓ | — | `Ctrl+Shift+Page_Up/Down` (previous / next prompt) | `Ctrl+Shift+Page_Up/Down` (scroll page) | `Shift+Page_Up/Down` (scroll page) |
+| ⌘, | — | `omarchy-launch-editor ~/.config/ghostty/config` (Ghostty's own `Ctrl+comma` shows nothing here, §9 F10) | `Ctrl+Shift+F2` (edit config) | consume |
+| ⌘= ⌘+ ⌘- ⌘0 | — | — (`Ctrl+=` …) | `Ctrl+Shift+=` / `-` / `BackSpace` | — (`Ctrl+=` …) |
+| ⌘. (interrupt) | Phase 7b | Phase 7b | Phase 7b | |
+
+- [x] Profiles `ghostty`, `kitty`, `foot` (`config.lua`).
+- [x] Entries on existing keys: ⌘T, ⌘W, ⌘1–9, tab switching (`windows.lua`);
+  ⌘F, ⌘A (`editing.lua`); ⌘↑, ⌘↓ (`text.lua`); zoom and ⌘, (`windows.lua`).
+- [x] New module `terminals.lua`: ⌘K, ⌘D, ⌘⇧D.
+- [x] Physical tests by the user (§8.2) in foot, Ghostty and kitty passed.
+
+tmux: Hyprland can't tell that tmux is running, so tmux is treated as a plain
+terminal (confirmed as the default).
 
 **6b — Browsers** (Brave, Brave Origin `brave-origin`, Chromium, Google Chrome;
 Firefox best-effort)
@@ -888,6 +906,12 @@ doesn't report them as unused when the condition is off. Verified with
 | F3 Mission Control key (`XF86LaunchA`) | same reason as ⌃↑ Mission Control: no overview in Hyprland or Omarchy (user's choice, 2026-10-03) | none |
 | Browser ⌘, (settings) | no Linux shortcut | pending 6b |
 | VS Code ⌘W with no editor open | Linux VS Code ignores `Ctrl+W` on an empty window (macOS closes the window). Listing VS Code under `no-tabs` would close the window while editors are open | ⌘⇧W (`Ctrl+Shift+W` closes the window) |
+| Terminal ⌘G / ⌘⇧G (find next / previous) | they only act while a search is open, which Hyprland can't see: foot's keys are `Ctrl+S` / `Ctrl+R` (a stray `Ctrl+S` freezes output outside search) and Ghostty's Linux defaults have none (the Mac's ⌘G is `performable`, so it passes through when no search is open) | optional Ghostty line `keybind = performable:ctrl+g=navigate_search:next` in the Ghostty config, not applied |
+| Ghostty ⌘W in a split | Linux Ghostty's `Ctrl+Shift+W` closes the whole tab; closing one split needs a `close_surface` keybind in the user's config | optional, not applied |
+| Terminal ⌘K clears the scrollback | `Ctrl+L` only clears the visible screen (Ghostty on the Mac clears the scrollback too) | `clear` plus `printf '\e[3J'` |
+| Terminal ⌘D / ⌘⇧D (split) outside Ghostty | foot has no splits; kitty's splits are layouts, not a split command | Hyprland tiling |
+| Terminal ⌘↑ / ⌘↓ prompt jumping outside Ghostty | foot's `Ctrl+Shift+Z/X` need shell integration (OSC 133), not set up here | page scroll instead |
+| kitty ⌘1–9 | kitty has no default key for tab N | ⌘⇧[ / ⌘⇧] |
 
 ---
 
@@ -1256,6 +1280,61 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   (reload after installing it). F5 maps to push-to-talk like Omarchy's F9
   (`voxtype record start` on press, `stop` on release), and ⇧F5 to
   `voxtype record toggle`. `action{}` got a `release` option for this.
+
+**F10 — Terminal keys (6a, 2026-10-03)**
+
+- **Sources.** Ghostty 1.3.1: `ghostty +list-keybinds --default` for Linux, and
+  the macOS defaults in `src/config/Config.zig` (raw GitHub). kitty 0.48.2: the
+  effective keymap dumped with `kitty +runpy` (`load_config()`
+  `.keyboard_modes[''].keymap`; mods 5 = Ctrl+Shift). foot 1.28: `foot.ini(5)`.
+- **Ghostty (Linux).** Tabs `Ctrl+Shift+T` / `Ctrl+Shift+W` (`close_tab:this`),
+  `Alt+1–8` and `Alt+9` (last tab), `Ctrl+Page_Up/Down` previous / next tab,
+  `Ctrl+Shift+Page_Up/Down` `jump_to_prompt`, `Ctrl+Shift+F` search,
+  `Ctrl+Shift+A` select all, `Ctrl+Shift+O` / `E` split right / down,
+  `Ctrl+comma` open_config. No default `clear_screen` or `navigate_search`.
+- **Ghostty (macOS source).** `cmd+k` clear_screen ("clear the screen and all
+  scrollback"), `cmd+up/down` jump_to_prompt ("matches Terminal.app"),
+  `cmd+d` / `cmd+shift+d` splits, `cmd+f` start_search, `cmd+g` / `cmd+shift+g`
+  navigate_search (marked `performable`, so the key passes through when no
+  search is open). The plan's "⌘↑/↓ scroll" row was not the Mac behaviour.
+- **kitty.** Tabs `Ctrl+Shift+T`, `Ctrl+Shift+Q` (close tab), `Ctrl+Shift+W`
+  (close the pane; the last pane closes its tab), `Ctrl+Shift+Left/Right` and
+  `Ctrl+Tab` / `Ctrl+Shift+Tab` switch tabs, `Ctrl+Shift+/` search_scrollback,
+  `Ctrl+Shift+Page_Up/Down` scroll a page, `Ctrl+Shift+F2` edit config. Font
+  size is `Ctrl+Shift+=` / `-` / `BackSpace`: **Phase 4's zoom keys
+  (`Ctrl+=` …) did nothing in kitty**; fixed with a kitty entry. No default
+  key for tab N (`Ctrl+Shift+1…` are pane numbers).
+- **foot.** Search `Ctrl+Shift+R`; inside it `Ctrl+R` / `Ctrl+S` step between
+  matches. `Shift+Page_Up/Down` scroll a page; no tabs, splits or select all.
+  `prompt-prev` / `prompt-next` (`Ctrl+Shift+Z/X`) need shell integration.
+- **Ghostty ⌘, does nothing visible (found by the user's physical test).**
+  `open_config` runs `xdg-open ~/.config/ghostty/config`. The default handler
+  for the file is `nvim.desktop` (`Terminal=true`), and `xdg-open` starts `nvim`
+  directly with no terminal, so each press leaves a hidden `nvim` process
+  (children of Ghostty). It is not an OMacKey fault; the Ghostty entry was
+  replaced: ⌘, now runs `omarchy-launch-editor "$HOME/.config/ghostty/config"` (a visible TUI window; user's choice). kitty's `Ctrl+Shift+F2` works: it opens
+  Omarchy's editor (`omarchy-launch-editor`) in a second window of the same
+  process. Lesson: a terminal action that spawns another program needs a test
+  that watches `ps` and the window list, not only a "handled" result.
+- **The profile chain** `{ "ghostty", "terminal", "default" }` already worked in
+  `lib/apps.lua` (`family`); the three new profiles use it. Omarchy's TUI
+  windows (`org.omarchy.*`) run in whichever terminal is the default but keep
+  the generic profile.
+- **Test recipes** (throwaway windows, pid-guarded, each launched and killed by
+  the test):
+  - `ghostty --gtk-single-instance=false -e bash -c '…'` is its own process
+    with the normal class, so the profile matches. A first command that sets the
+    title with `printf '\033]2;ONE\a'` makes the active tab readable from
+    `hyprctl clients -j` (a new tab's shell shows its cwd): used for ⌘T, ⌘1–9,
+    ⌘⇧[ ], ⌘⌥← →, ⌘W.
+  - Bytes a terminal sends: `stty raw -echo; dd bs=1 count=1 of=FILE`, then
+    `od -An -tx1 FILE` (`xxd` is not installed). ⌘K gave `0c` in Ghostty and
+    kitty.
+  - Font size: a `trap 'tput cols > FILE' WINCH` loop; kitty went 202 → 165 →
+    140 → 165 → 202 columns for ⌘= ⌘+ ⌘- ⌘0.
+  - Terminal-internal features (splits, search, scrolling): `grim -g` of the
+    window geometry, read as an image.
+  - `kitty` starts its own process by default; `foot` too (class `foot`).
 
 ---
 
@@ -1816,3 +1895,45 @@ and the next step.
     ⌘⌥Esc force quit, ⌃⌘Space emoji, ⌥⌘D bar, and F5/⇧F5/F6. ⌘⇧Q and F3 are
     unmapped (§7).
   - **Next:** Phase 6, app-specific (6a terminals first), in a later session.
+- **2026-10-03 — Phase 6a: terminals.**
+  - Read PLAN.md and CLAUDE.md in full, then checked the real keybinds of
+    Ghostty 1.3.1, kitty 0.48.2 and foot 1.28 (§9 F10). Findings that changed the
+    plan: macOS ⌘↑/⌘↓ jump between prompts (not scroll), kitty's zoom keys carry
+    Shift (Phase 4's zoom did nothing in kitty), kitty has no key for tab N, and
+    ⌘G only means something inside an open search.
+  - Decisions with the user: kitty is included (widens D10); ⌘↑/⌘↓ jump prompts
+    in Ghostty and scroll a page elsewhere; ⌘K clears the screen (`Ctrl+L`); no
+    edits to the terminals' config files, so the gaps go to §7.
+  - Code: profiles `ghostty`, `kitty`, `foot` (family `terminal`) in
+    `config.lua`; per-terminal entries on ⌘T, ⌘W, ⌘1–9, the four tab-switch keys,
+    zoom ×4 and ⌘, (`windows.lua`), ⌘A and ⌘F (`editing.lua`), ⌘↑ and ⌘↓
+    (`text.lua`; the generic terminal action is now `Shift+Page_Up/Down`); new
+    `terminals.lua` with ⌘K, ⌘D, ⌘⇧D (added to `config.modules`). 89 bindings,
+    108 relocations, no duplicates; the help menu shows the new keys.
+  - Handler tests on throwaway windows (pid-guarded, each killed afterwards; the
+    user's windows only had focus restored):
+    - Ghostty: ⌘T, ⌘1/⌘2/⌘9, ⌘⇧[ ], ⌘⌥← → and ⌘W moved between the right tabs
+      (read from the window title); ⌘D split the window and ⌘F opened the find
+      bar (screenshot); ⌘⇧D and ⌘A ran; ⌘K sent `0c`.
+    - kitty: zoom 202 → 165 → 140 → 165 → 202 columns; ⌘T, ⌘⇧[ ], ⌘⌥← →, ⌘W
+      right; ⌘2 and ⌘D consumed; ⌘F opened kitty's search prompt; ⌘K sent `0c`.
+    - foot: ⌘↑ scrolled back one page and ⌘F opened the search box
+      (screenshots).
+    - Not triggered: ⌘, (opens an editor on a config file), and Ghostty's
+      ⌘↑/⌘↓ prompt jump (nothing to see in an empty shell). Both are left to
+      the physical test.
+  - **Fix after the user's test:** Ghostty ⌘, did nothing. Cause and removal are
+    in §9 F10: the Ghostty entry is gone, ⌘, is consumed there again. My test had
+    only checked that the handler ran ("handled"), and a first retest hit the
+    user's own Ghostty by mistake, because it is D-Bus activated and did not show
+    up in my launch diff (the second retest used the right pid). Lasting
+    effect: about 24 hidden `nvim` processes under the user's Ghostty from their
+    own ⌘, presses, left untouched and reported to them.
+  - **Ghostty ⌘, rebound (user's choice):** it now runs `omarchy-launch-editor
+    "$HOME/.config/ghostty/config"` from a function in the `preferences` entry. Test
+    this time watched the window list: one new `org.omarchy.nvim` window (a kitty
+    window, the user's TUI terminal) opened with `nvim ~/.config/ghostty/config`;
+    I closed it by address, and the throwaway Ghostty by pid.
+  - The user's physical tests (§8.2) in foot, Ghostty and kitty passed. **6a is
+    complete.** Committed.
+  - **Next:** 6b, browsers.

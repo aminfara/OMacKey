@@ -70,8 +70,12 @@ mac({
   actions = {
     default = tap("CTRL", "W"),
     -- foot, Alacritty and Omarchy's TUIs have no tabs, so close the window.
-    -- Ghostty and kitty tabs come in 6a. Ctrl+W is readline's word delete.
+    -- Ctrl+W is readline's word delete.
     terminal = close_window,
+    -- Ghostty and kitty close the tab (the last one closes the window).
+    -- Ghostty's close-tab key also closes a whole tab of splits (§9 F10).
+    ghostty = tap("CTRL + SHIFT", "W"),
+    kitty = tap("CTRL + SHIFT", "W"),
     -- Apps where Ctrl+W doesn't close the window (config.lua).
     ["no-tabs"] = close_window,
   },
@@ -102,8 +106,7 @@ mac({
 })
 
 -- Terminals have no ⌘ chord to receive, so these send their own: foot,
--- Ghostty, kitty and Alacritty open a new window on Ctrl+Shift+N. Ghostty and
--- kitty tabs come in 6a.
+-- Ghostty, kitty and Alacritty open a new window on Ctrl+Shift+N.
 mac({
   id = "new-window",
   category = "Windows",
@@ -139,6 +142,8 @@ mac({
   actions = {
     default = tap("CTRL", "T"),
     terminal = tap("CTRL + SHIFT", "N"), -- no tabs: a new window
+    ghostty = tap("CTRL + SHIFT", "T"),
+    kitty = tap("CTRL + SHIFT", "T"),
   },
 })
 
@@ -205,9 +210,9 @@ mac({
   },
 })
 
--- Zoom. Omarchy's resize binds on these keys moved to ⌃⌥ in Phase 1a. Terminals
--- take the same chords (foot and Ghostty bind them to font size), so there is
--- no terminal entry. ⌘+ is ⌘⇧= and zooms in like ⌘=.
+-- Zoom. Omarchy's resize binds on these keys moved to ⌃⌥ in Phase 1a. foot and
+-- Ghostty take the same chords (font size), so they have no entry; kitty's
+-- font-size keys carry Shift (§9 F10). ⌘+ is ⌘⇧= and zooms in like ⌘=.
 mac({
   id = "zoom-in",
   category = "Windows",
@@ -216,6 +221,7 @@ mac({
   desc = "Zoom in (app)",
   actions = {
     default = tap("CTRL", "equal"),
+    kitty = tap("CTRL + SHIFT", "equal"),
   },
 })
 
@@ -227,6 +233,7 @@ mac({
   desc = "Zoom in (app)",
   actions = {
     default = tap("CTRL", "equal"),
+    kitty = tap("CTRL + SHIFT", "equal"),
   },
 })
 
@@ -238,6 +245,7 @@ mac({
   desc = "Zoom out (app)",
   actions = {
     default = tap("CTRL", "minus"),
+    kitty = tap("CTRL + SHIFT", "minus"),
   },
 })
 
@@ -249,6 +257,7 @@ mac({
   desc = "Actual size (app zoom)",
   actions = {
     default = tap("CTRL", "0"),
+    kitty = tap("CTRL + SHIFT", "BackSpace"),
   },
 })
 
@@ -286,7 +295,8 @@ mac({
 -- ⌘1–⌘9: tab N (⌘9 is the last tab in browsers, as on a Mac). Omarchy's
 -- workspace binds moved to ⌃1–0 in Phase 1b. One bind per digit, written as a
 -- loop like spaces.lua; each gets its own actions table, so Phase 6 can add
--- per-app entries. Terminals consume (Ghostty's Alt+N comes in 6a).
+-- per-app entries. Terminals consume, except Ghostty (Alt+N; Alt+9 is the last
+-- tab). kitty has no key for tab N.
 for n = 1, 9 do
   local digit = tostring(n)
 
@@ -299,13 +309,15 @@ for n = 1, 9 do
     actions = {
       default = tap("CTRL", digit),
       terminal = "consume",
+      ghostty = tap("ALT", digit),
     },
   })
 end
 
 -- Previous and next tab on both Mac chords. Browsers, VS Code and Nautilus
--- all take Ctrl+Page_Up/Down. Terminals consume until 6a (Ghostty and kitty
--- have their own tab keys); Obsidian's ⌘⌥← / ⌘⌥→ become back/forward in 6e.
+-- all take Ctrl+Page_Up/Down, and so does Ghostty. kitty switches tabs with
+-- Ctrl+Shift+Left/Right; other terminals consume. Obsidian's ⌘⌥← / ⌘⌥→ become
+-- back/forward in 6e.
 -- Omarchy's webcam binds (⌘⌥[ ]) and group moves (⌘⌥←/→) moved in Phase 1a.
 mac({
   id = "previous-tab",
@@ -316,6 +328,8 @@ mac({
   actions = {
     default = tap("CTRL", "Page_Up"),
     terminal = "consume",
+    ghostty = tap("CTRL", "Page_Up"),
+    kitty = tap("CTRL + SHIFT", "Left"),
   },
 })
 
@@ -328,6 +342,8 @@ mac({
   actions = {
     default = tap("CTRL", "Page_Down"),
     terminal = "consume",
+    ghostty = tap("CTRL", "Page_Down"),
+    kitty = tap("CTRL + SHIFT", "Right"),
   },
 })
 
@@ -340,6 +356,8 @@ mac({
   actions = {
     default = tap("CTRL", "Page_Up"),
     terminal = "consume",
+    ghostty = tap("CTRL", "Page_Up"),
+    kitty = tap("CTRL + SHIFT", "Left"),
   },
 })
 
@@ -352,6 +370,8 @@ mac({
   actions = {
     default = tap("CTRL", "Page_Down"),
     terminal = "consume",
+    ghostty = tap("CTRL", "Page_Down"),
+    kitty = tap("CTRL + SHIFT", "Right"),
   },
 })
 
@@ -414,8 +434,10 @@ mac({
 
 -- Preferences. Omarchy's "dismiss last notification" moved off ⌘, in Phase 1d.
 -- VS Code, Obsidian and Nautilus open their settings on Ctrl+, ; browsers and
--- LibreOffice have no such shortcut (6b, 6f) and Ghostty's open-config key comes
--- in 6a. Terminals consume it: Ctrl+, is not a control character.
+-- LibreOffice have no such shortcut (6b, 6f). In terminals the preferences are
+-- the config file: kitty opens it on Ctrl+Shift+F2. Ghostty's own Ctrl+, runs
+-- xdg-open, which starts nvim without a terminal and shows nothing (§9 F10), so
+-- Ghostty gets Omarchy's editor launcher instead. Other terminals consume it.
 mac({
   id = "preferences",
   category = "Windows",
@@ -425,5 +447,9 @@ mac({
   actions = {
     default = tap("CTRL", "comma"),
     terminal = "consume",
+    ghostty = function()
+      hl.dispatch(hl.dsp.exec_cmd('omarchy-launch-editor "$HOME/.config/ghostty/config"'))
+    end,
+    kitty = tap("CTRL + SHIFT", "F2"),
   },
 })

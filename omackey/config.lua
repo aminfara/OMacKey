@@ -9,6 +9,7 @@ return {
     "editing", -- Phase 3: clipboard, undo/redo, find, save
     "windows", -- Phase 4: window and tab controls
     "system", -- Phase 5: OS controls (lock, screenshots, emoji)
+    "terminals", -- Phase 6a: terminal-only keys (clear, split)
   },
 
   -- How long a synthetic key stays down before its release is sent.
@@ -19,6 +20,12 @@ return {
   -- wins. When a binding has no action for a profile, its `family` is tried
   -- next, then "default". Tags are Omarchy's (default/hypr/apps/*.lua).
   profiles = {
+    -- Terminals with keys of their own (Phase 6a). Each falls back to the
+    -- generic "terminal" profile below, which also covers Alacritty, wezterm
+    -- and Omarchy's TUI windows.
+    { name = "ghostty", family = "terminal", classes = { "com.mitchellh.ghostty" } },
+    { name = "kitty", family = "terminal", classes = { "kitty" } },
+    { name = "foot", family = "terminal", classes = { "foot", "org.codeberg.dnkl.foot" } },
     { name = "terminal", tags = { "terminal" } },
     {
       name = "browser",
