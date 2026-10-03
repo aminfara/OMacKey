@@ -505,8 +505,8 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | ✓ | Mac | Meaning | GUI apps | Term | Notes |
 | --- | --- | --- | --- | --- | --- |
 | [x] | ⌘W | close tab / window | `Ctrl+W` | `hl:close` in every terminal (foot, Alacritty, Omarchy TUIs); Ghostty/kitty `Ctrl+Shift+W` waits for 6a | `no-tabs` profile in `config.lua` (empty): ⌘W → `hl:close` for the classes listed there, grown from findings. VS Code with no editor open ignores ⌘W (§7) |
-| [ ] | ⌘⇧W | close window | browsers/VS Code: `Ctrl+Shift+W`; default `hl:close` | `hl:close` | |
-| [ ] | ⌘Q | quit app | close every window of the active class (`hl.get_windows`, then close each) | same | Mac semantics: all windows of the app |
+| [x] | ⌘⇧W | close window | `hl:close` in every app | `hl:close` | one action everywhere: the compositor close ends in the same path as an app's own shortcut, so the planned `Ctrl+Shift+W` for browsers/VS Code (and a VS Code profile) wasn't needed |
+| [x] | ⌘Q | quit app | close every window of the active class (`hl.get_windows`, then close each) | same | Mac semantics: all windows of the app, no confirmation (foot has no close prompt). Apps with unsaved work still ask |
 | [ ] | ⌘N | new window | `Ctrl+N` | `Ctrl+Shift+N` | |
 | [ ] | ⌘⇧N | new folder / private window | `Ctrl+Shift+N` | consume | Firefox → `Ctrl+Shift+P` (6b) |
 | [ ] | ⌘T | new tab | `Ctrl+T` | Ghostty/kitty `Ctrl+Shift+T`; foot `Ctrl+Shift+N` | |
@@ -1331,3 +1331,19 @@ and the next step.
     closed. That is native behaviour (§7, F3).
   - **Next:** ⌘⇧W (close window), then ⌘Q (quit app: every window of the
     class).
+- **2026-10-03 — Phase 4: ⌘⇧W and ⌘Q.**
+  - Added to `windows.lua`: `close-window` (⌘⇧W, `action{}` with
+    `hl.dsp.window.close()`, same in every app) and `quit-app` (⌘Q, closes every
+    mapped window whose class equals the active window's; a window with an
+    empty class closes alone). Not `repeating`. Both keys were free (Omawrite
+    moved off ⌘⇧W in 1c). 41 bindings, 108 relocations, no duplicates.
+  - Deviation: ⌘⇧W uses the compositor close for browsers and VS Code too,
+    instead of `Ctrl+Shift+W`. Same result, no VS Code profile needed.
+  - Handler tests on throwaway windows (the user's six windows untouched):
+    ⌘⇧W closed the focused keylog; ⌘Q closed both keylog windows and spared a
+    window of another class; ⌘Q on two terminal-tagged foot windows
+    (`-a org.omarchy.omackeytest`) closed both.
+  - The user's physical tests (§8.2) passed, including Ghostty and kitty.
+    ⌘Q closing every terminal window matches Terminal.app, iTerm2 and
+    Ghostty on macOS, minus their close confirmation.
+  - **Next:** ⌘N, ⌘⇧N, ⌘T, ⌘⇧T.
