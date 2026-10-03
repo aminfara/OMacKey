@@ -5,7 +5,7 @@ config). It is plain Hyprland Lua, layered on top of Omarchy's default
 bindings and installed into `~/.config/hypr`. It's for people who switch
 daily between a work Mac and an Omarchy machine.
 
-**`PLAN.md` is the source of truth.** It holds the decisions (D1–D12), the
+**`PLAN.md` is the source of truth.** It holds the decisions (D1–D13), the
 architecture, the per-phase key tables, the Omarchy relocation table (§6), the
 unmapped list (§7), the test protocol (§8), findings (§9), references (§10)
 and the session log (§11). Read the relevant parts before changing anything.
@@ -76,7 +76,7 @@ keys. Don't run ahead into later phases.
 - **Keep it simple.** No daemons, no external remappers, no blocking calls. If
   a Mac behaviour needs more than a small Lua function, document it in §7
   instead.
-- **Decisions D1–D12 are confirmed.** Raise concerns with the user rather than
+- **Decisions D1–D13 are confirmed.** Raise concerns with the user rather than
   quietly deviating.
 
 ## Validate after every change

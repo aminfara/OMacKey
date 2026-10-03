@@ -161,6 +161,21 @@ user asks for them.
 - So the docs (8.1, 8.2) must show the exact key string for every binding,
   because `hl.unbind` matches the original string exactly, including case.
 
+**D13 — No minimize or hide (confirmed with the user, 2026-10-03).** ⌘M
+(minimize), ⌘H (hide app), ⌘⌥H (hide others) and ⌥⌘M (minimize all) are not
+mapped.
+- Neither Omarchy nor Hyprland has minimize or hide: no bind or mention in
+  Omarchy (bindings, manual), nothing in the Hyprland Lua API, only a wiki
+  workaround that parks the window on a special workspace (§9 F7).
+- There is no dock or taskbar to see or click minimized windows, so a hidden
+  window is easy to lose, and tiling layouts re-flow around it. It is not
+  natural on Omarchy.
+- Omarchy's scratchpad is the native equivalent: ⌃⌥⇧S moves a window there
+  and ⌃⌥S shows it (relocated in Phase 1a).
+- Built and discarded in Phase 4: a `special:minimized` workspace, ⌘Tab
+  bringing hidden apps back, and a ⌃⌥M view. Not worth the code.
+- Phase 7a must consume ⌘M and ⌘H, not translate them to Ctrl+M / Ctrl+H.
+
 ---
 
 ## 4. Architecture
@@ -520,9 +535,11 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a | ids `previous-tab-arrow`, `next-tab-arrow`. Obsidian: back/forward (6e) |
 | [x] | ⌘Tab / ⌘⇧Tab | switch app (most recently used) | ⌘Tab: next app in recency order, so a tap flips between the last two apps; pressing it again while ⌘ is held steps deeper. ⌘⇧Tab steps back (from the front app: the app used longest ago). Each stop focuses that app's latest window, crossing workspaces | same | ids `switch-app`, `switch-app-back`. An app is a window class, as in ⌘Q. The session ends when ⌘ is released, or when focus moves to another app (§9 F6). Code in `lib/switcher.lua`. No overlay (§7). Changed from the plan's window cycling at the user's request |
 | [x] | ⌘\` / ⌘⇧\` | cycle the active app's windows | windows of the active class on every workspace, ordered by `stable_id`, focus next / previous (wraps) | same | ids `next-app-window`, `previous-app-window`. Fixed ring, not recency. A one-window app does nothing |
-| [ ] | ⌘M | minimize | move the window to `special:minimized` (silent) | same | ⌃⌥M shows/hides minimized windows. Restore design: decide with the user at the start of this phase |
-| [ ] | ⌘H | hide app | proposal: all windows of the class → `special:minimized` | same | ⌘⌥H "hide others" is unmapped |
+| [-] | ⌘M | minimize | not mapped (D13) | same | Hyprland and Omarchy have no minimize and there is no dock to restore from. Use Omarchy's scratchpad (⌃⌥⇧S moves a window in, ⌃⌥S shows it). Consumed once the catch-all exists (7a) |
+| [-] | ⌘H | hide app | not mapped (D13) | same | as ⌘M; ⌘⌥H (hide others) is unmapped too |
 | [ ] | ⌘, | preferences | `Ctrl+comma` | Ghostty `Ctrl+comma` (open config); else consume | browsers/LibreOffice in 6b/6f |
+
+`[-]` marks a key deliberately left unmapped (§7).
 
 ### Phase 5 — OS controls
 
@@ -649,6 +666,8 @@ rules cover most of it.
     (that's clutter) or appear only in `docs/KEYBINDINGS.md`.
   - Review risky outcomes: ⌘⇧Q is never translated (Phase 5); also check ⌘J,
     ⌘E, ⌘Y, ⌘⇧X and ⌘⏎ → `Ctrl+Return`.
+  - ⌘M and ⌘H are consumed, never translated (D13): `Ctrl+H` is browser
+    history, `Ctrl+M` is Enter in a terminal.
 - [ ] **7b** ⌘. → `Escape` in GUI apps. In terminals it sends `Ctrl+C`; in
   VS Code `Ctrl+period`.
 - [ ] **7c** Opt-in Emacs-style ⌃ keys in GUI text fields (⌃A/⌃E line
@@ -750,7 +769,6 @@ another relocation needs. Everything not listed here stays unchanged (§6.5).
 | `SUPER + BACKSPACE` | Toggle transparency | ⌘⌫ delete line | `CTRL + ALT + BACKSPACE` |
 | `SUPER + SHIFT + BACKSPACE` | Toggle gaps | ⌘⇧⌫ (Chrome clear data, Finder empty trash) | `CTRL + ALT + SHIFT + BACKSPACE` |
 | `SUPER + ALT + code:34` / `code:35` | Webcam overlay smaller/larger | ⌘⌥[ / ] fold | `CTRL + ALT + bracketleft/bracketright` |
-| new | Toggle minimized windows view | — | `CTRL + ALT + M` (Phase 4) |
 
 ### 6.2 Spaces → ⌃ (Phase 1b)
 
@@ -856,7 +874,7 @@ doesn't report them as unused when the condition is off. Verified with
 | --- | --- | --- |
 | ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview and Omarchy ships none. ⌃↑/↓ switch workspaces instead (1b) | ⌘\` cycles the active app's windows (Phase 4) |
 | ⌘Tab overlay (app icons and names) | Hyprland has no switcher UI; the focus change itself is the feedback, and intermediate stops visibly flip workspaces. A QuickShell overlay is an optional idea, 7j | ⌘Tab / ⌘⇧Tab step through apps while ⌘ is held; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
-| ⌘⌥H hide others, ⌥⌘M minimize all | no simple equivalent | — |
+| ⌘M minimize, ⌘H hide app, ⌘⌥H hide others, ⌥⌘M minimize all | D13: Hyprland and Omarchy have no minimize or hide, and with no dock a hidden window is easy to lose | Omarchy's scratchpad (⌃⌥⇧S moves the window there, ⌃⌥S shows it), or park it on a workspace with ⌃⇧1–0 |
 | ⌘-click (open link in new tab, go to definition, multi-select) | compositor binds can't add Ctrl to a pointer click | physical ⌃-click (on a Mac, ⌃-click is right-click) |
 | ⌥ + letter special characters (å ß ∂ …) | ⌥ stays Meta for terminals | Omarchy's compose key (Caps Lock) |
 | Mac Home/End (scroll to document top/bottom) | Linux semantics kept | ⌘↑/⌘↓ |
@@ -1175,6 +1193,32 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   most recent apps (the latest window of each), and holding ⌘ while pressing
   Tab (or ⇧Tab) walks along the list. The first version here cycled windows;
   the user corrected it, then asked for the deeper stepping.
+
+**F7 — Minimize and hide (2026-10-03)**
+
+- **Not native.** `grep -ri minimize /usr/share/omarchy` and the Hyprland Lua
+  stubs have no hits. Omarchy's manual lists only the scratchpad ("Toggle
+  scratchpad", "Move window to scratchpad"). Hyprland users ask for minimize in
+  [discussion #8281](https://github.com/hyprwm/Hyprland/discussions/8281) and
+  rely on the wiki's special-workspace trick, which stopped working in 0.54
+  ([discussion #13703](https://github.com/hyprwm/Hyprland/discussions/13703)).
+  The Omarchy shell plugin
+  [omarchy-window-buttons](https://github.com/nichovski/omarchy-window-buttons)
+  adds a minimize button that also uses the scratchpad.
+- **What building it showed** (Hyprland 0.56.2; the code was discarded, D13):
+  - `hl.dsp.window.move({ workspace = "special:x", follow = false, window = w })`
+    sends any window to a special workspace, and focus falls to another window
+    on the workspace.
+  - `window.workspace.name` / `.special` identify such windows; they report
+    `mapped = true` and `hidden = false` while parked.
+  - `hl.dsp.workspace.toggle_special("x")` shows and hides the workspace.
+  - Moving a window out with `workspace = hl.get_active_workspace()` works
+    on 0.56.2 and focuses it.
+- **Scratchpad key clash to watch.** The online Omarchy manual also lists
+  `Super + Grave` and `Super + Shift + Grave` for the scratchpad. The installed
+  4.0.4 has only `SUPER + S` / `SUPER + ALT + S` (checked in `tiling.lua`).
+  If a later Omarchy adds the Grave binds they collide with ⌘\` / ⌘⇧\` and need
+  a relocation (the drift check in 8.3 should flag it).
 
 ---
 
@@ -1601,3 +1645,23 @@ and the next step.
     overlay with app icons is noted as 7j.
   - **Next:** ⌘M and ⌘H (minimize and hide); the restore design needs a decision
     with the user first.
+- **2026-10-03 — Phase 4: ⌘M and ⌘H dropped (D13).**
+  - Asked how hidden windows should come back (⌘Tab restore, chosen), built it
+    (a `special:minimized` workspace, `lib/minimized.lua`, ⌘Tab restoring
+    minimized apps, ⌃⌥M view, all tested), then the user asked whether Omarchy
+    or a tiling window manager has minimize at all.
+  - Checked: no minimize in Omarchy or the Hyprland Lua API, and the web agrees
+    (§9 F7). Without a dock there is no natural way to see or click a minimized
+    window. Decision D13: drop ⌘M, ⌘H, ⌘⌥H and ⌥⌘M; the scratchpad stays the
+    native way. The uncommitted work was reverted to `adf3543` (nothing from it
+    is in the repo). §6.1's ⌃⌥M row is gone, §7 and 7a updated.
+  - Test note: the ⌘Tab case "a dead app in the ring is skipped" had failed in
+    2 of about 8 runs with a fixed 0.6 s wait after killing the throwaway
+    window. Waiting until the window is gone from `hyprctl clients` made it pass
+    6 of 6, so the failures were the closing window still being mapped. In real
+    use, pressing ⌘Tab in the instant after closing a window can still target
+    that closing window; focus then falls back, which is harmless.
+  - **Lesson:** I took the plan's ⌘M and ⌘H rows as settled and asked only how
+    to implement them. For keys whose Linux counterpart is doubtful, ask whether
+    to map them at all.
+  - **Next:** ⌘, (preferences), the last Phase 4 row.
