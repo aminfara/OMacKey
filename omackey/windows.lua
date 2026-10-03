@@ -69,3 +69,56 @@ mac({
     default = quit_app, -- terminals too, as Terminal.app does
   },
 })
+
+-- Terminals have no ⌘ chord to receive, so these send their own: foot,
+-- Ghostty, kitty and Alacritty open a new window on Ctrl+Shift+N. Ghostty and
+-- kitty tabs come in 6a.
+mac({
+  id = "new-window",
+  category = "Windows",
+  mac = "⌘N",
+  keys = "SUPER + N",
+  desc = "New window",
+  actions = {
+    default = tap("CTRL", "N"),
+    terminal = tap("CTRL + SHIFT", "N"),
+  },
+})
+
+-- Private window in browsers, new folder in file managers. Firefox's private
+-- window is Ctrl+Shift+P (6b).
+mac({
+  id = "new-window-private",
+  category = "Windows",
+  mac = "⌘⇧N",
+  keys = "SUPER + SHIFT + N",
+  desc = "New private window or folder",
+  actions = {
+    default = tap("CTRL + SHIFT", "N"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "new-tab",
+  category = "Windows",
+  mac = "⌘T",
+  keys = "SUPER + T",
+  desc = "New tab",
+  actions = {
+    default = tap("CTRL", "T"),
+    terminal = tap("CTRL + SHIFT", "N"), -- no tabs: a new window
+  },
+})
+
+mac({
+  id = "reopen-tab",
+  category = "Windows",
+  mac = "⌘⇧T",
+  keys = "SUPER + SHIFT + T",
+  desc = "Reopen closed tab",
+  actions = {
+    default = tap("CTRL + SHIFT", "T"),
+    terminal = "consume",
+  },
+})

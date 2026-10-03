@@ -507,10 +507,10 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘W | close tab / window | `Ctrl+W` | `hl:close` in every terminal (foot, Alacritty, Omarchy TUIs); Ghostty/kitty `Ctrl+Shift+W` waits for 6a | `no-tabs` profile in `config.lua` (empty): ⌘W → `hl:close` for the classes listed there, grown from findings. VS Code with no editor open ignores ⌘W (§7) |
 | [x] | ⌘⇧W | close window | `hl:close` in every app | `hl:close` | one action everywhere: the compositor close ends in the same path as an app's own shortcut, so the planned `Ctrl+Shift+W` for browsers/VS Code (and a VS Code profile) wasn't needed |
 | [x] | ⌘Q | quit app | close every window of the active class (`hl.get_windows`, then close each) | same | Mac semantics: all windows of the app, no confirmation (foot has no close prompt). Apps with unsaved work still ask |
-| [ ] | ⌘N | new window | `Ctrl+N` | `Ctrl+Shift+N` | |
-| [ ] | ⌘⇧N | new folder / private window | `Ctrl+Shift+N` | consume | Firefox → `Ctrl+Shift+P` (6b) |
-| [ ] | ⌘T | new tab | `Ctrl+T` | Ghostty/kitty `Ctrl+Shift+T`; foot `Ctrl+Shift+N` | |
-| [ ] | ⌘⇧T | reopen closed tab | `Ctrl+Shift+T` | consume | |
+| [x] | ⌘N | new window | `Ctrl+N` | `Ctrl+Shift+N` | |
+| [x] | ⌘⇧N | new folder / private window | `Ctrl+Shift+N` | consume | Firefox → `Ctrl+Shift+P` (6b) |
+| [x] | ⌘T | new tab | `Ctrl+T` | `Ctrl+Shift+N` (new window) in every terminal; Ghostty/kitty `Ctrl+Shift+T` waits for 6a | |
+| [x] | ⌘⇧T | reopen closed tab | `Ctrl+Shift+T` | consume | |
 | [ ] | ⌘O / ⌘P / ⌘R / ⌘L | open / print or quick-open / reload / location | `Ctrl+O/P/R/L` | consume | |
 | [ ] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | |
 | [ ] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot font size) | bind both `SUPER + equal` and `SUPER + SHIFT + equal` |
@@ -1347,3 +1347,17 @@ and the next step.
     ⌘Q closing every terminal window matches Terminal.app, iTerm2 and
     Ghostty on macOS, minus their close confirmation.
   - **Next:** ⌘N, ⌘⇧N, ⌘T, ⌘⇧T.
+- **2026-10-03 — Phase 4: ⌘N, ⌘⇧N, ⌘T, ⌘⇧T.**
+  - Added `new-window`, `new-window-private`, `new-tab` and `reopen-tab` to
+    `windows.lua`: `Ctrl+N`, `Ctrl+Shift+N`, `Ctrl+T`, `Ctrl+Shift+T` in GUI
+    apps. Terminals: ⌘N and ⌘T send `Ctrl+Shift+N` (new window; foot,
+    Ghostty, kitty and Alacritty all bind it), ⌘⇧N and ⌘⇧T are consumed. Not
+    `repeating`. The keys were free (editor launcher and toggle floating had
+    moved). 45 bindings, 108 relocations, no duplicates.
+  - Deviation: Ghostty/kitty ⌘T (`Ctrl+Shift+T`) waits for 6a, like ⌘W.
+  - Handler tests: keylog got `n`, `N`, `t`, `T` with `CTRL` / `CTRL+SHIFT`;
+    in a foot probe ⌘N and ⌘T opened a new window and the other two sent
+    nothing. My cleanup of the spawned test windows was denied by the
+    permission check, so the user closed them.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** ⌘O / ⌘P / ⌘R / ⌘L, then zoom (⌘= ⌘+ ⌘- ⌘0).
