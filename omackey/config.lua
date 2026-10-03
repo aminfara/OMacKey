@@ -25,6 +25,8 @@ return {
       -- Omarchy's browser tag regex does not cover Brave Origin.
       classes = { "brave-origin" },
     },
+    -- Nautilus: Alt+Left/Right go back/forward, so ⌘[ / ⌘] (6d adds the rest).
+    { name = "nautilus", classes = { "org.gnome.Nautilus" } },
     -- GUI apps where Ctrl+W doesn't close the window: ⌘W closes it instead.
     -- Add a window class here (hyprctl clients) when ⌘W does nothing.
     { name = "no-tabs", classes = {} },

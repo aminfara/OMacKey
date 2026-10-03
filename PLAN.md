@@ -514,7 +514,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘O / ⌘P / ⌘R / ⌘L | open / print or quick-open / reload / location | `Ctrl+O/P/R/L` | consume | ids `open`, `print`, `reload`, `location`; Omarchy's O/P/L were relocated in Phase 1a |
 | [ ] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | |
 | [x] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot and Ghostty font size) | ids `zoom-in` (`SUPER + equal`), `zoom-in-plus` (`SUPER + SHIFT + equal`), `zoom-out`, `zoom-reset`. Descriptions end in "(app)" so the help menu tells them from Omarchy's desktop zoom (⌃⌘Z). Not `repeating` |
-| [ ] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | |
+| [x] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | ids `back`, `forward`. New `nautilus` profile (class `org.gnome.Nautilus`) in `config.lua`; 6d adds its other overrides. Descriptions have no comma: the help menu cuts them there |
 | [ ] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | per terminal (6a) | |
 | [ ] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | per terminal (6a) | Obsidian: back/forward (6e) |
 | [ ] | ⌘Tab / ⌘⇧Tab | switch window | `hl:cycle_next` plus `bring_to_top` (same as Omarchy's ⌥Tab) | — | not MRU app switching (§7) |
@@ -1400,3 +1400,18 @@ and the next step.
   - The user's physical tests (§8.2) passed. ⌘0 does not reset VS Code zoom;
     that is native (§9 F4), with an optional 6c override.
   - **Next:** ⌘[ / ⌘], then ⌘1–⌘9 and the tab-switching keys.
+- **2026-10-03 — Phase 4: ⌘[ and ⌘].**
+  - Committed zoom first (3ca4e40).
+  - Added `back` and `forward` to `windows.lua`: `Ctrl+[` / `Ctrl+]` by
+    default (outdent and indent in VS Code and Obsidian), `Alt+Left/Right` in
+    browsers and Nautilus, consumed in terminals (Ctrl+[ is Escape there). Not
+    `repeating`. The keys were free (webcam binds moved in 1a). New `nautilus`
+    profile in `config.lua`. 55 bindings, 108 relocations, no duplicates.
+  - The help menu cut the description "Back, or outdent" at the comma, so
+    descriptions avoid commas.
+  - Handler tests: keylog got `bracketleft` / `bracketright` with `mods=CTRL`
+    (default profile); a foot probe got no bytes. Browser and Nautilus
+    profiles resolve to the right chains for the open windows; the `Alt+Left`
+    send itself is the same `tap` already tested, so physical tests cover it.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** ⌘1–⌘9 (tab N).
