@@ -553,8 +553,8 @@ tables below, §7 and 7a (§11 has the list).
 | [x] | ⌃⌘Q | lock screen | `omarchy-system-lock` | id `lock-screen` in `system.lua`. The calculator moved off ⌃⌘Q in 1d; ⌃⌘L still locks too |
 | [-] | ⌘⇧Q | log out | not mapped (user's choice, 2026-10-03): the system menu is not an instant logout and ⌘Esc already opens it | Ctrl+Shift+Q quits Chrome on Linux, so the catch-all must never send it, and consumes ⌘⇧Q (7a) |
 | [ ] | ⌘⌥Esc | force quit | `hl.dsp.window.kill()` on the active window | Mac shows a dialog; this kills directly. Confirmed with the user (2026-10-03): map it, direct kill |
-| [ ] | ⌘⇧3 | screenshot of screen to file | `omarchy-capture-screenshot fullscreen save` | verify the argument semantics. Relies on 1b having moved ⌘⇧1–0 |
-| [ ] | ⌃⌘⇧3 | screen to clipboard | `omarchy-capture-screenshot fullscreen copy` | |
+| [x] | ⌘⇧3 | screenshot of screen to file | `omarchy-capture-screenshot fullscreen save` | id `screenshot-screen-file`, key `SUPER + SHIFT + code:12`. Focused monitor only, file only (§9 F8). Relies on 1b having moved ⌘⇧1–0 |
+| [x] | ⌃⌘⇧3 | screen to clipboard | `omarchy-capture-screenshot fullscreen copy` | id `screenshot-screen-clipboard` |
 | [ ] | ⌘⇧4 | region to file | `omarchy-capture-screenshot region save` | Omarchy's picker: ⏎ captures the window under the cursor, ≈ Mac's Space |
 | [ ] | ⌃⌘⇧4 | region to clipboard | `omarchy-capture-screenshot region copy` | |
 | [ ] | ⌘⇧5 | capture menu | `omarchy-menu toggle capture` | also covers screen recording |
@@ -1224,6 +1224,18 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   If a later Omarchy adds the Grave binds they collide with ⌘\` / ⌘⇧\` and need
   a relocation (the drift check in 8.3 should flag it).
 
+**F8 — Screenshot CLI (2026-10-03)**
+
+- `omarchy-capture-screenshot <mode> <processing>`: processing `save` writes
+  `screenshot-<date>.png` to `$XDG_PICTURES_DIR` and nothing else, `copy` only
+  fills the clipboard, and the default (`slurp`) does both plus a notification
+  with an edit action.
+- Mode `fullscreen` captures the focused monitor with no interaction, `region`
+  shows the picker. Running it again while the picker is open kills it
+  (`pkill slurp`).
+- Digit keys are bound by keycode: ⌘⇧3 is `SUPER + SHIFT + code:12`; the help
+  menu shows it as `SUPER SHIFT + 3`.
+
 ---
 
 ## 10. References
@@ -1706,3 +1718,11 @@ and the next step.
     physical test.
   - **Next:** screenshots (⌘⇧3/4/5 and the ⌃⌘⇧ clipboard variants), then ⌘⌥Esc,
     emoji, ⌥⌘D, and the verify-only items.
+- **2026-10-03 — Phase 5: ⌘⇧3 and ⌃⌘⇧3.**
+  - Committed ⌃⌘Q first (82fc9e5; the user's test passed).
+  - Added `screenshot-screen-file` (`fullscreen save`) and
+    `screenshot-screen-clipboard` (`fullscreen copy`) to `system.lua`. Keys were
+    free. 76 bindings, 108 relocations, no duplicates; the help menu shows both.
+  - Handler test: the file variant wrote a 3840×2160 PNG (deleted afterwards).
+    The clipboard variant was not triggered, to keep the user's clipboard.
+  - **Next:** ⌘⇧4 / ⌃⌘⇧4 (region), ⌘⇧5 (capture menu).
