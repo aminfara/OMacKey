@@ -57,7 +57,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 2 | Cursor movement, selection, deletion | [x] |
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
-| 5 | OS controls (lock, screenshots, help, emoji, force quit) | [ ] |
+| 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
 | 6 | App-specific: 6a terminals · 6b browsers · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
@@ -548,8 +548,8 @@ tables below, §7 and 7a (§11 has the list).
 
 | ✓ | Mac | Meaning | Action | Notes |
 | --- | --- | --- | --- | --- |
-| [ ] | ⌘Space | Spotlight | Omarchy launcher, `SUPER + SPACE` (unchanged) | already Mac-like, verify only |
-| [ ] | ⌘⌥Space | Finder search | Omarchy apps menu (unchanged) | |
+| [x] | ⌘Space | Spotlight | Omarchy launcher, `SUPER + SPACE` (unchanged) | already Mac-like, verify only |
+| [x] | ⌘⌥Space | Finder search | Omarchy apps menu (unchanged) | verified by the user, 2026-10-03 |
 | [x] | ⌃⌘Q | lock screen | `omarchy-system-lock` | id `lock-screen` in `system.lua`. The calculator moved off ⌃⌘Q in 1d; ⌃⌘L still locks too |
 | [-] | ⌘⇧Q | log out | not mapped (user's choice, 2026-10-03): the system menu is not an instant logout and ⌘Esc already opens it | Ctrl+Shift+Q quits Chrome on Linux, so the catch-all must never send it, and consumes ⌘⇧Q (7a) |
 | [x] | ⌘⌥Esc | force quit | `hl.dsp.window.kill()` on the active window | Mac shows a dialog; this kills directly. Confirmed with the user (2026-10-03): map it, direct kill. id `force-quit`, `SUPER + ALT + ESCAPE` |
@@ -558,11 +558,11 @@ tables below, §7 and 7a (§11 has the list).
 | [x] | ⌘⇧4 | region to file | `omarchy-capture-screenshot region save` | id `screenshot-region-file`, `SUPER + SHIFT + code:13`. Omarchy's picker: ⏎ captures the window under the cursor, ≈ Mac's Space |
 | [x] | ⌃⌘⇧4 | region to clipboard | `omarchy-capture-screenshot region copy` | id `screenshot-region-clipboard` |
 | [x] | ⌘⇧5 | capture menu | `omarchy-menu toggle capture` | id `capture-menu`, `SUPER + SHIFT + code:14`. Also covers screen recording; Omarchy's own `SUPER + CTRL + C` opens the same menu |
-| [ ] | ⌘? (⌘⇧/) | help | `omarchy-menu-keybindings` | added in 1d, verify here |
+| [x] | ⌘? (⌘⇧/) | help | `omarchy-menu-keybindings` | added in 1d, verify here |
 | [x] | ⌃⌘Space | emoji & symbols | `omarchy-shell shell toggle omarchy.emojis` | id `emoji-picker`. The background switcher moved off ⌃⌘Space in 1d; Omarchy's ⌃⌘E opens the same picker |
 | [x] | ⌥⌘D | show/hide Dock | `omarchy-toggle-bar` (top bar) | id `toggle-bar`, `SUPER + ALT + D`. ⌘⇧Space still works |
-| [ ] | ⌃⌘F | full screen | moved in 1a, verify only | |
-| [ ] | F-row in Mac mode | brightness / volume / media | Omarchy's XF86 binds (unchanged) | check with `wev` which keysyms the NuPhy sends in Mac mode (e.g. Mission Control and Launchpad keys) |
+| [x] | ⌃⌘F | full screen | moved in 1a, verify only | verified by the user, 2026-10-03 |
+| [x] | F-row in Mac mode | brightness / volume / media | Omarchy's XF86 binds (unchanged) | keysyms found with a key-event probe (§9 F9). F6 Do Not Disturb → Omarchy's silencing toggle (id `do-not-disturb`); F5 Dictation is push-to-talk like Omarchy's F9 (ids `dictation-start`, and `dictation-stop` on release) and ⇧F5 toggles (`dictation-toggle`), all only when voxtype is installed (user's choice); F3 Mission Control (`XF86LaunchA`) left unbound (§7). F4 sends ⌘Space (Spotlight) |
 
 ### Phase 6 — App-specific
 
@@ -885,6 +885,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Physical ⌃←/⌃→ word jump in Linux apps | ⌃←/→ now switch Spaces (as on a Mac) | ⌥←/⌥→ |
 | Nautilus ⌘D duplicate, ⌘⇧⌫ empty trash, ⏎ to rename | no direct Nautilus action | F2 renames |
 | ⌘⇧Q log out | no instant logout wanted; Omarchy's system menu is not one | ⌘Esc opens the system menu |
+| F3 Mission Control key (`XF86LaunchA`) | same reason as ⌃↑ Mission Control: no overview in Hyprland or Omarchy (user's choice, 2026-10-03) | none |
 | Browser ⌘, (settings) | no Linux shortcut | pending 6b |
 | VS Code ⌘W with no editor open | Linux VS Code ignores `Ctrl+W` on an empty window (macOS closes the window). Listing VS Code under `no-tabs` would close the window while editors are open | ⌘⇧W (`Ctrl+Shift+W` closes the window) |
 
@@ -1235,6 +1236,26 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   (`pkill slurp`).
 - Digit keys are bound by keycode: ⌘⇧3 is `SUPER + SHIFT + code:12`; the help
   menu shows it as `SUPER SHIFT + 3`.
+
+**F9 — NuPhy Air75 V2 F-row in Mac mode (2026-10-03)**
+
+- Found with a temporary `hl.on("input.keyboard.key")` probe in the live
+  state (removed afterwards); XKB keycode = evdev + 8, keysyms from
+  `/usr/share/X11/xkb/symbols/inet`. Bound keys are consumed before an app
+  sees them, so keylog can't show them.
+- F1 / F2 `XF86MonBrightnessDown` / `Up` (232 / 233). F3 `XF86LaunchA` (128),
+  the Mission Control key. F4 looked like Super+Space (Spotlight, so it hits
+  the Omarchy menu). F5 `XF86VoiceCommand` (590). F6 `XF86DoNotDisturb` (599).
+  F7–F9 previous / play-pause / next (173 / 172 / 171). F10–F12 mute / volume
+  down / volume up (121 / 122 / 123).
+- Omarchy binds F1, F2 and F7–F12 already. F3, F5, F6 were unbound.
+- `omarchy-toggle-notification-silencing` has no state file: it calls
+  `omarchy-shell notifications toggleDnd`, which prints `on` or `off`.
+- voxtype was not installed at first, so Omarchy skipped its binds; the F5
+  binds use the same `o.cmd_present("voxtype")` condition, evaluated at load
+  (reload after installing it). F5 maps to push-to-talk like Omarchy's F9
+  (`voxtype record start` on press, `stop` on release), and ⇧F5 to
+  `voxtype record toggle`. `action{}` got a `release` option for this.
 
 ---
 
@@ -1766,3 +1787,32 @@ and the next step.
   - Handler test: two triggers; the `bar-off` flag appeared, then cleared, so
     the bar ended as it began.
   - **Next:** the verify-only items (⌘Space, ⌘⌥Space, ⌘?, ⌃⌘F, F-row keysyms).
+- **2026-10-03 — Phase 5: F-row.**
+  - Committed ⌥⌘D first (1ca7004; the user's tests passed).
+  - Probed the NuPhy's F-row keycodes (§9 F9). Decisions with the user: F3
+    unbound (§7), F6 → Do Not Disturb, F5 → voxtype toggle.
+  - Added `do-not-disturb` (F6, `XF86DoNotDisturb`) and `dictation` (F5,
+    `XF86VoiceCommand`, present only when `voxtype` exists) to `system.lua`.
+    83 bindings (F5 is not registered here), 108 relocations, no duplicates.
+  - Handler test: `omarchy-shell notifications toggleDnd` printed `on`, then
+    `off`; two triggers of the bind net out to off. F5 is untested (voxtype not
+    installed).
+  - **Open:** the user's results for the verify-only chords (⌘Space, ⌘⌥Space,
+    ⌘?, ⌃⌘F, F4) and the physical F6 test. Then Phase 5 is done, apart from
+    those ticks.
+- **2026-10-03 — Phase 5: F5 push-to-talk, verify-only items.**
+  - The user confirmed ⌘Space (Omarchy menu), ⌘⌥Space (apps menu), ⌘?, ⌃⌘F, and
+    F4 (⌘Space) all do their expected action, and F6 silences notifications.
+  - The user installed voxtype and asked for F5 = push-to-talk and ⇧F5 = toggle
+    (both without Fn, in Mac mode). Replaced `dictation` with
+    `dictation-start` / `dictation-stop` (release) / `dictation-toggle`
+    (`SHIFT + XF86VoiceCommand`). `action{}` in `lib/bind.lua` now passes
+    `release` through. 86 bindings, 108 relocations, no duplicates;
+    `hyprctl binds` shows the stop bind with `release=true`.
+  - Not triggered by me (it would record the microphone). The user's physical
+    tests passed. **Phase 5 is complete.**
+  - Phase 5 in short: `system.lua` (86 bindings in total, 108 relocations, no
+    duplicates) with ⌃⌘Q lock, ⌘⇧3/4 and ⌃⌘⇧3/4 screenshots, ⌘⇧5 capture menu,
+    ⌘⌥Esc force quit, ⌃⌘Space emoji, ⌥⌘D bar, and F5/⇧F5/F6. ⌘⇧Q and F3 are
+    unmapped (§7).
+  - **Next:** Phase 6, app-specific (6a terminals first), in a later session.

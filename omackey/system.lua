@@ -91,3 +91,49 @@ action({
   desc = "Toggle top bar (Dock)",
   dispatcher = hl.dsp.exec_cmd("omarchy-toggle-bar"),
 })
+
+-- Mac F-row keys that Omarchy leaves unbound. The keysyms are what the NuPhy
+-- sends in Mac mode (PLAN §9 F9). The rest of the row (brightness, media,
+-- volume) already works through Omarchy's XF86 binds.
+
+-- F6: Do Not Disturb.
+action({
+  id = "do-not-disturb",
+  category = "System",
+  mac = "F6",
+  keys = "XF86DoNotDisturb",
+  desc = "Toggle silencing notifications (Do Not Disturb)",
+  dispatcher = hl.dsp.exec_cmd("omarchy-toggle-notification-silencing"),
+})
+
+-- F5: Dictation, push-to-talk like Omarchy's F9 (record while held), and
+-- ⇧F5 toggles. Same condition as Omarchy's own voxtype binds.
+if o.cmd_present("voxtype") then
+  action({
+    id = "dictation-start",
+    category = "System",
+    mac = "F5",
+    keys = "XF86VoiceCommand",
+    desc = "Start dictation (push-to-talk)",
+    dispatcher = hl.dsp.exec_cmd("voxtype record start"),
+  })
+
+  action({
+    id = "dictation-stop",
+    category = "System",
+    mac = "F5 (release)",
+    keys = "XF86VoiceCommand",
+    desc = "Stop dictation (push-to-talk)",
+    dispatcher = hl.dsp.exec_cmd("voxtype record stop"),
+    release = true,
+  })
+
+  action({
+    id = "dictation-toggle",
+    category = "System",
+    mac = "⇧F5",
+    keys = "SHIFT + XF86VoiceCommand",
+    desc = "Toggle dictation",
+    dispatcher = hl.dsp.exec_cmd("voxtype record toggle"),
+  })
+end

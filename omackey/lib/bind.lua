@@ -86,6 +86,7 @@ function M.action(spec)
   hl.bind(spec.keys, spec.dispatcher, {
     description = spec.desc,
     repeating = spec.repeating,
+    release = spec.release,
   })
 
   return register(spec)
