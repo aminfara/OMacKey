@@ -71,3 +71,13 @@ action({
   desc = "Force quit the active window",
   dispatcher = hl.dsp.window.kill(),
 })
+
+-- Emoji & symbols: Omarchy's picker (it also stays on ⌃⌘E).
+action({
+  id = "emoji-picker",
+  category = "System",
+  mac = "⌃⌘Space",
+  keys = "SUPER + CTRL + SPACE",
+  desc = "Emoji and symbols",
+  dispatcher = hl.dsp.exec_cmd("omarchy-shell shell toggle omarchy.emojis"),
+})

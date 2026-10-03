@@ -559,7 +559,7 @@ tables below, §7 and 7a (§11 has the list).
 | [x] | ⌃⌘⇧4 | region to clipboard | `omarchy-capture-screenshot region copy` | id `screenshot-region-clipboard` |
 | [x] | ⌘⇧5 | capture menu | `omarchy-menu toggle capture` | id `capture-menu`, `SUPER + SHIFT + code:14`. Also covers screen recording; Omarchy's own `SUPER + CTRL + C` opens the same menu |
 | [ ] | ⌘? (⌘⇧/) | help | `omarchy-menu-keybindings` | added in 1d, verify here |
-| [ ] | ⌃⌘Space | emoji & symbols | `omarchy-shell shell toggle omarchy.emojis` | the background switcher moved off ⌃⌘Space in 1d |
+| [x] | ⌃⌘Space | emoji & symbols | `omarchy-shell shell toggle omarchy.emojis` | id `emoji-picker`. The background switcher moved off ⌃⌘Space in 1d; Omarchy's ⌃⌘E opens the same picker |
 | [ ] | ⌥⌘D | show/hide Dock | `omarchy-toggle-bar` (top bar) | ⌘⇧Space still works |
 | [ ] | ⌃⌘F | full screen | moved in 1a, verify only | |
 | [ ] | F-row in Mac mode | brightness / volume / media | Omarchy's XF86 binds (unchanged) | check with `wev` which keysyms the NuPhy sends in Mac mode (e.g. Mission Control and Launchpad keys) |
@@ -1749,3 +1749,11 @@ and the next step.
   - Handler test on a throwaway `foot -a omackey.killtest sleep 300`, focused by
     pid and guarded by pid in the same `repl` call: the process died.
   - **Next:** ⌃⌘Space (emoji), ⌥⌘D (bar toggle), then the verify-only items.
+- **2026-10-03 — Phase 5: ⌃⌘Space.**
+  - Committed ⌘⌥Esc first (the user's tests passed).
+  - Added `emoji-picker` to `system.lua`: ⌃⌘Space runs `omarchy-shell shell
+    toggle omarchy.emojis`. `SUPER + CTRL + SPACE` was free (background switcher
+    moved in 1d). 81 bindings, 108 relocations, no duplicates.
+  - Not triggered by me (opens an overlay on the user's screen); awaiting the
+    physical test.
+  - **Next:** ⌥⌘D (bar toggle), then the verify-only items.
