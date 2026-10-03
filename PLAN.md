@@ -517,7 +517,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | ids `back`, `forward`. New `nautilus` profile (class `org.gnome.Nautilus`) in `config.lua`; 6d adds its other overrides. Descriptions have no comma: the help menu cuts them there |
 | [x] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a adds Ghostty and kitty | ids `previous-tab`, `next-tab` |
 | [x] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a | ids `previous-tab-arrow`, `next-tab-arrow`. Obsidian: back/forward (6e) |
-| [ ] | ⌘Tab / ⌘⇧Tab | switch window | `hl:cycle_next` plus `bring_to_top` (same as Omarchy's ⌥Tab) | — | not MRU app switching (§7) |
+| [x] | ⌘Tab / ⌘⇧Tab | switch app (most recently used) | ⌘Tab: the most recent window of the app used before this one; ⌘⇧Tab: of the app used longest ago. Both from Hyprland's focus history (§9 F6) | same | ids `switch-app`, `switch-app-oldest`. An app is a window class, as in ⌘Q. Pressing ⌘Tab again flips back. No overlay and no hold-⌘ stepping (§7). Changed from the plan's window cycling at the user's request |
 | [ ] | ⌘\` / ⌘⇧\` | cycle the active app's windows | Lua: windows of the active class, ordered by `stable_id`, focus next | — | |
 | [ ] | ⌘M | minimize | move the window to `special:minimized` (silent) | same | ⌃⌥M shows/hides minimized windows. Restore design: decide with the user at the start of this phase |
 | [ ] | ⌘H | hide app | proposal: all windows of the class → `special:minimized` | same | ⌘⌥H "hide others" is unmapped |
@@ -665,6 +665,11 @@ rules cover most of it.
   then document it.
 - [ ] **7h** Trackpad gestures (3-/4-finger swipes, as on a Mac) for laptop
   users: documentation only, since this machine is a desktop.
+- [ ] **7i** ⌘Tab hold-⌘ stepping (user's wish, 2026-10-03). Today ⌘Tab only
+  flips between the last two apps (§7). Find out whether it can step deeper
+  while ⌘ is held: a release bind on `Super_L` / `Super_R` (non-consuming) to end
+  the session, our own focus history that ignores the intermediate stops, and
+  maybe a small overlay. Revisit once the rest of Phase 4 is done.
 
 ### Phase 8 — Docs generator, README, maintenance
 
@@ -832,7 +837,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Item | Why | Workaround |
 | --- | --- | --- |
 | ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview and Omarchy ships none. ⌃↑/↓ switch workspaces instead (1b) | ⌘\` cycles the active app's windows (Phase 4) |
-| ⌘Tab as MRU *app* switcher | `cycle_next` cycles windows; there's no app grouping and no MRU overlay | ⌘\` for the same app's windows |
+| ⌘Tab overlay and hold-⌘ stepping | there is no overlay, and a bind can't tell that ⌘ is still held between presses. ⌘Tab flips between the last two apps and ⌘⇧Tab jumps to the oldest | repeat ⌘⇧Tab to walk through every app; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
 | ⌘⌥H hide others, ⌥⌘M minimize all | no simple equivalent | — |
 | ⌘-click (open link in new tab, go to definition, multi-select) | compositor binds can't add Ctrl to a pointer click | physical ⌃-click (on a Mac, ⌃-click is right-click) |
 | ⌥ + letter special characters (å ß ∂ …) | ⌥ stays Meta for terminals | Omarchy's compose key (Caps Lock) |
@@ -1111,6 +1116,24 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   D-Bus warnings are harmless), class `org.gnome.Nautilus`. Focus it by pid and
   guard each trigger by pid. `grim -g "<x>,<y> <w>x<h>"` takes a screenshot of
   its geometry from `hyprctl clients -j`, and `kill <pid>` closes it.
+
+**F6 — App and window switching (2026-10-03)**
+
+- **`HL.Window.focus_history_id`** is Hyprland's own focus order: 0 is the
+  focused window, 1 the one before, and so on. Readable from Lua, so ⌘Tab
+  needs no event hooks or state, and it survives reloads.
+- **`hl.dsp.focus({ window = <HL.Window> })`** also switches to the window's
+  workspace (seen: 2 → 5 → 2 → 1 → 5 on the user's windows).
+- **`window.workspace.special`** marks scratchpad windows. ⌘Tab leaves them out.
+- **`hl.dsp.window.cycle_next()`** walks a ring of the windows on the current
+  workspace (layout order), and `{ next = false }` retraces it. Omarchy's ⌥Tab
+  follows each cycle with `bring_to_top`, which reorders that ring, so its
+  reverse no longer retraces (next, next, next, then prev, prev landed on a
+  window already visited). Not used by OMacKey.
+- **macOS ⌘Tab** switches *apps* by recency: one press flips between the two
+  most recent apps (the latest window of each), and holding ⌘ while pressing
+  Tab walks deeper in the list. The first version here cycled windows; the user
+  corrected it.
 
 ---
 
@@ -1465,3 +1488,25 @@ and the next step.
     per handler; a foot probe got no bytes.
   - The user's physical tests (§8.2) passed.
   - **Next:** ⌘Tab / ⌘⇧Tab (switch window).
+- **2026-10-03 — Phase 4: ⌘Tab and ⌘⇧Tab.**
+  - Committed ⌘⇧[ / ⌘⇧] and ⌘⌥← / ⌘⌥→ first (a6a8c40).
+  - First version cycled the workspace's windows with `cycle_next`. The user
+    pointed out that ⌘Tab on a Mac switches *apps* by recency, so two apps can
+    be flipped between. Replaced it.
+  - `windows.lua` now has `switch-app` (⌘Tab) and `switch-app-oldest`
+    (⌘⇧Tab). An app is a window class, as in ⌘Q. Each app is represented by its
+    most recently focused window, ordered by `focus_history_id` (§9 F6).
+    ⌘Tab focuses the newest app other than the one in front, and ⌘⇧Tab the
+    oldest, so repeating ⌘⇧Tab walks through every app. The window switches
+    workspace when needed. A floating target is raised. Scratchpad and hidden
+    windows are skipped. Not `repeating`. The keys were free (workspace
+    switching moved to ⌃⌥← / ⌃⌥→ in 1b; ⌥Tab still cycles windows). 70
+    bindings, 108 relocations, no duplicates.
+  - Not supported (§7): the overlay, and holding ⌘ to step deeper.
+  - Test on the user's live windows (focus changes only, no keys sent; focus
+    restored afterwards): ⌘Tab went from VS Code (workspace 2) to Nautilus
+    (5) and back; ⌘⇧Tab went to foot (1), then Obsidian (5). Each target
+    matched an independent computation from `hyprctl clients -j`.
+  - The user's physical tests (§8.2) passed. They want deeper ⌘Tab stepping
+    later: noted as 7i.
+  - **Next:** ⌘` / ⌘⇧` (cycle the active app's windows).
