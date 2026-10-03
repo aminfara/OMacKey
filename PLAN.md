@@ -550,9 +550,9 @@ tables below, §7 and 7a (§11 has the list).
 | --- | --- | --- | --- | --- |
 | [ ] | ⌘Space | Spotlight | Omarchy launcher, `SUPER + SPACE` (unchanged) | already Mac-like, verify only |
 | [ ] | ⌘⌥Space | Finder search | Omarchy apps menu (unchanged) | |
-| [ ] | ⌃⌘Q | lock screen | `omarchy-system-lock` | the calculator moved off ⌃⌘Q in 1d; ⌃⌘L still locks too |
-| [ ] | ⌘⇧Q | log out | `omarchy-menu toggle system` (a menu, not an instant logout) | Ctrl+Shift+Q quits Chrome on Linux, so the catch-all must never send it |
-| [ ] | ⌘⌥Esc | force quit | `hl.dsp.window.kill()` on the active window | Mac shows a dialog; this kills directly. Confirm with the user |
+| [x] | ⌃⌘Q | lock screen | `omarchy-system-lock` | id `lock-screen` in `system.lua`. The calculator moved off ⌃⌘Q in 1d; ⌃⌘L still locks too |
+| [-] | ⌘⇧Q | log out | not mapped (user's choice, 2026-10-03): the system menu is not an instant logout and ⌘Esc already opens it | Ctrl+Shift+Q quits Chrome on Linux, so the catch-all must never send it, and consumes ⌘⇧Q (7a) |
+| [ ] | ⌘⌥Esc | force quit | `hl.dsp.window.kill()` on the active window | Mac shows a dialog; this kills directly. Confirmed with the user (2026-10-03): map it, direct kill |
 | [ ] | ⌘⇧3 | screenshot of screen to file | `omarchy-capture-screenshot fullscreen save` | verify the argument semantics. Relies on 1b having moved ⌘⇧1–0 |
 | [ ] | ⌃⌘⇧3 | screen to clipboard | `omarchy-capture-screenshot fullscreen copy` | |
 | [ ] | ⌘⇧4 | region to file | `omarchy-capture-screenshot region save` | Omarchy's picker: ⏎ captures the window under the cursor, ≈ Mac's Space |
@@ -884,6 +884,7 @@ doesn't report them as unused when the condition is off. Verified with
 | ⌘←/⌘→ as browser back/forward outside text fields | focus inside the page can't be detected | ⌘[ / ⌘] |
 | Physical ⌃←/⌃→ word jump in Linux apps | ⌃←/→ now switch Spaces (as on a Mac) | ⌥←/⌥→ |
 | Nautilus ⌘D duplicate, ⌘⇧⌫ empty trash, ⏎ to rename | no direct Nautilus action | F2 renames |
+| ⌘⇧Q log out | no instant logout wanted; Omarchy's system menu is not one | ⌘Esc opens the system menu |
 | Browser ⌘, (settings) | no Linux shortcut | pending 6b |
 | VS Code ⌘W with no editor open | Linux VS Code ignores `Ctrl+W` on an empty window (macOS closes the window). Listing VS Code under `no-tabs` would close the window while editors are open | ⌘⇧W (`Ctrl+Shift+W` closes the window) |
 
@@ -1694,3 +1695,14 @@ and the next step.
       Omarchy adding `Super + Grave` (§9 F7).
   - **Next:** Phase 5 (OS controls) and Phase 6 (app-specific), in a later
     session. Start with the Status board and this entry.
+- **2026-10-03 — Phase 5: ⌃⌘Q.**
+  - Asked about the doubtful keys: ⌘⌥Esc is mapped as a direct kill; ⌘⇧Q is not
+    mapped (§7).
+  - New `system.lua` (added to `config.modules`) with `lock-screen`: ⌃⌘Q runs
+    `omarchy-system-lock` through `action{}`. `SUPER + CTRL + Q` was free
+    (calculator moved in 1d). 74 bindings, 108 relocations, no duplicates; the
+    help menu shows "Lock screen".
+  - Not triggered by me, as it would lock the screen. Awaiting the user's
+    physical test.
+  - **Next:** screenshots (⌘⇧3/4/5 and the ⌃⌘⇧ clipboard variants), then ⌘⌥Esc,
+    emoji, ⌥⌘D, and the verify-only items.

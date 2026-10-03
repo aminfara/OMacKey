@@ -8,6 +8,7 @@ return {
     "text", -- Phase 2: cursor movement, selection, deletion
     "editing", -- Phase 3: clipboard, undo/redo, find, save
     "windows", -- Phase 4: window and tab controls
+    "system", -- Phase 5: OS controls (lock, screenshots, emoji)
   },
 
   -- How long a synthetic key stays down before its release is sent.
