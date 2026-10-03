@@ -560,7 +560,7 @@ tables below, §7 and 7a (§11 has the list).
 | [x] | ⌘⇧5 | capture menu | `omarchy-menu toggle capture` | id `capture-menu`, `SUPER + SHIFT + code:14`. Also covers screen recording; Omarchy's own `SUPER + CTRL + C` opens the same menu |
 | [ ] | ⌘? (⌘⇧/) | help | `omarchy-menu-keybindings` | added in 1d, verify here |
 | [x] | ⌃⌘Space | emoji & symbols | `omarchy-shell shell toggle omarchy.emojis` | id `emoji-picker`. The background switcher moved off ⌃⌘Space in 1d; Omarchy's ⌃⌘E opens the same picker |
-| [ ] | ⌥⌘D | show/hide Dock | `omarchy-toggle-bar` (top bar) | ⌘⇧Space still works |
+| [x] | ⌥⌘D | show/hide Dock | `omarchy-toggle-bar` (top bar) | id `toggle-bar`, `SUPER + ALT + D`. ⌘⇧Space still works |
 | [ ] | ⌃⌘F | full screen | moved in 1a, verify only | |
 | [ ] | F-row in Mac mode | brightness / volume / media | Omarchy's XF86 binds (unchanged) | check with `wev` which keysyms the NuPhy sends in Mac mode (e.g. Mission Control and Launchpad keys) |
 
@@ -1757,3 +1757,12 @@ and the next step.
   - Not triggered by me (opens an overlay on the user's screen); awaiting the
     physical test.
   - **Next:** ⌥⌘D (bar toggle), then the verify-only items.
+- **2026-10-03 — Phase 5: ⌥⌘D.**
+  - Committed ⌃⌘Space first (af7fe38; the user's tests passed).
+  - Added `toggle-bar` to `system.lua`: ⌥⌘D runs `omarchy-toggle-bar`, the same
+    command as Omarchy's ⌘⇧Space (`bind_toggle("bar")`), so both toggle the top
+    bar. `SUPER + ALT + D` was free. 82 bindings, 108 relocations, no
+    duplicates.
+  - Handler test: two triggers; the `bar-off` flag appeared, then cleared, so
+    the bar ended as it began.
+  - **Next:** the verify-only items (⌘Space, ⌘⌥Space, ⌘?, ⌃⌘F, F-row keysyms).

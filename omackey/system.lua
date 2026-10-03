@@ -81,3 +81,13 @@ action({
   desc = "Emoji and symbols",
   dispatcher = hl.dsp.exec_cmd("omarchy-shell shell toggle omarchy.emojis"),
 })
+
+-- Show/hide the Dock: Omarchy's top bar (it also stays on ⌘⇧Space).
+action({
+  id = "toggle-bar",
+  category = "System",
+  mac = "⌥⌘D",
+  keys = "SUPER + ALT + D",
+  desc = "Toggle top bar (Dock)",
+  dispatcher = hl.dsp.exec_cmd("omarchy-toggle-bar"),
+})
