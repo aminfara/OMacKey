@@ -173,3 +173,50 @@ mac({
     terminal = "consume",
   },
 })
+
+-- Zoom. Omarchy's resize binds on these keys moved to ⌃⌥ in Phase 1a. Terminals
+-- take the same chords (foot and Ghostty bind them to font size), so there is
+-- no terminal entry. ⌘+ is ⌘⇧= and zooms in like ⌘=.
+mac({
+  id = "zoom-in",
+  category = "Windows",
+  mac = "⌘=",
+  keys = "SUPER + equal",
+  desc = "Zoom in (app)",
+  actions = {
+    default = tap("CTRL", "equal"),
+  },
+})
+
+mac({
+  id = "zoom-in-plus",
+  category = "Windows",
+  mac = "⌘+",
+  keys = "SUPER + SHIFT + equal",
+  desc = "Zoom in (app)",
+  actions = {
+    default = tap("CTRL", "equal"),
+  },
+})
+
+mac({
+  id = "zoom-out",
+  category = "Windows",
+  mac = "⌘-",
+  keys = "SUPER + minus",
+  desc = "Zoom out (app)",
+  actions = {
+    default = tap("CTRL", "minus"),
+  },
+})
+
+mac({
+  id = "zoom-reset",
+  category = "Windows",
+  mac = "⌘0",
+  keys = "SUPER + 0",
+  desc = "Actual size (app zoom)",
+  actions = {
+    default = tap("CTRL", "0"),
+  },
+})

@@ -513,7 +513,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘⇧T | reopen closed tab | `Ctrl+Shift+T` | consume | |
 | [x] | ⌘O / ⌘P / ⌘R / ⌘L | open / print or quick-open / reload / location | `Ctrl+O/P/R/L` | consume | ids `open`, `print`, `reload`, `location`; Omarchy's O/P/L were relocated in Phase 1a |
 | [ ] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | |
-| [ ] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot font size) | bind both `SUPER + equal` and `SUPER + SHIFT + equal` |
+| [x] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot and Ghostty font size) | ids `zoom-in` (`SUPER + equal`), `zoom-in-plus` (`SUPER + SHIFT + equal`), `zoom-out`, `zoom-reset`. Descriptions end in "(app)" so the help menu tells them from Omarchy's desktop zoom (⌃⌘Z). Not `repeating` |
 | [ ] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | |
 | [ ] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | per terminal (6a) | |
 | [ ] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | per terminal (6a) | Obsidian: back/forward (6e) |
@@ -596,6 +596,7 @@ rules cover most of it.
 | ⌘⌥F | `Ctrl+H` | replace |
 | ⌃⇧⌘← / → | `Shift+Alt+Left/Right` | shrink/expand selection |
 | ⌘. | `Ctrl+period` | quick fix (overrides the 7b ⌘. → Esc rule) |
+| ⌘0 | `Ctrl+KP_0` (numpad 0) | reset zoom. VS Code has no `Ctrl+0` default for it (§9 F4). Needs `kp_0` in `lib/keys.lua` (keycode 90). Optional: only if the user wants it |
 | physical ⌃- / ⌃⇧- | `Ctrl+Alt+minus` / `Ctrl+Shift+minus` | navigate back/forward. Optional, since it intercepts physical Ctrl in one app |
 | ⌘K chords, ⌘P, ⌘⇧P, ⌘D, ⌘⇧L, ⌘⇧K, ⌘⏎, ⌘B, ⌘J, ⌘\\ | generic Ctrl translation (Phases 3, 4, 7) | verify chords: ⌘K ⌘S → Ctrl+K Ctrl+S |
 | ⌃Space suggest | physical Ctrl+Space | fcitx5's default trigger is Ctrl+Space and may eat it. Document |
@@ -1081,6 +1082,16 @@ Sessions append facts learned here: spike results, app quirks, surprises.
 - **A private keylog copy** (D-Bus disabled) has window class `keylog.py`, not
   `omackey.keylog`. Focus it by pid.
 
+**F4 — Zoom findings (2026-10-03)**
+
+- **⌘0 is not "go to tab".** On macOS, ⌘0 resets browser zoom (Safari,
+  Chrome and Firefox); ⌘1–⌘8 select tabs 1–8 and ⌘9 the last tab.
+- **VS Code has no `Ctrl+0` / ⌘0 zoom reset by default.** The reset command is
+  bound to `Ctrl+Numpad0` (⌘Numpad0 on macOS); `Ctrl+0` is not it. So ⌘0 doing
+  nothing to VS Code zoom is native behaviour, same as on a Mac without
+  customizing. Listed under 6c as an optional override.
+- The user confirmed ⌘= ⌘+ ⌘- ⌘0 in keylog, Brave, foot and the rest.
+
 ---
 
 ## 10. References
@@ -1374,3 +1385,18 @@ and the next step.
     got no bytes.
   - The user's physical tests (§8.2) passed.
   - **Next:** zoom (⌘= ⌘+ ⌘- ⌘0).
+- **2026-10-03 — Phase 4: zoom (⌘=, ⌘+, ⌘-, ⌘0).**
+  - Committed ⌘O/⌘P/⌘R/⌘L first (3857d2c).
+  - Added `zoom-in`, `zoom-in-plus`, `zoom-out` and `zoom-reset` to
+    `windows.lua`: `Ctrl+equal` (both ⌘= and ⌘+), `Ctrl+minus`, `Ctrl+0` in
+    every app, terminals included (no terminal entry: foot and Ghostty bind
+    these to font size). Not `repeating`. The keys were free (Omarchy's resize
+    binds moved to ⌃⌥ in 1a). 53 bindings, 108 relocations, no duplicates.
+  - Descriptions carry "(app)": Omarchy's desktop zoom is also called "Zoom in"
+    and "Reset zoom" (⌃⌘Z).
+  - Handler test in a private keylog copy: `equal` twice, `minus`, `0` with
+    `mods=CTRL`, released cleanly. Not tested in foot (font size has no byte
+    to probe).
+  - The user's physical tests (§8.2) passed. ⌘0 does not reset VS Code zoom;
+    that is native (§9 F4), with an optional 6c override.
+  - **Next:** ⌘[ / ⌘], then ⌘1–⌘9 and the tab-switching keys.
