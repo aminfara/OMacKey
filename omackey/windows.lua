@@ -271,3 +271,55 @@ for n = 1, 9 do
     },
   })
 end
+
+-- Previous and next tab on both Mac chords. Browsers, VS Code and Nautilus
+-- all take Ctrl+Page_Up/Down. Terminals consume until 6a (Ghostty and kitty
+-- have their own tab keys); Obsidian's ⌘⌥← / ⌘⌥→ become back/forward in 6e.
+-- Omarchy's webcam binds (⌘⌥[ ]) and group moves (⌘⌥←/→) moved in Phase 1a.
+mac({
+  id = "previous-tab",
+  category = "Windows",
+  mac = "⌘⇧[",
+  keys = "SUPER + SHIFT + bracketleft",
+  desc = "Previous tab",
+  actions = {
+    default = tap("CTRL", "Page_Up"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "next-tab",
+  category = "Windows",
+  mac = "⌘⇧]",
+  keys = "SUPER + SHIFT + bracketright",
+  desc = "Next tab",
+  actions = {
+    default = tap("CTRL", "Page_Down"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "previous-tab-arrow",
+  category = "Windows",
+  mac = "⌘⌥←",
+  keys = "SUPER + ALT + LEFT",
+  desc = "Previous tab",
+  actions = {
+    default = tap("CTRL", "Page_Up"),
+    terminal = "consume",
+  },
+})
+
+mac({
+  id = "next-tab-arrow",
+  category = "Windows",
+  mac = "⌘⌥→",
+  keys = "SUPER + ALT + RIGHT",
+  desc = "Next tab",
+  actions = {
+    default = tap("CTRL", "Page_Down"),
+    terminal = "consume",
+  },
+})

@@ -515,8 +515,8 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | ids `tab-1`…`tab-9`, a loop over digits (like `spaces.lua`) with its own `actions` table. ⌘9 is the last tab in browsers. The synthetic `Ctrl+N` does not trigger the physical ⌃N workspace binds. VS Code: ⌘N focuses editor group N, as on a Mac (§9 F5). Nautilus keeps `Ctrl+N` until 6d: ⌘1 is list view and ⌘2 grid view, the reverse of Finder, and ⌘3–9 do nothing |
 | [x] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot and Ghostty font size) | ids `zoom-in` (`SUPER + equal`), `zoom-in-plus` (`SUPER + SHIFT + equal`), `zoom-out`, `zoom-reset`. Descriptions end in "(app)" so the help menu tells them from Omarchy's desktop zoom (⌃⌘Z). Not `repeating` |
 | [x] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | ids `back`, `forward`. New `nautilus` profile (class `org.gnome.Nautilus`) in `config.lua`; 6d adds its other overrides. Descriptions have no comma: the help menu cuts them there |
-| [ ] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | per terminal (6a) | |
-| [ ] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | per terminal (6a) | Obsidian: back/forward (6e) |
+| [x] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a adds Ghostty and kitty | ids `previous-tab`, `next-tab` |
+| [x] | ⌘⌥← / ⌘⌥→ | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | consume until 6a | ids `previous-tab-arrow`, `next-tab-arrow`. Obsidian: back/forward (6e) |
 | [ ] | ⌘Tab / ⌘⇧Tab | switch window | `hl:cycle_next` plus `bring_to_top` (same as Omarchy's ⌥Tab) | — | not MRU app switching (§7) |
 | [ ] | ⌘\` / ⌘⇧\` | cycle the active app's windows | Lua: windows of the active class, ordered by `stable_id`, focus next | — | |
 | [ ] | ⌘M | minimize | move the window to `special:minimized` (silent) | same | ⌃⌥M shows/hides minimized windows. Restore design: decide with the user at the start of this phase |
@@ -1453,3 +1453,15 @@ and the next step.
     number are `Alt+N`. Finder has no tab numbers. Findings in §9 F5; the swap
     is a 6d item.
   - **Next:** ⌘⇧[ / ⌘⇧] and ⌘⌥← / ⌘⌥→ (previous / next tab).
+- **2026-10-03 — Phase 4: ⌘⇧[ / ⌘⇧] and ⌘⌥← / ⌘⌥→.**
+  - Committed ⌘1–⌘9 first (cd9900c).
+  - Added `previous-tab`, `next-tab` (⌘⇧[ , ⌘⇧]) and `previous-tab-arrow`,
+    `next-tab-arrow` (⌘⌥←, ⌘⌥→) to `windows.lua`: `Ctrl+Page_Up` /
+    `Ctrl+Page_Down` in GUI apps (browsers, VS Code and Nautilus all use them),
+    consumed in terminals until 6a. Not `repeating`. The keys were free (webcam
+    binds and group moves moved in 1a). 68 bindings, 108 relocations, no
+    duplicates. Obsidian's ⌘⌥← / ⌘⌥→ become back/forward in 6e.
+  - Handler tests: keylog got `Page_Up` / `Page_Down` with `mods=CTRL`, once
+    per handler; a foot probe got no bytes.
+  - The user's physical tests (§8.2) passed.
+  - **Next:** ⌘Tab / ⌘⇧Tab (switch window).
