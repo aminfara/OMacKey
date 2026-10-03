@@ -512,7 +512,7 @@ S3) and the clipboard manager (⌃⌘V) is unaffected.
 | [x] | ⌘T | new tab | `Ctrl+T` | `Ctrl+Shift+N` (new window) in every terminal; Ghostty/kitty `Ctrl+Shift+T` waits for 6a | |
 | [x] | ⌘⇧T | reopen closed tab | `Ctrl+Shift+T` | consume | |
 | [x] | ⌘O / ⌘P / ⌘R / ⌘L | open / print or quick-open / reload / location | `Ctrl+O/P/R/L` | consume | ids `open`, `print`, `reload`, `location`; Omarchy's O/P/L were relocated in Phase 1a |
-| [ ] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | |
+| [x] | ⌘1–⌘9 | tab N | `Ctrl+1–9` | Ghostty `Alt+1–9` (6a); else consume | ids `tab-1`…`tab-9`, a loop over digits (like `spaces.lua`) with its own `actions` table. ⌘9 is the last tab in browsers. The synthetic `Ctrl+N` does not trigger the physical ⌃N workspace binds. VS Code: ⌘N focuses editor group N, as on a Mac (§9 F5). Nautilus keeps `Ctrl+N` until 6d: ⌘1 is list view and ⌘2 grid view, the reverse of Finder, and ⌘3–9 do nothing |
 | [x] | ⌘= ⌘+ ⌘- ⌘0 | zoom in / in / out / reset | `Ctrl+equal`, `Ctrl+equal`, `Ctrl+minus`, `Ctrl+0` | same (foot and Ghostty font size) | ids `zoom-in` (`SUPER + equal`), `zoom-in-plus` (`SUPER + SHIFT + equal`), `zoom-out`, `zoom-reset`. Descriptions end in "(app)" so the help menu tells them from Omarchy's desktop zoom (⌃⌘Z). Not `repeating` |
 | [x] | ⌘[ / ⌘] | back / forward (browser, files); outdent / indent (editors) | default `Ctrl+[` / `Ctrl+]`; browser & Nautilus profiles `Alt+Left/Right` | consume | ids `back`, `forward`. New `nautilus` profile (class `org.gnome.Nautilus`) in `config.lua`; 6d adds its other overrides. Descriptions have no comma: the help menu cuts them there |
 | [ ] | ⌘⇧[ / ⌘⇧] | previous / next tab | `Ctrl+Page_Up` / `Ctrl+Page_Down` | per terminal (6a) | |
@@ -613,7 +613,7 @@ rules cover most of it.
 | ⌘⇧G | `Ctrl+L` (go to location) |
 | ⌘[ / ⌘] | `Alt+Left/Right` |
 | ⌘I | properties (verify: `Ctrl+I` or `Alt+Return`) |
-| ⌘1 / ⌘2 | icon / list view (verify Nautilus's `Ctrl+1/2` mapping; it is likely the reverse of Finder's) |
+| ⌘1 / ⌘2 | icon / list view: Nautilus's own `Ctrl+1` is list and `Ctrl+2` is grid (§9 F5), the reverse of Finder, so send `Ctrl+2` for ⌘1 and `Ctrl+1` for ⌘2. ⌘3 / ⌘4 (columns, gallery) have no Nautilus view: consume. Nautilus tabs by number are `Alt+N`, not used (Finder has no tab numbers) |
 | ⌘D, ⌘⇧⌫, ⏎-to-rename | unmapped (§7) |
 
 **6e — Obsidian** (class `obsidian`, Electron; verify)
@@ -1092,6 +1092,26 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   customizing. Listed under 6c as an optional override.
 - The user confirmed ⌘= ⌘+ ⌘- ⌘0 in keylog, Brave, foot and the rest.
 
+**F5 — ⌘1–⌘9 findings (2026-10-03)**
+
+- **VS Code:** ⌘1–⌘N focus editor group N, not tab N. That is VS Code's own
+  default on a Mac too: `workbench.action.focusFirstEditorGroup` is
+  `CtrlCmd+1` (checked in the installed `workbench.desktop.main.js`, keybinding
+  `primary:2070`), so ⌘ → Ctrl reproduces the Mac behaviour exactly.
+- **Finder:** ⌘1–⌘4 switch the view (icons, list, columns, gallery), per
+  Apple's shortcut page. They never select a tab.
+- **Nautilus 50.3.1:** the binary binds `Alt+N` to `win.go-to-tab(N)` and
+  `Ctrl+1` / `Ctrl+2` to `slot.files-view-mode`. Tested in a private
+  instance: from grid view `Ctrl+2` stays on grid and `Ctrl+1` switches to
+  list view. So Nautilus is the reverse of Finder's ⌘1 / ⌘2, and ⌘3–⌘9 do
+  nothing. The user's test saw no tab switching for that reason. 6d handles
+  the swap.
+- **Throwaway Nautilus for tests.** `DBUS_SESSION_BUS_ADDRESS=disabled:
+  nautilus --new-window DIR &` starts a standalone instance (the dconf and
+  D-Bus warnings are harmless), class `org.gnome.Nautilus`. Focus it by pid and
+  guard each trigger by pid. `grim -g "<x>,<y> <w>x<h>"` takes a screenshot of
+  its geometry from `hyprctl clients -j`, and `kill <pid>` closes it.
+
 ---
 
 ## 10. References
@@ -1415,3 +1435,21 @@ and the next step.
     send itself is the same `tap` already tested, so physical tests cover it.
   - The user's physical tests (§8.2) passed.
   - **Next:** ⌘1–⌘9 (tab N).
+- **2026-10-03 — Phase 4: ⌘1–⌘9.**
+  - Committed ⌘[ / ⌘] first (0077262).
+  - Added `tab-1` … `tab-9` to `windows.lua`: `Ctrl+N` in GUI apps (browsers
+    and VS Code treat ⌘9 / `Ctrl+9` as the last tab or the ninth), consumed in
+    terminals; Ghostty's `Alt+N` comes in 6a. Written as a loop over digits, as
+    in `spaces.lua`, each bind with its own `actions` table. Not `repeating`.
+    The keys were free (workspace switching moved to ⌃1–0 in 1b). 64
+    bindings, 108 relocations, no duplicates.
+  - Handler tests: keylog got `1`…`9` with `mods=CTRL` and the workspace did
+    not change (synthetic Ctrl+N never reaches the ⌃N workspace binds); a foot
+    probe got no bytes.
+  - The user's physical tests (§8.2) passed. Two notes: VS Code goes to the
+    editor *group* (its own default, same as macOS), and Nautilus seemed to do
+    nothing with tabs open. I checked with a throwaway Nautilus: ⌘1 / ⌘2 switch
+    list / grid view (Finder's ⌘1 / ⌘2 are icons / list), and Nautilus tabs by
+    number are `Alt+N`. Finder has no tab numbers. Findings in §9 F5; the swap
+    is a 6d item.
+  - **Next:** ⌘⇧[ / ⌘⇧] and ⌘⌥← / ⌘⌥→ (previous / next tab).

@@ -251,3 +251,23 @@ mac({
     terminal = "consume",
   },
 })
+
+-- ⌘1–⌘9: tab N (⌘9 is the last tab in browsers, as on a Mac). Omarchy's
+-- workspace binds moved to ⌃1–0 in Phase 1b. One bind per digit, written as a
+-- loop like spaces.lua; each gets its own actions table, so Phase 6 can add
+-- per-app entries. Terminals consume (Ghostty's Alt+N comes in 6a).
+for n = 1, 9 do
+  local digit = tostring(n)
+
+  mac({
+    id = "tab-" .. digit,
+    category = "Windows",
+    mac = "⌘" .. digit,
+    keys = "SUPER + " .. digit,
+    desc = "Go to tab " .. digit,
+    actions = {
+      default = tap("CTRL", digit),
+      terminal = "consume",
+    },
+  })
+end
