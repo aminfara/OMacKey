@@ -30,3 +30,23 @@ action({
   desc = "Screenshot of the screen to clipboard",
   dispatcher = hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen copy"),
 })
+
+-- Region capture uses Omarchy's picker: Return captures the window under the
+-- cursor, which is close to the Mac's Space.
+action({
+  id = "screenshot-region-file",
+  category = "System",
+  mac = "⌘⇧4",
+  keys = "SUPER + SHIFT + code:13",
+  desc = "Screenshot of a region to file",
+  dispatcher = hl.dsp.exec_cmd("omarchy-capture-screenshot region save"),
+})
+
+action({
+  id = "screenshot-region-clipboard",
+  category = "System",
+  mac = "⌃⌘⇧4",
+  keys = "SUPER + CTRL + SHIFT + code:13",
+  desc = "Screenshot of a region to clipboard",
+  dispatcher = hl.dsp.exec_cmd("omarchy-capture-screenshot region copy"),
+})

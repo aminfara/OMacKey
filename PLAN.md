@@ -555,8 +555,8 @@ tables below, §7 and 7a (§11 has the list).
 | [ ] | ⌘⌥Esc | force quit | `hl.dsp.window.kill()` on the active window | Mac shows a dialog; this kills directly. Confirmed with the user (2026-10-03): map it, direct kill |
 | [x] | ⌘⇧3 | screenshot of screen to file | `omarchy-capture-screenshot fullscreen save` | id `screenshot-screen-file`, key `SUPER + SHIFT + code:12`. Focused monitor only, file only (§9 F8). Relies on 1b having moved ⌘⇧1–0 |
 | [x] | ⌃⌘⇧3 | screen to clipboard | `omarchy-capture-screenshot fullscreen copy` | id `screenshot-screen-clipboard` |
-| [ ] | ⌘⇧4 | region to file | `omarchy-capture-screenshot region save` | Omarchy's picker: ⏎ captures the window under the cursor, ≈ Mac's Space |
-| [ ] | ⌃⌘⇧4 | region to clipboard | `omarchy-capture-screenshot region copy` | |
+| [x] | ⌘⇧4 | region to file | `omarchy-capture-screenshot region save` | id `screenshot-region-file`, `SUPER + SHIFT + code:13`. Omarchy's picker: ⏎ captures the window under the cursor, ≈ Mac's Space |
+| [x] | ⌃⌘⇧4 | region to clipboard | `omarchy-capture-screenshot region copy` | id `screenshot-region-clipboard` |
 | [ ] | ⌘⇧5 | capture menu | `omarchy-menu toggle capture` | also covers screen recording |
 | [ ] | ⌘? (⌘⇧/) | help | `omarchy-menu-keybindings` | added in 1d, verify here |
 | [ ] | ⌃⌘Space | emoji & symbols | `omarchy-shell shell toggle omarchy.emojis` | the background switcher moved off ⌃⌘Space in 1d |
@@ -1726,3 +1726,11 @@ and the next step.
   - Handler test: the file variant wrote a 3840×2160 PNG (deleted afterwards).
     The clipboard variant was not triggered, to keep the user's clipboard.
   - **Next:** ⌘⇧4 / ⌃⌘⇧4 (region), ⌘⇧5 (capture menu).
+- **2026-10-03 — Phase 5: ⌘⇧4 and ⌃⌘⇧4.**
+  - Committed ⌘⇧3 / ⌃⌘⇧3 first (502d7fe; the user's tests passed).
+  - Added `screenshot-region-file` (`region save`) and
+    `screenshot-region-clipboard` (`region copy`) to `system.lua`. Keys were
+    free. 78 bindings, 108 relocations, no duplicates; the help menu shows both.
+  - Handler test: the picker (slurp) starts and I closed it without capturing.
+    Dragging a region, Return and the saved file are left to the physical test.
+  - **Next:** ⌘⇧5 (capture menu), then ⌘⌥Esc, emoji, ⌥⌘D, verify-only items.
