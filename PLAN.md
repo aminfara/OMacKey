@@ -824,9 +824,19 @@ New profile `libreoffice` (`config.lua`); entries sit on existing keys, plus new
   Code (quick fix; it replaces the `quick-fix` entry in `vscode.lua`). Not
   `repeating`. Handler tests in a private keylog copy: `Escape`, `c` with `CTRL`
   (terminal profile), `period` with `CTRL` (vscode profile).
-- [ ] **7c** Opt-in Emacs-style ⌃ keys in GUI text fields (⌃A/⌃E line
-  start/end, ⌃K kill to end, ⌃D/⌃H delete, ⌃F/⌃B/⌃N/⌃P). Terminals pass
-  through.
+- [x] **7c** Emacs-style ⌃ keys (2026-10-05). New `emacs.lua`, controlled by the
+  `emacs_keys` flag in `config.lua` (D12: a flag because it takes ⌃A / ⌃F / ⌃H …
+  away from GUI apps; **on by default at the user's request**, `false` binds
+  nothing; reload after changing it). Physical ⌃ + A / E line start / end, F / B / N / P right / left / down /
+  up, D / H delete right / left, K delete to line end (`Shift+End`, `Delete`),
+  all `repeating`, ids `emacs-<name>`, category "Emacs", descriptions end in
+  "(Emacs key)". Terminals pass the raw key (readline has them). VS Code gets the
+  translation too (user's choice), except ⌃D, which passes: the integrated
+  terminal can't be told from the editor (§9 F12), and a ⌃D that sent Delete
+  would no longer end a shell (§7). One block per key, no loop. Not done: ⌃T / ⌃O / ⌃V / ⌃Y.
+  Synthetic chords don't re-trigger these binds (§9 F1), so ⌘A → `Ctrl+A` is safe.
+  Handler tests in a private keylog copy: `Home`, `End`, `Right`, `Left`, `Down`,
+  `Up`, `Delete`, `BackSpace`, `Shift+End` then `Delete`, none with a modifier.
 - [ ] **7d** Mac-mode toggle: turn OMacKey off and on without uninstalling, so
   Omarchy's defaults come back. For example a state file read at load plus
   `hyprctl reload`, wrapped in a small script.
@@ -1054,6 +1064,7 @@ doesn't report them as unused when the condition is off. Verified with
 | ⌘⇧ + digits (⌘⇧1, 2, 6–9) | the catch-all skips them: ⌘⇧3/4/5 are screenshots and Ctrl+Shift+digit means little on Linux | none |
 | Obsidian ⌘⌥[ / ⌘⌥] (fold / unfold) | Obsidian has no default fold hotkey on any platform (§9 F16); the keys are not mapped | Set a hotkey for "Toggle fold" in Obsidian's Hotkeys settings |
 | LibreOffice ⌘⇧G (find previous) | no key finds the previous match (the Find toolbar has Shift+Enter only while it has focus); the generic `Shift+F3` would change case, so ⌘⇧G is consumed | the arrow button in the Find toolbar |
+| Emacs ⌃D (7c) in VS Code | ⌃D passes through: the integrated terminal can't be told from the editor, and readline needs the raw ⌃D (end of input). The other Emacs keys are translated there, so in its terminal ⌃K sends `Shift+End`, `Delete` (deletes one character instead of killing the line) | Delete in the editor; `Ctrl+K` equivalents are not available in the integrated terminal |
 | VS Code ⌘⇧⌥ arrows (column select) | Linux VS Code has no keyboard column select (`cursorColumnSelect*` have `linux: { primary: 0 }`), and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (user's choice, 2026-10-05) | Shift+Alt+mouse drag, or a user keybinding for `cursorColumnSelect*` |
 
 ---
@@ -2400,3 +2411,17 @@ and the next step.
   - The user's physical tests (§8.2) passed (Brave, Nautilus, foot, VS Code).
     **7b is complete.**
   - **Next:** 7c (opt-in Emacs ⌃ keys) or another Phase 7 item, then Phase 8.
+- **2026-10-05 — Phase 7c: Emacs ⌃ keys (built).**
+  - Committed 7b first (683e505; the user's tests passed).
+  - Answered the user's question first: GUI apps only, terminals pass through.
+  - New `emacs.lua` and an `emacs_keys` flag in `config.lua` (default false).
+    With the flag on: 153 bindings, 108 relocations, no duplicates; the help menu
+    lists nine "(Emacs key)" entries. Flag off: 144 bindings, unchanged.
+  - First version passed every Emacs key in VS Code; the user wanted the movement
+    keys there too and only ⌃D kept raw, and asked for explicit blocks instead of
+    a loop (rewritten). ⌃T / ⌃O / ⌃V / ⌃Y are not mapped.
+  - Handler tests in keylog: all nine sent the right keys.
+  - The user's physical tests (§8.2) passed (Brave, foot, VS Code editor and
+    terminal, repeat, rapid presses). They want the keys on: the flag is `true`
+    in the repo. **7c is complete.**
+  - **Next:** 7d (Mac-mode toggle), then 7e–7h and Phase 8.

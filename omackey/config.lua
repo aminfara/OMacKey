@@ -15,8 +15,16 @@ return {
     "nautilus", -- Phase 6d: hidden files (other Nautilus keys sit on the keys they extend)
     "obsidian", -- Phase 6e: redo selection (other Obsidian keys sit on the keys they extend)
     "libreoffice", -- Phase 6f: paste special (other LibreOffice keys sit on the keys they extend)
+    "emacs", -- Phase 7c: opt-in Emacs ⌃ keys (does nothing unless emacs_keys is true)
     "catchall", -- Phase 7a: every ⌘ / ⌘⇧ key not claimed above (keep last)
   },
+
+  -- Emacs keys (7c): Mac text-field editing keys on physical ⌃ — ⌃A / ⌃E line start /
+  -- end, ⌃F / ⌃B / ⌃N / ⌃P arrows, ⌃D / ⌃H delete, ⌃K kill to line end. Terminals
+  -- keep the raw key, and so does ⌃D in VS Code. They take ⌃A, ⌃F, ⌃H … away from
+  -- GUI apps (select all, find, history): set this to false to get those back.
+  -- The default is on at the user's request; reload after changing it.
+  emacs_keys = true,
 
   -- How long a synthetic key stays down before its release is sent.
   -- Spike S2 tunes this (Omarchy uses 50 ms, the r/omarchy snippet 5 ms).
