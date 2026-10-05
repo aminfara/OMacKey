@@ -8,6 +8,7 @@ local relocations = require("hypr.omackey.relocations")
 
 local M = {
   applied = {}, -- { from, to, description } for every bind that was moved
+  claimed = {}, -- normalized key string → true, for every key Omarchy registered
 }
 
 local MODIFIER_ORDER = { SUPER = 1, CTRL = 2, ALT = 3, SHIFT = 4 }
@@ -62,6 +63,7 @@ function M.hook()
       })
       keys = relocation.to
     end
+    M.claimed[M.normalize(keys)] = true
 
     return original_bind(keys, dispatcher, opts)
   end

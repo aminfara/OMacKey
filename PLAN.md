@@ -58,9 +58,14 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
-| 7 | Catch-all ⌘→Ctrl & the rest | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 after 7a) · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
+| 7 | Catch-all ⌘→Ctrl & the rest: 7a ✅ (done before 6c-2 / 6d–6f, see below) | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
+
+**Order change (2026-10-05).** 7a, the catch-all, is built before 6c-2 and
+6d–6f: those per-app audits become a diff against what the catch-all already
+sends, instead of guessing which keys work. The rest of Phase 7 stays after
+Phase 6.
 
 **Why this order.** The user's category order is kept, with one change:
 workspace controls move up into Phase 1b. Omarchy's workspace keys (SUPER+1–0,
@@ -671,6 +676,20 @@ select dropped, ⌘0 mapped, physical ⌃- / ⌃⇧- not mapped. New module
 - [x] Physical tests by the user (§8.2) in VS Code passed: ⌘⌥↑/↓, ⌘⌥[ / ], ⌘⌥F,
   ⌃⇧⌘←/→, ⌘., ⌘0.
 
+**6c-2 — VS Code Mac keymap audit** (after 7a, now done first; the user asked on 2026-10-05
+whether VS Code is finished: 6c only covers chords that differ from the Mac's
+Ctrl-for-⌘ form)
+
+- [ ] List VS Code's Mac keybindings from the installed
+  `workbench.desktop.main.js` (`kbOpts` / `keybinding` with `primary`, `mac`,
+  `linux` fields, decoded as in §9 F13).
+- [ ] Diff them against what OMacKey sends once the 7a catch-all exists. Cover
+  UI navigation first: sidebar views (⌘⇧E / F / G / D / X), ⌘B, ⌘J, ⌘P,
+  ⌘⇧P, ⌘\\, ⌘⏎, ⌘⇧L, ⌘D, ⌘⇧K, the ⌘K chords, and terminal toggle (Mac ⌃`).
+- [ ] Add an explicit `vscode.lua` entry for each key where the Linux chord is
+  different, shadowed by another command (as `Ctrl+Shift+I`, F11) or missing.
+- [ ] Record the rest as §7 entries (the integrated terminal limit, F12, stays).
+
 **6d — Nautilus** (`org.gnome.Nautilus`; ideas from Kinto and xremap; verify each)
 
 | Mac | Action |
@@ -707,18 +726,26 @@ select dropped, ⌘0 mapped, physical ⌃- / ⌃⇧- not mapped. New module
 
 ### Phase 7 — Catch-all & the rest
 
-- [ ] **7a Catch-all.** Every ⌘ / ⌘⇧ + letter, digit or punctuation (`` ` - =
-  [ ] \ ; ' , . / ``, ⏎) not claimed by Phases 2–6 sends Ctrl / Ctrl+Shift +
-  the same key.
-  - Generate the binds from the registry so the catch-all only fills gaps.
-  - Terminals: consume. Option: `pass`, so kitty-protocol apps such as nvim can
-    map `<D-…>`.
-  - Decide with the user whether catch-all entries get help-menu descriptions
-    (that's clutter) or appear only in `docs/KEYBINDINGS.md`.
-  - Review risky outcomes: ⌘⇧Q is never translated (Phase 5); also check ⌘J,
-    ⌘E, ⌘Y, ⌘⇧X and ⌘⏎ → `Ctrl+Return`.
-  - ⌘M and ⌘H are consumed, never translated (D13): `Ctrl+H` is browser
-    history, `Ctrl+M` is Enter in a terminal.
+- [x] **7a Catch-all** (2026-10-05). New `catchall.lua`, last in
+  `config.modules`: every ⌘ / ⌘⇧ + letter or `` ` - = [ ] \ ; ' , . / `` or ⏎
+  that no other module and no Omarchy default claimed sends `Ctrl` /
+  `Ctrl+Shift` + the same key (by keycode). Digits: ⌘1–⌘9 and ⌘0 are
+  claimed; ⌘⇧ digits are not covered (⌘⇧3/4/5 are screenshots).
+  - **How "claimed" is known.** `lib/relocate.lua` records every key Omarchy
+    registers while it wraps `hl.bind` (`relocate.claimed`, after relocation);
+    the registry has OMacKey's own. `hl` has no way to list binds at load time.
+    A key the user rebinds in `bindings.lua` still wins (loads later).
+  - **Terminals:** consume (user's choice, D5), not pass-through.
+  - **Consumed everywhere, nothing sent** (ids show "not mapped" in the help
+    menu): ⌘H, ⌘M (D13), ⌘⇧Q (Phase 5), and, by the user's choice, ⌘⇧I
+    (Format Document in VS Code), ⌘⇧U (Unicode input in GTK / fcitx5) and ⌘⇧H.
+  - **Help menu:** each bind has a short description, "⌘E sent as Ctrl+E"
+    (user's choice; about 30 more lines). Ids are `catchall-<glyph><key>`,
+    category "Catch-all".
+  - Reviewed risky outcomes: ⌘J (Ctrl+J: VS Code panel, browser downloads),
+    ⌘E, ⌘⇧X (VS Code extensions) and ⌘⏎ (`Ctrl+Return`) are translated.
+  - Free keys at the time: ⌘ E H J M \ ; ' ⏎; ⌘⇧ A B C E F H I K L M O P Q R
+    U X Y - . \ ; ' ⏎ (the rest were already claimed, §9 F14).
 - [ ] **7b** ⌘. → `Escape` in GUI apps. In terminals it sends `Ctrl+C`; in
   VS Code `Ctrl+period`.
 - [ ] **7c** Opt-in Emacs-style ⌃ keys in GUI text fields (⌃A/⌃E line
@@ -943,6 +970,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Terminal ⌘D / ⌘⇧D (split) outside Ghostty | foot has no splits; kitty's splits are layouts, not a split command | Hyprland tiling |
 | Terminal ⌘↑ / ⌘↓ prompt jumping outside Ghostty | foot's `Ctrl+Shift+Z/X` need shell integration (OSC 133), not set up here | page scroll instead |
 | kitty ⌘1–9 | kitty has no default key for tab N | ⌘⇧[ / ⌘⇧] |
+| ⌘⇧ + digits (⌘⇧1, 2, 6–9) | the catch-all skips them: ⌘⇧3/4/5 are screenshots and Ctrl+Shift+digit means little on Linux | none |
 | VS Code ⌘⇧⌥ arrows (column select) | Linux VS Code has no keyboard column select (`cursorColumnSelect*` have `linux: { primary: 0 }`), and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (user's choice, 2026-10-05) | Shift+Alt+mouse drag, or a user keybinding for `cursorColumnSelect*` |
 
 ---
@@ -1439,6 +1467,23 @@ Sessions append facts learned here: spike results, app quirks, surprises.
 - **Numpad 0 arrives as `KP_Insert`** in keylog (code 90, NumLock off). VS Code
   reads the key by scancode, so this should match `Ctrl+Numpad0` like a
   physical press; only the user's test can confirm.
+
+**F14 — Catch-all facts (7a, 2026-10-05)**
+
+- **Live claims at the start of 7a** (from `hyprctl binds -j`, modmask Super or
+  Super+Shift): ⌘ + A B C D F G I K L N O P Q R S T U V W X Y Z, 0–9, `- = [ ]
+  \` `` ` `` `, . /`, Space, Tab, ⌫, ⌦, Esc; ⌘⇧ + D G J N S T V W Z, 3 4 5, `=
+  [ ] \` `` ` `` `, /`, Space, Tab, ⌫. Omarchy's own leftovers among them
+  (⌘Space, ⌘Esc, ⌘⇧Space, ⌘⇧, ...) are why the catch-all reads Omarchy's keys
+  instead of using a fixed list.
+- **`hl` has no bind-listing call** at load time (`hl.get_keybinds` is nil),
+  so the claimed set comes from the `hl.bind` wrapper.
+- **A test trap:** changing a profile in memory (`terminal` classes) persists in
+  the live Lua state until `hyprctl reload`. After the "as terminal" check the
+  next GUI check silently saw the terminal rules (no keys, "ok"). Reload between
+  such tests.
+- **Shifted punctuation arrives as the shifted keysym**: ⌘⇧- sent
+  `Ctrl+Shift+minus` and keylog logged `underscore`.
 
 ---
 
@@ -2106,3 +2151,21 @@ and the next step.
     user's VS Code, so the editor effect is left to the physical test.
   - The user's physical tests (§8.2) in VS Code passed. **6c is complete.**
   - **Next:** 6d, Nautilus.
+- **2026-10-05 — Phase 7a: catch-all (ahead of 6c-2 / 6d–6f).**
+  - Committed 6c first (e560ea6; the user's VS Code tests passed). Asked whether
+    VS Code was finished: 6c only covers chords that differ from the Mac's
+    Ctrl form. Added 6c-2, then, at the user's question about Obsidian and the
+    others having the same gap, moved 7a ahead of the per-app audits (Phase 7's
+    other items stay after Phase 6). Catch-all through xkb was ruled out: xkb is
+    global and per-app behaviour (terminals, VS Code) is the point.
+  - Decisions with the user: consume ⌘⇧I, ⌘⇧U and ⌘⇧H (on top of ⌘H, ⌘M, ⌘⇧Q);
+    short descriptions in the help menu; terminals consume.
+  - Code: `lib/relocate.lua` records `claimed` keys; new `catchall.lua`
+    (last in `config.modules`). 136 bindings, 108 relocations, no duplicates;
+    the help menu lists them ("sent as Ctrl+E", "not mapped").
+  - Handler tests in a private keylog copy: ⌘E, ⌘⇧P, ⌘⏎, ⌘⇧-, ⌘; arrived as
+    `Ctrl` / `Ctrl+Shift` chords with no SUPER; ⌘H, ⌘⇧Q, ⌘⇧I and ⌘⇧U sent
+    nothing; with the terminal profile matched, ⌘E and ⌘⇧P sent nothing.
+  - **Open:** the user's physical tests (§8.2) of a sample of the new keys in
+    Brave, VS Code, foot and Obsidian (e.g. ⌘E, ⌘J, ⌘⇧P, ⌘⇧E, ⌘⏎, ⌘⇧H).
+  - **Next:** 6c-2 (VS Code audit against the catch-all), then 6d–6f.
