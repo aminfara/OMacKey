@@ -26,7 +26,7 @@ local function run(spec)
       if action == "pass" then
         return { ok = false }
       elseif action ~= "consume" then
-        action()
+        return action() -- may return { ok = false } to pass the key through
       end
       return
     end

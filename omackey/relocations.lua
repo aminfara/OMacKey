@@ -18,6 +18,15 @@ local relocations = {
   { from = "SUPER + O", to = "CTRL + ALT + O" }, -- Pop window out
   { from = "SUPER + L", to = "CTRL + ALT + L" }, -- Toggle workspace layout
 
+  -- Mouse (7g): ⌘ + click and ⌘ + scroll become Ctrl + click / scroll in apps, so
+  -- Omarchy's window mouse controls move to ⌃⌥ like its other window management.
+  { from = "SUPER + mouse:272", to = "CTRL + ALT + mouse:272" }, -- Move window (drag)
+  { from = "SUPER + mouse:273", to = "CTRL + ALT + mouse:273" }, -- Resize window (drag)
+  { from = "SUPER + mouse_down", to = "CTRL + ALT + mouse_down" }, -- Scroll workspace forward
+  { from = "SUPER + mouse_up", to = "CTRL + ALT + mouse_up" }, -- Scroll workspace backward
+  { from = "SUPER + ALT + mouse_down", to = "CTRL + ALT + SUPER + mouse_down" }, -- Next window in group
+  { from = "SUPER + ALT + mouse_up", to = "CTRL + ALT + SUPER + mouse_up" }, -- Previous window in group
+
   -- Arrows: ⌃ moves focus and ⌃⇧ takes the window along, within the
   -- workspace (the most frequent tiling actions get the cheapest chord);
   -- ⌃⌥ / ⌃⌥⇧ do the same one level up, between workspaces (§6.2, spaces.lua).

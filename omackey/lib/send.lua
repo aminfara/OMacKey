@@ -29,6 +29,8 @@ local function after(ms, fn)
   end, { timeout = ms, type = "oneshot" })
 end
 
+M.after = after
+
 -- send.tap("CTRL + SHIFT", "Home") → function that presses and releases the
 -- chord once. Key names are resolved now, so a typo fails at config load.
 function M.tap(mods, key)

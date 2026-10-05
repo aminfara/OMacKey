@@ -15,6 +15,7 @@ return {
     "nautilus", -- Phase 6d: hidden files (other Nautilus keys sit on the keys they extend)
     "obsidian", -- Phase 6e: redo selection (other Obsidian keys sit on the keys they extend)
     "libreoffice", -- Phase 6f: paste special (other LibreOffice keys sit on the keys they extend)
+    "mouse", -- Phase 7g: ⌘ + scroll reaches apps as Ctrl + scroll (needs wtype)
     "emacs", -- Phase 7c: opt-in Emacs ⌃ keys (does nothing unless emacs_keys is true)
     "catchall", -- Phase 7a: every ⌘ / ⌘⇧ key not claimed above (keep last)
   },

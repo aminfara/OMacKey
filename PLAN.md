@@ -472,7 +472,7 @@ Mac-compatible:
 - ⌘Home and ⌘⌥Home
 - ⌘⇧, ⌘⌥, ⌘⇧⌥, (notifications), ⌘⌥Tab, ⌘⌥1–5 (groups), ⌘⌥-/= and
   ⌘⌥⇧-/= (±25 px resize)
-- mouse binds and PRINT variants
+- mouse binds (moved in Phase 7g, §6.6) and PRINT variants
 
 ### Phase 2 — Cursor movement, selection, deletion
 
@@ -854,10 +854,33 @@ New profile `libreoffice` (`config.lua`); entries sit on existing keys, plus new
 - [-] **7e** (skipped: the user does not need it, 2026-10-05) PC keyboards: opt-in `altwin:swap_lalt_lwin` (puts ⌘ next to the
   space bar), documented and applied through `config.lua` or the README. Never
   edit the user's `input.lua` silently.
-- [ ] **7f** Option-key characters: evaluate the `us(mac)` xkb variant. Most
-  likely just documented.
-- [ ] **7g** ⌘-click: confirm it's impossible without an input-level remapper,
-  then document it.
+- [-] **7f** Option-key characters (closed 2026-10-05, nothing to build): the
+  Linux way is Omarchy's Compose key, Caps Lock (`compose:caps`), which already
+  works here. Not mapped on ⌥, so ⌥ stays Meta for terminals. The user chose a
+  pointer to Omarchy's documentation over a cheat sheet in this repo (§7, §10).
+  A Mac-style layout (`us(mac)` with `lv3:ralt_switch`) was considered and not
+  taken: it would edit the user's `input.lua` for characters Compose covers.
+- [x] **7g** Mouse (2026-10-05). Three parts:
+  - **Omarchy's ⌘ + mouse binds moved to ⌃⌥** (§6.6): ⌃⌥-drag moves, ⌃⌥-right-drag
+    resizes, ⌃⌥-scroll switches workspace, ⌃⌥⌘-scroll steps through a group. ⌘-click
+    no longer moves windows; physical ⌃-click and ⌃-scroll stay free for apps (the
+    user first suggested ⌃, but that would have taken Ctrl-click from apps).
+  - **⌘-scroll → Ctrl-scroll** (browser zoom; the user's "very necessary" key), new
+    `mouse.lua` + `lib/ctrl_hold.lua`, ids `scroll-up` / `scroll-down`. A
+    consuming bind starts `wtype -M ctrl -s 400` (a virtual Ctrl that releases
+    itself); the first tick of a burst and the 60 ms warm-up are consumed, later
+    ticks pass with Ctrl, and a tick 200 ms into a hold starts an overlapping one.
+    Needs `wtype` (installed; without it nothing is bound). Physical test by the
+    user passed ("seems working"); the page log showed every tick as Ctrl. In
+    other apps it zooms Nautilus and LibreOffice; VS Code, Obsidian and foot do
+    nothing because Ctrl + scroll is off there by default (VS Code
+    `editor.mouseWheelZoom`, Obsidian's Ctrl + scroll font-size setting, foot has
+    no mouse zoom), the same as on a Mac. ⌃⌥⌘-scroll steps through a group.
+  - **⌘-click is not translated** (the user: it already works in many apps).
+    First attempt, a synthetic `Control_L` key from a non-consuming bind, failed:
+    pointer events don't take the modifiers of a synthetic key (§9 F19). A click
+    would need pointer injection (ydotool: a daemon plus `/dev/uinput`
+    access, rejected, §7).
 - [ ] **7h** Trackpad gestures (3-/4-finger swipes, as on a Mac) for laptop
   users: documentation only, since this machine is a desktop.
 - [x] **7i** ⌘Tab hold-⌘ stepping (user's wish, 2026-10-03): done in Phase 4,
@@ -1024,8 +1047,7 @@ doesn't report them as unused when the condition is off. Verified with
   `CTRL + ALT + TAB` / `+ SHIFT` (monitor focus), `CTRL + ALT + DELETE`
 - `SUPER + ALT + TAB` / `+ SHIFT` (group next/prev), `SUPER + CTRL +
   LEFT/RIGHT` (group focus), `SUPER + ALT + code:10..14` (group window N)
-- `SUPER + mouse_up/down`, `SUPER + ALT + mouse_up/down`, `SUPER +
-  mouse:272/273`
+- (mouse binds moved in Phase 7g, §6.6)
 - All `SUPER + CTRL + …` utilities, panels and toggles except F, Q, SPACE and
   the ±300 resize keys `code:20/21` (moved above). That includes:
   - `SUPER + CTRL + 1..9` (bar panels)
@@ -1041,6 +1063,20 @@ doesn't report them as unused when the condition is off. Verified with
 - All XF86 media, brightness and power keys, lid switches, and voxtype
   (`SUPER + CTRL + X`, `F9`)
 
+### 6.6 Mouse (Phase 7g)
+
+| Omarchy key | Action | New key |
+| --- | --- | --- |
+| `SUPER + mouse:272` | Move window (drag) | `CTRL + ALT + mouse:272` |
+| `SUPER + mouse:273` | Resize window (drag) | `CTRL + ALT + mouse:273` |
+| `SUPER + mouse_down` / `mouse_up` | Scroll active workspace forward / backward | `CTRL + ALT + mouse_down` / `mouse_up` |
+| `SUPER + ALT + mouse_down` / `mouse_up` | Next / previous window in group | `CTRL + ALT + SUPER + mouse_down` / `mouse_up` |
+
+⌃⌥ is the window-management modifier (D1). The user first suggested ⌃ (like ⌃
+arrows and ⌃1–0), but ⌘-click can't be translated to Ctrl-click (§9 F19), so that
+would have taken Ctrl-click from apps for good. ⌘ + click reaches apps as a plain
+click. ⌘ + scroll is translated to Ctrl + scroll by `mouse.lua` (§9 F20).
+
 ---
 
 ## 7. Unmapped & limitations (living list)
@@ -1050,8 +1086,9 @@ doesn't report them as unused when the condition is off. Verified with
 | ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview and Omarchy ships none. ⌃↑/↓ switch workspaces instead (1b) | ⌘\` cycles the active app's windows (Phase 4) |
 | ⌘Tab overlay (app icons and names) | Hyprland has no switcher UI; the focus change itself is the feedback, and intermediate stops visibly flip workspaces. A QuickShell overlay is an optional idea, 7j | ⌘Tab / ⌘⇧Tab step through apps while ⌘ is held; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
 | ⌘M minimize, ⌘H hide app, ⌘⌥H hide others, ⌥⌘M minimize all | D13: Hyprland and Omarchy have no minimize or hide, and with no dock a hidden window is easy to lose | Omarchy's scratchpad (⌃⌥⇧S moves the window there, ⌃⌥S shows it), or park it on a workspace with ⌃⇧1–0 |
-| ⌘-click (open link in new tab, go to definition, multi-select) | compositor binds can't add Ctrl to a pointer click | physical ⌃-click (on a Mac, ⌃-click is right-click) |
-| ⌥ + letter special characters (å ß ∂ …) | ⌥ stays Meta for terminals | Omarchy's compose key (Caps Lock) |
+| ⌘-click as Ctrl-click (new tab, go to definition, multi-select) | pointer events carry the compositor's modifier state, not a synthetic key's, and Hyprland can't emit a click. A Ctrl that really holds needs a virtual keyboard (wtype, used for ⌘-scroll, §9 F20), but then the click itself has to be injected, which needs ydotool, its daemon and `/dev/uinput` access (not installed, root-only; rejected as an external helper, user's choice). Many apps already act on ⌘-click | physical ⌃-click (free for apps since Omarchy's mouse binds moved to ⌃⌥, §6.6) |
+| ⌘-scroll: first tick of each burst | the first tick starts the virtual Ctrl and is consumed, so it does nothing (a plain tick would scroll the page) | none needed |
+| ⌥ + letter special characters (å ß ∂ …) | ⌥ stays Meta for terminals | Omarchy's Compose key: tap Caps Lock, then a short sequence (`'` `e` → é, `o` `a` → å, `s` `s` → ß, `-` `-` `.` → –). The sequences are in the system Compose table, Omarchy's `/usr/share/omarchy/default/xcompose` (emoji) and your `~/.XCompose`; see §10 |
 | Mac Home/End (scroll to document top/bottom) | Linux semantics kept | ⌘↑/⌘↓ |
 | ⌘←/⌘→ as browser back/forward outside text fields | focus inside the page can't be detected | ⌘[ / ⌘] |
 | Physical ⌃←/⌃→ word jump in Linux apps | ⌃←/→ now switch Spaces (as on a Mac) | ⌥←/⌥→ |
@@ -1607,6 +1644,56 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   (`wtype` did); Ctrl chords worked once the document had focus again. Use cut /
   undo / redo on a selection rather than typed text.
 
+**F19 — ⌘-click spike (7g, 2026-10-05)**
+
+- **Setup.** Non-consuming binds (`bindn`) on `SUPER + mouse:272`, its release,
+  `SUPER + mouse_up/down`, whose handler tapped a synthetic `Control_L` with
+  `mods = "CTRL"`. A throwaway Chromium page logged `ctrlKey` / `metaKey` and
+  timestamps for key, mouse and wheel events and posted them to a local server.
+- **Result.** The binds fired (counter) and the key events arrived in order
+  (`keydown Control mods=C---` at t=42148, `mousedown` at t=42150, `keyup` 20 ms
+  later), yet `mousedown`, `mouseup`, `click` and `wheel` all showed `----`. The
+  synthetic key itself carried Ctrl (`keydown mods=C---`). Probably the modifier
+  state sent with a synthetic key is applied to that key event only and the
+  compositor's real state (⌘ held) is what pointer events use; not verified in
+  Hyprland's source. Chromium does not report `metaKey` for the real ⌘ either.
+- **No route through `hl` alone:** it has no pointer-button or modifier-hold
+  call (`dsp.pass` forwards the original event). A global xkb Ctrl/Super swap
+  would break ⌘ shortcuts. `ydotool` (suggested by the user from a forum snippet
+  whose script was missing) would work in principle, as uincput events are real
+  input, but needs its daemon and `/dev/uinput` access (root-only, user not in
+  `input`); the user preferred `wtype`, which is installed. See F20.
+- **Test recipe.** A page that logs events and POSTs them to
+  `python3 -m http.server`-style listener lets the agent read what an app
+  received after the user's physical clicks; Chromium needs its own
+  `--user-data-dir`, and killing it by profile path (a second launch reuses the
+  running instance and old page).
+
+**F20 — Ctrl held by wtype (7g, 2026-10-05)**
+
+- **`wtype -M ctrl -s MS`** presses Ctrl on a virtual keyboard, sleeps MS and
+  releases it. Unlike a synthetic `send_key_state` key it changes the real
+  modifier state: a throwaway Chromium page saw `mods=C---` on a physical click
+  (`mousedown`, `mouseup`, `click`) and on every wheel tick during the hold, and
+  no `keydown` for Ctrl (modifier state only).
+- **Overlapping holds don't drop Ctrl.** Five 1500 ms holds started 1 s apart
+  covered a continuous 4 s scroll: all 18 ticks `C---`, including at every
+  handoff. That is why one burst can be kept alive by starting the next hold
+  halfway through.
+- **Latency.** Starting `wtype` takes a few ms, longer than the compositor takes
+  to forward the tick, so the tick that starts a hold can't carry Ctrl: it is
+  consumed (with `auto_consuming` and a nil return) rather than scrolled. Ticks
+  during a 60 ms warm-up are consumed too; later ticks pass (`{ ok = false }`).
+- **Real run** (user, ⌘ held): every tick of slow, fast and 4 s spins arrived as
+  `CM--` (Chromium reports Super as metaKey once Ctrl is up), a plain scroll
+  after releasing ⌘ was `----`, ⌘C sent `C---` and typing after it had no Ctrl.
+  Not understood: three slow ticks 1 s apart all arrived with Ctrl although a hold
+  only lasts 400 ms (a physical notch may send more than one axis event).
+- **No wall clock in Lua** (`os.clock` is CPU time, `os.time` whole seconds), so
+  `lib/ctrl_hold.lua` keeps its state with timers and a generation counter.
+- **Safety.** Each `wtype` releases its own Ctrl when its sleep ends, so a crash or
+  a missed event can leave Ctrl held for at most 400 ms.
+
 **F18 — Mac-mode toggle (7d, 2026-10-05)**
 
 - **`hl.dsp.exec_cmd` runs a shell line**: `&&` and `;` work, so one command
@@ -1676,6 +1763,7 @@ Sessions append facts learned here: spike results, app quirks, surprises.
 | xremap macOS config: <https://github.com/petrstepanov/gnome-macos-remap-wayland/blob/main/config.yml> | Nautilus mappings, terminal handling |
 | Omarchy + keyd discussion: <https://github.com/omacom/omarchy/discussions/175> | the minimal "must work" set; terminal copy/paste pitfalls |
 | r/omarchy "macOS like bindings": <https://www.reddit.com/r/omarchy/comments/1vyvd41/macos_like_bindings/> | keycodes, timer retention, Ctrl forwarding. Blocked for agents; summarized in F0 |
+| Omarchy Compose key (typing é å ß – € … and emoji) | The Omarchy manual only mentions it in one sentence, in its Troubleshooting section ("Caps Lock has been designated to be the xcompose key. That's how you get quick emojis", <https://learn.omacom.io/2/the-omarchy-manual/88/troubleshooting>). The real references are local: `/usr/share/omarchy/default/hypr/input.lua` (`compose:caps`), `/usr/share/omarchy/default/xcompose` (Omarchy's sequences), `~/.XCompose` (your own; apply changes with `omarchy-restart-xcompose`), and the system table `/usr/share/X11/locale/en_US.UTF-8/Compose`. The emoji and symbols picker is ⌃⌘Space (Phase 5) |
 | Local Omarchy sources | `default/hypr/helpers.lua` (`o.*` helpers), `bindings/clipboard.lua`, `apps/terminals.lua`, `apps/browser.lua`, `bootstrap.lua`, `$(which omarchy-menu-keybindings)` |
 
 ---
@@ -2462,3 +2550,36 @@ and the next step.
   - The user skipped 7e (the optional Alt/Super swap): marked `[-]`.
   - **Next:** 7f–7h (documentation items), then Phase 8 (the README should cover
     7d, D12's `hl.unbind` recipe and the `emacs_keys` flag).
+- **2026-10-05 — Phase 7f closed (no code).**
+  - Committed 7d first (4f4f402) and skipped 7e at the user's request.
+  - Checked how Linux types non-ASCII characters here: Omarchy sets Caps Lock as
+    the Compose key (`compose:caps`), with the system Compose table, Omarchy's
+    `default/xcompose` and the user's `~/.XCompose`. Every example sequence was
+    looked up in the table. Alternatives noted: physical `Ctrl+Shift+U` hex input,
+    the ⌃⌘Space picker, a `us(mac)` layout (not taken).
+  - Decision with the user: close 7f with a pointer to Omarchy's documentation
+    instead of a cheat sheet. The manual has only one sentence (Troubleshooting),
+    so §10 also lists the local files. §7 updated.
+  - **Next:** 7g (⌘-click: spike or document) and 7h (gestures: document), then
+    Phase 8.
+- **2026-10-05 — Phase 7g: mouse.**
+  - The user's request: ⌘-click and ⌘-scroll as Ctrl-click / Ctrl-scroll, and a
+    new home for Omarchy's mouse controls (first idea: ⌃ + mouse, like the arrow
+    rule).
+  - Relocated Omarchy's mouse binds (6 rows, 114 relocations): move / resize drag
+    and workspace scroll to ⌃⌥, group scroll to ⌃⌥⌘ (user's choice of ⌃⌥, after the
+    ⌃ idea was shown to cost apps Ctrl-click). Tested by the user on the spike
+    build.
+  - Spike 1, a synthetic Ctrl key from a non-consuming bind: failed (§9 F19), with
+    a logging Chromium page and a local collector to read what the app received.
+    The user then asked about ydotool (from a forum snippet) and, preferring it, about
+    wtype instead: held Ctrl from wtype reaches clicks and wheel (F20).
+  - Built ⌘-scroll → Ctrl-scroll (`lib/ctrl_hold.lua`, `mouse.lua`; `bind.lua` now
+    returns the action's result so a handler can pass a key through; `send.lua`
+    exports `after`). 155 bindings, 114 relocations, no duplicates. The user's
+    physical test passed. ⌘-click is left alone (works in many apps; the user
+    didn't need it).
+  - More physical tests passed: ⌘-scroll zooms Nautilus and LibreOffice (VS Code,
+    Obsidian and foot have no Ctrl + scroll action by default), and ⌃⌥⌘-scroll
+    switches between windows in a group. **7g is complete.**
+  - **Next:** 7h (gestures, document only), then Phase 8.
