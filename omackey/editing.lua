@@ -18,6 +18,7 @@ mac({
   actions = {
     default = tap("CTRL", "C"),
     terminal = tap("CTRL", "Insert"), -- Ctrl+C is SIGINT in a terminal
+    vscode = tap("CTRL", "Insert"), -- because hyprland does not distinguisdh between vscode and its integrated terminal
   },
 })
 
@@ -30,6 +31,7 @@ mac({
   actions = {
     default = tap("CTRL", "V"),
     terminal = tap("SHIFT", "Insert"), -- Ctrl+V is a literal-next in a terminal
+    vscode = tap("SHIFT", "Insert"), -- because hyprland does not distinguisdh between vscode and its integrated terminal
   },
 })
 

@@ -500,8 +500,8 @@ Implement key by key in this order.
 
 | ✓ | Mac | Meaning | GUI apps | Term | Notes |
 | --- | --- | --- | --- | --- | --- |
-| [x] | ⌘C | copy | `Ctrl+C` | `Ctrl+Insert` | replaces Omarchy's universal copy (unbind `SUPER + C`); fixes the dropped timer handle |
-| [x] | ⌘V | paste | `Ctrl+V` | `Shift+Insert` | replaces Omarchy's universal paste |
+| [x] | ⌘C | copy | `Ctrl+C` | `Ctrl+Insert` (terminals and VS Code) | replaces Omarchy's universal copy (unbind `SUPER + C`); fixes the dropped timer handle. VS Code uses the terminal chord too, because Hyprland can't tell the editor from its integrated terminal (§9 F12) |
+| [x] | ⌘V | paste | `Ctrl+V` | `Shift+Insert` (terminals and VS Code) | replaces Omarchy's universal paste. VS Code: same reason as ⌘C (§9 F12) |
 | [x] | ⌘X | cut | `Ctrl+X` | consume | Omarchy currently sends Ctrl+X to terminals as well |
 | [x] | ⌘⇧V | paste plain | `Ctrl+Shift+V` | `Shift+Insert` | LibreOffice override in 6f |
 | [x] | ⌘Z | undo | `Ctrl+Z` | consume | never send Ctrl+Z to a terminal |
@@ -656,6 +656,7 @@ rules cover most of it.
 | ⌘0 | `Ctrl+KP_0` (numpad 0) | reset zoom. VS Code has no `Ctrl+0` default for it (§9 F4). Needs `kp_0` in `lib/keys.lua` (keycode 90). Optional: only if the user wants it |
 | physical ⌃- / ⌃⇧- | `Ctrl+Alt+minus` / `Ctrl+Shift+minus` | navigate back/forward. Optional, since it intercepts physical Ctrl in one app |
 | ⌘K chords, ⌘P, ⌘⇧P, ⌘D, ⌘⇧L, ⌘⇧K, ⌘⏎, ⌘B, ⌘J, ⌘\\ | generic Ctrl translation (Phases 3, 4, 7) | verify chords: ⌘K ⌘S → Ctrl+K Ctrl+S |
+| ⌘C / ⌘V | `Ctrl+Insert` / `Shift+Insert` | done in `editing.lua` (profile `vscode`): both work in the editor and in the integrated terminal (§9 F12) |
 | ⌃Space suggest | physical Ctrl+Space | fcitx5's default trigger is Ctrl+Space and may eat it. Document |
 | ⌥ menu focus | none needed | S5 passed for ⌥←/→ (§9 F2). Recheck only if another ⌥ chord shows the problem |
 
@@ -926,6 +927,7 @@ doesn't report them as unused when the condition is off. Verified with
 | VS Code ⌘W with no editor open | Linux VS Code ignores `Ctrl+W` on an empty window (macOS closes the window). Listing VS Code under `no-tabs` would close the window while editors are open | ⌘⇧W (`Ctrl+Shift+W` closes the window) |
 | Terminal ⌘G / ⌘⇧G (find next / previous) | they only act while a search is open, which Hyprland can't see: foot's keys are `Ctrl+S` / `Ctrl+R` (a stray `Ctrl+S` freezes output outside search) and Ghostty's Linux defaults have none (the Mac's ⌘G is `performable`, so it passes through when no search is open) | optional Ghostty line `keybind = performable:ctrl+g=navigate_search:next` in the Ghostty config, not applied |
 | Ghostty ⌘W in a split | Linux Ghostty's `Ctrl+Shift+W` closes the whole tab; closing one split needs a `close_surface` keybind in the user's config | optional, not applied |
+| VS Code integrated terminal: every ⌘ key except ⌘C / ⌘V | Hyprland sees one window, so the editor's `Ctrl+X` / `Ctrl+Z` / `Ctrl+A` … reach the terminal as readline control keys. Only ⌘C / ⌘V have a chord that works in both (§9 F12) | the terminal's own `Ctrl+Shift+` keys, or move focus to an editor |
 | Terminal ⌘K clears the scrollback | `Ctrl+L` only clears the visible screen (Ghostty on the Mac clears the scrollback too) | `clear` plus `printf '\e[3J'` |
 | Terminal ⌘D / ⌘⇧D (split) outside Ghostty | foot has no splits; kitty's splits are layouts, not a split command | Hyprland tiling |
 | Terminal ⌘↑ / ⌘↓ prompt jumping outside Ghostty | foot's `Ctrl+Shift+Z/X` need shell integration (OSC 133), not set up here | page scroll instead |
@@ -1392,6 +1394,13 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   `workbench.desktop.main.js`. So the synthetic key would reformat the file, not
   open DevTools. VS Code now consumes ⌘⌥I (profile `vscode`); DevTools stay on
   the command palette (`Developer: Toggle Developer Tools`) or Help menu.
+- **F12 — VS Code's integrated terminal (found by the user, 2026-10-05).**
+  Hyprland sees one `com.microsoft.VSCode` window, so a profile can't tell the
+  editor from the integrated terminal. `Ctrl+C` there is SIGINT and `Ctrl+V` a
+  literal-next. `Ctrl+Insert` / `Shift+Insert` are VS Code's Windows/Linux
+  copy/paste defaults in the editor and also work in the terminal, so ⌘C / ⌘V
+  use them under profile `vscode`. Other ⌘ keys still reach the terminal as
+  Ctrl chords (§7).
 - **Test recipes.** Chromium: `chromium --user-data-dir=DIR --no-first-run
   --remote-debugging-port=PORT`; `curl localhost:PORT/json` lists the tabs, so
   history, downloads, bookmarks, view-source, clear data and DevTools show up as
@@ -2036,3 +2045,14 @@ and the next step.
     too, which wins with the editor focused (§9 F11). New `vscode` profile
     (`config.lua`, reused by 6c); ⌘⌥I is consumed there so it can never reformat
     a file. **6b is complete.**
+- **2026-10-05 — VS Code ⌘C / ⌘V (the user's change in `editing.lua`).**
+  - The user added `vscode` actions to `copy` and `paste`: `Ctrl+Insert` and
+    `Shift+Insert`, the terminal chords, because the integrated terminal can't
+    be told apart from the editor (§9 F12).
+  - PLAN.md only: §5 Phase 3 rows, the 6c table, a §7 row for the other ⌘ keys
+    in the integrated terminal, and F12. No code touched in this session.
+  - I did not test it. The `vscode` profile and the key names already exist.
+    Two things to check: the comment in the code has a typo ("distinguisdh"),
+    and the user's physical test is still open (§8.2: ⌘C / ⌘V in a VS Code
+    editor and in its integrated terminal).
+  - **Next:** 6c, VS Code.
