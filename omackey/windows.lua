@@ -259,6 +259,7 @@ mac({
   actions = {
     default = tap("CTRL", "0"),
     kitty = tap("CTRL + SHIFT", "BackSpace"),
+    vscode = tap("CTRL", "kp_0"), -- VS Code's reset zoom is Ctrl+Numpad0, not Ctrl+0
   },
 })
 

@@ -58,7 +58,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
@@ -211,6 +211,7 @@ OMacKey/
 │   ├── windows.lua           (Phase 4)
 │   ├── system.lua            (Phase 5)
 │   ├── browsers.lua          Phase 6b: DevTools, history, downloads, bookmarks, clear data (Firefox entries sit on the keys they extend)
+│   ├── vscode.lua            Phase 6c: multi-cursor, fold, replace, expand/shrink selection, quick fix (VS Code only)
 │   ├── terminals.lua         Phase 6a: ⌘K clear, ⌘D / ⌘⇧D splits (other terminal entries sit on the keys they extend)
 │   ├── apps/                 (Phase 6) profile overrides
 │   └── catchall.lua          (Phase 7)
@@ -641,24 +642,34 @@ docs (§9 F11). ⌘[ / ⌘] were done in Phase 4.
   adds the VS Code entries.
 
 **6c — VS Code** (class `com.microsoft.VSCode` on this machine, native
-Wayland; also `code`, `code-oss` / `Code` elsewhere). Linux VS Code
-defaults mostly mirror the Mac ones with Ctrl in place of ⌘, so the generic
-rules cover most of it.
+Wayland; also `code`, `code-oss` / `Code` elsewhere) — done 2026-10-05
+
+Linux VS Code defaults mostly mirror the Mac ones with Ctrl in place of ⌘, so
+the generic rules cover most of it. Chords were read from the installed
+`workbench.desktop.main.js` (§9 F13). Scope confirmed with the user: column
+select dropped, ⌘0 mapped, physical ⌃- / ⌃⇧- not mapped. New module
+`vscode.lua` (ids in the table); ⌘0 sits on `zoom-reset` in `windows.lua`.
 
 | Mac | Action | Notes |
 | --- | --- | --- |
-| ⌘⌥↑ / ⌘⌥↓ | `Ctrl+Shift+Up/Down` | add cursor above/below |
-| ⌘⌥[ / ⌘⌥] | `Ctrl+Shift+[` / `Ctrl+Shift+]` | fold / unfold. Webcam keys moved in 1a |
-| ⌘⇧⌥ arrows | `Ctrl+Shift+Alt+arrows` | column select. Monitor moves relocated in 1a |
-| ⌘⌥F | `Ctrl+H` | replace |
-| ⌃⇧⌘← / → | `Shift+Alt+Left/Right` | shrink/expand selection |
-| ⌘. | `Ctrl+period` | quick fix (overrides the 7b ⌘. → Esc rule) |
-| ⌘0 | `Ctrl+KP_0` (numpad 0) | reset zoom. VS Code has no `Ctrl+0` default for it (§9 F4). Needs `kp_0` in `lib/keys.lua` (keycode 90). Optional: only if the user wants it |
-| physical ⌃- / ⌃⇧- | `Ctrl+Alt+minus` / `Ctrl+Shift+minus` | navigate back/forward. Optional, since it intercepts physical Ctrl in one app |
-| ⌘K chords, ⌘P, ⌘⇧P, ⌘D, ⌘⇧L, ⌘⇧K, ⌘⏎, ⌘B, ⌘J, ⌘\\ | generic Ctrl translation (Phases 3, 4, 7) | verify chords: ⌘K ⌘S → Ctrl+K Ctrl+S |
+| ⌘⌥↑ / ⌘⌥↓ | `Ctrl+Shift+Up/Down` | add cursor above/below (Linux's secondary key; its primary is `Shift+Alt+Up`). ids `add-cursor-above`, `add-cursor-below`, `repeating` |
+| ⌘⌥[ / ⌘⌥] | `Ctrl+Shift+[` / `Ctrl+Shift+]` | fold / unfold. ids `fold`, `unfold`. Webcam keys moved in 1a |
+| ⌘⌥F | `Ctrl+H` | replace. id `replace`. Omarchy's "Full width" moved in 1a |
+| ⌃⇧⌘← / → | `Shift+Alt+Left/Right` | shrink / expand selection. ids `shrink-selection`, `expand-selection`, `repeating` |
+| ⌘. | `Ctrl+period` | quick fix. id `quick-fix`, VS Code only until 7b adds the generic ⌘. |
+| ⌘0 | `Ctrl+KP_0` (numpad 0) | reset zoom; VS Code has no `Ctrl+0` default for it (§9 F4). `kp_0` (keycode 90) added to `lib/keys.lua` |
+| ⌘K chords, ⌘P, ⌘⇧P, ⌘D, ⌘⇧L, ⌘⇧K, ⌘⏎, ⌘B, ⌘J, ⌘\\ | generic Ctrl translation (Phases 3, 4, 7) | verify chords: ⌘K ⌘S → Ctrl+K Ctrl+S (7a) |
 | ⌘C / ⌘V | `Ctrl+Insert` / `Shift+Insert` | done in `editing.lua` (profile `vscode`): both work in the editor and in the integrated terminal (§9 F12) |
-| ⌃Space suggest | physical Ctrl+Space | fcitx5's default trigger is Ctrl+Space and may eat it. Document |
+| ⌃Space suggest | physical Ctrl+Space | fcitx5's default trigger is Ctrl+Space and may eat it. Documentation only (8.2) |
 | ⌥ menu focus | none needed | S5 passed for ⌥←/→ (§9 F2). Recheck only if another ⌥ chord shows the problem |
+
+- [-] ⌘⇧⌥ arrows (column select): dropped, §7 and §9 F13.
+- [-] Physical ⌃- / ⌃⇧- (navigate back/forward): not mapped (user's choice,
+  it would intercept physical Ctrl in one app). Opt-out is not needed; opt in
+  with a `bindings.lua` bind if wanted.
+- [x] Handler tests and `scripts/check.sh` clean.
+- [x] Physical tests by the user (§8.2) in VS Code passed: ⌘⌥↑/↓, ⌘⌥[ / ], ⌘⌥F,
+  ⌃⇧⌘←/→, ⌘., ⌘0.
 
 **6d — Nautilus** (`org.gnome.Nautilus`; ideas from Kinto and xremap; verify each)
 
@@ -932,6 +943,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Terminal ⌘D / ⌘⇧D (split) outside Ghostty | foot has no splits; kitty's splits are layouts, not a split command | Hyprland tiling |
 | Terminal ⌘↑ / ⌘↓ prompt jumping outside Ghostty | foot's `Ctrl+Shift+Z/X` need shell integration (OSC 133), not set up here | page scroll instead |
 | kitty ⌘1–9 | kitty has no default key for tab N | ⌘⇧[ / ⌘⇧] |
+| VS Code ⌘⇧⌥ arrows (column select) | Linux VS Code has no keyboard column select (`cursorColumnSelect*` have `linux: { primary: 0 }`), and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (user's choice, 2026-10-05) | Shift+Alt+mouse drag, or a user keybinding for `cursorColumnSelect*` |
 
 ---
 
@@ -1408,6 +1420,25 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   from `hyprctl clients`, screenshots for the sidebar and DevTools. Close extra
   windows by address between keys: a new window takes focus. The Brave profile
   needs its own first-run handling, so Brave was not driven.
+
+**F13 — VS Code keys (6c, 2026-10-05)**
+
+- **Method.** Keybindings read from the installed `workbench.desktop.main.js`
+  (`kbOpts` with `primary`, `mac` and `linux` fields). Decode: CtrlCmd 2048,
+  Shift 1024, Alt 512, WinCtrl 256, plus the key code (arrows 15–18, `[` 92 in
+  the shifted fold keys, F 36, H 38).
+- **Same chord as the Mac with Ctrl for ⌘:** none of the 6c keys. Each differs:
+  add cursor above/below is `Ctrl+Alt+Up/Down` on the Mac and `Shift+Alt+Up/Down`
+  on Linux, with `Ctrl+Shift+Up/Down` as the Linux secondary (used). Fold /
+  unfold are `⌘⌥[` / `]` on the Mac, `Ctrl+Shift+[` / `]` on Linux. Replace is
+  `⌘⌥F` / `Ctrl+H`. Expand / shrink selection is `⌃⇧⌘→` / `←` on the Mac,
+  `Shift+Alt+Right` / `Left` on Linux. Reset zoom is `Ctrl+Numpad0` on both.
+- **Column select has no Linux key**, and its Mac chord with Ctrl in place of
+  ⌘ is Copy Line Up/Down (`copyLinesUpAction`: Linux `Ctrl+Shift+Alt+Up`). The
+  plan's 6c row would have duplicated lines (§7).
+- **Numpad 0 arrives as `KP_Insert`** in keylog (code 90, NumLock off). VS Code
+  reads the key by scancode, so this should match `Ctrl+Numpad0` like a
+  physical press; only the user's test can confirm.
 
 ---
 
@@ -2056,3 +2087,22 @@ and the next step.
     and the user's physical test is still open (§8.2: ⌘C / ⌘V in a VS Code
     editor and in its integrated terminal).
   - **Next:** 6c, VS Code.
+- **2026-10-05 — Phase 6c: VS Code.**
+  - Read PLAN.md and CLAUDE.md in full, then checked VS Code's real chords in the
+    installed `workbench.desktop.main.js` (§9 F13). The plan's column-select row
+    would have sent Copy Line Up/Down, so I asked first. Decisions with the
+    user: drop column select (§7), map ⌘0 (`Ctrl+KP_0`), do not map the physical
+    ⌃- / ⌃⇧-.
+  - Code: new `vscode.lua` (added to `config.modules`) with `add-cursor-above`,
+    `add-cursor-below`, `fold`, `unfold`, `replace`, `shrink-selection`,
+    `expand-selection`, `quick-fix`, all only for profile `vscode` (other apps
+    still get the raw ⌘ chord); `vscode` action on `zoom-reset` in `windows.lua`;
+    `kp_0` in `lib/keys.lua`. 105 bindings, 108 relocations, no duplicates; the
+    help menu lists them.
+  - Handler tests: a private keylog copy with its class added to the `vscode`
+    profile in memory got `Up` / `Down` and `braceleft` / `braceright` with
+    `CTRL+SHIFT`, `h` with `CTRL`, `Left` / `Right` with `ALT+SHIFT`, `period`
+    with `CTRL`, and `KP_Insert` (code 90) with `CTRL`. I did not drive the
+    user's VS Code, so the editor effect is left to the physical test.
+  - The user's physical tests (§8.2) in VS Code passed. **6c is complete.**
+  - **Next:** 6d, Nautilus.

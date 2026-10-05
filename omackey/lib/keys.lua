@@ -21,6 +21,7 @@ local codes = {
   space = 65,
   f11 = 95,
   f12 = 96,
+  kp_0 = 90, -- numpad 0
   home = 110,
   up = 111,
   page_up = 112,

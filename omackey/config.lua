@@ -11,6 +11,7 @@ return {
     "system", -- Phase 5: OS controls (lock, screenshots, emoji)
     "terminals", -- Phase 6a: terminal-only keys (clear, split)
     "browsers", -- Phase 6b: devtools, history, downloads, bookmarks
+    "vscode", -- Phase 6c: multi-cursor, fold, replace, expand selection
   },
 
   -- How long a synthetic key stays down before its release is sent.
