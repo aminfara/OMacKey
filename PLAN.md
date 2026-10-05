@@ -203,6 +203,7 @@ OMacKey/
 │   ├── init.lua              loads the feature modules listed in config.modules
 │   ├── config.lua            module list, release_ms, app profiles
 │   ├── relocations.lua       §6 as data
+│   │   (lib/mode.lua: Phase 7d on/off switch and its ⌃⌘⇧M bind)
 │   ├── lib/
 │   │   ├── keys.lua          key name → "code:N" (XKB keycode = evdev + 8)
 │   │   ├── send.lua          tap(), seq() with retained timers
@@ -225,6 +226,7 @@ OMacKey/
 │   └── catchall.lua          (Phase 7)
 ├── scripts/
 │   ├── check.sh              reload, configerrors, omackey.status(), duplicate-bind detector, help-menu grep
+│   ├── omackey-mode          Phase 7d: on / off / toggle / status from a terminal
 │   ├── keylog.py             GTK4 key-event logger used as the test app (wev alternative, no install)
 │   └── gen-docs.lua          (Phase 8)
 └── docs/
@@ -837,10 +839,19 @@ New profile `libreoffice` (`config.lua`); entries sit on existing keys, plus new
   Synthetic chords don't re-trigger these binds (§9 F1), so ⌘A → `Ctrl+A` is safe.
   Handler tests in a private keylog copy: `Home`, `End`, `Right`, `Left`, `Down`,
   `Up`, `Delete`, `BackSpace`, `Shift+End` then `Delete`, none with a modifier.
-- [ ] **7d** Mac-mode toggle: turn OMacKey off and on without uninstalling, so
-  Omarchy's defaults come back. For example a state file read at load plus
-  `hyprctl reload`, wrapped in a small script.
-- [ ] **7e** PC keyboards: opt-in `altwin:swap_lalt_lwin` (puts ⌘ next to the
+- [x] **7d** Mac-mode toggle (2026-10-05; the user's physical test of ⌃⌘⇧M passed). The switch is
+  the state file `${XDG_STATE_HOME:-~/.local/state}/omackey/off`, read once at
+  load by `lib/mode.lua`. While it exists, `load.lua` skips the relocations and
+  every module, so Omarchy's defaults load as they ship (checked: ⌘K Keybindings,
+  ⌘W Close window, ⌘C Universal copy, ⌘← Focus left all back, 229 binds), and
+  registers only the toggle bind. Toggle key **⌃⌘⇧M** (free in Omarchy; bound in
+  both modes, help-menu line "OMacKey on/off (Mac mode)"). It runs
+  `mkdir`/`touch` or `rm`, a `notify-send`, and `hyprctl reload` as one external
+  command (no file or process calls inside the callback). Terminal:
+  `scripts/omackey-mode on|off|toggle|status`. `omackey.status()` reports
+  "off (…)" and `scripts/check.sh` flags it as ✗ so a forgotten switch-off shows.
+  `./install.sh` and `./uninstall.sh` don't touch the state file.
+- [-] **7e** (skipped: the user does not need it, 2026-10-05) PC keyboards: opt-in `altwin:swap_lalt_lwin` (puts ⌘ next to the
   space bar), documented and applied through `config.lua` or the README. Never
   edit the user's `input.lua` silently.
 - [ ] **7f** Option-key characters: evaluate the `us(mac)` xkb variant. Most
@@ -1595,6 +1606,17 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   bar or a dialog had focus, and plain letters sent by keycode never typed
   (`wtype` did); Ctrl chords worked once the document had focus again. Use cut /
   undo / redo on a selection rather than typed text.
+
+**F18 — Mac-mode toggle (7d, 2026-10-05)**
+
+- **`hl.dsp.exec_cmd` runs a shell line**: `&&` and `;` work, so one command
+  can create the state file, notify and reload. A first version silently did
+  nothing when the message held an apostrophe inside single quotes ("Omarchy's"):
+  keep shell-quoted text free of `'`.
+- **No reload API** in `hl` (`hyprctl reload` through `exec_cmd`); a reload starts
+  a fresh Lua state, which is what makes the file-at-load switch work.
+- **Off still loads cleanly under the help-menu replay**: the menu lists Omarchy's
+  keys plus the toggle line.
 
 **F16 — Obsidian keys (6e, 2026-10-05)**
 
@@ -2425,3 +2447,18 @@ and the next step.
     terminal, repeat, rapid presses). They want the keys on: the flag is `true`
     in the repo. **7c is complete.**
   - **Next:** 7d (Mac-mode toggle), then 7e–7h and Phase 8.
+- **2026-10-05 — Phase 7d: Mac-mode toggle.**
+  - Committed 7c first (8ddc48a; Emacs keys on by default at the user's request).
+  - New `lib/mode.lua` (state file, ⌃⌘⇧M bind, toggle), a guard in `load.lua`
+    (pre / init skip everything when off; `omackey.status()` says "off"),
+    `init.lua` binds the toggle in on-mode, `scripts/omackey-mode`,
+    `scripts/check.sh` reports off as ✗. 153 bindings on; 229 binds with
+    Omarchy's own set when off.
+  - Tests: script off → Omarchy keys back, config clean, status off, help menu
+    shows Omarchy defaults plus the toggle; Lua `toggle()` both ways (off → on
+    → off → on). Found and fixed the apostrophe bug (F18) on the way. Left on at
+    the end.
+  - The user's physical test of ⌃⌘⇧M passed in both directions. **7d is complete.**
+  - The user skipped 7e (the optional Alt/Super swap): marked `[-]`.
+  - **Next:** 7f–7h (documentation items), then Phase 8 (the README should cover
+    7d, D12's `hl.unbind` recipe and the `emacs_keys` flag).

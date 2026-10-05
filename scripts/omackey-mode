@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Switch OMacKey on or off without uninstalling it (PLAN.md 7d).
+#
+#   scripts/omackey-mode off      Omarchy's own keys come back
+#   scripts/omackey-mode on       the Mac keys come back
+#   scripts/omackey-mode toggle
+#   scripts/omackey-mode status   (default)
+#
+# The switch is the state file omackey/lib/mode.lua reads at load; this script
+# flips it and reloads Hyprland. ⌃⌘⇧M does the same from the keyboard.
+
+set -euo pipefail
+
+dir="${XDG_STATE_HOME:-$HOME/.local/state}/omackey"
+file="$dir/off"
+
+is_on() { [[ ! -e $file ]]; }
+
+set_mode() {
+  if [[ $1 == off ]]; then
+    mkdir -p "$dir"
+    touch "$file"
+    msg="OMacKey is off: Omarchy keys"
+  else
+    rm -f "$file"
+    msg="OMacKey is on: Mac keys"
+  fi
+  echo "$msg"
+  notify-send -a OMacKey "$msg" 2>/dev/null || true
+  hyprctl reload >/dev/null
+}
+
+case "${1:-status}" in
+  on) set_mode on ;;
+  off) set_mode off ;;
+  toggle) if is_on; then set_mode off; else set_mode on; fi ;;
+  status) if is_on; then echo "OMacKey is on"; else echo "OMacKey is off"; fi ;;
+  *) echo "usage: ${0##*/} on|off|toggle|status" >&2; exit 2 ;;
+esac

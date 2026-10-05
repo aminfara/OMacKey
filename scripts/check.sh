@@ -25,6 +25,9 @@ status=$(hyprctl repl 'return omackey and omackey.status() or "not loaded"')
 if [[ $status == "not loaded" ]]; then
   echo "✗ OMacKey is not loaded (run ./install.sh)"
   failed=1
+elif [[ $status == off* ]]; then
+  echo "✗ OMacKey is switched off: $status"
+  failed=1
 elif [[ $status == *errors=* || $status == *unused_relocations=* ]]; then
   echo "✗ OMacKey: $status"
   failed=1

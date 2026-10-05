@@ -26,13 +26,34 @@ local function guarded(stage, fn)
   end
 end
 
+-- Phase 7d: with OMacKey switched off (lib/mode.lua) nothing is relocated or
+-- bound except the toggle key, so Omarchy's defaults load as they ship.
+local function enabled()
+  local ok, on = pcall(function()
+    return require("hypr.omackey.lib.mode").enabled()
+  end)
+  return not ok or on -- if the check itself fails, stay on
+end
+
 function M.pre()
+  if not enabled() then
+    return
+  end
+
   guarded("pre", function()
     require("hypr.omackey.lib.relocate").hook()
   end)
 end
 
 function M.init()
+  if not enabled() then
+    omackey.off = true
+    guarded("mode", function()
+      require("hypr.omackey.lib.mode").bind()
+    end)
+    return
+  end
+
   guarded("unhook", function()
     require("hypr.omackey.lib.relocate").unhook()
   end)
@@ -44,6 +65,10 @@ end
 
 -- One-line summary for scripts/check.sh.
 function omackey.status()
+  if omackey.off then
+    return "off (Omarchy defaults; toggle: ⌃⌘⇧M or scripts/omackey-mode on)"
+  end
+
   local relocate = package.loaded["hypr.omackey.lib.relocate"]
   local bind = package.loaded["hypr.omackey.lib.bind"]
   local parts = {
