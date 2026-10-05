@@ -59,7 +59,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
 | 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus ✅ · 6e Obsidian ✅ · 6f LibreOffice ✅ | [x] |
-| 7 | Catch-all ⌘→Ctrl & the rest: 7a ✅ (done before 6c-2 / 6d–6f, see below) | [ ] |
+| 7 | Catch-all ⌘→Ctrl & the rest: 7a ✅ · 7b ✅ · 7c ✅ · 7d ✅ · 7e skipped · 7f closed · 7g ✅ · 7h noted | [x] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
 **Order change (2026-10-05).** 7a, the catch-all, is built before 6c-2 and
@@ -886,8 +886,10 @@ New profile `libreoffice` (`config.lua`); entries sit on existing keys, plus new
     release of a press it never saw, so `lib/click.lua` remembers the open press
     and release binds on none / ⇧ / ⌘ / ⌘⇧ close it whichever modifiers are held
     (they pass ordinary releases through).
-- [ ] **7h** Trackpad gestures (3-/4-finger swipes, as on a Mac) for laptop
-  users: documentation only, since this machine is a desktop.
+- [-] **7h** Trackpad gestures (closed 2026-10-05, documentation only, user's
+  choice): 3- and 4-finger swipes as on a Mac are not mapped. This machine is a
+  desktop with no trackpad, so nothing could be tested; Hyprland's own gesture
+  config is left to laptop users (§7).
 - [x] **7i** ⌘Tab hold-⌘ stepping (user's wish, 2026-10-03): done in Phase 4,
   see `lib/switcher.lua` and §9 F6. Only the overlay is left (7j, §7).
 - [ ] **7j** (optional, later) ⌘Tab overlay: a QuickShell indicator that shows
@@ -1091,6 +1093,7 @@ to Ctrl + click and Ctrl + scroll by `mouse.lua` (§9 F20, F21).
 | ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview and Omarchy ships none. ⌃↑/↓ switch workspaces instead (1b) | ⌘\` cycles the active app's windows (Phase 4) |
 | ⌘Tab overlay (app icons and names) | Hyprland has no switcher UI; the focus change itself is the feedback, and intermediate stops visibly flip workspaces. A QuickShell overlay is an optional idea, 7j | ⌘Tab / ⌘⇧Tab step through apps while ⌘ is held; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
 | ⌘M minimize, ⌘H hide app, ⌘⌥H hide others, ⌥⌘M minimize all | D13: Hyprland and Omarchy have no minimize or hide, and with no dock a hidden window is easy to lose | Omarchy's scratchpad (⌃⌥⇧S moves the window there, ⌃⌥S shows it), or park it on a workspace with ⌃⇧1–0 |
+| Trackpad gestures (3- and 4-finger swipes, pinch) | not mapped: the user's machine is a desktop with no trackpad, so nothing could be tested (7h). Hyprland has its own gesture config for laptop users | Hyprland's `gesture` options in the user's own config |
 | ⌘-right-click, ⌘-middle-click | only the left button is translated (⌘-click and ⌘⇧-click); the right and middle buttons reach apps with ⌘ held as before | physical ⌃-right-click |
 | ⌘-click with other modifiers (⌘⌥-click, ⌘⌃-click) | only ⌘ and ⌘⇧ are translated | none |
 | ⌘-click: the press is sent about a millisecond late | the real press is consumed and re-sent, so a ⌘-click is a synthetic click; none seen (§9 F21), tell the user's tests if a click ever feels dropped | none needed |
@@ -2624,3 +2627,15 @@ and the next step.
     multi-select, VS Code go to definition, drag-select, repeated ⌘-clicks).
     **7g is complete.**
   - **Next:** 7h (gestures, document only), then Phase 8.
+- **2026-10-05 — Phase 7h noted. Phase 7 complete.**
+  - Committed ⌘-click first (e7eb61d).
+  - 7h (trackpad gestures) closed as documentation only at the user's request: a
+    §7 row, no code, nothing to test on a desktop without a trackpad.
+  - Phase 7 in short: 7a catch-all, 7b ⌘. cancel, 7c Emacs ⌃ keys (on), 7d
+    on/off toggle (⌃⌘⇧M, `scripts/omackey-mode`), 7e skipped, 7f Compose key
+    pointer, 7g mouse (Omarchy's binds on ⌃⌥, ⌘-scroll and ⌘-click as Ctrl), 7h
+    noted. 161 bindings, 114 relocations, no duplicates.
+  - **Next (not started):** Phase 8: docs generator (`docs/KEYBINDINGS.md`), README
+    (modifier model, install / uninstall, the toggle, the `emacs_keys` flag, the
+    `hl.unbind` opt-out recipe, wtype for ⌘-scroll), and the Omarchy-update drift
+    check.
