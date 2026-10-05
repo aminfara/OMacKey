@@ -56,6 +56,7 @@ mac({
   actions = {
     default = tap("CTRL + SHIFT", "V"),
     terminal = tap("SHIFT", "Insert"), -- terminals paste plain text already
+    libreoffice = tap("CTRL + ALT + SHIFT", "V"), -- Ctrl+Shift+V is Paste Special there
   },
 })
 
@@ -151,6 +152,7 @@ mac({
   actions = {
     default = tap("", "F3"),
     terminal = "consume",
+    libreoffice = tap("CTRL + SHIFT", "F"), -- F3 is AutoText there; Ctrl+Shift+F repeats the search
   },
 })
 
@@ -165,6 +167,7 @@ mac({
     default = tap("SHIFT", "F3"),
     terminal = "consume",
     nautilus = tap("CTRL", "L"), -- go to location, as in Finder
+    libreoffice = "consume", -- Shift+F3 changes case there, and no key finds the previous match (§7)
   },
 })
 

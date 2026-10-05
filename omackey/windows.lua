@@ -466,5 +466,6 @@ mac({
       hl.dispatch(hl.dsp.exec_cmd('omarchy-launch-editor "$HOME/.config/ghostty/config"'))
     end,
     kitty = tap("CTRL + SHIFT", "F2"),
+    libreoffice = tap("ALT", "F12"), -- Tools > Options
   },
 })

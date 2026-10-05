@@ -58,7 +58,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus ✅ · 6e Obsidian ✅ · 6f LibreOffice | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus ✅ · 6e Obsidian ✅ · 6f LibreOffice ✅ | [x] |
 | 7 | Catch-all ⌘→Ctrl & the rest: 7a ✅ (done before 6c-2 / 6d–6f, see below) | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
@@ -217,6 +217,7 @@ OMacKey/
 │   ├── system.lua            (Phase 5)
 │   ├── browsers.lua          Phase 6b: DevTools, history, downloads, bookmarks, clear data (Firefox entries sit on the keys they extend)
 │   ├── nautilus.lua          Phase 6d: ⌘⇧. show hidden files (other Nautilus entries sit on the keys they extend)
+│   ├── libreoffice.lua       Phase 6f: ⌘⌥V paste special (other LibreOffice entries sit on the keys they extend)
 │   ├── obsidian.lua          Phase 6e: ⌘⇧U redo selection (other Obsidian entries sit on the keys they extend)
 │   ├── vscode.lua            Phase 6c: multi-cursor, fold, replace, expand/shrink selection, quick fix (VS Code only)
 │   ├── terminals.lua         Phase 6a: ⌘K clear, ⌘D / ⌘⇧D splits (other terminal entries sit on the keys they extend)
@@ -768,13 +769,33 @@ New profile `obsidian` (`config.lua`); entries sit on existing keys, plus new
   tab's history), ⌘⌥↑ / ↓, ⌘⌥F, ⌘U / ⌘⇧U, rapid presses. ⌘⌥[ / ⌘⌥] did nothing, and
   neither did a physical `Ctrl+Shift+[`: the entries were removed.
 
-**6f — LibreOffice** (classes `libreoffice-*` / `soffice`; verify)
-- ⌘⇧Z → `Ctrl+Y` (redo).
-- ⌘, → `Alt+F12` (options).
-- ⌘G / ⌘⇧G → repeat search (verify `Ctrl+Shift+F`; F3 is AutoText!).
-- ⌘⇧V → `Ctrl+Alt+Shift+V` (paste unformatted).
-- ⌘⌥V → `Ctrl+Shift+V` (paste special).
-- Check ⌥ menu focus.
+**6f — LibreOffice** (classes `libreoffice-writer`, `-calc`, `-impress`, `-draw`,
+`-math`, `-base`, `-startcenter`, and `soffice` for its dialogs; 26.8.0) — done
+2026-10-05
+
+Chords read from the installed registry (`share/registry/main.xcd`, §9 F17).
+New profile `libreoffice` (`config.lua`); entries sit on existing keys, plus new
+`libreoffice.lua`.
+
+| Mac | Action | Where |
+| --- | --- | --- |
+| ⌘⇧Z | generic `Ctrl+Shift+Z`: it is already Redo in LibreOffice, so the planned `Ctrl+Y` override is not needed | `redo` |
+| ⌘, | `Alt+F12` (Tools > Options) | `preferences` |
+| ⌘G | `Ctrl+Shift+F` (Repeat Search, Writer and Calc; the generic `F3` is AutoText there) | `find-next` |
+| ⌘⇧G | consume: the generic `Shift+F3` changes case, and no key finds the previous match (§7) | `find-previous` |
+| ⌘⇧V | `Ctrl+Alt+Shift+V` (paste unformatted text; `Ctrl+Shift+V` is the Paste Special dialog) | `paste-plain` |
+| ⌘⌥V | `Ctrl+Shift+V` (Paste Special dialog) | new `paste-special` |
+| ⌥ menu focus | checked in Phase 2 (S5): ⌥←/→ move by word without focusing the menu | |
+
+- [x] Handler tests in a private keylog copy matched to the profile: `F` with
+  `CTRL+SHIFT`, `V` with `CTRL+ALT+SHIFT` and `CTRL+SHIFT`, `F12` with `ALT`;
+  ⌘⇧G sent nothing.
+- [x] Tests on a throwaway Writer (own profile, scratch file, address guard):
+  ⌘, opened Options, ⌘X / ⌘Z / ⌘⇧Z cut, restored and cut again (redo works with
+  the generic chord), ⌘⌥V opened the Paste Special dialog, ⌘⇧V pasted without
+  the dialog. ⌘G was not driven (needs a search term typed in; chord checked in
+  keylog). The test put its sample text on the user's clipboard.
+- [x] Physical tests by the user (§8.2) in LibreOffice passed (all keys above).
 
 ### Phase 7 — Catch-all & the rest
 
@@ -1029,6 +1050,7 @@ doesn't report them as unused when the condition is off. Verified with
 | VS Code ⌘⇧U (toggle output) | no Linux key exists, and the catch-all consumes ⌘⇧U (Unicode input) | Command palette |
 | ⌘⇧ + digits (⌘⇧1, 2, 6–9) | the catch-all skips them: ⌘⇧3/4/5 are screenshots and Ctrl+Shift+digit means little on Linux | none |
 | Obsidian ⌘⌥[ / ⌘⌥] (fold / unfold) | Obsidian has no default fold hotkey on any platform (§9 F16); the keys are not mapped | Set a hotkey for "Toggle fold" in Obsidian's Hotkeys settings |
+| LibreOffice ⌘⇧G (find previous) | no key finds the previous match (the Find toolbar has Shift+Enter only while it has focus); the generic `Shift+F3` would change case, so ⌘⇧G is consumed | the arrow button in the Find toolbar |
 | VS Code ⌘⇧⌥ arrows (column select) | Linux VS Code has no keyboard column select (`cursorColumnSelect*` have `linux: { primary: 0 }`), and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (user's choice, 2026-10-05) | Shift+Alt+mouse drag, or a user keybinding for `cursorColumnSelect*` |
 
 ---
@@ -1542,6 +1564,23 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   such tests.
 - **Shifted punctuation arrives as the shifted keysym**: ⌘⇧- sent
   `Ctrl+Shift+minus` and keylog logged `underscore`.
+
+**F17 — LibreOffice keys (6f, 2026-10-05)**
+
+- **Source.** `share/registry/main.xcd` holds the accelerators (no
+  `soffice.cfg/.../accelerator` files in this package). The second `PrimaryKeys`
+  block has the Global set and per-module sets (`com.sun.star.text.TextDocument`,
+  `…sheet.SpreadsheetDocument`, …). `MOD1` is Ctrl (⌘ on the Mac), `MOD2` is Alt.
+  Redo is `Ctrl+Shift+Z` there (`Z_SHIFT_MOD1`), Repeat Search is `Ctrl+Shift+F`
+  in Writer and Calc, Options is `Alt+F12`. `Ctrl+G` is cleared.
+- **The generic F3 / Shift+F3 were harmful** in LibreOffice (AutoText, change
+  case); they are replaced or consumed.
+- **Window classes:** `libreoffice-<module>`; its dialogs (Options, Paste
+  Special) use class `soffice`, so the profile lists it too.
+- **Test trap:** synthetic keys sometimes did nothing for a while after the find
+  bar or a dialog had focus, and plain letters sent by keycode never typed
+  (`wtype` did); Ctrl chords worked once the document had focus again. Use cut /
+  undo / redo on a selection rather than typed text.
 
 **F16 — Obsidian keys (6e, 2026-10-05)**
 
@@ -2330,3 +2369,18 @@ and the next step.
   - The user's physical tests passed except ⌘⌥[ / ⌘⌥]: Obsidian has no fold
     hotkey (F16), so those two entries were removed. **6e is complete.**
   - **Next:** 6f, LibreOffice.
+- **2026-10-05 — Phase 6f: LibreOffice (built).**
+  - Committed 6e first (6020f9b) after the user's tests: back / forward only act
+    within one tab's history, and ⌘⌥[ / ⌘⌥] were removed because Obsidian has no
+    fold hotkey (F16).
+  - Read LibreOffice's accelerators from `main.xcd` (§9 F17). Findings that
+    changed the plan: Redo is already `Ctrl+Shift+Z` (no ⌘⇧Z override); the
+    generic ⌘G / ⌘⇧G sent `F3` / `Shift+F3` (AutoText, change case): ⌘G now
+    sends `Ctrl+Shift+F` and ⌘⇧G is consumed.
+  - Code: profile `libreoffice` (`config.lua`); `libreoffice` actions on
+    `find-next`, `find-previous`, `paste-plain` (`editing.lua`) and
+    `preferences` (`windows.lua`); new `libreoffice.lua` (⌘⌥V paste special).
+    144 bindings, 108 relocations, no duplicates.
+  - Tests: see 6f.
+  - The user's physical tests passed. **6f is complete, and with it Phase 6.**
+  - **Next:** Phase 7 leftovers (7b ⌘. → Escape, then 7c–7h) and Phase 8.
