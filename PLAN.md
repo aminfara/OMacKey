@@ -876,11 +876,16 @@ New profile `libreoffice` (`config.lua`); entries sit on existing keys, plus new
     nothing because Ctrl + scroll is off there by default (VS Code
     `editor.mouseWheelZoom`, Obsidian's Ctrl + scroll font-size setting, foot has
     no mouse zoom), the same as on a Mac. ⌃⌥⌘-scroll steps through a group.
-  - **⌘-click is not translated** (the user: it already works in many apps).
-    First attempt, a synthetic `Control_L` key from a non-consuming bind, failed:
-    pointer events don't take the modifiers of a synthetic key (§9 F19). A click
-    would need pointer injection (ydotool: a daemon plus `/dev/uinput`
-    access, rejected, §7).
+  - **⌘-click → Ctrl-click** (added after the user asked again once ⌘-scroll
+    worked), in `mouse.lua` + `lib/click.lua`, ids `click`, `click-shift` and four
+    release binds. The first attempt (a synthetic Ctrl key beside the real click)
+    failed (§9 F19); what works is to consume the real ⌘ + press and send the
+    button myself: `send_key_state` accepts `key = "mouse:272"`, and a synthetic
+    event carries the explicit `mods` it is given (`CTRL`, or `CTRL + SHIFT` for
+    ⌘⇧-click), so the app sees a Ctrl click (§9 F21). Hyprland drops the real
+    release of a press it never saw, so `lib/click.lua` remembers the open press
+    and release binds on none / ⇧ / ⌘ / ⌘⇧ close it whichever modifiers are held
+    (they pass ordinary releases through).
 - [ ] **7h** Trackpad gestures (3-/4-finger swipes, as on a Mac) for laptop
   users: documentation only, since this machine is a desktop.
 - [x] **7i** ⌘Tab hold-⌘ stepping (user's wish, 2026-10-03): done in Phase 4,
@@ -1074,8 +1079,8 @@ doesn't report them as unused when the condition is off. Verified with
 
 ⌃⌥ is the window-management modifier (D1). The user first suggested ⌃ (like ⌃
 arrows and ⌃1–0), but ⌘-click can't be translated to Ctrl-click (§9 F19), so that
-would have taken Ctrl-click from apps for good. ⌘ + click reaches apps as a plain
-click. ⌘ + scroll is translated to Ctrl + scroll by `mouse.lua` (§9 F20).
+would have taken Ctrl-click from apps for good. ⌘ + click and ⌘ + scroll are translated
+to Ctrl + click and Ctrl + scroll by `mouse.lua` (§9 F20, F21).
 
 ---
 
@@ -1086,7 +1091,9 @@ click. ⌘ + scroll is translated to Ctrl + scroll by `mouse.lua` (§9 F20).
 | ⌃↑ Mission Control, ⌃↓ App Exposé | Hyprland has no built-in overview and Omarchy ships none. ⌃↑/↓ switch workspaces instead (1b) | ⌘\` cycles the active app's windows (Phase 4) |
 | ⌘Tab overlay (app icons and names) | Hyprland has no switcher UI; the focus change itself is the feedback, and intermediate stops visibly flip workspaces. A QuickShell overlay is an optional idea, 7j | ⌘Tab / ⌘⇧Tab step through apps while ⌘ is held; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
 | ⌘M minimize, ⌘H hide app, ⌘⌥H hide others, ⌥⌘M minimize all | D13: Hyprland and Omarchy have no minimize or hide, and with no dock a hidden window is easy to lose | Omarchy's scratchpad (⌃⌥⇧S moves the window there, ⌃⌥S shows it), or park it on a workspace with ⌃⇧1–0 |
-| ⌘-click as Ctrl-click (new tab, go to definition, multi-select) | pointer events carry the compositor's modifier state, not a synthetic key's, and Hyprland can't emit a click. A Ctrl that really holds needs a virtual keyboard (wtype, used for ⌘-scroll, §9 F20), but then the click itself has to be injected, which needs ydotool, its daemon and `/dev/uinput` access (not installed, root-only; rejected as an external helper, user's choice). Many apps already act on ⌘-click | physical ⌃-click (free for apps since Omarchy's mouse binds moved to ⌃⌥, §6.6) |
+| ⌘-right-click, ⌘-middle-click | only the left button is translated (⌘-click and ⌘⇧-click); the right and middle buttons reach apps with ⌘ held as before | physical ⌃-right-click |
+| ⌘-click with other modifiers (⌘⌥-click, ⌘⌃-click) | only ⌘ and ⌘⇧ are translated | none |
+| ⌘-click: the press is sent about a millisecond late | the real press is consumed and re-sent, so a ⌘-click is a synthetic click; none seen (§9 F21), tell the user's tests if a click ever feels dropped | none needed |
 | ⌘-scroll: first tick of each burst | the first tick starts the virtual Ctrl and is consumed, so it does nothing (a plain tick would scroll the page) | none needed |
 | ⌥ + letter special characters (å ß ∂ …) | ⌥ stays Meta for terminals | Omarchy's Compose key: tap Caps Lock, then a short sequence (`'` `e` → é, `o` `a` → å, `s` `s` → ß, `-` `-` `.` → –). The sequences are in the system Compose table, Omarchy's `/usr/share/omarchy/default/xcompose` (emoji) and your `~/.XCompose`; see §10 |
 | Mac Home/End (scroll to document top/bottom) | Linux semantics kept | ⌘↑/⌘↓ |
@@ -1657,17 +1664,39 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   state sent with a synthetic key is applied to that key event only and the
   compositor's real state (⌘ held) is what pointer events use; not verified in
   Hyprland's source. Chromium does not report `metaKey` for the real ⌘ either.
-- **No route through `hl` alone:** it has no pointer-button or modifier-hold
-  call (`dsp.pass` forwards the original event). A global xkb Ctrl/Super swap
-  would break ⌘ shortcuts. `ydotool` (suggested by the user from a forum snippet
-  whose script was missing) would work in principle, as uincput events are real
-  input, but needs its daemon and `/dev/uinput` access (root-only, user not in
-  `input`); the user preferred `wtype`, which is installed. See F20.
+- **Superseded by F20 and F21.** The key-beside-the-click idea can't work, but
+  two other routes do: a real Ctrl held by `wtype` (scroll) and a synthetic button
+  with explicit `mods` (click). `ydotool`, suggested from a forum snippet whose
+  script was missing, was not needed (it would have meant a daemon and
+  `/dev/uinput` access).
 - **Test recipe.** A page that logs events and POSTs them to
   `python3 -m http.server`-style listener lets the agent read what an app
   received after the user's physical clicks; Chromium needs its own
   `--user-data-dir`, and killing it by profile path (a second launch reuses the
   running instance and old page).
+
+**F21 — Synthetic mouse button (7g, 2026-10-05)**
+
+- **`send_key_state` takes `key = "mouse:272"`** (and `state` "down" / "up"): it
+  delivered `mousedown`, `mouseup` and `click` to a throwaway Chromium page with the
+  pointer over it (no window argument: the button goes to the pointer focus; the
+  test refused to fire unless the cursor was inside the test window).
+- **Explicit `mods` apply to the button event.** `mods = ""` gave `----` even
+  while `wtype` held Ctrl (the explicit empty value replaces the held state);
+  `mods = "CTRL"` gave `C---` and `"CTRL + SHIFT"` gave `C-S-` on `mousedown`,
+  `mouseup` and `click`, with no `wtype`. Real ⌘ never shows up (`M` absent).
+- **A consumed press leaves Hyprland without a held button**, so it drops the real
+  release: with the first version (release bind on ⌘ only) letting go of ⌘ before
+  the button left the app with a press and no `mouseup`, and the stray `mouseup`
+  arrived at the next click. Release binds for the plausible modifier states
+  closed it (user's retest: plain click, ⌘-click, ⌘⇧-click, drag, ⌘ released first,
+  double click, a final plain click: all balanced, no strays).
+- **Test lesson.** The user's physical clicks mixed into my synthetic ones until I
+  asked for hands off; a log with timestamps and the physical Ctrl from `wtype`
+  (`C---`) was how to tell them apart.
+- **Focus:** `input.follow_mouse = 1`, so the window under the pointer already
+  has focus when a ⌘-click is consumed. With `follow_mouse = 0` the consumed press
+  would not focus the window.
 
 **F20 — Ctrl held by wtype (7g, 2026-10-05)**
 
@@ -2578,8 +2607,20 @@ and the next step.
     returns the action's result so a handler can pass a key through; `send.lua`
     exports `after`). 155 bindings, 114 relocations, no duplicates. The user's
     physical test passed. ⌘-click is left alone (works in many apps; the user
-    didn't need it).
+    didn't need it; added later, see the next bullet).
   - More physical tests passed: ⌘-scroll zooms Nautilus and LibreOffice (VS Code,
     Obsidian and foot have no Ctrl + scroll action by default), and ⌃⌥⌘-scroll
-    switches between windows in a group. **7g is complete.**
+    switches between windows in a group.
+  - **⌘-click, second round.** The user asked again once ⌘-scroll worked. Found
+    that `send_key_state` accepts `mouse:272` and that explicit `mods` apply to
+    the button (§9 F21), so ⌘-click and ⌘⇧-click now become Ctrl-click and
+    Ctrl+Shift-click (`lib/click.lua`, 6 mouse binds in `mouse.lua`; `bind.lua`'s
+    `mac{}` passes `release`; `send.lua` has `button`). 161 bindings, 114
+    relocations, no duplicates. First version left an open press when ⌘ was
+    released before the button; fixed with release binds on other modifier states.
+    The user's retest of plain, ⌘, ⌘⇧, drag, ⌘ released first and double click
+    passed (log read after each step).
+  - The user's physical tests in real apps passed (Brave new tab, Nautilus
+    multi-select, VS Code go to definition, drag-select, repeated ⌘-clicks).
+    **7g is complete.**
   - **Next:** 7h (gestures, document only), then Phase 8.

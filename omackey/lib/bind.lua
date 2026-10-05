@@ -66,6 +66,7 @@ function M.mac(spec)
   hl.bind(spec.keys, spec.handler, {
     description = spec.desc,
     repeating = spec.repeating,
+    release = spec.release,
     auto_consuming = true,
   })
 

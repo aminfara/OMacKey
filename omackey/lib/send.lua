@@ -31,6 +31,16 @@ end
 
 M.after = after
 
+-- send.button("CTRL", "mouse:272", "down") → function that sends one pointer
+-- button event with these modifiers (Phase 7g). Used for the button, not for
+-- the key: explicit `mods` replace the held ⌘ for the event, so the app sees a
+-- Ctrl click.
+function M.button(mods, button, state)
+  return function()
+    key_state(mods, button, state)
+  end
+end
+
 -- send.tap("CTRL + SHIFT", "Home") → function that presses and releases the
 -- chord once. Key names are resolved now, so a typo fails at config load.
 function M.tap(mods, key)
