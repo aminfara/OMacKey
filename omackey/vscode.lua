@@ -106,3 +106,105 @@ mac({
     vscode = tap("CTRL", "period"),
   },
 })
+
+-- Phase 6c-2: keys whose Mac and Linux chords differ. Found by diffing the Mac
+-- and Linux keymaps in the installed workbench.desktop.main.js (§9 F15).
+
+-- Mac ⌥⇧↑ / ⌥⇧↓ copy the line. On Linux the same physical chord adds a cursor
+-- (Shift+Alt+Up), and the copy is Ctrl+Shift+Alt+Up.
+mac({
+  id = "copy-line-up",
+  category = "VS Code",
+  mac = "⌥⇧↑",
+  keys = "ALT + SHIFT + UP",
+  desc = "Copy line up",
+  repeating = true,
+  actions = {
+    vscode = tap("CTRL + SHIFT + ALT", "Up"),
+  },
+})
+
+mac({
+  id = "copy-line-down",
+  category = "VS Code",
+  mac = "⌥⇧↓",
+  keys = "ALT + SHIFT + DOWN",
+  desc = "Copy line down",
+  repeating = true,
+  actions = {
+    vscode = tap("CTRL + SHIFT + ALT", "Down"),
+  },
+})
+
+-- Toggle block comment: Shift+Alt+A on the Mac, Ctrl+Shift+A on Linux.
+mac({
+  id = "block-comment",
+  category = "VS Code",
+  mac = "⌥⇧A",
+  keys = "ALT + SHIFT + A",
+  desc = "Toggle block comment",
+  actions = {
+    vscode = tap("CTRL + SHIFT", "A"),
+  },
+})
+
+-- The Mac zooms out on ⌘⇧- as well as ⌘-. On Linux Ctrl+Shift+- is Navigate
+-- Forward, which is what the catch-all would send. Other apps keep the
+-- catch-all's Ctrl+Shift+- (7a gives this entry its default).
+mac({
+  id = "zoom-out-shifted",
+  category = "VS Code",
+  mac = "⌘⇧-",
+  keys = "SUPER + SHIFT + minus",
+  desc = "Zoom out (VS Code)",
+  actions = {
+    vscode = tap("CTRL", "minus"),
+  },
+})
+
+-- Find widget toggles: ⌘⌥ + letter on the Mac, Alt + letter on Linux. Case
+-- (⌘⌥C) and the secondary side bar (⌘⌥B) sit on the browser entries in
+-- browsers.lua, which own those keys.
+mac({
+  id = "find-whole-word",
+  category = "VS Code",
+  mac = "⌘⌥W",
+  keys = "SUPER + ALT + W",
+  desc = "Find: match whole word",
+  actions = {
+    vscode = tap("ALT", "W"),
+  },
+})
+
+mac({
+  id = "find-regex",
+  category = "VS Code",
+  mac = "⌘⌥R",
+  keys = "SUPER + ALT + R",
+  desc = "Find: use regular expression",
+  actions = {
+    vscode = tap("ALT", "R"),
+  },
+})
+
+mac({
+  id = "find-in-selection",
+  category = "VS Code",
+  mac = "⌘⌥L",
+  keys = "SUPER + ALT + L",
+  desc = "Find: in selection",
+  actions = {
+    vscode = tap("ALT", "L"),
+  },
+})
+
+mac({
+  id = "find-preserve-case",
+  category = "VS Code",
+  mac = "⌘⌥P",
+  keys = "SUPER + ALT + P",
+  desc = "Replace: preserve case",
+  actions = {
+    vscode = tap("ALT", "P"),
+  },
+})

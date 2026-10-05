@@ -36,18 +36,39 @@ local consumed = {
   ["SUPER + SHIFT + h"] = true,
 }
 
-local taken = {}
-for key in pairs(relocate.claimed) do
-  taken[key] = true
-end
-for _, spec in ipairs(bind.registry) do
-  taken[relocate.normalize(spec.keys)] = true
-end
-
 local variants = {
   { keys = "SUPER", ctrl = "CTRL", glyph = "⌘", text = "Ctrl+" },
   { keys = "SUPER + SHIFT", ctrl = "CTRL + SHIFT", glyph = "⌘⇧", text = "Ctrl+Shift+" },
 }
+
+-- Chord string → { variant, key entry } for every key this module covers.
+local covered = {}
+for _, variant in ipairs(variants) do
+  for _, entry in ipairs(keys) do
+    covered[relocate.normalize(variant.keys .. " + " .. entry[1])] = { variant = variant, entry = entry }
+  end
+end
+
+local taken = {}
+for key in pairs(relocate.claimed) do
+  taken[key] = true
+end
+
+-- A key another module claimed for some apps only (⌘K and ⌘D in terminals, ⌘Y in
+-- browsers) has no action elsewhere, so the raw ⌘ chord would reach the app. Give
+-- it the catch-all's default outside its own profiles.
+for _, spec in ipairs(bind.registry) do
+  local chord = relocate.normalize(spec.keys)
+  taken[chord] = true
+
+  local target = covered[chord]
+  if target and spec.actions and spec.actions.default == nil then
+    spec.actions.default = consumed[chord] and "consume" or tap(target.variant.ctrl, target.entry[1])
+    if spec.actions.terminal == nil then
+      spec.actions.terminal = "consume"
+    end
+  end
+end
 
 for _, variant in ipairs(variants) do
   for _, entry in ipairs(keys) do

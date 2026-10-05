@@ -45,6 +45,7 @@ mac({
   desc = "Inspect element",
   actions = {
     browser = tap("CTRL + SHIFT", "C"),
+    vscode = tap("ALT", "C"), -- find widget: match case (vscode.lua, 6c-2)
   },
 })
 
@@ -104,5 +105,6 @@ mac({
   desc = "Bookmark manager",
   actions = {
     browser = tap("CTRL + SHIFT", "O"),
+    vscode = tap("CTRL + ALT", "B"), -- toggle the secondary side bar (6c-2)
   },
 })

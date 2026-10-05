@@ -58,7 +58,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 after 7a) · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest: 7a ✅ (done before 6c-2 / 6d–6f, see below) | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
@@ -676,19 +676,36 @@ select dropped, ⌘0 mapped, physical ⌃- / ⌃⇧- not mapped. New module
 - [x] Physical tests by the user (§8.2) in VS Code passed: ⌘⌥↑/↓, ⌘⌥[ / ], ⌘⌥F,
   ⌃⇧⌘←/→, ⌘., ⌘0.
 
-**6c-2 — VS Code Mac keymap audit** (after 7a, now done first; the user asked on 2026-10-05
-whether VS Code is finished: 6c only covers chords that differ from the Mac's
-Ctrl-for-⌘ form)
+**6c-2 — VS Code Mac keymap audit** (done 2026-10-05, after 7a)
 
-- [ ] List VS Code's Mac keybindings from the installed
-  `workbench.desktop.main.js` (`kbOpts` / `keybinding` with `primary`, `mac`,
-  `linux` fields, decoded as in §9 F13).
-- [ ] Diff them against what OMacKey sends once the 7a catch-all exists. Cover
-  UI navigation first: sidebar views (⌘⇧E / F / G / D / X), ⌘B, ⌘J, ⌘P,
-  ⌘⇧P, ⌘\\, ⌘⏎, ⌘⇧L, ⌘D, ⌘⇧K, the ⌘K chords, and terminal toggle (Mac ⌃`).
-- [ ] Add an explicit `vscode.lua` entry for each key where the Linux chord is
-  different, shadowed by another command (as `Ctrl+Shift+I`, F11) or missing.
-- [ ] Record the rest as §7 entries (the integrated terminal limit, F12, stays).
+Method (§9 F15): every keybinding registered in the installed
+`workbench.desktop.main.js` (about 1,100) was extracted with its `primary`,
+`mac` and `linux` chords and diffed two ways: Mac ⌘ chords against the Ctrl
+chord the catch-all sends, and Mac chords without ⌘ (⌥, ⌃, ⇧) against the same
+physical chord on Linux.
+
+- [x] ⌘ chords with the same key on Linux (476 of 591): covered by the
+  catch-all or by an explicit entry (⌘K chords, ⌘D, ⌘P, ⌘⇧P, ⌘B, ⌘J, ⌘⏎, ⌘⇧E / F /
+  X / M / L / K, ⌘\\ …). The audit found that keys another module claimed for
+  some apps only (⌘K, ⌘D, ⌘⇧D, ⌘Y, ⌘⇧J, ⌘.) got no action elsewhere, so VS Code
+  received the raw ⌘ chord: fixed in `catchall.lua`, which now gives those specs
+  the default (§9 F14).
+- [x] Differences added to `vscode.lua` (user's choices): `copy-line-up` /
+  `copy-line-down` (⌥⇧↑ / ⌥⇧↓ → `Ctrl+Shift+Alt+Up/Down`; the plain Linux
+  chord adds a cursor), `block-comment` (⌥⇧A → `Ctrl+Shift+A`),
+  `zoom-out-shifted` (⌘⇧- → `Ctrl+minus`), `find-whole-word` / `find-regex` /
+  `find-in-selection` / `find-preserve-case` (⌘⌥W / R / L / P → `Alt+W/R/L/P`).
+  ⌘⌥C (match case, `Alt+C`) and ⌘⌥B (secondary side bar, `Ctrl+Alt+B`) are
+  `vscode` actions on the existing `devtools-inspect` and `bookmark-manager`
+  entries in `browsers.lua`. ⌘E stays `Ctrl+E` (Quick Open; the Mac key has no
+  Linux counterpart).
+- [x] Handler tests (keylog copy with its class in the `vscode` profile): all
+  ten new entries sent the right chord; ⌘K, ⌘D, ⌘⇧D, ⌘Y, ⌘⇧J, ⌘. sent
+  `Ctrl` / `Ctrl+Shift` chords after the catch-all fix.
+- [-] Left alone, §7: ⌘↑ / ⌘↓ in lists, other ⌘⌥ + key and ⌘ + F-key chords,
+  Emacs ⌃ keys (7c).
+- [x] Physical tests by the user (§8.2) in VS Code passed (⌘K ⌘S, ⌘D, ⌘⇧E, ⌘B,
+  ⌘J, ⌥⇧↑ / ↓, ⌥⇧A, ⌘⇧-, ⌘⌥W / R / C / L / P, ⌘⌥B): "works similar to Mac".
 
 **6d — Nautilus** (`org.gnome.Nautilus`; ideas from Kinto and xremap; verify each)
 
@@ -970,6 +987,11 @@ doesn't report them as unused when the condition is off. Verified with
 | Terminal ⌘D / ⌘⇧D (split) outside Ghostty | foot has no splits; kitty's splits are layouts, not a split command | Hyprland tiling |
 | Terminal ⌘↑ / ⌘↓ prompt jumping outside Ghostty | foot's `Ctrl+Shift+Z/X` need shell integration (OSC 133), not set up here | page scroll instead |
 | kitty ⌘1–9 | kitty has no default key for tab N | ⌘⇧[ / ⌘⇧] |
+| Chromium-family ⌘⇧P | the catch-all sends `Ctrl+Shift+P`, which Chrome and Brave on Linux bind to "print using system dialog" (Mac: ⌥⌘P; ⌘⇧P does nothing there). Firefox: private window on both (user's choice to leave it, 2026-10-05) | ⌘P for the normal print dialog |
+| VS Code ⌘↓ / ⌘↑ open a file / go up in lists (Explorer, search results) | the same key moves the cursor to the document end / start in the editor and Hyprland can't see which has focus (Enter / Left on Linux) | Enter, or the arrow keys |
+| VS Code ⌘⌥ + other keys and ⌘ + F-keys (⌘⌥K / T / S / Y, ⌘F2, ⌘F12 …) | the catch-all covers ⌘ and ⌘⇧ only; these are obscure, and ⌘ + F-key needs Fn on the NuPhy in Mac mode | VS Code's own `Ctrl+Alt+…` / `Ctrl+F2` keys |
+| VS Code ⌘⇧Space (parameter hints), ⌘Esc | Omarchy owns them (toggle top bar, system menu) | Ctrl+Shift+Space, or ⌃Space for suggestions |
+| VS Code ⌘⇧U (toggle output) | no Linux key exists, and the catch-all consumes ⌘⇧U (Unicode input) | Command palette |
 | ⌘⇧ + digits (⌘⇧1, 2, 6–9) | the catch-all skips them: ⌘⇧3/4/5 are screenshots and Ctrl+Shift+digit means little on Linux | none |
 | VS Code ⌘⇧⌥ arrows (column select) | Linux VS Code has no keyboard column select (`cursorColumnSelect*` have `linux: { primary: 0 }`), and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (user's choice, 2026-10-05) | Shift+Alt+mouse drag, or a user keybinding for `cursorColumnSelect*` |
 
@@ -1484,6 +1506,27 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   such tests.
 - **Shifted punctuation arrives as the shifted keysym**: ⌘⇧- sent
   `Ctrl+Shift+minus` and keylog logged `underscore`.
+
+**F15 — VS Code Mac vs Linux keymap (6c-2, 2026-10-05)**
+
+- **Extraction.** Every `primary:N` object in `workbench.desktop.main.js`
+  (kbOpts, keybinding, registerCommandAndKeybindingRule), with its `mac:{}` and
+  `linux:{}` overrides, decoded as in F13 (Cmd 2048, Shift 1024, Alt 512,
+  WinCtrl 256; Mac WinCtrl = physical ⌃). About 1,100 bindings (the parser
+  also yields the same object twice, and some ids come out as `?`; chord-style
+  bindings such as ⌘K ⌘S use another encoding and were not extracted, but
+  they are plain Ctrl chords on both platforms). Script kept out of the repo.
+- **Result.** 476 of 591 Mac ⌘ chords are the same key with Ctrl on Linux, so
+  a plain translation is correct. 115 differ; most are scope-specific (terminal,
+  chat, lists, notebooks), the rest are in the 6c table and the list above.
+- **Same physical chord, different command** (the dangerous kind, since ⌥ and
+  ⌃ pass through): ⌥⇧↑ / ↓ (Mac copy line, Linux add cursor), ⌥⇧A (Mac block
+  comment, Linux nothing). The other differing chords were Emacs ⌃ keys (7c).
+- **Catch-all gap found by the audit:** keys claimed by a profile-only entry
+  passed the raw ⌘ chord outside that profile (⌘K in VS Code, so every ⌘K chord
+  failed). Fixed in `catchall.lua` (§9 F14 lists the keys).
+- **Zoom:** the Mac also zooms out on ⌘⇧-; Linux has `Ctrl+Shift+-` as
+  Navigate Forward, which the catch-all would have sent.
 
 ---
 
@@ -2169,3 +2212,33 @@ and the next step.
   - **Open:** the user's physical tests (§8.2) of a sample of the new keys in
     Brave, VS Code, foot and Obsidian (e.g. ⌘E, ⌘J, ⌘⇧P, ⌘⇧E, ⌘⏎, ⌘⇧H).
   - **Next:** 6c-2 (VS Code audit against the catch-all), then 6d–6f.
+- **2026-10-05 — Phase 6c-2: VS Code keymap audit.**
+  - Committed 7a first (e7c7c11; the user said to continue, physical tests of
+    the new keys not reported yet).
+  - Extracted VS Code's keybindings from the installed `workbench.desktop.main.js`
+    and diffed the Mac and Linux keymaps (§9 F15). **Found a 7a bug:** keys
+    another module had claimed for specific apps only (⌘K, ⌘D, ⌘⇧D, ⌘Y, ⌘⇧J,
+    ⌘.) did nothing outside them, so VS Code got the raw ⌘ chord and every ⌘K
+    chord failed. `catchall.lua` now gives those specs the default (Ctrl chord,
+    consume in terminals).
+  - Decisions with the user: add copy line (⌥⇧↑ / ↓), block comment (⌥⇧A),
+    ⌘⇧- zoom out, and the find-widget toggles plus ⌘⌥B; leave ⌘E as Ctrl+E.
+  - Code: eight entries in `vscode.lua`, `vscode` actions on `devtools-inspect`
+    and `bookmark-manager` in `browsers.lua`. 143 bindings, 108 relocations, no
+    duplicates.
+  - Handler tests in a private keylog copy matched to the `vscode` profile: all
+    sent the right chords (`Up` with `CTRL+ALT+SHIFT`, `A` with `CTRL+SHIFT`,
+    `minus` with `CTRL`, `w` / `r` / `l` / `p` / `c` with `ALT`, `b` with
+    `CTRL+ALT`), and the claimed-key fix sent `k`, `d`, `D`, `y`, `J`, `period`.
+  - The user's physical tests passed in VS Code. The 7a sample keys passed too:
+    - Brave: ⌘E focuses the address bar, ⌘J opens downloads, ⌘⇧H does
+      nothing and typing is normal afterwards.
+    - foot: ⌘E, ⌘J, ⌘⇧P, ⌘⏎ do nothing.
+    - Obsidian: ⌘E toggles read / edit; ⌘⇧P and ⌘⏎ do nothing (no Obsidian
+      command on those keys); holding ⌘H and ⌘⇧H does nothing and nothing
+      repeats.
+  - **One difference, left as is (user's choice):** ⌘⇧P in the Chromium family
+    opens the system print dialog (`Ctrl+Shift+P` on Linux). On the Mac that
+    dialog is ⌥⌘P and ⌘⇧P does nothing in Chrome.
+  - **Next:** 6d, Nautilus (a diff against the catch-all, then explicit
+    entries).
