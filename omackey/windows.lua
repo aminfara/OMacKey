@@ -298,7 +298,11 @@ mac({
 -- workspace binds moved to ⌃1–0 in Phase 1b. One bind per digit, written as a
 -- loop like spaces.lua; each gets its own actions table, so Phase 6 can add
 -- per-app entries. Terminals consume, except Ghostty (Alt+N; Alt+9 is the last
--- tab). kitty has no key for tab N.
+-- tab). kitty has no key for tab N. Nautilus has no tabs by number here: ⌘1 / ⌘2
+-- are Finder's icon / list view, which are Nautilus's Ctrl+2 / Ctrl+1 (§9 F5),
+-- and ⌘3–9 do nothing (Finder's columns and gallery views don't exist).
+local nautilus_views = { ["1"] = tap("CTRL", "2"), ["2"] = tap("CTRL", "1") }
+
 for n = 1, 9 do
   local digit = tostring(n)
 
@@ -312,6 +316,7 @@ for n = 1, 9 do
       default = tap("CTRL", digit),
       terminal = "consume",
       ghostty = tap("ALT", digit),
+      nautilus = nautilus_views[digit] or "consume",
     },
   })
 end

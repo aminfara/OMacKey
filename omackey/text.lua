@@ -118,6 +118,7 @@ mac({
     terminal = tap("SHIFT", "Page_Up"),
     ghostty = tap("CTRL + SHIFT", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Page_Up"),
+    nautilus = tap("ALT", "Up"), -- parent folder, as in Finder
   },
 })
 
@@ -133,6 +134,7 @@ mac({
     terminal = tap("SHIFT", "Page_Down"),
     ghostty = tap("CTRL + SHIFT", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Page_Down"),
+    nautilus = tap("", "Return"), -- open the selection, as in Finder
   },
 })
 
@@ -198,6 +200,7 @@ mac({
   actions = {
     default = seq(tap("SHIFT", "Home"), tap("", "BackSpace")),
     terminal = tap("CTRL", "u"), -- readline unix-line-discard
+    nautilus = tap("", "Delete"), -- move to trash, as in Finder
   },
 })
 

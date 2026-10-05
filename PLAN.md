@@ -58,7 +58,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus · 6e Obsidian · 6f LibreOffice | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus ✅ · 6e Obsidian · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest: 7a ✅ (done before 6c-2 / 6d–6f, see below) | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
@@ -216,6 +216,7 @@ OMacKey/
 │   ├── windows.lua           (Phase 4)
 │   ├── system.lua            (Phase 5)
 │   ├── browsers.lua          Phase 6b: DevTools, history, downloads, bookmarks, clear data (Firefox entries sit on the keys they extend)
+│   ├── nautilus.lua          Phase 6d: ⌘⇧. show hidden files (other Nautilus entries sit on the keys they extend)
 │   ├── vscode.lua            Phase 6c: multi-cursor, fold, replace, expand/shrink selection, quick fix (VS Code only)
 │   ├── terminals.lua         Phase 6a: ⌘K clear, ⌘D / ⌘⇧D splits (other terminal entries sit on the keys they extend)
 │   ├── apps/                 (Phase 6) profile overrides
@@ -707,19 +708,35 @@ physical chord on Linux.
 - [x] Physical tests by the user (§8.2) in VS Code passed (⌘K ⌘S, ⌘D, ⌘⇧E, ⌘B,
   ⌘J, ⌥⇧↑ / ↓, ⌥⇧A, ⌘⇧-, ⌘⌥W / R / C / L / P, ⌘⌥B): "works similar to Mac".
 
-**6d — Nautilus** (`org.gnome.Nautilus`; ideas from Kinto and xremap; verify each)
+**6d — Nautilus** (`org.gnome.Nautilus`, 50.3.1; ideas from Kinto and xremap) —
+done 2026-10-05
 
-| Mac | Action |
-| --- | --- |
-| ⌘↑ | `Alt+Up` (parent folder) |
-| ⌘↓ | `Return` (open) |
-| ⌘⌫ | `Delete` (move to trash; overrides the Phase 2 line delete) |
-| ⌘⇧. | `Ctrl+H` (hidden files) |
-| ⌘⇧G | `Ctrl+L` (go to location) |
-| ⌘[ / ⌘] | `Alt+Left/Right` |
-| ⌘I | properties (verify: `Ctrl+I` or `Alt+Return`) |
-| ⌘1 / ⌘2 | icon / list view: Nautilus's own `Ctrl+1` is list and `Ctrl+2` is grid (§9 F5), the reverse of Finder, so send `Ctrl+2` for ⌘1 and `Ctrl+1` for ⌘2. ⌘3 / ⌘4 (columns, gallery) have no Nautilus view: consume. Nautilus tabs by number are `Alt+N`, not used (Finder has no tab numbers) |
-| ⌘D, ⌘⇧⌫, ⏎-to-rename | unmapped (§7) |
+Profile `nautilus` already existed (Phase 4). Entries sit on the keys they
+extend; only ⌘⇧. is new (`nautilus.lua`, id `show-hidden-files`).
+
+| Mac | Action | Where |
+| --- | --- | --- |
+| ⌘↑ | `Alt+Up` (parent folder) | `document-start` |
+| ⌘↓ | `Return` (open selection) | `document-end` |
+| ⌘⌫ | `Delete` (move to trash; overrides the line delete) | `delete-line-start` |
+| ⌘⇧. | `Ctrl+H` (hidden files) | new `show-hidden-files` |
+| ⌘⇧G | `Ctrl+L` (go to location) | `find-previous` |
+| ⌘[ / ⌘] | `Alt+Left/Right` | Phase 4 |
+| ⌘1 / ⌘2 | `Ctrl+2` (icons) / `Ctrl+1` (list): Nautilus's views are the reverse of Finder's (§9 F5) | `tab-1`, `tab-2` |
+| ⌘3–⌘9 | consume (no such views or tab keys) | `tab-3`…`tab-9` |
+| ⌘I | properties: the generic `Ctrl+I` already opens it, no entry needed | `italic` |
+| ⌘D, ⌘⇧⌫, ⏎-to-rename | unmapped (§7); ⌘D reaches Nautilus as `Ctrl+D` (add bookmark) via the catch-all | |
+
+- [x] Handler tests on a throwaway Nautilus (own D-Bus, scratch folder, pid
+  guard): ⌘↑ went to the parent, ⌘↓ opened the folder again, ⌘⇧G opened the
+  location bar, ⌘1 / ⌘2 switched to icon / list view, ⌘3 sent nothing, ⌘I
+  opened the Properties dialog. Closed afterwards, scratch folder removed.
+- [x] ⌘⇧. confirmed by the user's physical test: it toggles hidden files, like
+  physical ⌃H. The throwaway instance did not show dotfiles after `Ctrl+H`
+  (likely it does not keep the setting), so a handler test can't confirm this
+  key.
+- [x] Physical tests by the user (§8.2) in Nautilus passed: ⌘↓ / ⌘↑, ⌘⇧., ⌘⇧G,
+  ⌘1 / ⌘2 / ⌘3, ⌘I, ⌘⌫ (moved a file to the trash), ⌘[ / ⌘], rapid presses.
 
 **6e — Obsidian** (class `obsidian`, Electron; verify)
 - ⌘⌥← / ⌘⌥→ → `Ctrl+Alt+Left/Right` (navigate back/forward, overriding the
@@ -975,7 +992,7 @@ doesn't report them as unused when the condition is off. Verified with
 | Mac Home/End (scroll to document top/bottom) | Linux semantics kept | ⌘↑/⌘↓ |
 | ⌘←/⌘→ as browser back/forward outside text fields | focus inside the page can't be detected | ⌘[ / ⌘] |
 | Physical ⌃←/⌃→ word jump in Linux apps | ⌃←/→ now switch Spaces (as on a Mac) | ⌥←/⌥→ |
-| Nautilus ⌘D duplicate, ⌘⇧⌫ empty trash, ⏎ to rename | no direct Nautilus action | F2 renames |
+| Nautilus ⌘D duplicate, ⌘⇧⌫ empty trash, ⏎ to rename | no direct Nautilus action (⌘D arrives as `Ctrl+D`, add bookmark) | F2 renames |
 | ⌘⇧Q log out | no instant logout wanted; Omarchy's system menu is not one | ⌘Esc opens the system menu |
 | F3 Mission Control key (`XF86LaunchA`) | same reason as ⌃↑ Mission Control: no overview in Hyprland or Omarchy (user's choice, 2026-10-03) | none |
 | Chromium-family ⌘, (settings) | no Linux shortcut, and Chromium turns a `chrome://` URL on the command line into a blank tab (§9 F11); a typed-URL key sequence was judged too hacky (user's choice, 2026-10-04) | menu, or type `chrome://settings` / `brave://settings` (Firefox ⌘, works) |
@@ -2242,3 +2259,16 @@ and the next step.
     dialog is ⌥⌘P and ⌘⇧P does nothing in Chrome.
   - **Next:** 6d, Nautilus (a diff against the catch-all, then explicit
     entries).
+- **2026-10-05 — Phase 6d: Nautilus (built).**
+  - Read PLAN.md and CLAUDE.md in full. Scope as in the 6d table, except ⌘I:
+    the generic `Ctrl+I` already opens Properties, so no entry.
+  - Code: `nautilus` actions on `document-start` / `document-end` /
+    `delete-line-start` (`text.lua`), `find-previous` (`editing.lua`),
+    `tab-1`…`tab-9` (`windows.lua`: ⌘1 / ⌘2 swapped, rest consumed); new
+    `nautilus.lua` (⌘⇧. → `Ctrl+H`), added to `config.modules`. 143 bindings
+    (the catch-all's ⌘⇧. is replaced), 108 relocations, no duplicates; the help
+    menu lists "Show hidden files (Files)".
+  - Handler tests on a throwaway Nautilus: see 6d. ⌘⇧. is unconfirmed.
+  - The user's physical tests (§8.2) in Nautilus passed, ⌘⇧. included. **6d is
+    complete.**
+  - **Next:** 6e, Obsidian.

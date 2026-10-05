@@ -164,6 +164,7 @@ mac({
   actions = {
     default = tap("SHIFT", "F3"),
     terminal = "consume",
+    nautilus = tap("CTRL", "L"), -- go to location, as in Finder
   },
 })
 
