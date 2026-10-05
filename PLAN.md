@@ -606,7 +606,7 @@ used.
 | ⌘↑ / ⌘↓ | — | `Ctrl+Shift+Page_Up/Down` (previous / next prompt) | `Ctrl+Shift+Page_Up/Down` (scroll page) | `Shift+Page_Up/Down` (scroll page) |
 | ⌘, | — | `omarchy-launch-editor ~/.config/ghostty/config` (Ghostty's own `Ctrl+comma` shows nothing here, §9 F10) | `Ctrl+Shift+F2` (edit config) | consume |
 | ⌘= ⌘+ ⌘- ⌘0 | — | — (`Ctrl+=` …) | `Ctrl+Shift+=` / `-` / `BackSpace` | — (`Ctrl+=` …) |
-| ⌘. (interrupt) | Phase 7b | Phase 7b | Phase 7b | |
+| ⌘. (interrupt) | `Ctrl+C` | `Ctrl+C` | `Ctrl+C` | `Ctrl+C` (7b) |
 
 - [x] Profiles `ghostty`, `kitty`, `foot` (`config.lua`).
 - [x] Entries on existing keys: ⌘T, ⌘W, ⌘1–9, tab switching (`windows.lua`);
@@ -664,7 +664,7 @@ select dropped, ⌘0 mapped, physical ⌃- / ⌃⇧- not mapped. New module
 | ⌘⌥[ / ⌘⌥] | `Ctrl+Shift+[` / `Ctrl+Shift+]` | fold / unfold. ids `fold`, `unfold`. Webcam keys moved in 1a |
 | ⌘⌥F | `Ctrl+H` | replace. id `replace`. Omarchy's "Full width" moved in 1a |
 | ⌃⇧⌘← / → | `Shift+Alt+Left/Right` | shrink / expand selection. ids `shrink-selection`, `expand-selection`, `repeating` |
-| ⌘. | `Ctrl+period` | quick fix. id `quick-fix`, VS Code only until 7b adds the generic ⌘. |
+| ⌘. | `Ctrl+period` | quick fix. Now the `vscode` action of the generic `cancel` entry (7b, `editing.lua`); the id `quick-fix` is gone |
 | ⌘0 | `Ctrl+KP_0` (numpad 0) | reset zoom; VS Code has no `Ctrl+0` default for it (§9 F4). `kp_0` (keycode 90) added to `lib/keys.lua` |
 | ⌘K chords, ⌘P, ⌘⇧P, ⌘D, ⌘⇧L, ⌘⇧K, ⌘⏎, ⌘B, ⌘J, ⌘\\ | generic Ctrl translation (Phases 3, 4, 7) | verify chords: ⌘K ⌘S → Ctrl+K Ctrl+S (7a) |
 | ⌘C / ⌘V | `Ctrl+Insert` / `Shift+Insert` | done in `editing.lua` (profile `vscode`): both work in the editor and in the integrated terminal (§9 F12) |
@@ -819,8 +819,11 @@ New profile `libreoffice` (`config.lua`); entries sit on existing keys, plus new
     ⌘E, ⌘⇧X (VS Code extensions) and ⌘⏎ (`Ctrl+Return`) are translated.
   - Free keys at the time: ⌘ E H J M \ ; ' ⏎; ⌘⇧ A B C E F H I K L M O P Q R
     U X Y - . \ ; ' ⏎ (the rest were already claimed, §9 F14).
-- [ ] **7b** ⌘. → `Escape` in GUI apps. In terminals it sends `Ctrl+C`; in
-  VS Code `Ctrl+period`.
+- [x] **7b** ⌘. (2026-10-05). id `cancel` in `editing.lua`: `Escape` in GUI apps,
+  `Ctrl+C` in every terminal (interrupt, like Terminal.app), `Ctrl+period` in VS
+  Code (quick fix; it replaces the `quick-fix` entry in `vscode.lua`). Not
+  `repeating`. Handler tests in a private keylog copy: `Escape`, `c` with `CTRL`
+  (terminal profile), `period` with `CTRL` (vscode profile).
 - [ ] **7c** Opt-in Emacs-style ⌃ keys in GUI text fields (⌃A/⌃E line
   start/end, ⌃K kill to end, ⌃D/⌃H delete, ⌃F/⌃B/⌃N/⌃P). Terminals pass
   through.
@@ -2384,3 +2387,16 @@ and the next step.
   - Tests: see 6f.
   - The user's physical tests passed. **6f is complete, and with it Phase 6.**
   - **Next:** Phase 7 leftovers (7b ⌘. → Escape, then 7c–7h) and Phase 8.
+- **2026-10-05 — Phase 7b: ⌘. cancel.**
+  - Committed 6f first (13fb910; the user's LibreOffice tests passed, which
+    completes Phase 6).
+  - Replaced VS Code's `quick-fix` entry (`vscode.lua`) with a generic `cancel` on
+    ⌘. in `editing.lua`: `Escape` in GUI apps, `Ctrl+C` in terminals,
+    `Ctrl+period` in VS Code. 144 bindings, 108 relocations, no duplicates; the
+    help menu shows "Cancel (Escape)".
+  - Handler tests in a private keylog copy: see 7b. A first run was cut short by
+    a `hyprctl reload` in the middle of my own test script, not by the bind; the
+    terminal case reran cleanly.
+  - The user's physical tests (§8.2) passed (Brave, Nautilus, foot, VS Code).
+    **7b is complete.**
+  - **Next:** 7c (opt-in Emacs ⌃ keys) or another Phase 7 item, then Phase 8.

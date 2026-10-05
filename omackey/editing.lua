@@ -218,3 +218,18 @@ mac({
     terminal = "consume",
   },
 })
+
+-- ⌘. cancels: Escape in GUI apps (dialogs, menus, search bars), Ctrl+C in
+-- terminals (interrupt, like Terminal.app). VS Code's Quick Fix is Ctrl+period.
+mac({
+  id = "cancel",
+  category = "Editing",
+  mac = "⌘.",
+  keys = "SUPER + period",
+  desc = "Cancel (Escape)",
+  actions = {
+    default = tap("", "Escape"),
+    terminal = tap("CTRL", "C"),
+    vscode = tap("CTRL", "period"), -- quick fix
+  },
+})

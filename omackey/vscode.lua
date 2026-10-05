@@ -99,16 +99,6 @@ mac({
 
 -- Quick fix is Ctrl+. on Linux and ⌘. on the Mac. Phase 7b adds the generic
 -- ⌘. (Escape) on this key and keeps this entry.
-mac({
-  id = "quick-fix",
-  category = "VS Code",
-  mac = "⌘.",
-  keys = "SUPER + period",
-  desc = "Quick fix",
-  actions = {
-    vscode = tap("CTRL", "period"),
-  },
-})
 
 -- Phase 6c-2: keys whose Mac and Linux chords differ. Found by diffing the Mac
 -- and Linux keymaps in the installed workbench.desktop.main.js (§9 F15).
