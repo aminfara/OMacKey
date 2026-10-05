@@ -20,6 +20,7 @@ mac({
   repeating = true,
   actions = {
     vscode = tap("CTRL + SHIFT", "Up"),
+    obsidian = tap("CTRL + ALT", "Up"), -- Mod+Alt+Up is the same chord on both platforms
   },
 })
 
@@ -32,6 +33,7 @@ mac({
   repeating = true,
   actions = {
     vscode = tap("CTRL + SHIFT", "Down"),
+    obsidian = tap("CTRL + ALT", "Down"),
   },
 })
 
@@ -67,6 +69,7 @@ mac({
   desc = "Replace",
   actions = {
     vscode = tap("CTRL", "H"),
+    obsidian = tap("CTRL", "H"),
   },
 })
 

@@ -58,7 +58,7 @@ between a work Mac and a home Omarchy machine needs no mental remapping.
 | 3 | Core editing (clipboard, undo/redo, select all, find, save) | [x] |
 | 4 | Window & tab controls | [x] |
 | 5 | OS controls (lock, screenshots, help, emoji, force quit) | [x] |
-| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus ✅ · 6e Obsidian · 6f LibreOffice | [ ] |
+| 6 | App-specific: 6a terminals ✅ · 6b browsers ✅ · 6c VS Code ✅ (6c-2 ✅) · 6d Nautilus ✅ · 6e Obsidian ✅ · 6f LibreOffice | [ ] |
 | 7 | Catch-all ⌘→Ctrl & the rest: 7a ✅ (done before 6c-2 / 6d–6f, see below) | [ ] |
 | 8 | Docs generator, README, maintenance tooling | [ ] |
 
@@ -217,6 +217,7 @@ OMacKey/
 │   ├── system.lua            (Phase 5)
 │   ├── browsers.lua          Phase 6b: DevTools, history, downloads, bookmarks, clear data (Firefox entries sit on the keys they extend)
 │   ├── nautilus.lua          Phase 6d: ⌘⇧. show hidden files (other Nautilus entries sit on the keys they extend)
+│   ├── obsidian.lua          Phase 6e: ⌘⇧U redo selection (other Obsidian entries sit on the keys they extend)
 │   ├── vscode.lua            Phase 6c: multi-cursor, fold, replace, expand/shrink selection, quick fix (VS Code only)
 │   ├── terminals.lua         Phase 6a: ⌘K clear, ⌘D / ⌘⇧D splits (other terminal entries sit on the keys they extend)
 │   ├── apps/                 (Phase 6) profile overrides
@@ -738,17 +739,34 @@ extend; only ⌘⇧. is new (`nautilus.lua`, id `show-hidden-files`).
 - [x] Physical tests by the user (§8.2) in Nautilus passed: ⌘↓ / ⌘↑, ⌘⇧., ⌘⇧G,
   ⌘1 / ⌘2 / ⌘3, ⌘I, ⌘⌫ (moved a file to the trash), ⌘[ / ⌘], rapid presses.
 
-**6e — Obsidian** (class `obsidian`, Electron; verify)
-- ⌘⌥← / ⌘⌥→ → `Ctrl+Alt+Left/Right` (navigate back/forward, overriding the
-  tab-switch rule).
-- Tab switching via ⌘⇧[ ] stays generic.
-- Check ⌘P, ⌘O, ⌘E, ⌘, and ⌘⇧F through the generic rules.
-- ⌥ menu focus: checked in Phase 2 (S5). A bare ⌥ does nothing in Obsidian
-  here, so there is nothing to work around.
-- **Open:** ⌘U (sent as `Ctrl+U`) does something odd in Obsidian. The user
-  saw what looked like a jump table (Phase 3 test). Find out which Obsidian
-  command owns `Ctrl+U` (Settings → Hotkeys) and decide on an override or a
-  §7 entry.
+**6e — Obsidian** (class `md.obsidian.Obsidian` here, `obsidian` elsewhere;
+Electron, 1.13.7) — done 2026-10-05
+
+Chords read from the installed `app.js` (§9 F16). Obsidian's hotkeys use "Mod"
+(Ctrl on Linux), so ⌘ → Ctrl already covers them; these are the ones that differ.
+New profile `obsidian` (`config.lua`); entries sit on existing keys, plus new
+`obsidian.lua`.
+
+| Mac | Action | Where |
+| --- | --- | --- |
+| ⌘⌥← / ⌘⌥→ | `Ctrl+Alt+Left/Right` (navigate back / forward; overrides the tab-switch rule) | `previous-tab-arrow`, `next-tab-arrow` |
+| ⌘⌥↑ / ⌘⌥↓ | `Ctrl+Alt+Up/Down` (add cursor above / below) | `add-cursor-above/below` |
+| ⌘⌥[ / ⌘⌥] | not mapped: Obsidian has no default fold hotkey on either platform (§9 F16) | |
+| ⌘⌥F | `Ctrl+H` (search and replace) | `replace` |
+| ⌘⇧U | `Alt+U` (redo selection; Linux's chord for it) | new `redo-selection` |
+| ⌘⇧[ / ⌘⇧] | `Ctrl+Page_Up/Down`, generic (Obsidian's own Linux keys) | |
+| ⌘P, ⌘O, ⌘E, ⌘, ⌘⇧F, ⌘K, ⌘N, ⌘T, ⌘W, ⌘⇧W, ⌘1–9, ⌘G, ⌘⇧G … | generic (all "Mod" hotkeys; `F3` is Obsidian's find-next too) | |
+| ⌘U | nothing to fix: undo selection (CodeMirror `Mod-u`) on both platforms | |
+
+- [x] The ⌘U "oddity" from Phase 3 is not one: ⌘U is undo-selection on the Mac
+  as well, and the user saw the cursor jump back.
+- [x] ⌥ menu focus: checked in Phase 2 (S5), nothing to work around.
+- [x] Handler tests in a private keylog copy matched to the `obsidian` profile:
+  `Left` / `Right` / `Up` / `Down` with `CTRL+ALT`, `[` / `]` with `CTRL+SHIFT`,
+  `h` with `CTRL`, `u` with `ALT`.
+- [x] Physical tests by the user (§8.2) in Obsidian passed: ⌘⌥← / ⌘⌥→ (within one
+  tab's history), ⌘⌥↑ / ↓, ⌘⌥F, ⌘U / ⌘⇧U, rapid presses. ⌘⌥[ / ⌘⌥] did nothing, and
+  neither did a physical `Ctrl+Shift+[`: the entries were removed.
 
 **6f — LibreOffice** (classes `libreoffice-*` / `soffice`; verify)
 - ⌘⇧Z → `Ctrl+Y` (redo).
@@ -1010,6 +1028,7 @@ doesn't report them as unused when the condition is off. Verified with
 | VS Code ⌘⇧Space (parameter hints), ⌘Esc | Omarchy owns them (toggle top bar, system menu) | Ctrl+Shift+Space, or ⌃Space for suggestions |
 | VS Code ⌘⇧U (toggle output) | no Linux key exists, and the catch-all consumes ⌘⇧U (Unicode input) | Command palette |
 | ⌘⇧ + digits (⌘⇧1, 2, 6–9) | the catch-all skips them: ⌘⇧3/4/5 are screenshots and Ctrl+Shift+digit means little on Linux | none |
+| Obsidian ⌘⌥[ / ⌘⌥] (fold / unfold) | Obsidian has no default fold hotkey on any platform (§9 F16); the keys are not mapped | Set a hotkey for "Toggle fold" in Obsidian's Hotkeys settings |
 | VS Code ⌘⇧⌥ arrows (column select) | Linux VS Code has no keyboard column select (`cursorColumnSelect*` have `linux: { primary: 0 }`), and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (user's choice, 2026-10-05) | Shift+Alt+mouse drag, or a user keybinding for `cursorColumnSelect*` |
 
 ---
@@ -1523,6 +1542,28 @@ Sessions append facts learned here: spike results, app quirks, surprises.
   such tests.
 - **Shifted punctuation arrives as the shifted keysym**: ⌘⇧- sent
   `Ctrl+Shift+minus` and keylog logged `underscore`.
+
+**F16 — Obsidian keys (6e, 2026-10-05)**
+
+- **Source.** `/usr/lib/obsidian/obsidian.asar` holds `app.js` (read with a small
+  asar extractor; no `asar` tool installed). App commands declare
+  `hotkeys:[Yw(["Mod",…],key)]`; the editor (CodeMirror 6) has keymaps with
+  `mac:` / `linux:` overrides. `Mod` is Ctrl on Linux and ⌘ on the Mac.
+- **Differences found.** Back / forward are `Mod+Alt+Left/Right` on both
+  platforms (so ⌘⌥ → Ctrl+Alt). Redo selection is `Mod+Shift+U` on the Mac and
+  `Alt+U` on Linux. `Mod+Alt+Up/Down` (add cursor) and `Mod+Alt+F` / `Mod+H` (replace)
+  are the same keys. Next / previous tab has the Mac key `Meta+Shift+[` and
+  Linux `Ctrl+Page_Up/Down`, which the generic rule already sends.
+- **Fold has no Obsidian hotkey.** `Ctrl-Shift-[` / Mac `Cmd-Alt-[` come from
+  CodeMirror's bundled `foldKeymap`, which Obsidian does not load; its fold
+  commands (`editor:toggle-fold`, `fold-all`, …) have no default hotkey, so the
+  user's physical `Ctrl+Shift+[` did nothing. Mapping ⌘⌥[ would invent a Mac
+  behaviour that does not exist.
+- **Back / forward only act within one tab's history** (`activeLeaf.history`).
+- **Mac-only Emacs keys** (`Ctrl-a/e/b/f/…`) are CodeMirror's Mac keymap and a
+  7c item; `Ctrl-m` (Mac `Shift-Alt-m`) was left alone.
+- **Window class** here is `md.obsidian.Obsidian`, not `obsidian` as the plan
+  assumed.
 
 **F15 — VS Code Mac vs Linux keymap (6c-2, 2026-10-05)**
 
@@ -2272,3 +2313,20 @@ and the next step.
   - The user's physical tests (§8.2) in Nautilus passed, ⌘⇧. included. **6d is
     complete.**
   - **Next:** 6e, Obsidian.
+- **2026-10-05 — Phase 6e: Obsidian (built).**
+  - Committed 6d first (130dc6e; the user's Nautilus tests passed, ⌘⇧. included).
+    On the user's question, ⌘⇧[ / ⌘⇧] stay previous / next tab in Nautilus, as in
+    Finder.
+  - Read Obsidian's keymap from its `app.js` (§9 F16). The plan's class
+    `obsidian` is `md.obsidian.Obsidian` here. ⌘U is undo-selection on the Mac
+    too, so the Phase 3 "oddity" needs nothing.
+  - Code: profile `obsidian` (`config.lua`); `obsidian` actions on
+    `previous-tab-arrow` / `next-tab-arrow` (`windows.lua`), `add-cursor-above` /
+    `-below`, `replace` (`vscode.lua`); new `obsidian.lua`
+    (⌘⇧U → `Alt+U`). 143 bindings, 108 relocations, no duplicates. I added the
+    cursor, replace and redo-selection keys beyond the plan's list because
+    the audit showed the same gaps as VS Code; say if you'd rather drop them.
+  - Handler tests in a private keylog copy: all eight sent the right chords.
+  - The user's physical tests passed except ⌘⌥[ / ⌘⌥]: Obsidian has no fold
+    hotkey (F16), so those two entries were removed. **6e is complete.**
+  - **Next:** 6f, LibreOffice.

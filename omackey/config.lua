@@ -13,6 +13,7 @@ return {
     "browsers", -- Phase 6b: devtools, history, downloads, bookmarks
     "vscode", -- Phase 6c: multi-cursor, fold, replace, expand selection
     "nautilus", -- Phase 6d: hidden files (other Nautilus keys sit on the keys they extend)
+    "obsidian", -- Phase 6e: redo selection (other Obsidian keys sit on the keys they extend)
     "catchall", -- Phase 7a: every ⌘ / ⌘⇧ key not claimed above (keep last)
   },
 
@@ -41,6 +42,8 @@ return {
     },
     -- VS Code (class com.microsoft.VSCode here; the others for other installs).
     { name = "vscode", classes = { "com.microsoft.VSCode", "code", "code-oss", "Code" } },
+    -- Obsidian (class md.obsidian.Obsidian here): keys that differ from the Mac's (6e).
+    { name = "obsidian", classes = { "md.obsidian.Obsidian", "obsidian" } },
     -- Nautilus (Files): keys that differ from Finder's get an entry of their own (6d).
     { name = "nautilus", classes = { "org.gnome.Nautilus" } },
     -- GUI apps where Ctrl+W doesn't close the window: ⌘W closes it instead.

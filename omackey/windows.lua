@@ -365,6 +365,7 @@ mac({
     terminal = "consume",
     ghostty = tap("CTRL", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Left"),
+    obsidian = tap("CTRL + ALT", "Left"), -- navigate back, as on the Mac
   },
 })
 
@@ -379,6 +380,7 @@ mac({
     terminal = "consume",
     ghostty = tap("CTRL", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Right"),
+    obsidian = tap("CTRL + ALT", "Right"), -- navigate forward
   },
 })
 
