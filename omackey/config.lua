@@ -9,12 +9,6 @@ return {
     "editing", -- clipboard, undo/redo, find, save
     "windows", -- window and tab controls
     "system", -- OS controls (lock, screenshots, emoji)
-    "terminals", -- terminal-only keys (clear, split)
-    "browsers", -- devtools, history, downloads, bookmarks
-    "vscode", -- multi-cursor, fold, replace, expand selection
-    "nautilus", -- hidden files (other Nautilus keys sit on the keys they extend)
-    "obsidian", -- redo selection (other Obsidian keys sit on the keys they extend)
-    "libreoffice", -- paste special (other LibreOffice keys sit on the keys they extend)
     "mouse", -- ⌘-click and ⌘-scroll as Ctrl-click and Ctrl-scroll (scroll needs wtype)
     "emacs", -- Emacs ⌃ keys (bound only when emacs_keys is true)
     "catchall", -- every ⌘ / ⌘⇧ key nothing else claims

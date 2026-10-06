@@ -14,7 +14,7 @@ local windows = require("hypr.omackey.lib.windows")
 local PASS, CONSUME = bind.PASS, bind.CONSUME
 
 local actions = {
-  -- text.lua
+  -- Text navigation and deletion
   ["select-line-start"] = CONSUME,
   ["select-line-end"] = CONSUME,
   ["select-word-left"] = CONSUME,
@@ -28,7 +28,7 @@ local actions = {
   ["delete-word-right"] = tap("ALT", "d"), -- readline kill-word
   ["delete-line-start"] = tap("CTRL", "u"), -- readline unix-line-discard
   ["delete-line-end"] = tap("CTRL", "k"), -- readline kill-line
-  -- editing.lua
+  -- Editing
   ["copy"] = tap("CTRL", "Insert"), -- Ctrl+C is SIGINT in a terminal
   ["paste"] = tap("SHIFT", "Insert"), -- Ctrl+V is a literal-next in a terminal
   ["cut"] = CONSUME, -- Ctrl+X is a readline prefix; a terminal has nothing to cut
@@ -45,41 +45,44 @@ local actions = {
   ["italic"] = CONSUME, -- Ctrl+I is Tab
   ["underline"] = CONSUME, -- Ctrl+U deletes the line (⌘⌫ owns that)
   ["toggle-comment"] = CONSUME,
-  ["cancel"] = tap("CTRL", "C"),
-  -- windows.lua
+  ["cancel"] = tap("CTRL", "C"), -- interrupt, like Terminal.app
+  -- Windows and tabs
   -- foot, Alacritty and Omarchy's TUIs have no tabs, so close the window.
   -- Ctrl+W is readline's word delete.
   ["close-tab"] = windows.close,
+  -- foot, Ghostty, kitty and Alacritty open a new window on Ctrl+Shift+N.
   ["new-window"] = tap("CTRL + SHIFT", "N"),
   ["new-window-private"] = CONSUME,
   ["new-tab"] = tap("CTRL + SHIFT", "N"), -- no tabs: a new window
   ["reopen-tab"] = CONSUME,
+  -- Ctrl+O/P/R/L are readline keys (history, reverse search, clear screen),
+  -- and terminals have nothing matching ⌘O/⌘P/⌘R/⌘L.
   ["open"] = CONSUME,
   ["print"] = CONSUME,
   ["reload"] = CONSUME,
   ["location"] = CONSUME,
-  ["back"] = CONSUME,
+  ["back"] = CONSUME, -- Ctrl+[ is Escape
   ["forward"] = CONSUME,
   ["previous-tab"] = CONSUME,
   ["next-tab"] = CONSUME,
   ["previous-tab-arrow"] = CONSUME,
   ["next-tab-arrow"] = CONSUME,
-  ["preferences"] = CONSUME,
-  -- terminals.lua
+  ["preferences"] = CONSUME, -- the config file; Ghostty and kitty open theirs
+  -- Terminal
   ["clear-screen"] = tap("CTRL", "L"),
   ["split-right"] = CONSUME,
   ["split-down"] = CONSUME,
-  -- browsers.lua
+  -- Browser
   ["devtools"] = CONSUME,
   ["history"] = CONSUME,
   ["downloads"] = CONSUME,
-  -- vscode.lua
+  -- Code editing
   ["zoom-out-shifted"] = CONSUME,
-  -- nautilus.lua
+  -- Files
   ["show-hidden-files"] = CONSUME,
-  -- obsidian.lua
+  -- Obsidian
   ["redo-selection"] = CONSUME,
-  -- emacs.lua
+  -- Emacs keys: readline already has them
   ["emacs-line-start"] = PASS,
   ["emacs-line-end"] = PASS,
   ["emacs-char-right"] = PASS,

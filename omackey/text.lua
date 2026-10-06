@@ -1,4 +1,6 @@
--- Cursor movement, selection and deletion (PLAN.md §5).
+-- Cursor movement, selection and deletion (PLAN.md §5), as in a generic text
+-- field. Terminals and Nautilus give some of these their own meaning
+-- (apps/*.lua).
 
 local bind = require("hypr.omackey.lib.bind")
 local mac, PASS, CONSUME = bind.mac, bind.PASS, bind.CONSUME

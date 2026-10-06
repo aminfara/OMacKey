@@ -713,3 +713,26 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     directly with Ctrl (which is the point). The bind fires only on the tick
     that starts a hold. This also explains PLAN.md F20's "not understood"
     slow ticks: they never reached the bind.
+- **2026-10-07 — R3 (physical tests pending).**
+  - `lib/profiles.lua` (`app{}`, match index by class and tag, chains built
+    once) replaces `lib/apps.lua`; `init.lua` holds the `APPS` manifest in
+    match order. `bind.build()` overlays app actions by key id and applies an
+    app's `catchall` rule to every catch-all spec. Errors: unknown key id, an
+    entry on an `action =` spec, an invalid action, a key set twice, an app
+    declared twice, an unknown family.
+  - Every per-app entry moved out of the key modules, one app per commit,
+    each with every rendered file identical: terminal (with
+    `catchall = CONSUME`), Ghostty, kitty, foot, browser, Firefox, VS Code,
+    Obsidian, Nautilus, LibreOffice, no-tabs. Moved mechanically by a
+    throwaway extractor (entries and their comments), then comments rewritten
+    by hand. ⌘1–⌘9 entries are loops in the app files (Ghostty, Nautilus,
+    terminal).
+  - A spec may omit `actions` (no default; the raw key passes through).
+  - The app-only modules are gone: VS Code, Obsidian and LibreOffice keys sit
+    at the end of `editing.lua`; browser, Nautilus and terminal keys at the
+    end of `windows.lua`, until R5 regroups them. Snapshot: frozen files
+    identical; `order-*.txt` is the same set of binds in a new order.
+  - The self-test's typo case now edits `["undo"] = CONSUME` in
+    `apps/terminal.lua`; its match-order case edits the `APPS` manifest.
+  - `check.sh` three ✓; live help menu identical; help-menu replay has the
+    same entries.

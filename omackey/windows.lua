@@ -1,4 +1,6 @@
--- Window and tab controls (PLAN.md §5).
+-- Window and tab controls, navigation, browser and terminal keys (PLAN.md §5).
+-- Each spec says what the key does in a generic app; apps/*.lua add per-app
+-- entries.
 
 local bind = require("hypr.omackey.lib.bind")
 local tap = require("hypr.omackey.lib.send").tap
@@ -42,8 +44,6 @@ mac({
   action = windows.quit_app, -- terminals too, as Terminal.app does
 })
 
--- Terminals have no ⌘ chord to receive, so these send their own: foot,
--- Ghostty, kitty and Alacritty open a new window on Ctrl+Shift+N.
 mac({
   id = "new-window",
   category = "Windows",
@@ -55,8 +55,7 @@ mac({
   },
 })
 
--- Private window in browsers, new folder in file managers. Firefox's private
--- window is Ctrl+Shift+P.
+-- Private window in browsers, new folder in file managers.
 mac({
   id = "new-window-private",
   category = "Windows",
@@ -91,8 +90,6 @@ mac({
 })
 
 -- ⌘O/⌘P/⌘R/⌘L: Omarchy's pop, pseudo and layout binds are on ⌃⌥.
--- Ctrl+O/P/R/L are readline keys in a terminal (history, reverse search,
--- clear screen) and terminals have no matching feature, so they swallow ⌘.
 mac({
   id = "open",
   category = "Windows",
@@ -137,9 +134,8 @@ mac({
   },
 })
 
--- Zoom. Omarchy's resize binds for these keys are on ⌃⌥. foot and
--- Ghostty take the same chords (font size), so they have no entry; kitty's
--- font-size keys carry Shift (§9 F10). ⌘+ is ⌘⇧= and zooms in like ⌘=.
+-- Zoom. Omarchy's resize binds for these keys are on ⌃⌥. foot and Ghostty take
+-- the same chords for font size. ⌘+ is ⌘⇧= and zooms in like ⌘=.
 mac({
   id = "zoom-in",
   category = "Windows",
@@ -184,9 +180,8 @@ mac({
   },
 })
 
--- Back and forward in browsers and Nautilus; outdent and indent in editors
--- (VS Code and Obsidian use Ctrl+[ / Ctrl+]). Terminals have no equivalent and
--- Ctrl+[ is Escape there. Omarchy's webcam binds are on ⌃⌥.
+-- Outdent and indent in editors (VS Code and Obsidian use Ctrl+[ / Ctrl+]);
+-- back and forward in browsers and Nautilus. Omarchy's webcam binds are on ⌃⌥.
 mac({
   id = "back",
   category = "Windows",
@@ -210,11 +205,8 @@ mac({
 })
 
 -- ⌘1–⌘9: tab N (⌘9 is the last tab in browsers, as on a Mac). Omarchy's
--- workspace binds are on ⌃1–0. One bind per digit, written as a loop like
--- spaces.lua; each gets its own actions table, so apps can have entries. Terminals consume, except Ghostty (Alt+N; Alt+9 is the last
--- tab). kitty has no key for tab N. Nautilus has no tabs by number here: ⌘1 / ⌘2
--- are Finder's icon / list view, which are Nautilus's Ctrl+2 / Ctrl+1 (§9 F5),
--- and ⌘3–9 do nothing (Finder's columns and gallery views don't exist).
+-- workspace binds are on ⌃1–0. One bind per digit, each with its own actions
+-- table, so apps can have entries (ids tab-1 … tab-9).
 
 for n = 1, 9 do
   local digit = tostring(n)
@@ -231,10 +223,8 @@ for n = 1, 9 do
   })
 end
 
--- Previous and next tab on both Mac chords. Browsers, VS Code and Nautilus
--- all take Ctrl+Page_Up/Down, and so does Ghostty. kitty switches tabs with
--- Ctrl+Shift+Left/Right; other terminals consume. In Obsidian ⌘⌥← / ⌘⌥→ are
--- back/forward. Omarchy's group moves (⌘⌥←/→) are on ⌃⌥⌘.
+-- Previous and next tab on both Mac chords: Ctrl+Page_Up/Down, which browsers,
+-- VS Code and Nautilus take. Omarchy's group moves (⌘⌥←/→) are on ⌃⌥⌘.
 mac({
   id = "previous-tab",
   category = "Windows",
@@ -328,15 +318,11 @@ mac({
   end,
 })
 
--- Preferences. Omarchy's "dismiss last notification" is on ⌃⌘⇧,.
--- VS Code, Obsidian and Nautilus open their settings on Ctrl+, ; LibreOffice
--- has no such shortcut. Browsers have none either. Firefox opens
--- about:preferences when run with that URL; the Chromium family turns a
--- chrome:// URL given on the command line into a blank tab, so there ⌘, sends the
--- generic Ctrl+, (some web apps use it) and settings stay unmapped (§7). In terminals the preferences are
--- the config file: kitty opens it on Ctrl+Shift+F2. Ghostty's own Ctrl+, runs
--- xdg-open, which starts nvim without a terminal and shows nothing (§9 F10), so
--- Ghostty gets Omarchy's editor launcher instead. Other terminals consume it.
+-- Preferences. Omarchy's "dismiss last notification" is on ⌃⌘⇧,. VS Code,
+-- Obsidian and Nautilus open their settings on Ctrl+, . The Chromium family has
+-- no settings key and turns a chrome:// URL given on the command line into a
+-- blank tab, so there ⌘, sends the generic Ctrl+, (some web apps use it) and
+-- settings stay unmapped (§7).
 mac({
   id = "preferences",
   category = "Windows",
@@ -345,5 +331,138 @@ mac({
   desc = "Preferences",
   actions = {
     default = tap("CTRL", "comma"),
+  },
+})
+
+-- Browser keys. Mac Chrome and Firefox put these on ⌘⌥ or ⌘⇧ + a letter; the
+-- Linux builds use Ctrl+Shift or Ctrl with other letters (apps/browser.lua).
+
+-- DevTools. Obsidian toggles its on Ctrl+Shift+I too, so every GUI app gets it.
+mac({
+  id = "devtools",
+  category = "Browser",
+  mac = "⌘⌥I",
+  keys = "SUPER + ALT + I",
+  desc = "Developer tools",
+  actions = {
+    default = tap("CTRL + SHIFT", "I"),
+  },
+})
+
+-- Chrome's JavaScript console; Firefox's Browser Console, same key on Linux.
+mac({
+  id = "devtools-console",
+  category = "Browser",
+  mac = "⌘⌥J",
+  keys = "SUPER + ALT + J",
+  desc = "Developer console",
+})
+
+mac({
+  id = "devtools-inspect",
+  category = "Browser",
+  mac = "⌘⌥C",
+  keys = "SUPER + ALT + C",
+  desc = "Inspect element",
+})
+
+mac({
+  id = "view-source",
+  category = "Browser",
+  mac = "⌘⌥U",
+  keys = "SUPER + ALT + U",
+  desc = "View page source",
+})
+
+mac({
+  id = "history",
+  category = "Browser",
+  mac = "⌘Y",
+  keys = "SUPER + Y",
+  desc = "History",
+  actions = {
+    default = tap("CTRL", "Y"),
+  },
+})
+
+-- Chrome's downloads page; Firefox follows the same key (user's choice).
+mac({
+  id = "downloads",
+  category = "Browser",
+  mac = "⌘⇧J",
+  keys = "SUPER + SHIFT + J",
+  desc = "Downloads",
+  actions = {
+    default = tap("CTRL + SHIFT", "J"),
+  },
+})
+
+-- Omarchy's "Toggle window gaps" is on ⌃⌥⇧⌫.
+mac({
+  id = "clear-browsing-data",
+  category = "Browser",
+  mac = "⌘⇧⌫",
+  keys = "SUPER + SHIFT + BACKSPACE",
+  desc = "Clear browsing data",
+})
+
+mac({
+  id = "bookmark-manager",
+  category = "Browser",
+  mac = "⌘⌥B",
+  keys = "SUPER + ALT + B",
+  desc = "Bookmark manager",
+})
+
+-- Show hidden files (⌘⇧. in Finder). Elsewhere it sends Ctrl+Shift+., like the
+-- catch-all.
+mac({
+  id = "show-hidden-files",
+  category = "Files",
+  mac = "⌘⇧.",
+  keys = "SUPER + SHIFT + period",
+  desc = "Show hidden files (Files)",
+  actions = {
+    default = tap("CTRL + SHIFT", "period"),
+  },
+})
+
+-- Terminal keys. Outside terminals they send Ctrl / Ctrl+Shift + the same key,
+-- like the catch-all.
+
+-- Clear screen. Ghostty on the Mac clears the screen and all scrollback; Ctrl+L
+-- only clears the visible screen, so the scrollback stays (§7).
+mac({
+  id = "clear-screen",
+  category = "Terminal",
+  mac = "⌘K",
+  keys = "SUPER + K",
+  desc = "Clear terminal screen",
+  actions = {
+    default = tap("CTRL", "K"),
+  },
+})
+
+-- Split panes exist only in Ghostty here (kitty's layouts are not a split
+-- command, foot has none).
+mac({
+  id = "split-right",
+  category = "Terminal",
+  mac = "⌘D",
+  keys = "SUPER + D",
+  desc = "Split terminal right",
+  actions = {
+    default = tap("CTRL", "D"),
+  },
+})
+
+mac({
+  id = "split-down",
+  category = "Terminal",
+  mac = "⌘⇧D",
+  keys = "SUPER + SHIFT + D",
+  desc = "Split terminal down",
+  actions = {
+    default = tap("CTRL + SHIFT", "D"),
   },
 })

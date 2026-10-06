@@ -2,10 +2,8 @@
 -- Controlled by `emacs_keys` in config.lua: declared either way, bound only when
 -- it is true.
 --
--- Terminals pass the raw key (readline already has all of these). VS Code gets
--- the translation like any GUI app, except ⌃D: its integrated terminal can't be
--- told from the editor (§9 F12), and a ⌃D that sent Delete would no longer end a
--- shell.
+-- Terminals pass the raw key (readline already has all of these), and so does
+-- ⌃D in VS Code (apps/terminal.lua, apps/vscode.lua).
 
 local config = require("hypr.omackey.config")
 local bind = require("hypr.omackey.lib.bind")
