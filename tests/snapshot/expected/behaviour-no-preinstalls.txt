@@ -137,8 +137,8 @@ SUPER+0 "Actual size (app zoom)"  { auto_consuming = true }
     +20 send_key_state({ key = "code:22", mods = "CTRL + SHIFT", state = "up" })
     → handled
   vscode, code-oss:
-    +0 send_key_state({ key = "code:90", mods = "CTRL", state = "down" })
-    +20 send_key_state({ key = "code:90", mods = "CTRL", state = "up" })
+    +0 send_key_state({ key = "code:90", mods = "CTRL + MOD2", state = "down" })
+    +20 send_key_state({ key = "code:90", mods = "CTRL + MOD2", state = "up" })
     → handled
 SUPER+1 "Go to tab 1"  { auto_consuming = true }
   none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:

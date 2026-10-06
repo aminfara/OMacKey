@@ -736,3 +736,15 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     `apps/terminal.lua`; its match-order case edits the `APPS` manifest.
   - `check.sh` three ✓; live help menu identical; help-menu replay has the
     same entries.
+- **2026-10-07 — Fixes found by the R3 smoke tests** (behaviour changes,
+  approved by the user, committed apart from the refactor phases).
+  - **NumLock and explicit mods.** `send_key_state` with explicit `mods`
+    replaces the locked modifiers too, so NumLock (Mod2) is dropped from the
+    event: with NumLock on, keycode 90 reached apps as `KP_Insert`, not
+    `KP_0`, and VS Code's ⌘0 (reset zoom, Ctrl+Numpad0) did nothing. Sending
+    `CTRL + MOD2` gives `KP_0` (keylog) and resets the zoom (throwaway VS Code
+    instance with its own `--user-data-dir`). Only keypad keys care; `kp_0`
+    is the only one OMacKey sends. For FINDINGS.md in R8.
+  - **LibreOffice ⌘G.** Ctrl+Shift+F is `.uno:RepeatSearch` in Writer, but it
+    repeats the Find & Replace dialog's search, not one typed in the find bar
+    (⌘F), so ⌘G did nothing in the usual workflow.

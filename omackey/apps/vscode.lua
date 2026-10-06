@@ -24,7 +24,10 @@ app({
     ["paste"] = tap("SHIFT", "Insert"),
     ["cancel"] = tap("CTRL", "period"), -- ⌘. is Quick Fix in VS Code
     -- Windows and tabs
-    ["zoom-reset"] = tap("CTRL", "kp_0"), -- reset zoom is Ctrl+Numpad0, not Ctrl+0
+    -- Reset zoom is Ctrl+Numpad0, not Ctrl+0. MOD2 keeps NumLock in the event:
+    -- explicit mods replace the locked NumLock too, and without it the app
+    -- reads KP_Insert, not KP_0.
+    ["zoom-reset"] = tap("CTRL + MOD2", "kp_0"),
     -- The Mac also zooms out on ⌘⇧-; on Linux Ctrl+Shift+- is Navigate Forward.
     ["zoom-out-shifted"] = tap("CTRL", "minus"),
     -- Browser keys with a VS Code meaning
