@@ -117,7 +117,6 @@ mac({
   desc = "Find",
   actions = {
     default = tap("CTRL", "F"),
-    foot = tap("CTRL + SHIFT", "R"),
   },
 })
 
