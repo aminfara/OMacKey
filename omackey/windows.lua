@@ -271,7 +271,6 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    obsidian = tap("CTRL + ALT", "Left"), -- navigate back, as on the Mac
   },
 })
 
@@ -283,7 +282,6 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    obsidian = tap("CTRL + ALT", "Right"), -- navigate forward
   },
 })
 

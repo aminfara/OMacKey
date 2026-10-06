@@ -20,7 +20,6 @@ mac({
   desc = "Add cursor above",
   repeating = true,
   actions = {
-    obsidian = tap("CTRL + ALT", "Up"), -- Mod+Alt+Up is the same chord on both platforms
   },
 })
 
@@ -32,7 +31,6 @@ mac({
   desc = "Add cursor below",
   repeating = true,
   actions = {
-    obsidian = tap("CTRL + ALT", "Down"),
   },
 })
 
@@ -65,7 +63,6 @@ mac({
   keys = "SUPER + ALT + F",
   desc = "Replace",
   actions = {
-    obsidian = tap("CTRL", "H"),
   },
 })
 

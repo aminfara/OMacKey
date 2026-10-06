@@ -19,6 +19,5 @@ mac({
   desc = "Redo selection (Obsidian)",
   actions = {
     default = CONSUME,
-    obsidian = tap("ALT", "U"),
   },
 })
