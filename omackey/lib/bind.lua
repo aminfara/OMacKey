@@ -1,22 +1,30 @@
 -- Mac shortcuts in three steps: declare, build, bind.
 --
--- 1. Declare: mac{} and catchall{} only record specs; nothing reaches Hyprland.
--- 2. build() validates the complete set, decides what is enabled, and expands
---    the catch-all against every chord already claimed.
+-- 1. Declare: mac{}, catchall{} and app{} (lib/profiles.lua) only record
+--    specs; nothing reaches Hyprland.
+-- 2. build() validates the complete set, decides what is enabled, expands the
+--    catch-all against every chord already claimed, and overlays each app's
+--    actions on the specs.
 -- 3. apply() binds every valid, enabled spec in one loop.
 --
--- A spec has either `action` (the same in every app) or `actions` (one per app
--- profile, picked for the active window at press time):
+-- A spec has either `action` (the same in every app; apps can't change it) or
+-- `actions`: what it does in a generic app (`default`), to which the apps add
+-- their own entries by key id. The entry for the active window's app is
+-- picked at press time. Without `default` the raw key passes through in
+-- apps that have no entry.
 --
 --   mac({
 --     id = "line-start", category = "Cursor", mac = "⌘←",
 --     keys = "SUPER + LEFT", desc = "Line start", repeating = true,
 --     actions = {
 --       default = send.tap("", "Home"),  -- function: run it
---       terminal = CONSUME,              -- do nothing
---       vscode = PASS,                   -- let the app receive the raw key
 --     },
 --   })
+--
+--   -- apps/terminal.lua
+--   app({ name = "terminal", …, actions = {
+--     ["line-start"] = CONSUME,          -- do nothing
+--   } })
 --
 --   mac({
 --     id = "close-window", category = "Windows", mac = "⌘⇧W",
@@ -29,9 +37,8 @@
 -- `enabled = false` or `requires = "<command>"` (not on PATH) declares a spec
 -- that is not bound.
 
-local config = require("hypr.omackey.config")
-local apps = require("hypr.omackey.lib.apps")
 local keys = require("hypr.omackey.lib.keys")
+local profiles = require("hypr.omackey.lib.profiles")
 local relocate = require("hypr.omackey.lib.relocate")
 
 local PASS, CONSUME = "pass", "consume"
@@ -50,6 +57,9 @@ local catchall_candidates = {}
 -- Declare ---------------------------------------------------------------
 
 function M.mac(spec)
+  if spec.action == nil and spec.actions == nil then
+    spec.actions = {}
+  end
   table.insert(M.registry, spec)
   return spec
 end
@@ -78,11 +88,6 @@ local function kind_of(action)
   end
 end
 
-local profile_names = { default = true }
-for _, profile in ipairs(config.profiles) do
-  profile_names[profile.name] = true
-end
-
 -- The first problem with a spec, or nil.
 local function problem(spec)
   for _, field in ipairs({ "id", "keys", "desc" }) do
@@ -90,14 +95,14 @@ local function problem(spec)
       return "needs '" .. field .. "'"
     end
   end
-  if (spec.action == nil) == (spec.actions == nil) then
-    return "needs either 'action' or 'actions'"
+  if spec.action ~= nil and spec.actions ~= nil then
+    return "has both 'action' and 'actions'"
   end
   if spec.action ~= nil and not kind_of(spec.action) then
     return "has an invalid action " .. string.format("%q", tostring(spec.action))
   end
   for profile, action in pairs(spec.actions or {}) do
-    if not profile_names[profile] then
+    if profile ~= "default" and not profiles.by_name[profile] then
       return "has an unknown app profile '" .. tostring(profile) .. "'"
     end
     if not kind_of(action) then
@@ -124,10 +129,50 @@ local function chord_of(spec)
   return keys.normalize(spec.keys) .. (spec.release and " (release)" or "")
 end
 
--- Validates every declared spec, expands the catch-all and leaves the specs
--- to bind in M.valid. Returns the errors; a faulty spec is left out.
+-- Adds each app's actions to the specs it names, and its catch-all rule to
+-- every spec the catch-all generated. A faulty entry is reported and left out.
+local function overlay(fail_app)
+  for _, def in ipairs(profiles.apps) do
+    for id, action in pairs(def.actions or {}) do
+      local spec = M.by_id[id]
+      if not spec then
+        fail_app(def, "names an unknown key id '" .. tostring(id) .. "'")
+      elseif spec.actions == nil then
+        fail_app(def, "can't change '" .. id .. "', which has one action for every app")
+      elseif not kind_of(action) then
+        fail_app(def, "has an invalid action for '" .. id .. "': " .. string.format("%q", tostring(action)))
+      elseif spec.actions[def.name] ~= nil then
+        fail_app(def, "sets '" .. id .. "' twice")
+      else
+        spec.actions[def.name] = action
+      end
+    end
+
+    if def.catchall ~= nil then
+      if not kind_of(def.catchall) then
+        fail_app(def, "has an invalid catchall action " .. string.format("%q", tostring(def.catchall)))
+      else
+        for _, spec in ipairs(M.registry) do
+          if spec.catchall then
+            if spec.actions[def.name] ~= nil then
+              fail_app(def, "sets '" .. spec.id .. "' twice (catchall)")
+            else
+              spec.actions[def.name] = def.catchall
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+-- Validates every declared spec and app, expands the catch-all, overlays the
+-- apps and leaves the specs to bind in M.valid. Returns the errors; a faulty
+-- spec or app entry is left out.
 function M.build()
   local valid, taken, claimed = {}, {}, {}
+
+  profiles.build(M.errors)
 
   local function fail(spec, message)
     table.insert(M.errors, "'" .. tostring(spec.id or spec.keys) .. "' " .. message)
@@ -172,6 +217,10 @@ function M.build()
     end
   end
 
+  overlay(function(def, message)
+    table.insert(M.errors, "app '" .. def.name .. "' " .. message)
+  end)
+
   M.valid = valid
   return M.errors
 end
@@ -191,7 +240,7 @@ local function perform(action)
 end
 
 local function run(spec)
-  for _, profile in ipairs(apps.chain(hl.get_active_window())) do
+  for _, profile in ipairs(profiles.chain(hl.get_active_window())) do
     local action = spec.actions[profile]
     if action ~= nil then
       return perform(action)

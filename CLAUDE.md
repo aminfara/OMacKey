@@ -184,9 +184,14 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   - Send by keycode (`lib/keys.lua`, XKB code = evdev + 8) so Persian layouts
     don't break the chord.
 - **Per-app behaviour:**
-  - One bind per key. Inside the function, resolve the active window's profile
-    (`lib/apps.lua`) **at press time**. Conditions evaluated at load time are
-    frozen until the next reload.
+  - App knowledge lives in `omackey/apps/<name>.lua`, one `app{}` per app or
+    family: match rules (`classes`, `tags`), `family`, an optional `catchall`
+    action, and `actions` keyed by key id. Key specs hold only `default`. The
+    match order is the `APPS` manifest in `init.lua`; the chain is app →
+    family → `default`, so an app's entry overrides its family's.
+  - One bind per key. The handler resolves the active window's profile
+    (`lib/profiles.lua`) **at press time**. Conditions evaluated at load time
+    are frozen until the next reload.
   - Use Omarchy's tags where they exist (`terminal`, `chromium-based-browser`,
     `firefox-based-browser`). Dynamic tags have a trailing `*`.
   - To pass the raw key to the app: bind with `auto_consuming = true` and
