@@ -347,6 +347,5 @@ mac({
   desc = "Preferences",
   actions = {
     default = tap("CTRL", "comma"),
-    libreoffice = tap("ALT", "F12"), -- Tools > Options
   },
 })

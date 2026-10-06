@@ -46,7 +46,6 @@ mac({
   desc = "Paste without formatting",
   actions = {
     default = tap("CTRL + SHIFT", "V"),
-    libreoffice = tap("CTRL + ALT + SHIFT", "V"), -- Ctrl+Shift+V is Paste Special there
   },
 })
 
@@ -129,7 +128,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("", "F3"),
-    libreoffice = tap("CTRL + SHIFT", "F"), -- F3 is AutoText there; Ctrl+Shift+F repeats the search
   },
 })
 
@@ -142,7 +140,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "F3"),
-    libreoffice = CONSUME, -- Shift+F3 changes case there, and no key finds the previous match (§7)
   },
 })
 

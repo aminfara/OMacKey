@@ -16,6 +16,5 @@ mac({
   keys = "SUPER + ALT + V",
   desc = "Paste special (LibreOffice)",
   actions = {
-    libreoffice = tap("CTRL + SHIFT", "V"),
   },
 })
