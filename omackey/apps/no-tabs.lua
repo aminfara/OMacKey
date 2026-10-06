@@ -2,9 +2,12 @@
 -- Add a window class here (hyprctl clients) when ⌘W does nothing.
 
 local app = require("hypr.omackey.lib.profiles").app
+local windows = require("hypr.omackey.lib.windows")
 
 app({
   name = "no-tabs",
   classes = {},
-  actions = {},
+  actions = {
+    ["close-tab"] = windows.close,
+  },
 })

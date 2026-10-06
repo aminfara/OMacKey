@@ -17,8 +17,6 @@ mac({
   desc = "Close tab or window",
   actions = {
     default = tap("CTRL", "W"),
-    -- Apps where Ctrl+W doesn't close the window (config.lua).
-    ["no-tabs"] = windows.close,
   },
 })
 
