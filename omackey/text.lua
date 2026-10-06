@@ -110,7 +110,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "Home"),
-    kitty = tap("CTRL + SHIFT", "Page_Up"),
     nautilus = tap("ALT", "Up"), -- parent folder, as in Finder
   },
 })
@@ -124,7 +123,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "End"),
-    kitty = tap("CTRL + SHIFT", "Page_Down"),
     nautilus = tap("", "Return"), -- open the selection, as in Finder
   },
 })

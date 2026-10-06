@@ -17,7 +17,6 @@ mac({
   desc = "Close tab or window",
   actions = {
     default = tap("CTRL", "W"),
-    kitty = tap("CTRL + SHIFT", "W"),
     -- Apps where Ctrl+W doesn't close the window (config.lua).
     ["no-tabs"] = windows.close,
   },
@@ -80,7 +79,6 @@ mac({
   desc = "New tab",
   actions = {
     default = tap("CTRL", "T"),
-    kitty = tap("CTRL + SHIFT", "T"),
   },
 })
 
@@ -153,7 +151,6 @@ mac({
   desc = "Zoom in (app)",
   actions = {
     default = tap("CTRL", "equal"),
-    kitty = tap("CTRL + SHIFT", "equal"),
   },
 })
 
@@ -165,7 +162,6 @@ mac({
   desc = "Zoom in (app)",
   actions = {
     default = tap("CTRL", "equal"),
-    kitty = tap("CTRL + SHIFT", "equal"),
   },
 })
 
@@ -177,7 +173,6 @@ mac({
   desc = "Zoom out (app)",
   actions = {
     default = tap("CTRL", "minus"),
-    kitty = tap("CTRL + SHIFT", "minus"),
   },
 })
 
@@ -189,7 +184,6 @@ mac({
   desc = "Actual size (app zoom)",
   actions = {
     default = tap("CTRL", "0"),
-    kitty = tap("CTRL + SHIFT", "BackSpace"),
     vscode = tap("CTRL", "kp_0"), -- VS Code's reset zoom is Ctrl+Numpad0, not Ctrl+0
   },
 })
@@ -259,7 +253,6 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    kitty = tap("CTRL + SHIFT", "Left"),
   },
 })
 
@@ -271,7 +264,6 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    kitty = tap("CTRL + SHIFT", "Right"),
   },
 })
 
@@ -283,7 +275,6 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    kitty = tap("CTRL + SHIFT", "Left"),
     obsidian = tap("CTRL + ALT", "Left"), -- navigate back, as on the Mac
   },
 })
@@ -296,7 +287,6 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    kitty = tap("CTRL + SHIFT", "Right"),
     obsidian = tap("CTRL + ALT", "Right"), -- navigate forward
   },
 })
@@ -370,7 +360,6 @@ mac({
     firefox = function()
       hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
     end,
-    kitty = tap("CTRL + SHIFT", "F2"),
     libreoffice = tap("ALT", "F12"), -- Tools > Options
   },
 })

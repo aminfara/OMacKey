@@ -117,7 +117,6 @@ mac({
   desc = "Find",
   actions = {
     default = tap("CTRL", "F"),
-    kitty = tap("CTRL + SHIFT", "slash"),
     foot = tap("CTRL + SHIFT", "R"),
   },
 })
