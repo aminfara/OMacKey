@@ -1,0 +1,33 @@
+SUPER+CTRL+ALT+z "Reset zoom"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+CTRL+SHIFT+m "OMacKey on/off (Mac mode)"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 exec_cmd("rm -f '$XDG_STATE_HOME/omackey/off' && notify-send -a OMacKey 'OMacKey is on: Mac keys' ; hyprctl reload")
+    → handled
+SUPER+CTRL+z "Zoom in"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+c "Universal copy"  {}
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "C", mods = "CTRL", state = "down" })
+    +50 send_key_state({ key = "C", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "Insert", mods = "CTRL", state = "down" })
+    +50 send_key_state({ key = "Insert", mods = "CTRL", state = "up" })
+    → handled
+SUPER+v "Universal paste"  {}
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "V", mods = "CTRL", state = "down" })
+    +50 send_key_state({ key = "V", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "Insert", mods = "SHIFT", state = "down" })
+    +50 send_key_state({ key = "Insert", mods = "SHIFT", state = "up" })
+    → handled
+SUPER+x "Universal cut"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "X", mods = "CTRL", state = "down" })
+    +50 send_key_state({ key = "X", mods = "CTRL", state = "up" })
+    → handled

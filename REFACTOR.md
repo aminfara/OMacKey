@@ -352,9 +352,9 @@ and nothing to read by eye except a failing diff. Anyone can run them
   ```
 - `scenarios.txt`, `load-<variant>.txt` — frozen.
 - `metadata.txt`, `order-<variant>.txt`, `strings-<variant>.txt` — reported.
-- A header in every file: the Omarchy version and a hash of
-  `/usr/share/omarchy/default/hypr/bindings/*.lua` and `apps/*.lua`. If the
-  hash differs from the stored one, the runner says so and points to
+- `omarchy.sha256`: a hash of the Omarchy files the snapshot depends on
+  (`bootstrap.lua`, `helpers.lua`, `omarchy.lua`, `bindings/*.lua`). If it
+  differs from the current Omarchy, the runner stops (exit 2) and points to
   `--against <rev>` instead of reporting a misleading diff.
 
 **Proving the harness (exit criteria, all scripted)**
@@ -366,8 +366,11 @@ and nothing to read by eye except a failing diff. Anyone can run them
    load; an action string typo (`"consme"`). A pure rename of a local variable
    must pass (exit 0). The self-test exits non-zero if any case behaves
    otherwise.
-2. The self-test also runs the render three times and checks the outputs are
-   byte-identical; a full run takes well under a minute.
+2. The self-test also renders the tree twice and checks the outputs are
+   byte-identical. A snapshot run takes about 10 s; the self-test about 2 min.
+   When a phase moves the text a case edits, the case reports "pattern not
+   found" and is updated in that phase (rule 2 of §5 then includes the
+   self-test).
 3. `scripts/snapshot.sh --live` matches the live binds, except for binds from
    the user's own files (`hypr.bindings` and friends), which it lists. Run once
    to validate the mock; not needed per phase.
@@ -632,4 +635,20 @@ None. All answered on 2026-10-06.
 
 One entry per phase: date, commits, snapshot result, tests, anything learned.
 
-- (not started)
+- **2026-10-06 — R0 done.** Pre-refactor commit for `omackey/`: `dc3b0a9`
+  (the refactor plan is `3182380`).
+  - Files: `tests/snapshot/{mock,fixtures,scenarios,render,live}.lua`,
+    `tests/snapshot/selftest.sh`, `scripts/snapshot.sh`, and the baseline in
+    `tests/snapshot/expected/` (36 files, 748 KB). Nothing under `omackey/`
+    changed.
+  - Results: `--live` matches all 387 live binds; `--against dc3b0a9` is clean;
+    the self-test catches all seven planted mistakes, lets a pure rename pass,
+    and two renders are identical. Variant sanity: `main` 161 OMacKey binds, `bare`
+    156 (no ⌘-scroll, no dictation), `emacs-off` 152, `mode-off` 229 binds in
+    all (Omarchy's own set plus the toggle, as PLAN.md 7d recorded),
+    `no-preinstalls` 96 relocations applied, none reported unused.
+  - Deviations from the plan above: the Omarchy hash is one `omarchy.sha256`
+    file instead of a header in each file; behaviour is rendered for every
+    variant, not only `main` (cheap enough).
+  - Found while building: a bind with no description must render as `""`
+    (Omarchy's lid switches) to match the live output.

@@ -1,0 +1,378 @@
+ALT+SHIFT+a "Toggle block comment"  { auto_consuming = true }  lua
+ALT+SHIFT+down "Copy line down"  { auto_consuming = true, repeating = true }  lua
+ALT+SHIFT+left "Select word left"  { auto_consuming = true, repeating = true }  lua
+ALT+SHIFT+right "Select word right"  { auto_consuming = true, repeating = true }  lua
+ALT+SHIFT+tab "Focus on previous window"  {}  window.cycle_next({ next = false })
+ALT+SHIFT+tab "Reveal active window on top"  {}  window.bring_to_top()
+ALT+SHIFT+up "Copy line up"  { auto_consuming = true, repeating = true }  lua
+ALT+SHIFT+xf86audioplay "Previous track"  { locked = true }  exec_cmd("omarchy-shell media previous")
+ALT+backspace "Delete word left"  { auto_consuming = true, repeating = true }  lua
+ALT+delete "Delete word right"  { auto_consuming = true, repeating = true }  lua
+ALT+left "Word left"  { auto_consuming = true, repeating = true }  lua
+ALT+print "Screenrecording"  {}  exec_cmd("omarchy-capture-screenrecording --stop-recording || omarchy-menu toggle trigger.capture.screenrecord")
+ALT+right "Word right"  { auto_consuming = true, repeating = true }  lua
+ALT+tab "Focus on next window"  {}  window.cycle_next()
+ALT+tab "Reveal active window on top"  {}  window.bring_to_top()
+ALT+xf86audiolowervolume "Volume down precise"  { locked = true, repeating = true }  exec_cmd("omarchy-audio-output-volume -1")
+ALT+xf86audioplay "Next track"  { locked = true }  exec_cmd("omarchy-shell media next")
+ALT+xf86audioraisevolume "Volume up precise"  { locked = true, repeating = true }  exec_cmd("omarchy-audio-output-volume +1")
+ALT+xf86monbrightnessdown "Brightness down precise"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-display 1%-")
+ALT+xf86monbrightnessup "Brightness up precise"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-display +1%")
+CTRL+0 "Switch to workspace 10"  {}  focus({ workspace = "10" })
+CTRL+1 "Switch to workspace 1"  {}  focus({ workspace = "1" })
+CTRL+2 "Switch to workspace 2"  {}  focus({ workspace = "2" })
+CTRL+3 "Switch to workspace 3"  {}  focus({ workspace = "3" })
+CTRL+4 "Switch to workspace 4"  {}  focus({ workspace = "4" })
+CTRL+5 "Switch to workspace 5"  {}  focus({ workspace = "5" })
+CTRL+6 "Switch to workspace 6"  {}  focus({ workspace = "6" })
+CTRL+7 "Switch to workspace 7"  {}  focus({ workspace = "7" })
+CTRL+8 "Switch to workspace 8"  {}  focus({ workspace = "8" })
+CTRL+9 "Switch to workspace 9"  {}  focus({ workspace = "9" })
+CTRL+ALT+SHIFT+0 "Move window silently to workspace 10"  {}  window.move({ follow = false, workspace = "10" })
+CTRL+ALT+SHIFT+1 "Move window silently to workspace 1"  {}  window.move({ follow = false, workspace = "1" })
+CTRL+ALT+SHIFT+2 "Move window silently to workspace 2"  {}  window.move({ follow = false, workspace = "2" })
+CTRL+ALT+SHIFT+3 "Move window silently to workspace 3"  {}  window.move({ follow = false, workspace = "3" })
+CTRL+ALT+SHIFT+4 "Move window silently to workspace 4"  {}  window.move({ follow = false, workspace = "4" })
+CTRL+ALT+SHIFT+5 "Move window silently to workspace 5"  {}  window.move({ follow = false, workspace = "5" })
+CTRL+ALT+SHIFT+6 "Move window silently to workspace 6"  {}  window.move({ follow = false, workspace = "6" })
+CTRL+ALT+SHIFT+7 "Move window silently to workspace 7"  {}  window.move({ follow = false, workspace = "7" })
+CTRL+ALT+SHIFT+8 "Move window silently to workspace 8"  {}  window.move({ follow = false, workspace = "8" })
+CTRL+ALT+SHIFT+9 "Move window silently to workspace 9"  {}  window.move({ follow = false, workspace = "9" })
+CTRL+ALT+SHIFT+backspace "Toggle window gaps"  {}  exec_cmd("omarchy-hyprland-window-gaps-toggle")
+CTRL+ALT+SHIFT+down "Move window to next workspace"  {}  window.move({ workspace = "e+1" })
+CTRL+ALT+SHIFT+equal "Expand window down"  {}  window.resize({ relative = true, x = 0, y = 100 })
+CTRL+ALT+SHIFT+g "Move active window out of group"  {}  window.move({ out_of_group = true })
+CTRL+ALT+SHIFT+left "Move window to previous workspace"  {}  window.move({ workspace = "e-1" })
+CTRL+ALT+SHIFT+minus "Shrink window up"  {}  window.resize({ relative = true, x = 0, y = -100 })
+CTRL+ALT+SHIFT+right "Move window to next workspace"  {}  window.move({ workspace = "e+1" })
+CTRL+ALT+SHIFT+s "Move window to scratchpad"  {}  window.move({ follow = false, workspace = "special:scratchpad" })
+CTRL+ALT+SHIFT+slash "Monitor scaling down"  {}  exec_cmd("omarchy-hyprland-monitor-scaling down")
+CTRL+ALT+SHIFT+tab "Focus on previous monitor"  {}  focus({ monitor = "-1" })
+CTRL+ALT+SHIFT+up "Move window to previous workspace"  {}  window.move({ workspace = "e-1" })
+CTRL+ALT+backspace "Toggle window transparency"  {}  exec_cmd("omarchy-hyprland-window-transparency-toggle")
+CTRL+ALT+bracketleft "Make webcam overlay smaller"  {}  exec_cmd("omarchy-capture-webcam-resize smaller")
+CTRL+ALT+bracketright "Make webcam overlay larger"  {}  exec_cmd("omarchy-capture-webcam-resize larger")
+CTRL+ALT+delete "Close all windows"  {}  exec_cmd("omarchy-hyprland-window-close-all")
+CTRL+ALT+down "Next workspace"  {}  focus({ workspace = "e+1" })
+CTRL+ALT+equal "Shrink window left"  {}  window.resize({ relative = true, x = 100, y = 0 })
+CTRL+ALT+f "Tiled full screen"  {}  exec_cmd("omarchy-hyprland-window-tiled-fullscreen-toggle")
+CTRL+ALT+g "Toggle window grouping"  {}  group.toggle()
+CTRL+ALT+j "Toggle window split"  {}  layout("togglesplit")
+CTRL+ALT+l "Toggle workspace layout"  {}  exec_cmd("omarchy-hyprland-workspace-layout-toggle")
+CTRL+ALT+left "Previous workspace"  {}  focus({ workspace = "e-1" })
+CTRL+ALT+minus "Expand window left"  {}  window.resize({ relative = true, x = -100, y = 0 })
+CTRL+ALT+mouse:272 "Move window"  { mouse = true }  window.drag()
+CTRL+ALT+mouse:273 "Resize window"  { mouse = true }  window.resize()
+CTRL+ALT+mouse_down "Scroll active workspace forward"  {}  focus({ workspace = "e+1" })
+CTRL+ALT+mouse_up "Scroll active workspace backward"  {}  focus({ workspace = "e-1" })
+CTRL+ALT+o "Pop window out (float & pin)"  {}  exec_cmd("omarchy-hyprland-window-pop")
+CTRL+ALT+p "Pseudo window"  {}  window.pseudo()
+CTRL+ALT+return "Full width"  {}  window.fullscreen({ mode = "maximized" })
+CTRL+ALT+right "Next workspace"  {}  focus({ workspace = "e+1" })
+CTRL+ALT+s "Toggle scratchpad"  {}  workspace.toggle_special("scratchpad")
+CTRL+ALT+slash "Monitor scaling up"  {}  exec_cmd("omarchy-hyprland-monitor-scaling up")
+CTRL+ALT+t "Toggle window floating/tiling"  {}  window.float({ action = "toggle" })
+CTRL+ALT+tab "Focus on next monitor"  {}  focus({ monitor = "+1" })
+CTRL+ALT+up "Previous workspace"  {}  focus({ workspace = "e-1" })
+CTRL+ALT+w "Close window"  {}  window.close()
+CTRL+SHIFT+0 "Move window to workspace 10"  {}  window.move({ workspace = "10" })
+CTRL+SHIFT+1 "Move window to workspace 1"  {}  window.move({ workspace = "1" })
+CTRL+SHIFT+2 "Move window to workspace 2"  {}  window.move({ workspace = "2" })
+CTRL+SHIFT+3 "Move window to workspace 3"  {}  window.move({ workspace = "3" })
+CTRL+SHIFT+4 "Move window to workspace 4"  {}  window.move({ workspace = "4" })
+CTRL+SHIFT+5 "Move window to workspace 5"  {}  window.move({ workspace = "5" })
+CTRL+SHIFT+6 "Move window to workspace 6"  {}  window.move({ workspace = "6" })
+CTRL+SHIFT+7 "Move window to workspace 7"  {}  window.move({ workspace = "7" })
+CTRL+SHIFT+8 "Move window to workspace 8"  {}  window.move({ workspace = "8" })
+CTRL+SHIFT+9 "Move window to workspace 9"  {}  window.move({ workspace = "9" })
+CTRL+SHIFT+down "Swap window down"  {}  window.swap({ direction = "d" })
+CTRL+SHIFT+left "Swap window to the left"  {}  window.swap({ direction = "l" })
+CTRL+SHIFT+right "Swap window to the right"  {}  window.swap({ direction = "r" })
+CTRL+SHIFT+up "Swap window up"  {}  window.swap({ direction = "u" })
+CTRL+down "Focus on below window"  {}  focus({ direction = "d" })
+CTRL+left "Focus on left window"  {}  focus({ direction = "l" })
+CTRL+right "Focus on right window"  {}  focus({ direction = "r" })
+CTRL+up "Focus on above window"  {}  focus({ direction = "u" })
+SHIFT+mouse:272 (release) "Click release after ⌘ was let go (⇧ held)"  { auto_consuming = true }  lua
+SHIFT+xf86audiomute "Switch audio output"  { locked = true }  exec_cmd("omarchy-audio-output-switch")
+SHIFT+xf86audiopause "Switch media source"  { locked = true }  exec_cmd("omarchy-audio-source-switch")
+SHIFT+xf86audioplay "Switch media source"  { locked = true }  exec_cmd("omarchy-audio-source-switch")
+SHIFT+xf86monbrightnessdown "Brightness minimum"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-display 1%")
+SHIFT+xf86monbrightnessup "Brightness maximum"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-display 100%")
+SHIFT+xf86voicecommand "Toggle dictation"  {}  exec_cmd("voxtype record toggle")
+SUPER+0 "Actual size (app zoom)"  { auto_consuming = true }  lua
+SUPER+1 "Go to tab 1"  { auto_consuming = true }  lua
+SUPER+2 "Go to tab 2"  { auto_consuming = true }  lua
+SUPER+3 "Go to tab 3"  { auto_consuming = true }  lua
+SUPER+4 "Go to tab 4"  { auto_consuming = true }  lua
+SUPER+5 "Go to tab 5"  { auto_consuming = true }  lua
+SUPER+6 "Go to tab 6"  { auto_consuming = true }  lua
+SUPER+7 "Go to tab 7"  { auto_consuming = true }  lua
+SUPER+8 "Go to tab 8"  { auto_consuming = true }  lua
+SUPER+9 "Go to tab 9"  { auto_consuming = true }  lua
+SUPER+ALT+1 "Switch to group window 1"  {}  group.active({ index = 1 })
+SUPER+ALT+2 "Switch to group window 2"  {}  group.active({ index = 2 })
+SUPER+ALT+3 "Switch to group window 3"  {}  group.active({ index = 3 })
+SUPER+ALT+4 "Switch to group window 4"  {}  group.active({ index = 4 })
+SUPER+ALT+5 "Switch to group window 5"  {}  group.active({ index = 5 })
+SUPER+ALT+SHIFT+comma "Open notification history"  {}  exec_cmd("omarchy-shell notifications showHistory")
+SUPER+ALT+SHIFT+equal "Expand window down a little"  {}  window.resize({ relative = true, x = 0, y = 25 })
+SUPER+ALT+SHIFT+minus "Shrink window up a little"  {}  window.resize({ relative = true, x = 0, y = -25 })
+SUPER+ALT+SHIFT+tab "Previous window in group"  {}  group.prev()
+SUPER+ALT+b "Bookmark manager"  { auto_consuming = true }  lua
+SUPER+ALT+bracketleft "Fold code"  { auto_consuming = true }  lua
+SUPER+ALT+bracketright "Unfold code"  { auto_consuming = true }  lua
+SUPER+ALT+c "Inspect element"  { auto_consuming = true }  lua
+SUPER+ALT+comma "Invoke last notification"  {}  exec_cmd("omarchy-shell notifications invokeLast")
+SUPER+ALT+d "Toggle top bar (Dock)"  {}  exec_cmd("omarchy-toggle-bar")
+SUPER+ALT+down "Add cursor below"  { auto_consuming = true, repeating = true }  lua
+SUPER+ALT+equal "Shrink window left a little"  {}  window.resize({ relative = true, x = 25, y = 0 })
+SUPER+ALT+escape "Force quit the active window"  {}  window.kill()
+SUPER+ALT+f "Replace"  { auto_consuming = true }  lua
+SUPER+ALT+home "Save window width"  {}  exec_cmd("omarchy-hyprland-window-width save")
+SUPER+ALT+i "Developer tools"  { auto_consuming = true }  lua
+SUPER+ALT+j "Developer console"  { auto_consuming = true }  lua
+SUPER+ALT+k "Tmux keybindings"  {}  exec_cmd("omarchy-menu-tmux-keybindings")
+SUPER+ALT+l "Find: in selection"  { auto_consuming = true }  lua
+SUPER+ALT+left "Previous tab"  { auto_consuming = true }  lua
+SUPER+ALT+minus "Expand window left a little"  {}  window.resize({ relative = true, x = -25, y = 0 })
+SUPER+ALT+p "Replace: preserve case"  { auto_consuming = true }  lua
+SUPER+ALT+r "Find: use regular expression"  { auto_consuming = true }  lua
+SUPER+ALT+return "Tmux"  {}  exec_cmd("omarchy-launch-terminal-tmux")
+SUPER+ALT+right "Next tab"  { auto_consuming = true }  lua
+SUPER+ALT+space "Apps menu"  {}  exec_cmd("omarchy-menu toggle apps")
+SUPER+ALT+tab "Next window in group"  {}  group.next()
+SUPER+ALT+u "View page source"  { auto_consuming = true }  lua
+SUPER+ALT+up "Add cursor above"  { auto_consuming = true, repeating = true }  lua
+SUPER+ALT+v "Paste special (LibreOffice)"  { auto_consuming = true }  lua
+SUPER+ALT+w "Find: match whole word"  { auto_consuming = true }  lua
+SUPER+CTRL+1 "Bar panel 1"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 1")
+SUPER+CTRL+2 "Bar panel 2"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 2")
+SUPER+CTRL+3 "Bar panel 3"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 3")
+SUPER+CTRL+4 "Bar panel 4"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 4")
+SUPER+CTRL+5 "Bar panel 5"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 5")
+SUPER+CTRL+6 "Bar panel 6"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 6")
+SUPER+CTRL+7 "Bar panel 7"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 7")
+SUPER+CTRL+8 "Bar panel 8"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 8")
+SUPER+CTRL+9 "Bar panel 9"  {}  exec_cmd("omarchy-shell -q shell togglePanelAt right 9")
+SUPER+CTRL+ALT+SHIFT+a "Grok"  {}  exec_cmd("omarchy-launch-webapp 'https://grok.com'")
+SUPER+CTRL+ALT+SHIFT+b "Browser (private)"  {}  exec_cmd("omarchy-launch-browser --private")
+SUPER+CTRL+ALT+SHIFT+down "Move workspace to down monitor"  {}  workspace.move({ monitor = "d" })
+SUPER+CTRL+ALT+SHIFT+e "New email"  {}  exec_cmd("omarchy-launch-webapp 'https://app.hey.com/messages/new?display=standalone&new_window=true'")
+SUPER+CTRL+ALT+SHIFT+equal "Expand window down a lot"  {}  window.resize({ relative = true, x = 0, y = 300 })
+SUPER+CTRL+ALT+SHIFT+f "File manager (cwd)"  {}  exec_cmd("omarchy-launch-nautilus-cwd")
+SUPER+CTRL+ALT+SHIFT+g "WhatsApp"  {}  exec_cmd("omarchy-launch-or-focus-webapp 'WhatsApp' 'https://web.whatsapp.com/'")
+SUPER+CTRL+ALT+SHIFT+left "Move workspace to left monitor"  {}  workspace.move({ monitor = "l" })
+SUPER+CTRL+ALT+SHIFT+m "Music TUI"  {}  exec_cmd("omarchy-launch-or-focus-tui 'cliamp'")
+SUPER+CTRL+ALT+SHIFT+minus "Shrink window up a lot"  {}  window.resize({ relative = true, x = 0, y = -300 })
+SUPER+CTRL+ALT+SHIFT+return "Browser"  {}  exec_cmd("omarchy-launch-browser")
+SUPER+CTRL+ALT+SHIFT+right "Move workspace to right monitor"  {}  workspace.move({ monitor = "r" })
+SUPER+CTRL+ALT+SHIFT+up "Move workspace to up monitor"  {}  workspace.move({ monitor = "u" })
+SUPER+CTRL+ALT+SHIFT+x "X Post"  {}  exec_cmd("omarchy-launch-webapp 'https://x.com/compose/post'")
+SUPER+CTRL+ALT+a "ChatGPT"  {}  exec_cmd("omarchy-launch-webapp 'https://chatgpt.com'")
+SUPER+CTRL+ALT+b "Browser"  {}  exec_cmd("omarchy-launch-browser")
+SUPER+CTRL+ALT+c "Calendar"  {}  exec_cmd("omarchy-launch-webapp 'https://app.hey.com/calendar/weeks/'")
+SUPER+CTRL+ALT+d "Docker"  {}  exec_cmd("omarchy-launch-tui 'omarchy-launch-docker-tui'")
+SUPER+CTRL+ALT+delete "Toggle laptop display mirroring"  {}  exec_cmd("omarchy-hyprland-monitor-internal-mirror toggle")
+SUPER+CTRL+ALT+down "Move window to group on bottom"  {}  window.move({ into_group = "d" })
+SUPER+CTRL+ALT+e "Email"  {}  exec_cmd("omarchy-launch-webapp 'https://app.hey.com'")
+SUPER+CTRL+ALT+equal "Shrink window left a lot"  {}  window.resize({ relative = true, x = 300, y = 0 })
+SUPER+CTRL+ALT+f "File manager"  {}  exec_cmd("omarchy-launch-nautilus")
+SUPER+CTRL+ALT+g "Signal"  {}  exec_cmd("omarchy-launch-signal")
+SUPER+CTRL+ALT+left "Move window to group on left"  {}  window.move({ into_group = "l" })
+SUPER+CTRL+ALT+m "Music"  {}  exec_cmd("omarchy-launch-spotify")
+SUPER+CTRL+ALT+minus "Expand window left a lot"  {}  window.resize({ relative = true, x = -300, y = 0 })
+SUPER+CTRL+ALT+mouse_down "Next window in group"  {}  group.next()
+SUPER+CTRL+ALT+mouse_up "Previous window in group"  {}  group.prev()
+SUPER+CTRL+ALT+n "Editor"  {}  exec_cmd("omarchy-launch-editor")
+SUPER+CTRL+ALT+o "Obsidian"  {}  exec_cmd("omarchy-launch-or-focus '^obsidian$' 'uwsm-app -- obsidian'")
+SUPER+CTRL+ALT+p "Google Photos"  {}  exec_cmd("omarchy-launch-or-focus-webapp 'Google Photos' 'https://photos.google.com/'")
+SUPER+CTRL+ALT+q "Calculator"  {}  exec_cmd("omacalc")
+SUPER+CTRL+ALT+r "Show reminders"  {}  exec_cmd("omarchy-reminder show")
+SUPER+CTRL+ALT+return "Terminal"  {}  exec_cmd("omarchy-launch-terminal")
+SUPER+CTRL+ALT+right "Move window to group on right"  {}  window.move({ into_group = "r" })
+SUPER+CTRL+ALT+s "Google Maps"  {}  exec_cmd("omarchy-launch-or-focus-webapp 'Google Maps' 'https://maps.google.com/'")
+SUPER+CTRL+ALT+slash "Passwords"  {}  exec_cmd("omarchy-launch-1password")
+SUPER+CTRL+ALT+space "Background switcher"  {}  exec_cmd("omarchy-menu toggle background")
+SUPER+CTRL+ALT+up "Move window to group on top"  {}  window.move({ into_group = "u" })
+SUPER+CTRL+ALT+w "Omawrite"  {}  exec_cmd("uwsm-app -- omawrite")
+SUPER+CTRL+ALT+x "X"  {}  exec_cmd("omarchy-launch-webapp 'https://x.com/'")
+SUPER+CTRL+ALT+y "YouTube"  {}  exec_cmd("omarchy-launch-webapp 'https://youtube.com/'")
+SUPER+CTRL+ALT+z "Reset zoom"  {}  lua
+SUPER+CTRL+SHIFT+3 "Screenshot of the screen to clipboard"  {}  exec_cmd("omarchy-capture-screenshot fullscreen copy")
+SUPER+CTRL+SHIFT+4 "Screenshot of a region to clipboard"  {}  exec_cmd("omarchy-capture-screenshot region copy")
+SUPER+CTRL+SHIFT+a "Agent"  {}  exec_cmd("omarchy-agent --pick")
+SUPER+CTRL+SHIFT+b "Show battery remaining"  {}  exec_cmd("omarchy-notification-battery")
+SUPER+CTRL+SHIFT+comma "Dismiss last notification"  {}  exec_cmd("omarchy-shell notifications dismissOne")
+SUPER+CTRL+SHIFT+d "Calendar"  {}  exec_cmd("omarchy-shell shell toggle omarchy.clock")
+SUPER+CTRL+SHIFT+g "Google Messages"  {}  exec_cmd("omarchy-launch-or-focus-webapp 'Google Messages' 'https://messages.google.com/web/conversations'")
+SUPER+CTRL+SHIFT+left "Shrink selection"  { auto_consuming = true, repeating = true }  lua
+SUPER+CTRL+SHIFT+m "OMacKey on/off (Mac mode)"  {}  lua
+SUPER+CTRL+SHIFT+r "Clear reminders"  {}  exec_cmd("omarchy-reminder clear")
+SUPER+CTRL+SHIFT+right "Expand selection"  { auto_consuming = true, repeating = true }  lua
+SUPER+CTRL+SHIFT+space "Theme menu"  {}  exec_cmd("omarchy-menu toggle theme")
+SUPER+CTRL+SHIFT+t "Show time"  {}  exec_cmd("omarchy-notification-time")
+SUPER+CTRL+SHIFT+w "Toggle weather"  {}  exec_cmd("omarchy-notification-weather")
+SUPER+CTRL+a "Audio"  {}  exec_cmd("omarchy-shell shell toggle omarchy.audio")
+SUPER+CTRL+b "Bluetooth"  {}  exec_cmd("omarchy-shell shell toggle omarchy.bluetooth")
+SUPER+CTRL+backspace "Toggle single-window square aspect"  {}  exec_cmd("omarchy-hyprland-window-single-square-aspect-toggle")
+SUPER+CTRL+c "Capture menu"  {}  exec_cmd("omarchy-menu toggle capture")
+SUPER+CTRL+comma "Toggle silencing notifications"  {}  exec_cmd("omarchy-toggle-notification-silencing")
+SUPER+CTRL+d "Display"  {}  exec_cmd("omarchy-shell shell toggle omarchy.monitor")
+SUPER+CTRL+delete "Toggle laptop display"  {}  exec_cmd("omarchy-hyprland-monitor-internal toggle")
+SUPER+CTRL+e "Emojis"  {}  exec_cmd("omarchy-shell shell toggle omarchy.emojis")
+SUPER+CTRL+f "Full screen"  {}  window.fullscreen({ mode = "fullscreen" })
+SUPER+CTRL+h "Hardware menu"  {}  exec_cmd("omarchy-menu toggle hardware")
+SUPER+CTRL+i "Toggle locking on idle"  {}  exec_cmd("omarchy-toggle-idle")
+SUPER+CTRL+k "Herdr keybindings"  {}  exec_cmd("omarchy-menu-herdr-keybindings")
+SUPER+CTRL+l "Lock system"  {}  exec_cmd("omarchy-system-lock")
+SUPER+CTRL+left "Move grouped window focus left"  {}  group.prev()
+SUPER+CTRL+n "Toggle nightlight"  {}  exec_cmd("omarchy-toggle-nightlight")
+SUPER+CTRL+o "Toggle menu"  {}  exec_cmd("omarchy-menu toggle toggle")
+SUPER+CTRL+p "Power"  {}  exec_cmd("omarchy-shell shell toggle omarchy.power")
+SUPER+CTRL+period "Transcode"  {}  exec_cmd("omarchy-transcode")
+SUPER+CTRL+print "Extract text (OCR) from screenshot"  {}  exec_cmd("omarchy-capture-text")
+SUPER+CTRL+q "Lock screen"  {}  exec_cmd("omarchy-system-lock")
+SUPER+CTRL+r "Set reminder"  {}  exec_cmd("omarchy-menu toggle reminder-set")
+SUPER+CTRL+return "Herdr"  {}  exec_cmd("omarchy-launch-terminal-herdr")
+SUPER+CTRL+right "Move grouped window focus right"  {}  group.next()
+SUPER+CTRL+s "Share"  {}  exec_cmd("omarchy-menu toggle share")
+SUPER+CTRL+space "Emoji and symbols"  {}  exec_cmd("omarchy-shell shell toggle omarchy.emojis")
+SUPER+CTRL+t "Activity"  {}  exec_cmd("omarchy-launch-tui 'btop'")
+SUPER+CTRL+tab "Former workspace"  {}  focus({ workspace = "previous" })
+SUPER+CTRL+v "Clipboard manager"  {}  exec_cmd("omarchy-shell shell toggle omarchy.clipboard")
+SUPER+CTRL+w "Network"  {}  exec_cmd("omarchy-shell shell toggle omarchy.network")
+SUPER+CTRL+x "Toggle dictation"  {}  exec_cmd("voxtype record toggle")
+SUPER+CTRL+z "Zoom in"  {}  lua
+SUPER+SHIFT+3 "Screenshot of the screen to file"  {}  exec_cmd("omarchy-capture-screenshot fullscreen save")
+SUPER+SHIFT+4 "Screenshot of a region to file"  {}  exec_cmd("omarchy-capture-screenshot region save")
+SUPER+SHIFT+5 "Capture menu"  {}  exec_cmd("omarchy-menu toggle capture")
+SUPER+SHIFT+a "⌘⇧A sent as Ctrl+Shift+A"  { auto_consuming = true }  lua
+SUPER+SHIFT+apostrophe "⌘⇧' sent as Ctrl+Shift+'"  { auto_consuming = true }  lua
+SUPER+SHIFT+b "⌘⇧B sent as Ctrl+Shift+B"  { auto_consuming = true }  lua
+SUPER+SHIFT+backslash "⌘⇧\\ sent as Ctrl+Shift+\\"  { auto_consuming = true }  lua
+SUPER+SHIFT+backspace "Clear browsing data"  { auto_consuming = true }  lua
+SUPER+SHIFT+bracketleft "Previous tab"  { auto_consuming = true }  lua
+SUPER+SHIFT+bracketright "Next tab"  { auto_consuming = true }  lua
+SUPER+SHIFT+c "⌘⇧C sent as Ctrl+Shift+C"  { auto_consuming = true }  lua
+SUPER+SHIFT+code:201 "Omarchy menu"  {}  exec_cmd("omarchy-menu toggle root")
+SUPER+SHIFT+comma "Dismiss all notifications"  {}  exec_cmd("omarchy-shell notifications dismissAll")
+SUPER+SHIFT+d "Split terminal down"  { auto_consuming = true }  lua
+SUPER+SHIFT+down "Select to document end"  { auto_consuming = true, repeating = true }  lua
+SUPER+SHIFT+e "⌘⇧E sent as Ctrl+Shift+E"  { auto_consuming = true }  lua
+SUPER+SHIFT+equal "Zoom in (app)"  { auto_consuming = true }  lua
+SUPER+SHIFT+f "⌘⇧F sent as Ctrl+Shift+F"  { auto_consuming = true }  lua
+SUPER+SHIFT+g "Find previous"  { auto_consuming = true, repeating = true }  lua
+SUPER+SHIFT+grave "Previous window of this app"  { auto_consuming = true }  lua
+SUPER+SHIFT+h "⌘⇧H not mapped"  { auto_consuming = true }  lua
+SUPER+SHIFT+i "⌘⇧I not mapped"  { auto_consuming = true }  lua
+SUPER+SHIFT+j "Downloads"  { auto_consuming = true }  lua
+SUPER+SHIFT+k "⌘⇧K sent as Ctrl+Shift+K"  { auto_consuming = true }  lua
+SUPER+SHIFT+l "⌘⇧L sent as Ctrl+Shift+L"  { auto_consuming = true }  lua
+SUPER+SHIFT+left "Select to line start"  { auto_consuming = true, repeating = true }  lua
+SUPER+SHIFT+m "⌘⇧M sent as Ctrl+Shift+M"  { auto_consuming = true }  lua
+SUPER+SHIFT+minus "Zoom out (VS Code)"  { auto_consuming = true }  lua
+SUPER+SHIFT+mouse:272 "⌘⇧-click sent as Ctrl+Shift-click"  { auto_consuming = true }  lua
+SUPER+SHIFT+mouse:272 (release) "⌘⇧-click release"  { auto_consuming = true }  lua
+SUPER+SHIFT+n "New private window or folder"  { auto_consuming = true }  lua
+SUPER+SHIFT+o "⌘⇧O sent as Ctrl+Shift+O"  { auto_consuming = true }  lua
+SUPER+SHIFT+p "⌘⇧P sent as Ctrl+Shift+P"  { auto_consuming = true }  lua
+SUPER+SHIFT+period "Show hidden files (Files)"  { auto_consuming = true }  lua
+SUPER+SHIFT+q "⌘⇧Q not mapped"  { auto_consuming = true }  lua
+SUPER+SHIFT+r "⌘⇧R sent as Ctrl+Shift+R"  { auto_consuming = true }  lua
+SUPER+SHIFT+return "⌘⇧⏎ sent as Ctrl+Shift+Return"  { auto_consuming = true }  lua
+SUPER+SHIFT+right "Select to line end"  { auto_consuming = true, repeating = true }  lua
+SUPER+SHIFT+s "Save as"  { auto_consuming = true }  lua
+SUPER+SHIFT+semicolon "⌘⇧; sent as Ctrl+Shift+;"  { auto_consuming = true }  lua
+SUPER+SHIFT+slash "Keybindings"  {}  exec_cmd("omarchy-menu-keybindings")
+SUPER+SHIFT+space "Toggle top bar"  {}  exec_cmd("omarchy-toggle-bar")
+SUPER+SHIFT+t "Reopen closed tab"  { auto_consuming = true }  lua
+SUPER+SHIFT+tab "Switch app backwards"  { auto_consuming = true }  lua
+SUPER+SHIFT+u "Redo selection (Obsidian)"  { auto_consuming = true }  lua
+SUPER+SHIFT+up "Select to document start"  { auto_consuming = true, repeating = true }  lua
+SUPER+SHIFT+v "Paste without formatting"  { auto_consuming = true }  lua
+SUPER+SHIFT+w "Close window"  {}  window.close()
+SUPER+SHIFT+x "⌘⇧X sent as Ctrl+Shift+X"  { auto_consuming = true }  lua
+SUPER+SHIFT+y "⌘⇧Y sent as Ctrl+Shift+Y"  { auto_consuming = true }  lua
+SUPER+SHIFT+z "Redo"  { auto_consuming = true, repeating = true }  lua
+SUPER+a "Select all"  { auto_consuming = true }  lua
+SUPER+apostrophe "⌘' sent as Ctrl+'"  { auto_consuming = true }  lua
+SUPER+b "Bold"  { auto_consuming = true }  lua
+SUPER+backslash "⌘\\ sent as Ctrl+\\"  { auto_consuming = true }  lua
+SUPER+backspace "Delete to line start"  { auto_consuming = true, repeating = true }  lua
+SUPER+bracketleft "Back or outdent"  { auto_consuming = true }  lua
+SUPER+bracketright "Forward or indent"  { auto_consuming = true }  lua
+SUPER+c "Copy"  { auto_consuming = true }  lua
+SUPER+comma "Preferences"  { auto_consuming = true }  lua
+SUPER+d "Split terminal right"  { auto_consuming = true }  lua
+SUPER+delete "Delete to line end"  { auto_consuming = true, repeating = true }  lua
+SUPER+down "Document end"  { auto_consuming = true, repeating = true }  lua
+SUPER+e "⌘E sent as Ctrl+E"  { auto_consuming = true }  lua
+SUPER+equal "Zoom in (app)"  { auto_consuming = true }  lua
+SUPER+escape "System menu"  {}  exec_cmd("omarchy-menu toggle system")
+SUPER+f "Find"  { auto_consuming = true }  lua
+SUPER+g "Find next"  { auto_consuming = true, repeating = true }  lua
+SUPER+grave "Next window of this app"  { auto_consuming = true }  lua
+SUPER+h "⌘H not mapped"  { auto_consuming = true }  lua
+SUPER+home "Restore window width"  {}  exec_cmd("omarchy-hyprland-window-width restore")
+SUPER+i "Italic"  { auto_consuming = true }  lua
+SUPER+j "⌘J sent as Ctrl+J"  { auto_consuming = true }  lua
+SUPER+k "Clear terminal screen"  { auto_consuming = true }  lua
+SUPER+l "Focus address bar"  { auto_consuming = true }  lua
+SUPER+left "Line start"  { auto_consuming = true, repeating = true }  lua
+SUPER+m "⌘M not mapped"  { auto_consuming = true }  lua
+SUPER+minus "Zoom out (app)"  { auto_consuming = true }  lua
+SUPER+mouse:272 "⌘-click sent as Ctrl-click"  { auto_consuming = true }  lua
+SUPER+mouse:272 (release) "⌘-click release"  { auto_consuming = true }  lua
+SUPER+mouse_down "⌘-scroll down sent as Ctrl-scroll"  { auto_consuming = true }  lua
+SUPER+mouse_up "⌘-scroll up sent as Ctrl-scroll"  { auto_consuming = true }  lua
+SUPER+n "New window"  { auto_consuming = true }  lua
+SUPER+o "Open"  { auto_consuming = true }  lua
+SUPER+p "Print or quick open"  { auto_consuming = true }  lua
+SUPER+period "Cancel (Escape)"  { auto_consuming = true }  lua
+SUPER+print "Color picker"  {}  exec_cmd("pkill hyprpicker || hyprpicker -a")
+SUPER+q "Quit app (close all its windows)"  { auto_consuming = true }  lua
+SUPER+r "Reload"  { auto_consuming = true }  lua
+SUPER+return "⌘⏎ sent as Ctrl+Return"  { auto_consuming = true }  lua
+SUPER+right "Line end"  { auto_consuming = true, repeating = true }  lua
+SUPER+s "Save"  { auto_consuming = true }  lua
+SUPER+semicolon "⌘; sent as Ctrl+;"  { auto_consuming = true }  lua
+SUPER+slash "Toggle comment"  { auto_consuming = true }  lua
+SUPER+space "Omarchy menu"  {}  exec_cmd("omarchy-menu toggle")
+SUPER+t "New tab"  { auto_consuming = true }  lua
+SUPER+tab "Switch app"  { auto_consuming = true }  lua
+SUPER+u "Underline"  { auto_consuming = true }  lua
+SUPER+up "Document start"  { auto_consuming = true, repeating = true }  lua
+SUPER+v "Paste"  { auto_consuming = true }  lua
+SUPER+w "Close tab or window"  { auto_consuming = true }  lua
+SUPER+x "Cut"  { auto_consuming = true }  lua
+SUPER+y "History"  { auto_consuming = true }  lua
+SUPER+z "Undo"  { auto_consuming = true, repeating = true }  lua
+f9 "Start dictation (push-to-talk)"  {}  exec_cmd("voxtype record start")
+f9 (release) "Stop dictation (push-to-talk)"  {}  exec_cmd("voxtype record stop")
+mouse:272 (release) "Click release after ⌘ was let go"  { auto_consuming = true }  lua
+print "Screenshot"  {}  exec_cmd("omarchy-capture-screenshot")
+switch:off:lid switch ""  { locked = true }  exec_cmd("omarchy-hyprland-monitor-clamshell")
+switch:on:lid switch ""  { locked = true }  exec_cmd("omarchy-system-lid-close")
+xf86audiolowervolume "Volume down"  { locked = true, repeating = true }  exec_cmd("omarchy-audio-output-volume lower")
+xf86audiomicmute "Mute microphone"  { locked = true }  exec_cmd("omarchy-audio-input-mute")
+xf86audiomute "Mute"  { locked = true }  exec_cmd("omarchy-audio-output-volume mute-toggle")
+xf86audionext "Next track"  { locked = true }  exec_cmd("omarchy-shell media next")
+xf86audiopause "Pause"  { locked = true }  exec_cmd("omarchy-shell media playPause")
+xf86audioplay "Play"  { locked = true }  exec_cmd("omarchy-shell media playPause")
+xf86audioprev "Previous track"  { locked = true }  exec_cmd("omarchy-shell media previous")
+xf86audioraisevolume "Volume up"  { locked = true, repeating = true }  exec_cmd("omarchy-audio-output-volume raise")
+xf86calculator "Calculator"  {}  exec_cmd("omacalc")
+xf86donotdisturb "Toggle silencing notifications (Do Not Disturb)"  {}  exec_cmd("omarchy-toggle-notification-silencing")
+xf86eject "Eject media"  { locked = true }  exec_cmd("eject")
+xf86kbdbrightnessdown "Keyboard brightness down"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-keyboard down")
+xf86kbdbrightnessup "Keyboard brightness up"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-keyboard up")
+xf86kbdlightonoff "Keyboard backlight cycle"  { locked = true }  exec_cmd("omarchy-brightness-keyboard cycle")
+xf86monbrightnessdown "Brightness down"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-display 5%-")
+xf86monbrightnessup "Brightness up"  { locked = true, repeating = true }  exec_cmd("omarchy-brightness-display +5%")
+xf86poweroff "Power menu"  { locked = true }  exec_cmd("omarchy-menu toggle system")
+xf86touchpadoff "Disable touchpad"  { locked = true }  exec_cmd("omarchy-toggle-touchpad off")
+xf86touchpadon "Enable touchpad"  { locked = true }  exec_cmd("omarchy-toggle-touchpad on")
+xf86touchpadtoggle "Toggle touchpad"  { locked = true }  exec_cmd("omarchy-toggle-touchpad")
+xf86voicecommand "Start dictation (push-to-talk)"  {}  exec_cmd("voxtype record start")
+xf86voicecommand (release) "Stop dictation (push-to-talk)"  {}  exec_cmd("voxtype record stop")

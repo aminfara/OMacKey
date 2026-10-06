@@ -1,0 +1,5 @@
+status: bindings=161 relocated=96
+subscribed at load: hyprland.start ×1
+subscribed at load: layer.closed ×1
+subscribed at load: layer.opened ×1
+subscribed at load: window.active ×1

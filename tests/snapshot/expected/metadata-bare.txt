@@ -1,0 +1,270 @@
+key add-cursor-above  SUPER+ALT+up  category="VS Code"  mac="⌘⌥↑"  profiles={obsidian,vscode}
+key add-cursor-below  SUPER+ALT+down  category="VS Code"  mac="⌘⌥↓"  profiles={obsidian,vscode}
+key back  SUPER+bracketleft  category="Windows"  mac="⌘["  profiles={browser,default,nautilus,terminal}
+key block-comment  ALT+SHIFT+a  category="VS Code"  mac="⌥⇧A"  profiles={vscode}
+key bold  SUPER+b  category="Editing"  mac="⌘B"  profiles={default,terminal}
+key bookmark-manager  SUPER+ALT+b  category="Browser"  mac="⌘⌥B"  profiles={browser,vscode}
+key cancel  SUPER+period  category="Editing"  mac="⌘."  profiles={default,terminal,vscode}
+key capture-menu  SUPER+SHIFT+5  category="System"  mac="⌘⇧5"  profiles={}
+key catchall-⌘apostrophe  SUPER+apostrophe  category="Catch-all"  mac="⌘'"  profiles={default,terminal}
+key catchall-⌘backslash  SUPER+backslash  category="Catch-all"  mac="⌘\\"  profiles={default,terminal}
+key catchall-⌘e  SUPER+e  category="Catch-all"  mac="⌘E"  profiles={default,terminal}
+key catchall-⌘h  SUPER+h  category="Catch-all"  mac="⌘H"  profiles={default,terminal}
+key catchall-⌘j  SUPER+j  category="Catch-all"  mac="⌘J"  profiles={default,terminal}
+key catchall-⌘m  SUPER+m  category="Catch-all"  mac="⌘M"  profiles={default,terminal}
+key catchall-⌘return  SUPER+return  category="Catch-all"  mac="⌘⏎"  profiles={default,terminal}
+key catchall-⌘semicolon  SUPER+semicolon  category="Catch-all"  mac="⌘;"  profiles={default,terminal}
+key catchall-⌘⇧a  SUPER+SHIFT+a  category="Catch-all"  mac="⌘⇧A"  profiles={default,terminal}
+key catchall-⌘⇧apostrophe  SUPER+SHIFT+apostrophe  category="Catch-all"  mac="⌘⇧'"  profiles={default,terminal}
+key catchall-⌘⇧b  SUPER+SHIFT+b  category="Catch-all"  mac="⌘⇧B"  profiles={default,terminal}
+key catchall-⌘⇧backslash  SUPER+SHIFT+backslash  category="Catch-all"  mac="⌘⇧\\"  profiles={default,terminal}
+key catchall-⌘⇧c  SUPER+SHIFT+c  category="Catch-all"  mac="⌘⇧C"  profiles={default,terminal}
+key catchall-⌘⇧e  SUPER+SHIFT+e  category="Catch-all"  mac="⌘⇧E"  profiles={default,terminal}
+key catchall-⌘⇧f  SUPER+SHIFT+f  category="Catch-all"  mac="⌘⇧F"  profiles={default,terminal}
+key catchall-⌘⇧h  SUPER+SHIFT+h  category="Catch-all"  mac="⌘⇧H"  profiles={default,terminal}
+key catchall-⌘⇧i  SUPER+SHIFT+i  category="Catch-all"  mac="⌘⇧I"  profiles={default,terminal}
+key catchall-⌘⇧k  SUPER+SHIFT+k  category="Catch-all"  mac="⌘⇧K"  profiles={default,terminal}
+key catchall-⌘⇧l  SUPER+SHIFT+l  category="Catch-all"  mac="⌘⇧L"  profiles={default,terminal}
+key catchall-⌘⇧m  SUPER+SHIFT+m  category="Catch-all"  mac="⌘⇧M"  profiles={default,terminal}
+key catchall-⌘⇧o  SUPER+SHIFT+o  category="Catch-all"  mac="⌘⇧O"  profiles={default,terminal}
+key catchall-⌘⇧p  SUPER+SHIFT+p  category="Catch-all"  mac="⌘⇧P"  profiles={default,terminal}
+key catchall-⌘⇧q  SUPER+SHIFT+q  category="Catch-all"  mac="⌘⇧Q"  profiles={default,terminal}
+key catchall-⌘⇧r  SUPER+SHIFT+r  category="Catch-all"  mac="⌘⇧R"  profiles={default,terminal}
+key catchall-⌘⇧return  SUPER+SHIFT+return  category="Catch-all"  mac="⌘⇧⏎"  profiles={default,terminal}
+key catchall-⌘⇧semicolon  SUPER+SHIFT+semicolon  category="Catch-all"  mac="⌘⇧;"  profiles={default,terminal}
+key catchall-⌘⇧x  SUPER+SHIFT+x  category="Catch-all"  mac="⌘⇧X"  profiles={default,terminal}
+key catchall-⌘⇧y  SUPER+SHIFT+y  category="Catch-all"  mac="⌘⇧Y"  profiles={default,terminal}
+key clear-browsing-data  SUPER+SHIFT+backspace  category="Browser"  mac="⌘⇧⌫"  profiles={browser}
+key clear-screen  SUPER+k  category="Terminal"  mac="⌘K"  profiles={default,terminal}
+key click  SUPER+mouse:272  category="Mouse"  mac="⌘-click"  profiles={default}
+key click-release  SUPER+mouse:272 (release)  category="Mouse"  mac="⌘-click release"  profiles={default}
+key click-release-after-cmd  mouse:272 (release)  category="Mouse"  mac="click release after ⌘"  profiles={default}
+key click-release-after-cmd-shift  SHIFT+mouse:272 (release)  category="Mouse"  mac="click release after ⌘ with ⇧"  profiles={default}
+key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac="⌘⇧-click release"  profiles={default}
+key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⌘⇧-click"  profiles={default}
+key close-tab  SUPER+w  category="Windows"  mac="⌘W"  profiles={default,ghostty,kitty,no-tabs,terminal}
+key close-window  SUPER+SHIFT+w  category="Windows"  mac="⌘⇧W"  profiles={}
+key copy  SUPER+c  category="Editing"  mac="⌘C"  profiles={default,terminal,vscode}
+key copy-line-down  ALT+SHIFT+down  category="VS Code"  mac="⌥⇧↓"  profiles={vscode}
+key copy-line-up  ALT+SHIFT+up  category="VS Code"  mac="⌥⇧↑"  profiles={vscode}
+key cut  SUPER+x  category="Editing"  mac="⌘X"  profiles={default,terminal}
+key delete-line-end  SUPER+delete  category="Editing"  mac="⌘⌦"  profiles={default,terminal}
+key delete-line-start  SUPER+backspace  category="Editing"  mac="⌘⌫"  profiles={default,nautilus,terminal}
+key delete-word-left  ALT+backspace  category="Editing"  mac="⌥⌫"  profiles={default,terminal}
+key delete-word-right  ALT+delete  category="Editing"  mac="⌥⌦"  profiles={default,terminal}
+key devtools  SUPER+ALT+i  category="Browser"  mac="⌘⌥I"  profiles={default,terminal,vscode}
+key devtools-console  SUPER+ALT+j  category="Browser"  mac="⌘⌥J"  profiles={browser}
+key devtools-inspect  SUPER+ALT+c  category="Browser"  mac="⌘⌥C"  profiles={browser,vscode}
+key do-not-disturb  xf86donotdisturb  category="System"  mac="F6"  profiles={}
+key document-end  SUPER+down  category="Cursor"  mac="⌘↓"  profiles={default,ghostty,kitty,nautilus,terminal}
+key document-start  SUPER+up  category="Cursor"  mac="⌘↑"  profiles={default,ghostty,kitty,nautilus,terminal}
+key downloads  SUPER+SHIFT+j  category="Browser"  mac="⌘⇧J"  profiles={browser,default,firefox,terminal}
+key emacs-char-left  CTRL+b  category="Emacs"  mac="⌃B"  profiles={default,terminal}
+key emacs-char-right  CTRL+f  category="Emacs"  mac="⌃F"  profiles={default,terminal}
+key emacs-delete-left  CTRL+h  category="Emacs"  mac="⌃H"  profiles={default,terminal}
+key emacs-delete-right  CTRL+d  category="Emacs"  mac="⌃D"  profiles={default,terminal,vscode}
+key emacs-kill-line  CTRL+k  category="Emacs"  mac="⌃K"  profiles={default,terminal}
+key emacs-line-down  CTRL+n  category="Emacs"  mac="⌃N"  profiles={default,terminal}
+key emacs-line-end  CTRL+e  category="Emacs"  mac="⌃E"  profiles={default,terminal}
+key emacs-line-start  CTRL+a  category="Emacs"  mac="⌃A"  profiles={default,terminal}
+key emacs-line-up  CTRL+p  category="Emacs"  mac="⌃P"  profiles={default,terminal}
+key emoji-picker  SUPER+CTRL+space  category="System"  mac="⌃⌘Space"  profiles={}
+key expand-selection  SUPER+CTRL+SHIFT+right  category="VS Code"  mac="⌃⇧⌘→"  profiles={vscode}
+key find  SUPER+f  category="Editing"  mac="⌘F"  profiles={default,foot,ghostty,kitty,terminal}
+key find-in-selection  SUPER+ALT+l  category="VS Code"  mac="⌘⌥L"  profiles={vscode}
+key find-next  SUPER+g  category="Editing"  mac="⌘G"  profiles={default,libreoffice,terminal}
+key find-preserve-case  SUPER+ALT+p  category="VS Code"  mac="⌘⌥P"  profiles={vscode}
+key find-previous  SUPER+SHIFT+g  category="Editing"  mac="⌘⇧G"  profiles={default,libreoffice,nautilus,terminal}
+key find-regex  SUPER+ALT+r  category="VS Code"  mac="⌘⌥R"  profiles={vscode}
+key find-whole-word  SUPER+ALT+w  category="VS Code"  mac="⌘⌥W"  profiles={vscode}
+key fold  SUPER+ALT+bracketleft  category="VS Code"  mac="⌘⌥["  profiles={vscode}
+key force-quit  SUPER+ALT+escape  category="System"  mac="⌘⌥Esc"  profiles={}
+key forward  SUPER+bracketright  category="Windows"  mac="⌘]"  profiles={browser,default,nautilus,terminal}
+key history  SUPER+y  category="Browser"  mac="⌘Y"  profiles={browser,default,terminal}
+key italic  SUPER+i  category="Editing"  mac="⌘I"  profiles={default,terminal}
+key line-end  SUPER+right  category="Cursor"  mac="⌘→"  profiles={default}
+key line-start  SUPER+left  category="Cursor"  mac="⌘←"  profiles={default}
+key location  SUPER+l  category="Windows"  mac="⌘L"  profiles={default,terminal}
+key lock-screen  SUPER+CTRL+q  category="System"  mac="⌃⌘Q"  profiles={}
+key new-tab  SUPER+t  category="Windows"  mac="⌘T"  profiles={default,ghostty,kitty,terminal}
+key new-window  SUPER+n  category="Windows"  mac="⌘N"  profiles={default,terminal}
+key new-window-private  SUPER+SHIFT+n  category="Windows"  mac="⌘⇧N"  profiles={default,firefox,terminal}
+key next-app-window  SUPER+grave  category="Windows"  mac="⌘`"  profiles={default}
+key next-tab  SUPER+SHIFT+bracketright  category="Windows"  mac="⌘⇧]"  profiles={default,ghostty,kitty,terminal}
+key next-tab-arrow  SUPER+ALT+right  category="Windows"  mac="⌘⌥→"  profiles={default,ghostty,kitty,obsidian,terminal}
+key open  SUPER+o  category="Windows"  mac="⌘O"  profiles={default,terminal}
+key paste  SUPER+v  category="Editing"  mac="⌘V"  profiles={default,terminal,vscode}
+key paste-plain  SUPER+SHIFT+v  category="Editing"  mac="⌘⇧V"  profiles={default,libreoffice,terminal}
+key paste-special  SUPER+ALT+v  category="LibreOffice"  mac="⌘⌥V"  profiles={libreoffice}
+key preferences  SUPER+comma  category="Windows"  mac="⌘,"  profiles={default,firefox,ghostty,kitty,libreoffice,terminal}
+key previous-app-window  SUPER+SHIFT+grave  category="Windows"  mac="⌘⇧`"  profiles={default}
+key previous-tab  SUPER+SHIFT+bracketleft  category="Windows"  mac="⌘⇧["  profiles={default,ghostty,kitty,terminal}
+key previous-tab-arrow  SUPER+ALT+left  category="Windows"  mac="⌘⌥←"  profiles={default,ghostty,kitty,obsidian,terminal}
+key print  SUPER+p  category="Windows"  mac="⌘P"  profiles={default,terminal}
+key quit-app  SUPER+q  category="Windows"  mac="⌘Q"  profiles={default}
+key redo  SUPER+SHIFT+z  category="Editing"  mac="⌘⇧Z"  profiles={default,terminal}
+key redo-selection  SUPER+SHIFT+u  category="Obsidian"  mac="⌘⇧U"  profiles={default,obsidian,terminal}
+key reload  SUPER+r  category="Windows"  mac="⌘R"  profiles={default,terminal}
+key reopen-tab  SUPER+SHIFT+t  category="Windows"  mac="⌘⇧T"  profiles={default,terminal}
+key replace  SUPER+ALT+f  category="VS Code"  mac="⌘⌥F"  profiles={obsidian,vscode}
+key save  SUPER+s  category="Editing"  mac="⌘S"  profiles={default,terminal}
+key save-as  SUPER+SHIFT+s  category="Editing"  mac="⌘⇧S"  profiles={default,terminal}
+key screenshot-region-clipboard  SUPER+CTRL+SHIFT+4  category="System"  mac="⌃⌘⇧4"  profiles={}
+key screenshot-region-file  SUPER+SHIFT+4  category="System"  mac="⌘⇧4"  profiles={}
+key screenshot-screen-clipboard  SUPER+CTRL+SHIFT+3  category="System"  mac="⌃⌘⇧3"  profiles={}
+key screenshot-screen-file  SUPER+SHIFT+3  category="System"  mac="⌘⇧3"  profiles={}
+key select-all  SUPER+a  category="Editing"  mac="⌘A"  profiles={default,ghostty,terminal}
+key select-document-end  SUPER+SHIFT+down  category="Cursor"  mac="⌘⇧↓"  profiles={default,terminal}
+key select-document-start  SUPER+SHIFT+up  category="Cursor"  mac="⌘⇧↑"  profiles={default,terminal}
+key select-line-end  SUPER+SHIFT+right  category="Cursor"  mac="⌘⇧→"  profiles={default,terminal}
+key select-line-start  SUPER+SHIFT+left  category="Cursor"  mac="⌘⇧←"  profiles={default,terminal}
+key select-word-left  ALT+SHIFT+left  category="Cursor"  mac="⌥⇧←"  profiles={default,terminal}
+key select-word-right  ALT+SHIFT+right  category="Cursor"  mac="⌥⇧→"  profiles={default,terminal}
+key show-hidden-files  SUPER+SHIFT+period  category="Files"  mac="⌘⇧."  profiles={default,nautilus,terminal}
+key shrink-selection  SUPER+CTRL+SHIFT+left  category="VS Code"  mac="⌃⇧⌘←"  profiles={vscode}
+key split-down  SUPER+SHIFT+d  category="Terminal"  mac="⌘⇧D"  profiles={default,ghostty,terminal}
+key split-right  SUPER+d  category="Terminal"  mac="⌘D"  profiles={default,ghostty,terminal}
+key switch-app  SUPER+tab  category="Windows"  mac="⌘Tab"  profiles={default}
+key switch-app-back  SUPER+SHIFT+tab  category="Windows"  mac="⌘⇧Tab"  profiles={default}
+key tab-1  SUPER+1  category="Windows"  mac="⌘1"  profiles={default,ghostty,nautilus,terminal}
+key tab-2  SUPER+2  category="Windows"  mac="⌘2"  profiles={default,ghostty,nautilus,terminal}
+key tab-3  SUPER+3  category="Windows"  mac="⌘3"  profiles={default,ghostty,nautilus,terminal}
+key tab-4  SUPER+4  category="Windows"  mac="⌘4"  profiles={default,ghostty,nautilus,terminal}
+key tab-5  SUPER+5  category="Windows"  mac="⌘5"  profiles={default,ghostty,nautilus,terminal}
+key tab-6  SUPER+6  category="Windows"  mac="⌘6"  profiles={default,ghostty,nautilus,terminal}
+key tab-7  SUPER+7  category="Windows"  mac="⌘7"  profiles={default,ghostty,nautilus,terminal}
+key tab-8  SUPER+8  category="Windows"  mac="⌘8"  profiles={default,ghostty,nautilus,terminal}
+key tab-9  SUPER+9  category="Windows"  mac="⌘9"  profiles={default,ghostty,nautilus,terminal}
+key toggle-bar  SUPER+ALT+d  category="System"  mac="⌥⌘D"  profiles={}
+key toggle-comment  SUPER+slash  category="Editing"  mac="⌘/"  profiles={default,terminal}
+key underline  SUPER+u  category="Editing"  mac="⌘U"  profiles={default,terminal}
+key undo  SUPER+z  category="Editing"  mac="⌘Z"  profiles={default,terminal}
+key unfold  SUPER+ALT+bracketright  category="VS Code"  mac="⌘⌥]"  profiles={vscode}
+key view-source  SUPER+ALT+u  category="Browser"  mac="⌘⌥U"  profiles={browser}
+key window-to-next-workspace-down  CTRL+ALT+SHIFT+down  category="Spaces"  mac="⌃⌥⇧↓"  profiles={}
+key window-to-next-workspace-right  CTRL+ALT+SHIFT+right  category="Spaces"  mac="⌃⌥⇧→"  profiles={}
+key window-to-previous-workspace-left  CTRL+ALT+SHIFT+left  category="Spaces"  mac="⌃⌥⇧←"  profiles={}
+key window-to-previous-workspace-up  CTRL+ALT+SHIFT+up  category="Spaces"  mac="⌃⌥⇧↑"  profiles={}
+key word-left  ALT+left  category="Cursor"  mac="⌥←"  profiles={default}
+key word-right  ALT+right  category="Cursor"  mac="⌥→"  profiles={default}
+key workspace-next-down  CTRL+ALT+down  category="Spaces"  mac="⌃⌥↓"  profiles={}
+key workspace-previous-up  CTRL+ALT+up  category="Spaces"  mac="⌃⌥↑"  profiles={}
+key zoom-in  SUPER+equal  category="Windows"  mac="⌘="  profiles={default,kitty}
+key zoom-in-plus  SUPER+SHIFT+equal  category="Windows"  mac="⌘+"  profiles={default,kitty}
+key zoom-out  SUPER+minus  category="Windows"  mac="⌘-"  profiles={default,kitty}
+key zoom-out-shifted  SUPER+SHIFT+minus  category="VS Code"  mac="⌘⇧-"  profiles={default,terminal,vscode}
+key zoom-reset  SUPER+0  category="Windows"  mac="⌘0"  profiles={default,kitty,vscode}
+relocated SUPER+w → CTRL+ALT+w  "Close window"
+relocated SUPER+j → CTRL+ALT+j  "Toggle window split"
+relocated SUPER+p → CTRL+ALT+p  "Pseudo window"
+relocated SUPER+t → CTRL+ALT+t  "Toggle window floating/tiling"
+relocated SUPER+f → SUPER+CTRL+f  "Full screen"
+relocated SUPER+CTRL+f → CTRL+ALT+f  "Tiled full screen"
+relocated SUPER+ALT+f → CTRL+ALT+return  "Full width"
+relocated SUPER+o → CTRL+ALT+o  "Pop window out (float & pin)"
+relocated SUPER+l → CTRL+ALT+l  "Toggle workspace layout"
+relocated SUPER+left → CTRL+left  "Focus on left window"
+relocated SUPER+right → CTRL+right  "Focus on right window"
+relocated SUPER+up → CTRL+up  "Focus on above window"
+relocated SUPER+down → CTRL+down  "Focus on below window"
+relocated SUPER+1 → CTRL+1  "Switch to workspace 1"
+relocated SUPER+SHIFT+1 → CTRL+SHIFT+1  "Move window to workspace 1"
+relocated SUPER+ALT+SHIFT+1 → CTRL+ALT+SHIFT+1  "Move window silently to workspace 1"
+relocated SUPER+2 → CTRL+2  "Switch to workspace 2"
+relocated SUPER+SHIFT+2 → CTRL+SHIFT+2  "Move window to workspace 2"
+relocated SUPER+ALT+SHIFT+2 → CTRL+ALT+SHIFT+2  "Move window silently to workspace 2"
+relocated SUPER+3 → CTRL+3  "Switch to workspace 3"
+relocated SUPER+SHIFT+3 → CTRL+SHIFT+3  "Move window to workspace 3"
+relocated SUPER+ALT+SHIFT+3 → CTRL+ALT+SHIFT+3  "Move window silently to workspace 3"
+relocated SUPER+4 → CTRL+4  "Switch to workspace 4"
+relocated SUPER+SHIFT+4 → CTRL+SHIFT+4  "Move window to workspace 4"
+relocated SUPER+ALT+SHIFT+4 → CTRL+ALT+SHIFT+4  "Move window silently to workspace 4"
+relocated SUPER+5 → CTRL+5  "Switch to workspace 5"
+relocated SUPER+SHIFT+5 → CTRL+SHIFT+5  "Move window to workspace 5"
+relocated SUPER+ALT+SHIFT+5 → CTRL+ALT+SHIFT+5  "Move window silently to workspace 5"
+relocated SUPER+6 → CTRL+6  "Switch to workspace 6"
+relocated SUPER+SHIFT+6 → CTRL+SHIFT+6  "Move window to workspace 6"
+relocated SUPER+ALT+SHIFT+6 → CTRL+ALT+SHIFT+6  "Move window silently to workspace 6"
+relocated SUPER+7 → CTRL+7  "Switch to workspace 7"
+relocated SUPER+SHIFT+7 → CTRL+SHIFT+7  "Move window to workspace 7"
+relocated SUPER+ALT+SHIFT+7 → CTRL+ALT+SHIFT+7  "Move window silently to workspace 7"
+relocated SUPER+8 → CTRL+8  "Switch to workspace 8"
+relocated SUPER+SHIFT+8 → CTRL+SHIFT+8  "Move window to workspace 8"
+relocated SUPER+ALT+SHIFT+8 → CTRL+ALT+SHIFT+8  "Move window silently to workspace 8"
+relocated SUPER+9 → CTRL+9  "Switch to workspace 9"
+relocated SUPER+SHIFT+9 → CTRL+SHIFT+9  "Move window to workspace 9"
+relocated SUPER+ALT+SHIFT+9 → CTRL+ALT+SHIFT+9  "Move window silently to workspace 9"
+relocated SUPER+0 → CTRL+0  "Switch to workspace 10"
+relocated SUPER+SHIFT+0 → CTRL+SHIFT+0  "Move window to workspace 10"
+relocated SUPER+ALT+SHIFT+0 → CTRL+ALT+SHIFT+0  "Move window silently to workspace 10"
+relocated SUPER+s → CTRL+ALT+s  "Toggle scratchpad"
+relocated SUPER+ALT+s → CTRL+ALT+SHIFT+s  "Move window to scratchpad"
+relocated SUPER+tab → CTRL+ALT+right  "Next workspace"
+relocated SUPER+SHIFT+tab → CTRL+ALT+left  "Previous workspace"
+relocated SUPER+ALT+SHIFT+left → SUPER+CTRL+ALT+SHIFT+left  "Move workspace to left monitor"
+relocated SUPER+ALT+SHIFT+right → SUPER+CTRL+ALT+SHIFT+right  "Move workspace to right monitor"
+relocated SUPER+ALT+SHIFT+up → SUPER+CTRL+ALT+SHIFT+up  "Move workspace to up monitor"
+relocated SUPER+ALT+SHIFT+down → SUPER+CTRL+ALT+SHIFT+down  "Move workspace to down monitor"
+relocated SUPER+SHIFT+left → CTRL+SHIFT+left  "Swap window to the left"
+relocated SUPER+SHIFT+right → CTRL+SHIFT+right  "Swap window to the right"
+relocated SUPER+SHIFT+up → CTRL+SHIFT+up  "Swap window up"
+relocated SUPER+SHIFT+down → CTRL+SHIFT+down  "Swap window down"
+relocated SUPER+minus → CTRL+ALT+minus  "Expand window left"
+relocated SUPER+equal → CTRL+ALT+equal  "Shrink window left"
+relocated SUPER+SHIFT+minus → CTRL+ALT+SHIFT+minus  "Shrink window up"
+relocated SUPER+SHIFT+equal → CTRL+ALT+SHIFT+equal  "Expand window down"
+relocated SUPER+CTRL+minus → SUPER+CTRL+ALT+minus  "Expand window left a lot"
+relocated SUPER+CTRL+equal → SUPER+CTRL+ALT+equal  "Shrink window left a lot"
+relocated SUPER+CTRL+SHIFT+minus → SUPER+CTRL+ALT+SHIFT+minus  "Shrink window up a lot"
+relocated SUPER+CTRL+SHIFT+equal → SUPER+CTRL+ALT+SHIFT+equal  "Expand window down a lot"
+relocated SUPER+mouse_down → CTRL+ALT+mouse_down  "Scroll active workspace forward"
+relocated SUPER+mouse_up → CTRL+ALT+mouse_up  "Scroll active workspace backward"
+relocated SUPER+mouse:272 → CTRL+ALT+mouse:272  "Move window"
+relocated SUPER+mouse:273 → CTRL+ALT+mouse:273  "Resize window"
+relocated SUPER+g → CTRL+ALT+g  "Toggle window grouping"
+relocated SUPER+ALT+g → CTRL+ALT+SHIFT+g  "Move active window out of group"
+relocated SUPER+ALT+left → SUPER+CTRL+ALT+left  "Move window to group on left"
+relocated SUPER+ALT+right → SUPER+CTRL+ALT+right  "Move window to group on right"
+relocated SUPER+ALT+up → SUPER+CTRL+ALT+up  "Move window to group on top"
+relocated SUPER+ALT+down → SUPER+CTRL+ALT+down  "Move window to group on bottom"
+relocated SUPER+ALT+mouse_down → SUPER+CTRL+ALT+mouse_down  "Next window in group"
+relocated SUPER+ALT+mouse_up → SUPER+CTRL+ALT+mouse_up  "Previous window in group"
+relocated SUPER+slash → CTRL+ALT+slash  "Monitor scaling up"
+relocated SUPER+ALT+slash → CTRL+ALT+SHIFT+slash  "Monitor scaling down"
+relocated SUPER+k → SUPER+SHIFT+slash  "Keybindings"
+relocated SUPER+CTRL+q → SUPER+CTRL+ALT+q  "Calculator"
+relocated SUPER+CTRL+space → SUPER+CTRL+ALT+space  "Background switcher"
+relocated SUPER+backspace → CTRL+ALT+backspace  "Toggle window transparency"
+relocated SUPER+SHIFT+backspace → CTRL+ALT+SHIFT+backspace  "Toggle window gaps"
+relocated SUPER+comma → SUPER+CTRL+SHIFT+comma  "Dismiss last notification"
+relocated SUPER+ALT+bracketleft → CTRL+ALT+bracketleft  "Make webcam overlay smaller"
+relocated SUPER+ALT+bracketright → CTRL+ALT+bracketright  "Make webcam overlay larger"
+relocated SUPER+CTRL+ALT+t → SUPER+CTRL+SHIFT+t  "Show time"
+relocated SUPER+CTRL+ALT+b → SUPER+CTRL+SHIFT+b  "Show battery remaining"
+relocated SUPER+CTRL+ALT+w → SUPER+CTRL+SHIFT+w  "Toggle weather"
+relocated SUPER+CTRL+ALT+d → SUPER+CTRL+SHIFT+d  "Calendar"
+relocated SUPER+return → SUPER+CTRL+ALT+return  "Terminal"
+relocated SUPER+SHIFT+return → SUPER+CTRL+ALT+SHIFT+return  "Browser"
+relocated SUPER+SHIFT+f → SUPER+CTRL+ALT+f  "File manager"
+relocated SUPER+ALT+SHIFT+f → SUPER+CTRL+ALT+SHIFT+f  "File manager (cwd)"
+relocated SUPER+SHIFT+b → SUPER+CTRL+ALT+b  "Browser"
+relocated SUPER+ALT+SHIFT+b → SUPER+CTRL+ALT+SHIFT+b  "Browser (private)"
+relocated SUPER+SHIFT+n → SUPER+CTRL+ALT+n  "Editor"
+relocated SUPER+SHIFT+m → SUPER+CTRL+ALT+m  "Music"
+relocated SUPER+ALT+SHIFT+m → SUPER+CTRL+ALT+SHIFT+m  "Music TUI"
+relocated SUPER+SHIFT+d → SUPER+CTRL+ALT+d  "Docker"
+relocated SUPER+SHIFT+g → SUPER+CTRL+ALT+g  "Signal"
+relocated SUPER+SHIFT+o → SUPER+CTRL+ALT+o  "Obsidian"
+relocated SUPER+SHIFT+w → SUPER+CTRL+ALT+w  "Omawrite"
+relocated SUPER+SHIFT+slash → SUPER+CTRL+ALT+slash  "Passwords"
+relocated SUPER+SHIFT+a → SUPER+CTRL+ALT+a  "ChatGPT"
+relocated SUPER+ALT+SHIFT+a → SUPER+CTRL+ALT+SHIFT+a  "Grok"
+relocated SUPER+SHIFT+c → SUPER+CTRL+ALT+c  "Calendar"
+relocated SUPER+SHIFT+e → SUPER+CTRL+ALT+e  "Email"
+relocated SUPER+ALT+SHIFT+e → SUPER+CTRL+ALT+SHIFT+e  "New email"
+relocated SUPER+SHIFT+y → SUPER+CTRL+ALT+y  "YouTube"
+relocated SUPER+ALT+SHIFT+g → SUPER+CTRL+ALT+SHIFT+g  "WhatsApp"
+relocated SUPER+SHIFT+p → SUPER+CTRL+ALT+p  "Google Photos"
+relocated SUPER+SHIFT+s → SUPER+CTRL+ALT+s  "Google Maps"
+relocated SUPER+SHIFT+x → SUPER+CTRL+ALT+x  "X"
+relocated SUPER+ALT+SHIFT+x → SUPER+CTRL+ALT+SHIFT+x  "X Post"

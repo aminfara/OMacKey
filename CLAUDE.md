@@ -85,10 +85,15 @@ keys. Don't run ahead into later phases.
 for f in $(find omackey -name '*.lua'); do luac5.5 -p "$f"; done  # syntax first
 scripts/check.sh                       # reload, configerrors, omackey.status(), duplicate binds
 scripts/check.sh "line start"          # … plus a help-menu (omarchy menu keybindings) search
+scripts/snapshot.sh                    # behaviour snapshot vs tests/snapshot/expected (REFACTOR.md R0)
 hyprctl binds | grep -B8 -A4 'description: Line start'   # flags: e=repeat a=auto_consuming d=desc
 ```
 
-`check.sh` must print three ✓ lines. `omackey.status()` reports load errors
+`check.sh` must print three ✓ lines. `snapshot.sh` must print its ✓ line: it
+presses every bind in every test app under a fake Hyprland and compares what
+happens with `tests/snapshot/expected/`. A deliberate behaviour change is
+reviewed in its diff, then recorded with `scripts/snapshot.sh --update`.
+`tests/snapshot/selftest.sh` checks the harness itself. `omackey.status()` reports load errors
 and `unused_relocations`: Omarchy keys in `relocations.lua` that no longer
 exist. Files behind the symlink may not trigger Hyprland's auto-reload, and
 `check.sh` reloads.

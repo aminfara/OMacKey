@@ -1,0 +1,121 @@
+## ⌘Tab: tap twice (flip between the last two apps)
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘Tab: three steps while ⌘ is held, then a tap
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘⇧Tab from the front app, twice while held
+  +0 press SUPER + SHIFT + TAB → native
+  +0 focus({ workspace = "e-1" })
+  +0 press SUPER + SHIFT + TAB → native
+  +0 focus({ workspace = "e-1" })
+  +0 key 133 up
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘Tab: a click on another app in the middle of a session
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 user focuses <nautilus>
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 end: active <nautilus>, windows brave vscode foot nautilus
+## ⌘Tab: an app closes in the middle of a session
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 <foot> closes
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode nautilus
+## ⌘Tab: clicks before the first press set the recency order
+  +0 user focuses <nautilus>
+  +0 user focuses <foot>
+  +0 user focuses <brave>
+  +0 press SUPER + TAB → native
+  +0 focus({ workspace = "e+1" })
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘Q: every window of the app, not others
+  +0 press SUPER + Q → no bind
+  +0 end: active <foot-1>, windows foot-1 brave foot-2
+## ⌘Q: a window with no class closes alone
+  +0 press SUPER + Q → no bind
+  +0 end: active <nameless-1>, windows nameless-1 nameless-2
+## ⌘` / ⌘⇧`: the app's windows in a fixed ring, scratchpad left out
+  +0 press SUPER + grave → no bind
+  +0 press SUPER + grave → no bind
+  +0 press SUPER + grave → no bind
+  +0 press SUPER + grave → no bind
+  +0 press SUPER + SHIFT + grave → no bind
+  +0 press SUPER + SHIFT + grave → no bind
+  +0 end: active <code-b>, windows code-b code-a brave code-c code-hidden
+## ⌘-click: press and release with ⌘ held
+  +0 press SUPER + mouse:272 → native
+  +0 window.drag()
+  +80 release SUPER + mouse:272 → no bind
+  +80 end: active <brave>, windows brave
+## ⌘-click: ⌘ let go before the button
+  +0 press SUPER + mouse:272 → native
+  +0 window.drag()
+  +80 release mouse:272 → no bind
+  +80 end: active <brave>, windows brave
+## ⌘⇧-click: release with ⇧ still held, and with ⌘⇧ held
+  +0 press SUPER + SHIFT + mouse:272 → no bind
+  +50 release SHIFT + mouse:272 → no bind
+  +50 press SUPER + SHIFT + mouse:272 → no bind
+  +100 release SUPER + SHIFT + mouse:272 → no bind
+  +100 end: active <nautilus>, windows nautilus
+## plain click release with nothing pending passes through
+  +0 release mouse:272 → no bind
+  +0 release SHIFT + mouse:272 → no bind
+  +0 release SUPER + mouse:272 → no bind
+  +0 end: active <brave>, windows brave
+## ⌘-scroll: warm-up, held Ctrl, overlapping hold, end of hold
+  +0 press SUPER + mouse_up → native
+  +0 focus({ workspace = "e-1" })
+  +30 press SUPER + mouse_up → native
+  +30 focus({ workspace = "e-1" })
+  +80 press SUPER + mouse_up → native
+  +80 focus({ workspace = "e-1" })
+  +250 press SUPER + mouse_up → native
+  +250 focus({ workspace = "e-1" })
+  +500 press SUPER + mouse_up → native
+  +500 focus({ workspace = "e-1" })
+  +1200 press SUPER + mouse_up → native
+  +1200 focus({ workspace = "e-1" })
+  +1210 press SUPER + mouse_up → native
+  +1210 focus({ workspace = "e-1" })
+  +1300 press SUPER + mouse_up → native
+  +1300 focus({ workspace = "e-1" })
+  +1400 press SUPER + mouse_down → native
+  +1400 focus({ workspace = "e+1" })
+  +1400 end: active <brave>, windows brave
+## Mac-mode toggle (⌃⌘⇧M)
+  +0 press CTRL + SUPER + SHIFT + M
+  +0 exec_cmd("rm -f '$XDG_STATE_HOME/omackey/off' && notify-send -a OMacKey 'OMacKey is on: Mac keys' ; hyprctl reload")
+  +0 → handled
+  +0 end: active <keylog>, windows keylog
+## F5 dictation: press and release; ⇧F5
+  +0 press XF86VoiceCommand → no bind
+  +500 release XF86VoiceCommand → no bind
+  +500 press SHIFT + XF86VoiceCommand → no bind
+  +500 end: active <keylog>, windows keylog

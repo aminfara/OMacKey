@@ -1,0 +1,166 @@
+## ⌘Tab: tap twice (flip between the last two apps)
+  +0 press SUPER + TAB
+  +0 focus({ window = <vscode> })
+  +0 → handled
+  +0 key 133 up
+  +0 press SUPER + TAB
+  +0 focus({ window = <brave> })
+  +0 → handled
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘Tab: three steps while ⌘ is held, then a tap
+  +0 press SUPER + TAB
+  +0 focus({ window = <vscode> })
+  +0 → handled
+  +0 press SUPER + TAB
+  +0 focus({ window = <foot> })
+  +0 → handled
+  +0 press SUPER + TAB
+  +0 focus({ window = <nautilus> })
+  +0 window.bring_to_top()
+  +0 → handled
+  +0 key 133 up
+  +0 press SUPER + TAB
+  +0 focus({ window = <brave> })
+  +0 → handled
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘⇧Tab from the front app, twice while held
+  +0 press SUPER + SHIFT + TAB
+  +0 focus({ window = <nautilus> })
+  +0 window.bring_to_top()
+  +0 → handled
+  +0 press SUPER + SHIFT + TAB
+  +0 focus({ window = <foot> })
+  +0 → handled
+  +0 key 133 up
+  +0 press SUPER + TAB
+  +0 focus({ window = <brave> })
+  +0 → handled
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘Tab: a click on another app in the middle of a session
+  +0 press SUPER + TAB
+  +0 focus({ window = <vscode> })
+  +0 → handled
+  +0 user focuses <nautilus>
+  +0 press SUPER + TAB
+  +0 focus({ window = <brave> })
+  +0 → handled
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode foot nautilus
+## ⌘Tab: an app closes in the middle of a session
+  +0 press SUPER + TAB
+  +0 focus({ window = <vscode> })
+  +0 → handled
+  +0 <foot> closes
+  +0 press SUPER + TAB
+  +0 focus({ window = <nautilus> })
+  +0 window.bring_to_top()
+  +0 → handled
+  +0 press SUPER + TAB
+  +0 focus({ window = <brave> })
+  +0 → handled
+  +0 key 133 up
+  +0 end: active <brave>, windows brave vscode nautilus
+## ⌘Tab: clicks before the first press set the recency order
+  +0 user focuses <nautilus>
+  +0 user focuses <foot>
+  +0 user focuses <brave>
+  +0 press SUPER + TAB
+  +0 focus({ window = <foot> })
+  +0 → handled
+  +0 key 133 up
+  +0 end: active <foot>, windows brave vscode foot nautilus
+## ⌘Q: every window of the app, not others
+  +0 press SUPER + Q
+  +0 window.close({ window = <foot-1> })
+  +0 window.close({ window = <foot-2> })
+  +0 → handled
+  +0 end: active <brave>, windows brave
+## ⌘Q: a window with no class closes alone
+  +0 press SUPER + Q
+  +0 window.close()
+  +0 → handled
+  +0 end: active <nameless-2>, windows nameless-2
+## ⌘` / ⌘⇧`: the app's windows in a fixed ring, scratchpad left out
+  +0 press SUPER + grave
+  +0 focus({ window = <code-a> })
+  +0 → handled
+  +0 press SUPER + grave
+  +0 focus({ window = <code-c> })
+  +0 window.bring_to_top()
+  +0 → handled
+  +0 press SUPER + grave
+  +0 focus({ window = <code-b> })
+  +0 → handled
+  +0 press SUPER + grave
+  +0 focus({ window = <code-a> })
+  +0 → handled
+  +0 press SUPER + SHIFT + grave
+  +0 focus({ window = <code-b> })
+  +0 → handled
+  +0 press SUPER + SHIFT + grave
+  +0 focus({ window = <code-c> })
+  +0 window.bring_to_top()
+  +0 → handled
+  +0 end: active <code-c>, windows code-b code-a brave code-c code-hidden
+## ⌘-click: press and release with ⌘ held
+  +0 press SUPER + mouse:272
+  +0 send_key_state({ key = "mouse:272", mods = "CTRL", state = "down" })
+  +0 → handled
+  +80 release SUPER + mouse:272
+  +80 send_key_state({ key = "mouse:272", mods = "CTRL", state = "up" })
+  +80 → handled
+  +80 end: active <brave>, windows brave
+## ⌘-click: ⌘ let go before the button
+  +0 press SUPER + mouse:272
+  +0 send_key_state({ key = "mouse:272", mods = "CTRL", state = "down" })
+  +0 → handled
+  +80 release mouse:272
+  +80 send_key_state({ key = "mouse:272", mods = "CTRL", state = "up" })
+  +80 → handled
+  +80 end: active <brave>, windows brave
+## ⌘⇧-click: release with ⇧ still held, and with ⌘⇧ held
+  +0 press SUPER + SHIFT + mouse:272
+  +0 send_key_state({ key = "mouse:272", mods = "CTRL + SHIFT", state = "down" })
+  +0 → handled
+  +50 release SHIFT + mouse:272
+  +50 send_key_state({ key = "mouse:272", mods = "CTRL + SHIFT", state = "up" })
+  +50 → handled
+  +50 press SUPER + SHIFT + mouse:272
+  +50 send_key_state({ key = "mouse:272", mods = "CTRL + SHIFT", state = "down" })
+  +50 → handled
+  +100 release SUPER + SHIFT + mouse:272
+  +100 send_key_state({ key = "mouse:272", mods = "CTRL + SHIFT", state = "up" })
+  +100 → handled
+  +100 end: active <nautilus>, windows nautilus
+## plain click release with nothing pending passes through
+  +0 release mouse:272
+  +0 → pass
+  +0 release SHIFT + mouse:272
+  +0 → pass
+  +0 release SUPER + mouse:272
+  +0 → pass
+  +0 end: active <brave>, windows brave
+## ⌘-scroll: warm-up, held Ctrl, overlapping hold, end of hold
+  +0 press SUPER + mouse_up → no bind
+  +30 press SUPER + mouse_up → no bind
+  +80 press SUPER + mouse_up → no bind
+  +250 press SUPER + mouse_up → no bind
+  +500 press SUPER + mouse_up → no bind
+  +1200 press SUPER + mouse_up → no bind
+  +1210 press SUPER + mouse_up → no bind
+  +1300 press SUPER + mouse_up → no bind
+  +1400 press SUPER + mouse_down → no bind
+  +1400 end: active <brave>, windows brave
+## Mac-mode toggle (⌃⌘⇧M)
+  +0 press CTRL + SUPER + SHIFT + M
+  +0 exec_cmd("mkdir -p '$XDG_STATE_HOME/omackey' && touch '$XDG_STATE_HOME/omackey/off' && notify-send -a OMacKey 'OMacKey is off: Omarchy keys' ; hyprctl reload")
+  +0 → handled
+  +0 end: active <keylog>, windows keylog
+## F5 dictation: press and release; ⇧F5
+  +0 press XF86VoiceCommand → no bind
+  +500 release XF86VoiceCommand → no bind
+  +500 press SHIFT + XF86VoiceCommand → no bind
+  +500 end: active <keylog>, windows keylog

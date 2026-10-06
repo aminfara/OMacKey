@@ -1,0 +1,1174 @@
+ALT+SHIFT+a "Toggle block comment"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:38", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:38", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+ALT+SHIFT+down "Copy line down"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:116", mods = "CTRL + SHIFT + ALT", state = "down" })
+    +20 send_key_state({ key = "code:116", mods = "CTRL + SHIFT + ALT", state = "up" })
+    → handled
+ALT+SHIFT+left "Select word left"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:113", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+ALT+SHIFT+right "Select word right"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:114", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+ALT+SHIFT+up "Copy line up"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:111", mods = "CTRL + SHIFT + ALT", state = "down" })
+    +20 send_key_state({ key = "code:111", mods = "CTRL + SHIFT + ALT", state = "up" })
+    → handled
+ALT+backspace "Delete word left"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:22", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:22", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+ALT+delete "Delete word right"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:119", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:119", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:40", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:40", mods = "ALT", state = "up" })
+    → handled
+ALT+left "Word left"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:113", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "CTRL", state = "up" })
+    → handled
+ALT+right "Word right"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:114", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "CTRL", state = "up" })
+    → handled
+CTRL+a "Line start (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:110", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:110", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+CTRL+b "Cursor left (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:113", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+CTRL+d "Delete right (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:119", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:119", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, vscode, code-oss:
+    → pass
+CTRL+e "Line end (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:115", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:115", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+CTRL+f "Cursor right (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:114", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+CTRL+h "Delete left (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:22", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:22", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+CTRL+k "Delete to line end (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:115", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:115", mods = "SHIFT", state = "up" })
+    +25 send_key_state({ key = "code:119", mods = "", state = "down" })
+    +45 send_key_state({ key = "code:119", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+CTRL+n "Cursor down (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:116", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:116", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+CTRL+p "Cursor up (Emacs key)"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:111", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:111", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → pass
+SHIFT+mouse:272 (release) "Click release after ⌘ was let go (⇧ held)"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+SUPER+0 "Actual size (app zoom)"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:19", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:19", mods = "CTRL", state = "up" })
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:22", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:22", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:90", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:90", mods = "CTRL", state = "up" })
+    → handled
+SUPER+1 "Go to tab 1"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:10", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:10", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:10", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:10", mods = "ALT", state = "up" })
+    → handled
+  nautilus:
+    +0 send_key_state({ key = "code:11", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:11", mods = "CTRL", state = "up" })
+    → handled
+SUPER+2 "Go to tab 2"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:11", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:11", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:11", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:11", mods = "ALT", state = "up" })
+    → handled
+  nautilus:
+    +0 send_key_state({ key = "code:10", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:10", mods = "CTRL", state = "up" })
+    → handled
+SUPER+3 "Go to tab 3"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:12", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:12", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui, nautilus:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:12", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:12", mods = "ALT", state = "up" })
+    → handled
+SUPER+4 "Go to tab 4"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:13", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:13", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui, nautilus:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:13", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:13", mods = "ALT", state = "up" })
+    → handled
+SUPER+5 "Go to tab 5"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:14", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:14", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui, nautilus:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:14", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:14", mods = "ALT", state = "up" })
+    → handled
+SUPER+6 "Go to tab 6"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:15", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:15", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui, nautilus:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:15", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:15", mods = "ALT", state = "up" })
+    → handled
+SUPER+7 "Go to tab 7"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:16", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:16", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui, nautilus:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:16", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:16", mods = "ALT", state = "up" })
+    → handled
+SUPER+8 "Go to tab 8"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:17", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:17", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui, nautilus:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:17", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:17", mods = "ALT", state = "up" })
+    → handled
+SUPER+9 "Go to tab 9"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:18", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:18", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui, nautilus:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:18", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:18", mods = "ALT", state = "up" })
+    → handled
+SUPER+ALT+b "Bookmark manager"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  brave-origin, chromium, google-chrome, firefox:
+    +0 send_key_state({ key = "code:32", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:32", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:56", mods = "CTRL + ALT", state = "down" })
+    +20 send_key_state({ key = "code:56", mods = "CTRL + ALT", state = "up" })
+    → handled
+SUPER+ALT+bracketleft "Fold code"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:34", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:34", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+ALT+bracketright "Unfold code"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:35", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:35", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+ALT+c "Inspect element"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  brave-origin, chromium, google-chrome, firefox:
+    +0 send_key_state({ key = "code:54", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:54", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:54", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:54", mods = "ALT", state = "up" })
+    → handled
+SUPER+ALT+down "Add cursor below"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:116", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:116", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  obsidian:
+    +0 send_key_state({ key = "code:116", mods = "CTRL + ALT", state = "down" })
+    +20 send_key_state({ key = "code:116", mods = "CTRL + ALT", state = "up" })
+    → handled
+SUPER+ALT+f "Replace"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss, obsidian:
+    +0 send_key_state({ key = "code:43", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:43", mods = "CTRL", state = "up" })
+    → handled
+SUPER+ALT+i "Developer tools"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:31", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:31", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, vscode, code-oss:
+    → handled
+SUPER+ALT+j "Developer console"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  brave-origin, chromium, google-chrome, firefox:
+    +0 send_key_state({ key = "code:44", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:44", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+ALT+l "Find: in selection"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:46", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:46", mods = "ALT", state = "up" })
+    → handled
+SUPER+ALT+left "Previous tab"  { auto_consuming = true }
+  none, empty-class, keylog, ghostty, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:112", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:112", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:113", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  obsidian:
+    +0 send_key_state({ key = "code:113", mods = "CTRL + ALT", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "CTRL + ALT", state = "up" })
+    → handled
+SUPER+ALT+p "Replace: preserve case"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:33", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:33", mods = "ALT", state = "up" })
+    → handled
+SUPER+ALT+r "Find: use regular expression"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:27", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:27", mods = "ALT", state = "up" })
+    → handled
+SUPER+ALT+right "Next tab"  { auto_consuming = true }
+  none, empty-class, keylog, ghostty, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:117", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:117", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:114", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  obsidian:
+    +0 send_key_state({ key = "code:114", mods = "CTRL + ALT", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "CTRL + ALT", state = "up" })
+    → handled
+SUPER+ALT+u "View page source"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  brave-origin, chromium, google-chrome, firefox:
+    +0 send_key_state({ key = "code:30", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:30", mods = "CTRL", state = "up" })
+    → handled
+SUPER+ALT+up "Add cursor above"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:111", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:111", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  obsidian:
+    +0 send_key_state({ key = "code:111", mods = "CTRL + ALT", state = "down" })
+    +20 send_key_state({ key = "code:111", mods = "CTRL + ALT", state = "up" })
+    → handled
+SUPER+ALT+v "Paste special (LibreOffice)"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, webapp:
+    → pass
+  libreoffice, soffice:
+    +0 send_key_state({ key = "code:55", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:55", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+ALT+w "Find: match whole word"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:25", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:25", mods = "ALT", state = "up" })
+    → handled
+SUPER+CTRL+ALT+z "Reset zoom"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+CTRL+SHIFT+left "Shrink selection"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:113", mods = "SHIFT + ALT", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "SHIFT + ALT", state = "up" })
+    → handled
+SUPER+CTRL+SHIFT+m "OMacKey on/off (Mac mode)"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 exec_cmd("mkdir -p '$XDG_STATE_HOME/omackey' && touch '$XDG_STATE_HOME/omackey/off' && notify-send -a OMacKey 'OMacKey is off: Omarchy keys' ; hyprctl reload")
+    → handled
+SUPER+CTRL+SHIFT+right "Expand selection"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:114", mods = "SHIFT + ALT", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "SHIFT + ALT", state = "up" })
+    → handled
+SUPER+CTRL+z "Zoom in"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+a "⌘⇧A sent as Ctrl+Shift+A"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:38", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:38", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+apostrophe "⌘⇧' sent as Ctrl+Shift+'"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:48", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:48", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+b "⌘⇧B sent as Ctrl+Shift+B"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:56", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:56", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+backslash "⌘⇧\\ sent as Ctrl+Shift+\\"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:51", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:51", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+backspace "Clear browsing data"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+  brave-origin, chromium, google-chrome, firefox:
+    +0 send_key_state({ key = "code:119", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:119", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+bracketleft "Previous tab"  { auto_consuming = true }
+  none, empty-class, keylog, ghostty, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:112", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:112", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:113", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+bracketright "Next tab"  { auto_consuming = true }
+  none, empty-class, keylog, ghostty, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:117", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:117", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:114", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+c "⌘⇧C sent as Ctrl+Shift+C"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:54", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:54", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+d "Split terminal down"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:40", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:40", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:26", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:26", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+down "Select to document end"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:115", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:115", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+e "⌘⇧E sent as Ctrl+Shift+E"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:26", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:26", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+equal "Zoom in (app)"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:21", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:21", mods = "CTRL", state = "up" })
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:21", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:21", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+f "⌘⇧F sent as Ctrl+Shift+F"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+g "Find previous"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, webapp:
+    +0 send_key_state({ key = "code:69", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:69", mods = "SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, libreoffice, soffice:
+    → handled
+  nautilus:
+    +0 send_key_state({ key = "code:46", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:46", mods = "CTRL", state = "up" })
+    → handled
+SUPER+SHIFT+grave "Previous window of this app"  { auto_consuming = true }
+  none, empty-class:
+    → handled
+  keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 focus({ window = <active> })
+    → handled
+SUPER+SHIFT+h "⌘⇧H not mapped"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+i "⌘⇧I not mapped"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+j "Downloads"  { auto_consuming = true }
+  none, empty-class, keylog, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:44", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:44", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  brave-origin, chromium, google-chrome:
+    +0 send_key_state({ key = "code:44", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:44", mods = "CTRL", state = "up" })
+    → handled
+  firefox:
+    +0 send_key_state({ key = "code:29", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:29", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+k "⌘⇧K sent as Ctrl+Shift+K"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:45", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:45", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+l "⌘⇧L sent as Ctrl+Shift+L"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:46", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:46", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+left "Select to line start"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:110", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:110", mods = "SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+m "⌘⇧M sent as Ctrl+Shift+M"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:58", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:58", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+minus "Zoom out (VS Code)"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:20", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:20", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:20", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:20", mods = "CTRL", state = "up" })
+    → handled
+SUPER+SHIFT+mouse:272 "⌘⇧-click sent as Ctrl+Shift-click"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "mouse:272", mods = "CTRL + SHIFT", state = "down" })
+    → handled
+SUPER+SHIFT+mouse:272 (release) "⌘⇧-click release"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+SUPER+SHIFT+n "New private window or folder"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:57", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:57", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  firefox:
+    +0 send_key_state({ key = "code:33", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:33", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+o "⌘⇧O sent as Ctrl+Shift+O"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:32", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:32", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+p "⌘⇧P sent as Ctrl+Shift+P"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:33", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:33", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+period "Show hidden files (Files)"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:60", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:60", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  nautilus:
+    +0 send_key_state({ key = "code:43", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:43", mods = "CTRL", state = "up" })
+    → handled
+SUPER+SHIFT+q "⌘⇧Q not mapped"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+r "⌘⇧R sent as Ctrl+Shift+R"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:27", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:27", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+return "⌘⇧⏎ sent as Ctrl+Shift+Return"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:36", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:36", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+right "Select to line end"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:115", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:115", mods = "SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+s "Save as"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:39", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:39", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+semicolon "⌘⇧; sent as Ctrl+Shift+;"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:47", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:47", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+t "Reopen closed tab"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:28", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:28", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+tab "Switch app backwards"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+u "Redo selection (Obsidian)"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, nautilus, libreoffice, soffice, webapp:
+    → handled
+  obsidian:
+    +0 send_key_state({ key = "code:30", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:30", mods = "ALT", state = "up" })
+    → handled
+SUPER+SHIFT+up "Select to document start"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:110", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:110", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+v "Paste without formatting"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, webapp:
+    +0 send_key_state({ key = "code:55", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:55", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:118", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:118", mods = "SHIFT", state = "up" })
+    → handled
+  libreoffice, soffice:
+    +0 send_key_state({ key = "code:55", mods = "CTRL + ALT + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:55", mods = "CTRL + ALT + SHIFT", state = "up" })
+    → handled
+SUPER+SHIFT+x "⌘⇧X sent as Ctrl+Shift+X"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:53", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:53", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+y "⌘⇧Y sent as Ctrl+Shift+Y"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:29", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:29", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+SHIFT+z "Redo"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:52", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:52", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+a "Select all"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:38", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:38", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:38", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:38", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+apostrophe "⌘' sent as Ctrl+'"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:48", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:48", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+b "Bold"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:56", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:56", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+backslash "⌘\\ sent as Ctrl+\\"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:51", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:51", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+backspace "Delete to line start"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:110", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:110", mods = "SHIFT", state = "up" })
+    +25 send_key_state({ key = "code:22", mods = "", state = "down" })
+    +45 send_key_state({ key = "code:22", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:30", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:30", mods = "CTRL", state = "up" })
+    → handled
+  nautilus:
+    +0 send_key_state({ key = "code:119", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:119", mods = "", state = "up" })
+    → handled
+SUPER+bracketleft "Back or outdent"  { auto_consuming = true }
+  none, empty-class, keylog, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:34", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:34", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  brave-origin, chromium, google-chrome, firefox, nautilus:
+    +0 send_key_state({ key = "code:113", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:113", mods = "ALT", state = "up" })
+    → handled
+SUPER+bracketright "Forward or indent"  { auto_consuming = true }
+  none, empty-class, keylog, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:35", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:35", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  brave-origin, chromium, google-chrome, firefox, nautilus:
+    +0 send_key_state({ key = "code:114", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:114", mods = "ALT", state = "up" })
+    → handled
+SUPER+c "Copy"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:54", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:54", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, vscode, code-oss:
+    +0 send_key_state({ key = "code:118", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:118", mods = "CTRL", state = "up" })
+    → handled
+SUPER+comma "Preferences"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, vscode, code-oss, obsidian, nautilus, webapp:
+    +0 send_key_state({ key = "code:59", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:59", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    → handled
+  ghostty:
+    +0 exec_cmd("omarchy-launch-editor \"$HOME/.config/ghostty/config\"")
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:68", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:68", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  firefox:
+    +0 exec_cmd("firefox about:preferences")
+    → handled
+  libreoffice, soffice:
+    +0 send_key_state({ key = "code:96", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:96", mods = "ALT", state = "up" })
+    → handled
+SUPER+d "Split terminal right"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:40", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:40", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, kitty, alacritty, omarchy-tui:
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:32", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:32", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+delete "Delete to line end"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:115", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:115", mods = "SHIFT", state = "up" })
+    +25 send_key_state({ key = "code:119", mods = "", state = "down" })
+    +45 send_key_state({ key = "code:119", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:45", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:45", mods = "CTRL", state = "up" })
+    → handled
+SUPER+down "Document end"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:115", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:115", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:117", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:117", mods = "SHIFT", state = "up" })
+    → handled
+  ghostty, kitty:
+    +0 send_key_state({ key = "code:117", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:117", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  nautilus:
+    +0 send_key_state({ key = "code:36", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:36", mods = "", state = "up" })
+    → handled
+SUPER+e "⌘E sent as Ctrl+E"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:26", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:26", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+equal "Zoom in (app)"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:21", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:21", mods = "CTRL", state = "up" })
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:21", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:21", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+f "Find"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:41", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:41", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt:
+    +0 send_key_state({ key = "code:27", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:27", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  ghostty:
+    +0 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:61", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:61", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  alacritty, omarchy-tui:
+    → handled
+SUPER+g "Find next"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, webapp:
+    +0 send_key_state({ key = "code:69", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:69", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  libreoffice, soffice:
+    +0 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+grave "Next window of this app"  { auto_consuming = true }
+  none, empty-class:
+    → handled
+  keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 focus({ window = <active> })
+    → handled
+SUPER+h "⌘H not mapped"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+i "Italic"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:31", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:31", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+j "⌘J sent as Ctrl+J"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:44", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:44", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+k "Clear terminal screen"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:45", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:45", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:46", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:46", mods = "CTRL", state = "up" })
+    → handled
+SUPER+l "Focus address bar"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:46", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:46", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+left "Line start"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:110", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:110", mods = "", state = "up" })
+    → handled
+SUPER+m "⌘M not mapped"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+minus "Zoom out (app)"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:20", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:20", mods = "CTRL", state = "up" })
+    → handled
+  kitty:
+    +0 send_key_state({ key = "code:20", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:20", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+mouse:272 "⌘-click sent as Ctrl-click"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "mouse:272", mods = "CTRL", state = "down" })
+    → handled
+SUPER+mouse:272 (release) "⌘-click release"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
+SUPER+mouse_down "⌘-scroll down sent as Ctrl-scroll"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 exec_cmd("wtype -M ctrl -s 400")
+    → handled
+SUPER+mouse_up "⌘-scroll up sent as Ctrl-scroll"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 exec_cmd("wtype -M ctrl -s 400")
+    → handled
+SUPER+n "New window"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:57", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:57", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:57", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:57", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+o "Open"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:32", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:32", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+p "Print or quick open"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:33", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:33", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+period "Cancel (Escape)"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:9", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:9", mods = "", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:54", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:54", mods = "CTRL", state = "up" })
+    → handled
+  vscode, code-oss:
+    +0 send_key_state({ key = "code:60", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:60", mods = "CTRL", state = "up" })
+    → handled
+SUPER+q "Quit app (close all its windows)"  { auto_consuming = true }
+  none:
+    → handled
+  empty-class:
+    +0 window.close()
+    → handled
+  keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 window.close({ window = <active> })
+    → handled
+SUPER+r "Reload"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:27", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:27", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+return "⌘⏎ sent as Ctrl+Return"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:36", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:36", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+right "Line end"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:115", mods = "", state = "down" })
+    +20 send_key_state({ key = "code:115", mods = "", state = "up" })
+    → handled
+SUPER+s "Save"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:39", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:39", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+semicolon "⌘; sent as Ctrl+;"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:47", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:47", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+slash "Toggle comment"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:61", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:61", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+t "New tab"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:28", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:28", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:57", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:57", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  ghostty, kitty:
+    +0 send_key_state({ key = "code:28", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:28", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+tab "Switch app"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+u "Underline"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:30", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:30", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+up "Document start"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:110", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:110", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    +0 send_key_state({ key = "code:112", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:112", mods = "SHIFT", state = "up" })
+    → handled
+  ghostty, kitty:
+    +0 send_key_state({ key = "code:112", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:112", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+  nautilus:
+    +0 send_key_state({ key = "code:111", mods = "ALT", state = "down" })
+    +20 send_key_state({ key = "code:111", mods = "ALT", state = "up" })
+    → handled
+SUPER+v "Paste"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:55", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:55", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, vscode, code-oss:
+    +0 send_key_state({ key = "code:118", mods = "SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:118", mods = "SHIFT", state = "up" })
+    → handled
+SUPER+w "Close tab or window"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:25", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:25", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, alacritty, omarchy-tui:
+    +0 window.close()
+    → handled
+  ghostty, kitty:
+    +0 send_key_state({ key = "code:25", mods = "CTRL + SHIFT", state = "down" })
+    +20 send_key_state({ key = "code:25", mods = "CTRL + SHIFT", state = "up" })
+    → handled
+SUPER+x "Cut"  { auto_consuming = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:53", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:53", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+SUPER+y "History"  { auto_consuming = true }
+  none, empty-class, keylog, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:29", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:29", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+  brave-origin, chromium, google-chrome, firefox:
+    +0 send_key_state({ key = "code:43", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:43", mods = "CTRL", state = "up" })
+    → handled
+SUPER+z "Undo"  { auto_consuming = true, repeating = true }
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "code:52", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:52", mods = "CTRL", state = "up" })
+    → handled
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
+    → handled
+mouse:272 (release) "Click release after ⌘ was let go"  { auto_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+    → pass
