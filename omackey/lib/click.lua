@@ -1,4 +1,4 @@
--- ⌘-click as Ctrl-click (Phase 7g). The real ⌘ + press is consumed and a
+-- ⌘-click as Ctrl-click. The real ⌘ + press is consumed and a
 -- synthetic press with Ctrl goes to the app instead (lib/send.lua `button`).
 --
 -- Hyprland never saw the real press as held, so it drops the real release: the
@@ -16,7 +16,7 @@ local M = {
 function M.press(mods)
   return function()
     M.pending = mods
-    button(mods, "mouse:272", "down")()
+    button(mods, "mouse:272", "down")
   end
 end
 
@@ -28,7 +28,7 @@ function M.release()
   end
 
   M.pending = nil
-  button(mods, "mouse:272", "up")()
+  button(mods, "mouse:272", "up")
 end
 
 return M

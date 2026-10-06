@@ -1,66 +1,14 @@
--- Phase 4: window and tab controls (PLAN.md §5).
+-- Window and tab controls (PLAN.md §5).
 
 local bind = require("hypr.omackey.lib.bind")
 local tap = require("hypr.omackey.lib.send").tap
 local switcher = require("hypr.omackey.lib.switcher")
+local windows = require("hypr.omackey.lib.windows")
 local mac, action = bind.mac, bind.action
 
 switcher.start()
 
-local function close_window()
-  hl.dispatch(hl.dsp.window.close())
-end
-
--- Quit like macOS: close every window of the active window's app (the same
--- window class). Apps with unsaved work still ask before closing.
-local function quit_app()
-  local active = hl.get_active_window()
-  if not active then
-    return
-  end
-
-  local class = active.class
-  if class == "" then
-    close_window() -- nothing to match on: just this window
-    return
-  end
-
-  for _, window in ipairs(hl.get_windows({ mapped = true })) do
-    if window.class == class then
-      hl.dispatch(hl.dsp.window.close({ window = window }))
-    end
-  end
-end
-
--- ⌘` and ⌘⇧`: step through the windows of the active app (same class, every
--- workspace) in a fixed order, wrapping around. Not recency: with three windows
--- the ring visits all of them, as on a Mac.
-local function cycle_app_windows(step)
-  local active = hl.get_active_window()
-  if not active or active.class == "" then
-    return
-  end
-
-  local windows = {}
-  for _, window in ipairs(hl.get_windows({ mapped = true })) do
-    local workspace = window.workspace
-    if window.class == active.class and not window.hidden and not (workspace and workspace.special) then
-      table.insert(windows, window)
-    end
-  end
-  table.sort(windows, function(a, b)
-    return a.stable_id < b.stable_id
-  end)
-
-  for index, window in ipairs(windows) do
-    if window.address == active.address then
-      switcher.focus(windows[(index - 1 + step) % #windows + 1])
-      return
-    end
-  end
-end
-
--- Omarchy's "Close window" moved to ⌃⌥W in Phase 1a, so ⌘W was free.
+-- Omarchy's "Close window" is on ⌃⌥W (relocations.lua).
 mac({
   id = "close-tab",
   category = "Windows",
@@ -71,20 +19,20 @@ mac({
     default = tap("CTRL", "W"),
     -- foot, Alacritty and Omarchy's TUIs have no tabs, so close the window.
     -- Ctrl+W is readline's word delete.
-    terminal = close_window,
+    terminal = windows.close,
     -- Ghostty and kitty close the tab (the last one closes the window).
     -- Ghostty's close-tab key also closes a whole tab of splits (§9 F10).
     ghostty = tap("CTRL + SHIFT", "W"),
     kitty = tap("CTRL + SHIFT", "W"),
     -- Apps where Ctrl+W doesn't close the window (config.lua).
-    ["no-tabs"] = close_window,
+    ["no-tabs"] = windows.close,
   },
 })
 
 -- The compositor's close request is what an app's own "close window" shortcut
--- ends in, so one action covers every app (the plan's Ctrl+Shift+W for
--- browsers and VS Code would do the same). Omarchy's Omawrite launcher moved
--- off SUPER+SHIFT+W in Phase 1c.
+-- ends in, so one action covers every app (Ctrl+Shift+W for
+-- browsers and VS Code would do the same). Omarchy's Omawrite launcher is on
+-- ⌃⌥⌘W.
 action({
   id = "close-window",
   category = "Windows",
@@ -101,7 +49,7 @@ mac({
   keys = "SUPER + Q",
   desc = "Quit app (close all its windows)",
   actions = {
-    default = quit_app, -- terminals too, as Terminal.app does
+    default = windows.quit_app, -- terminals too, as Terminal.app does
   },
 })
 
@@ -160,7 +108,7 @@ mac({
   },
 })
 
--- ⌘O/⌘P/⌘R/⌘L: Omarchy's pop, pseudo and layout binds moved to ⌃⌥ in Phase 1a.
+-- ⌘O/⌘P/⌘R/⌘L: Omarchy's pop, pseudo and layout binds are on ⌃⌥.
 -- Ctrl+O/P/R/L are readline keys in a terminal (history, reverse search,
 -- clear screen) and terminals have no matching feature, so they swallow ⌘.
 mac({
@@ -211,7 +159,7 @@ mac({
   },
 })
 
--- Zoom. Omarchy's resize binds on these keys moved to ⌃⌥ in Phase 1a. foot and
+-- Zoom. Omarchy's resize binds for these keys are on ⌃⌥. foot and
 -- Ghostty take the same chords (font size), so they have no entry; kitty's
 -- font-size keys carry Shift (§9 F10). ⌘+ is ⌘⇧= and zooms in like ⌘=.
 mac({
@@ -265,7 +213,7 @@ mac({
 
 -- Back and forward in browsers and Nautilus; outdent and indent in editors
 -- (VS Code and Obsidian use Ctrl+[ / Ctrl+]). Terminals have no equivalent and
--- Ctrl+[ is Escape there. Omarchy's webcam binds moved to ⌃⌥ in Phase 1a.
+-- Ctrl+[ is Escape there. Omarchy's webcam binds are on ⌃⌥.
 mac({
   id = "back",
   category = "Windows",
@@ -295,9 +243,8 @@ mac({
 })
 
 -- ⌘1–⌘9: tab N (⌘9 is the last tab in browsers, as on a Mac). Omarchy's
--- workspace binds moved to ⌃1–0 in Phase 1b. One bind per digit, written as a
--- loop like spaces.lua; each gets its own actions table, so Phase 6 can add
--- per-app entries. Terminals consume, except Ghostty (Alt+N; Alt+9 is the last
+-- workspace binds are on ⌃1–0. One bind per digit, written as a loop like
+-- spaces.lua; each gets its own actions table, so apps can have entries. Terminals consume, except Ghostty (Alt+N; Alt+9 is the last
 -- tab). kitty has no key for tab N. Nautilus has no tabs by number here: ⌘1 / ⌘2
 -- are Finder's icon / list view, which are Nautilus's Ctrl+2 / Ctrl+1 (§9 F5),
 -- and ⌘3–9 do nothing (Finder's columns and gallery views don't exist).
@@ -323,9 +270,8 @@ end
 
 -- Previous and next tab on both Mac chords. Browsers, VS Code and Nautilus
 -- all take Ctrl+Page_Up/Down, and so does Ghostty. kitty switches tabs with
--- Ctrl+Shift+Left/Right; other terminals consume. Obsidian's ⌘⌥← / ⌘⌥→ become
--- back/forward in 6e.
--- Omarchy's webcam binds (⌘⌥[ ]) and group moves (⌘⌥←/→) moved in Phase 1a.
+-- Ctrl+Shift+Left/Right; other terminals consume. In Obsidian ⌘⌥← / ⌘⌥→ are
+-- back/forward. Omarchy's group moves (⌘⌥←/→) are on ⌃⌥⌘.
 mac({
   id = "previous-tab",
   category = "Windows",
@@ -386,7 +332,7 @@ mac({
 
 -- ⌘Tab flips between the last two apps and, with ⌘ held, steps further along
 -- the recency list (lib/switcher.lua). Omarchy's workspace switching on these
--- keys moved to ⌃⌥← / ⌃⌥→ in Phase 1b; ⌥Tab still cycles windows in layout order.
+-- keys is on ⌃⌥← / ⌃⌥→; ⌥Tab still cycles windows in layout order.
 mac({
   id = "switch-app",
   category = "Windows",
@@ -423,7 +369,7 @@ mac({
   desc = "Next window of this app",
   actions = {
     default = function()
-      cycle_app_windows(1)
+      windows.cycle_app_windows(1)
     end,
   },
 })
@@ -436,14 +382,14 @@ mac({
   desc = "Previous window of this app",
   actions = {
     default = function()
-      cycle_app_windows(-1)
+      windows.cycle_app_windows(-1)
     end,
   },
 })
 
--- Preferences. Omarchy's "dismiss last notification" moved off ⌘, in Phase 1d.
+-- Preferences. Omarchy's "dismiss last notification" is on ⌃⌘⇧,.
 -- VS Code, Obsidian and Nautilus open their settings on Ctrl+, ; LibreOffice
--- has no such shortcut (6f). Browsers have none either. Firefox opens
+-- has no such shortcut. Browsers have none either. Firefox opens
 -- about:preferences when run with that URL; the Chromium family turns a
 -- chrome:// URL given on the command line into a blank tab, so there ⌘, sends the
 -- generic Ctrl+, (some web apps use it) and settings stay unmapped (§7). In terminals the preferences are

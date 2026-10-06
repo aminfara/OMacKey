@@ -143,9 +143,12 @@ replay the config the way the help menu does. Extract the Lua heredoc from
 - **Module paths:** `bootstrap.lua` adds `~/.config/?.lua`, with no `?/init.lua`
   entry, so require full names like `"hypr.omackey.lib.send"`. Every reload
   starts a fresh Lua state.
-- **Moving an Omarchy bind:** add a row to `omackey/relocations.lua`, with
-  `from` exactly as written in Omarchy's file (matching ignores modifier order
-  and case). Don't `hl.unbind` and redeclare it. Add `optional = true` when
+- **Moving or replacing an Omarchy bind:** add a row to
+  `omackey/relocations.lua`, with `from` exactly as written in Omarchy's file
+  (matching ignores modifier order and case, and `code:N` matches its key
+  name). Use `to = "<new key>"` to move it, or `drop = true` when an OMacKey
+  bind replaces it on the same key (⌘C / ⌘V / ⌘X). Don't `hl.unbind` and
+  redeclare it. Add `optional = true` when
   Omarchy only registers that bind under a condition, such as
   `if o.preinstalled_bindings_enabled()` or `o.cmd_present(...)`.
 - **Omarchy helpers aren't limiting.** `o.bind(keys, desc, dispatcher, opts)`
@@ -184,7 +187,8 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   - `hl.unbind("…")` must match the original string exactly (case-sensitive)
     and removes *all* earlier binds of that key.
   - Omarchy writes modifiers in inconsistent order (`SUPER + SHIFT + ALT` vs
-    `SUPER + ALT + SHIFT`), so normalize before comparing.
+    `SUPER + ALT + SHIFT`), so compare with `keys.normalize()`
+    (`lib/keys.lua`).
   - Several binds on the same key all fire, top to bottom, so always run the
     duplicate check.
   - Keysym names are lowercase xkbcommon names for punctuation: `comma`,

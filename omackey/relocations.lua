@@ -1,13 +1,23 @@
--- Omarchy default binds moved off keys that macOS needs (PLAN.md §6).
+-- Omarchy default binds moved off keys that macOS needs, or dropped where
+-- OMacKey's own bind replaces them (PLAN.md §6).
 --
 -- `from` is Omarchy's key as written in
 -- /usr/share/omarchy/default/hypr/bindings/*.lua (matching ignores modifier
--- order and case); `to` is the new key. Omarchy's action, description and
--- conditions are kept as they are. `optional = true` marks binds Omarchy only
--- registers under a condition, so their absence isn't reported as drift.
+-- order and case, and a keycode matches its key name). Each row has either
+-- `to`, the new key, where Omarchy's action, description and conditions are
+-- kept as they are; or `drop = true`, and Omarchy's bind is not registered.
+-- `optional = true` marks binds Omarchy only registers under a condition, so
+-- their absence isn't reported as drift.
 
 local relocations = {
-  -- §6.1 Window management → ⌃⌥ (Phase 1a)
+  -- Dropped: OMacKey's ⌘C / ⌘V / ⌘X (editing.lua) replace Omarchy's universal
+  -- copy, paste and cut, which send Ctrl+C / Ctrl+V to VS Code and break its
+  -- integrated terminal, and Ctrl+X to terminals.
+  { from = "SUPER + C", drop = true }, -- Universal copy
+  { from = "SUPER + V", drop = true }, -- Universal paste
+  { from = "SUPER + X", drop = true }, -- Universal cut
+
+  -- Window management → ⌃⌥ (PLAN.md §6.1)
   { from = "SUPER + W", to = "CTRL + ALT + W" }, -- Close window (⌘W: close tab)
   { from = "SUPER + J", to = "CTRL + ALT + J" }, -- Toggle window split
   { from = "SUPER + P", to = "CTRL + ALT + P" }, -- Pseudo window
@@ -18,7 +28,7 @@ local relocations = {
   { from = "SUPER + O", to = "CTRL + ALT + O" }, -- Pop window out
   { from = "SUPER + L", to = "CTRL + ALT + L" }, -- Toggle workspace layout
 
-  -- Mouse (7g): ⌘ + click and ⌘ + scroll become Ctrl + click / scroll in apps, so
+  -- Mouse: ⌘ + click and ⌘ + scroll become Ctrl + click / scroll in apps, so
   -- Omarchy's window mouse controls move to ⌃⌥ like its other window management.
   { from = "SUPER + mouse:272", to = "CTRL + ALT + mouse:272" }, -- Move window (drag)
   { from = "SUPER + mouse:273", to = "CTRL + ALT + mouse:273" }, -- Resize window (drag)
@@ -73,13 +83,13 @@ local relocations = {
   { from = "SUPER + ALT + code:34", to = "CTRL + ALT + code:34" }, -- Webcam overlay smaller (⌘⌥[: fold)
   { from = "SUPER + ALT + code:35", to = "CTRL + ALT + code:35" }, -- Webcam overlay larger
 
-  -- §6.2 Spaces (Phase 1b): numbers on ⌃ like macOS, arrows on ⌃⌥.
+  -- Spaces (§6.2): numbers on ⌃ like macOS, arrows on ⌃⌥.
   -- spaces.lua adds ⌃⌥↑/↓ and the ⌃⌥⇧ arrows.
   { from = "SUPER + TAB", to = "CTRL + ALT + RIGHT" }, -- Next workspace (⌘Tab: switch window)
   { from = "SUPER + SHIFT + TAB", to = "CTRL + ALT + LEFT" }, -- Previous workspace
 
   -- §6.3 Launchers → ⌃⌥⌘ + Omarchy's letter, ⌃⌥⌘⇧ for the SUPER+SHIFT+ALT
-  -- variants (Phase 1c). Frees ⌘⏎ and ⌘⇧ + letters for apps.
+  -- variants. Frees ⌘⏎ and ⌘⇧ + letters for apps.
   { from = "SUPER + RETURN", to = "CTRL + ALT + SUPER + RETURN" }, -- Terminal
   { from = "SUPER + SHIFT + RETURN", to = "CTRL + ALT + SUPER + SHIFT + RETURN" }, -- Browser
   { from = "SUPER + SHIFT + F", to = "CTRL + ALT + SUPER + F" }, -- File manager
@@ -116,7 +126,7 @@ local relocations = {
   { from = "SUPER + CTRL + ALT + W", to = "CTRL + SUPER + SHIFT + W" }, -- Toggle weather
   { from = "SUPER + CTRL + ALT + D", to = "CTRL + SUPER + SHIFT + D" }, -- Calendar panel
 
-  -- §6.4 Utilities & help (Phase 1d).
+  -- Utilities & help (§6.4).
   { from = "SUPER + K", to = "SUPER + SHIFT + SLASH" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps
   -- Next to ⌘⇧, (dismiss all) and the ⌃⌘⇧ info popups; ⌘, is preferences.
   -- xkbcommon names the keysym "comma"; upper-case "COMMA" does not match.

@@ -1,6 +1,6 @@
--- Phase 7g: ⌘ + click and ⌘ + scroll reach apps as Ctrl + click and Ctrl + scroll
+-- ⌘ + click and ⌘ + scroll reach apps as Ctrl + click and Ctrl + scroll
 -- (⌘-click: new tab, multi-select, go to definition; ⌘ + scroll: zoom), PLAN.md
--- §5. Omarchy's own ⌘ + mouse binds moved to ⌃⌥ (relocations.lua).
+-- §5. Omarchy's own ⌘ + mouse binds are on ⌃⌥ (relocations.lua).
 --
 -- Click: the real ⌘ + press and its release are consumed, and the same button
 -- events are sent again with explicit Ctrl in `mods` (a synthetic event carries
@@ -75,18 +75,7 @@ mac({
   actions = { default = click.release },
 })
 
-local function installed(program)
-  for dir in (os.getenv("PATH") or ""):gmatch("[^:]+") do
-    local handle = io.open(dir .. "/" .. program, "r")
-    if handle then
-      handle:close()
-      return true
-    end
-  end
-  return false
-end
-
-if not installed("wtype") then
+if not o.cmd_present("wtype") then
   return
 end
 

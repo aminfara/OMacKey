@@ -1,42 +1,17 @@
--- Moves Omarchy's default binds to new keys while Omarchy registers them
--- (PLAN.md §4.3, approach A): hook() wraps hl.bind right before Omarchy's
--- defaults load, unhook() restores it right after. Omarchy's own o.bind calls
--- therefore land on the keys from relocations.lua with their original action,
--- description and conditions.
+-- Moves or drops Omarchy's default binds while Omarchy registers them: hook()
+-- wraps hl.bind right before Omarchy's defaults load, unhook() restores it
+-- right after. Omarchy's own o.bind calls therefore land on the keys from
+-- relocations.lua with their original action, description and conditions, and
+-- a dropped bind is never registered at all.
 
+local keys = require("hypr.omackey.lib.keys")
 local relocations = require("hypr.omackey.relocations")
 
 local M = {
   applied = {}, -- { from, to, description } for every bind that was moved
+  dropped = {}, -- { from, description } for every bind that was not registered
   claimed = {}, -- normalized key string → true, for every key Omarchy registered
 }
-
-local MODIFIER_ORDER = { SUPER = 1, CTRL = 2, ALT = 3, SHIFT = 4 }
-local MODIFIER_ALIASES = { CONTROL = "CTRL" }
-
--- "SUPER + ALT + SHIFT + F" and "super + shift + alt + f" → "SUPER + ALT + SHIFT + f"
-function M.normalize(keys)
-  local modifiers, key = {}, ""
-
-  for part in tostring(keys):gmatch("[^+]+") do
-    local trimmed = part:match("^%s*(.-)%s*$")
-    local upper = trimmed:upper()
-    upper = MODIFIER_ALIASES[upper] or upper
-
-    if MODIFIER_ORDER[upper] then
-      table.insert(modifiers, upper)
-    else
-      key = trimmed:lower()
-    end
-  end
-
-  table.sort(modifiers, function(a, b)
-    return MODIFIER_ORDER[a] < MODIFIER_ORDER[b]
-  end)
-  table.insert(modifiers, key)
-
-  return table.concat(modifiers, " + ")
-end
 
 local original_bind
 local index
@@ -48,24 +23,28 @@ function M.hook()
 
   index = {}
   for _, relocation in ipairs(relocations) do
-    index[M.normalize(relocation.from)] = relocation
+    index[keys.normalize(relocation.from)] = relocation
   end
 
   original_bind = hl.bind
-  hl.bind = function(keys, dispatcher, opts)
-    local relocation = index[M.normalize(keys)]
+  hl.bind = function(chord, dispatcher, opts)
+    local relocation = index[keys.normalize(chord)]
+    local description = opts and opts.description
+
     if relocation then
       relocation.used = true
-      table.insert(M.applied, {
-        from = keys,
-        to = relocation.to,
-        description = opts and opts.description,
-      })
-      keys = relocation.to
-    end
-    M.claimed[M.normalize(keys)] = true
 
-    return original_bind(keys, dispatcher, opts)
+      if relocation.drop then
+        table.insert(M.dropped, { from = chord, description = description })
+        return nil -- no keybind object: Omarchy's o.bind ignores the return value
+      end
+
+      table.insert(M.applied, { from = chord, to = relocation.to, description = description })
+      chord = relocation.to
+    end
+    M.claimed[keys.normalize(chord)] = true
+
+    return original_bind(chord, dispatcher, opts)
   end
 end
 

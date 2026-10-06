@@ -1,13 +1,16 @@
 -- macOS-style app switching (⌘Tab): by recency, without an overlay.
 --
--- An "app" is a window class, as in ⌘Q; a window without a class is its own
--- app. Apps are ordered by recency here, from focus events, because Hyprland's
--- own focus history counts every stop of a multi-step switch: going A → B → C
--- would leave B ranked above A, and the next ⌘Tab would not flip back to A.
+-- An "app" is a window class, as in ⌘Q (lib/windows.lua). Apps are ordered by
+-- recency here, from focus events, because Hyprland's own focus history counts
+-- every stop of a multi-step switch: going A → B → C would leave B ranked above
+-- A, and the next ⌘Tab would not flip back to A.
 --
 -- A switch is a "session" that lasts while ⌘ is held. Its ring holds app names,
 -- never windows, and is resolved against the live windows at every step, so
 -- apps and windows can come and go in the middle of it.
+
+local windows = require("hypr.omackey.lib.windows")
+local app_of = windows.app_of
 
 local M = {}
 
@@ -18,23 +21,15 @@ local tracker = {
   session = nil, -- { ring = { app, … }, position = n, stop = app, subscription = … }
 }
 
-local function app_of(window)
-  return window.class ~= "" and window.class or window.address
-end
-
--- Every app with a window, mapped to its most recently focused window.
--- Hidden and scratchpad windows don't count.
+-- Every app with a visible window, mapped to its most recently focused one.
 local function latest_windows()
   local latest = {}
 
-  for _, window in ipairs(hl.get_windows({ mapped = true })) do
-    local workspace = window.workspace
-    if not window.hidden and not (workspace and workspace.special) then
-      local app = app_of(window)
-      local seen = latest[app]
-      if not seen or window.focus_history_id < seen.focus_history_id then
-        latest[app] = window
-      end
+  for _, window in ipairs(windows.visible()) do
+    local app = app_of(window)
+    local seen = latest[app]
+    if not seen or window.focus_history_id < seen.focus_history_id then
+      latest[app] = window
     end
   end
 
@@ -116,14 +111,6 @@ local function on_key(code, _, state)
   end
 end
 
--- Focus a window, and raise it if it floats.
-function M.focus(window)
-  hl.dispatch(hl.dsp.focus({ window = window }))
-  if window.floating then
-    hl.dispatch(hl.dsp.window.bring_to_top())
-  end
-end
-
 -- ⌘Tab (forward) and ⌘⇧Tab (backward). The first press of a session goes to
 -- the app used before this one, so tapping flips between two apps; from the
 -- front app, going backward reaches the app used longest ago. Pressing again
@@ -168,7 +155,7 @@ function M.step(forward)
     local window = latest[app]
     if window and app ~= session.stop then
       session.stop = app -- before focusing: the focus change is ours
-      M.focus(window)
+      windows.focus(window)
       return
     end
   end

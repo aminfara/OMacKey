@@ -652,3 +652,21 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     variant, not only `main` (cheap enough).
   - Found while building: a bind with no description must render as `""`
     (Omarchy's lid switches) to match the live output.
+- **2026-10-06 — R1 done.**
+  - `lib/keys.lua` is the key table (`list`, `by_name`, `by_code`: name,
+    keycode, kind, glyph, label) and owns `normalize()`, which maps a keycode
+    in the table to its name (`code:10` ≡ `1`). The catch-all takes its keys
+    (letters, punctuation, Return, in table order) and labels from it.
+  - `lib/windows.lua`: `app_of`, `visible`, `focus`, `close`, `quit_app`,
+    `cycle_app_windows`; the switcher and `windows.lua` use it.
+    `switcher.focus` is gone.
+  - `mouse.lua` uses `o.cmd_present("wtype")`; `send.button` sends at once.
+  - `{ from = "SUPER + C" / "V" / "X", drop = true }` rows; the hook records
+    them in `relocate.dropped` (not in `applied`, so `relocated=114` and
+    `metadata.txt` stay as they were) and doesn't mark them claimed.
+    `editing.lua` has no `hl.unbind` left.
+  - Results: every rendered file byte-identical to `expected/` (reported files
+    included); self-test passes; `check.sh` three ✓; live help menu identical.
+    Scratch-HOME replay: the only difference is the three "Universal copy /
+    paste / cut" entries gone, as planned.
+  - Comments in touched files no longer name phases.

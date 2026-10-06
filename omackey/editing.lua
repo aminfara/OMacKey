@@ -1,13 +1,8 @@
--- Phase 3: core editing (PLAN.md §5).
+-- Core editing: clipboard, undo/redo, find, save (PLAN.md §5). Omarchy's
+-- universal copy, paste and cut are dropped in relocations.lua.
 
 local mac = require("hypr.omackey.lib.bind").mac
 local tap = require("hypr.omackey.lib.send").tap
-
--- Replaces Omarchy's universal copy, paste and cut. Exact strings from
--- /usr/share/omarchy/default/hypr/bindings/clipboard.lua.
-hl.unbind("SUPER + C")
-hl.unbind("SUPER + V")
-hl.unbind("SUPER + X")
 
 mac({
   id = "copy",
@@ -81,7 +76,7 @@ mac({
   desc = "Redo",
   repeating = true,
   actions = {
-    default = tap("CTRL + SHIFT", "Z"), -- LibreOffice uses Ctrl+Y (6f)
+    default = tap("CTRL + SHIFT", "Z"), -- LibreOffice uses Ctrl+Y
     terminal = "consume",
   },
 })
@@ -140,8 +135,8 @@ mac({
   },
 })
 
--- F3 works in Chromium, Firefox, VS Code and GTK. LibreOffice (6f) and
--- Nautilus (6d) override these.
+-- F3 works in Chromium, Firefox, VS Code and GTK. LibreOffice and Nautilus
+-- override these.
 mac({
   id = "find-next",
   category = "Editing",
