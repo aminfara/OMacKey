@@ -20,7 +20,6 @@ mac({
   desc = "Add cursor above",
   repeating = true,
   actions = {
-    vscode = tap("CTRL + SHIFT", "Up"),
     obsidian = tap("CTRL + ALT", "Up"), -- Mod+Alt+Up is the same chord on both platforms
   },
 })
@@ -33,7 +32,6 @@ mac({
   desc = "Add cursor below",
   repeating = true,
   actions = {
-    vscode = tap("CTRL + SHIFT", "Down"),
     obsidian = tap("CTRL + ALT", "Down"),
   },
 })
@@ -46,7 +44,6 @@ mac({
   keys = "SUPER + ALT + bracketleft",
   desc = "Fold code",
   actions = {
-    vscode = tap("CTRL + SHIFT", "bracketleft"),
   },
 })
 
@@ -57,7 +54,6 @@ mac({
   keys = "SUPER + ALT + bracketright",
   desc = "Unfold code",
   actions = {
-    vscode = tap("CTRL + SHIFT", "bracketright"),
   },
 })
 
@@ -69,7 +65,6 @@ mac({
   keys = "SUPER + ALT + F",
   desc = "Replace",
   actions = {
-    vscode = tap("CTRL", "H"),
     obsidian = tap("CTRL", "H"),
   },
 })
@@ -82,7 +77,6 @@ mac({
   desc = "Shrink selection",
   repeating = true,
   actions = {
-    vscode = tap("SHIFT + ALT", "Left"),
   },
 })
 
@@ -94,7 +88,6 @@ mac({
   desc = "Expand selection",
   repeating = true,
   actions = {
-    vscode = tap("SHIFT + ALT", "Right"),
   },
 })
 
@@ -114,7 +107,6 @@ mac({
   desc = "Copy line up",
   repeating = true,
   actions = {
-    vscode = tap("CTRL + SHIFT + ALT", "Up"),
   },
 })
 
@@ -126,7 +118,6 @@ mac({
   desc = "Copy line down",
   repeating = true,
   actions = {
-    vscode = tap("CTRL + SHIFT + ALT", "Down"),
   },
 })
 
@@ -138,7 +129,6 @@ mac({
   keys = "ALT + SHIFT + A",
   desc = "Toggle block comment",
   actions = {
-    vscode = tap("CTRL + SHIFT", "A"),
   },
 })
 
@@ -153,7 +143,6 @@ mac({
   desc = "Zoom out (VS Code)",
   actions = {
     default = tap("CTRL + SHIFT", "minus"),
-    vscode = tap("CTRL", "minus"),
   },
 })
 
@@ -167,7 +156,6 @@ mac({
   keys = "SUPER + ALT + W",
   desc = "Find: match whole word",
   actions = {
-    vscode = tap("ALT", "W"),
   },
 })
 
@@ -178,7 +166,6 @@ mac({
   keys = "SUPER + ALT + R",
   desc = "Find: use regular expression",
   actions = {
-    vscode = tap("ALT", "R"),
   },
 })
 
@@ -189,7 +176,6 @@ mac({
   keys = "SUPER + ALT + L",
   desc = "Find: in selection",
   actions = {
-    vscode = tap("ALT", "L"),
   },
 })
 
@@ -200,6 +186,5 @@ mac({
   keys = "SUPER + ALT + P",
   desc = "Replace: preserve case",
   actions = {
-    vscode = tap("ALT", "P"),
   },
 })

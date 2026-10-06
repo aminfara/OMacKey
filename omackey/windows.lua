@@ -183,7 +183,6 @@ mac({
   desc = "Actual size (app zoom)",
   actions = {
     default = tap("CTRL", "0"),
-    vscode = tap("CTRL", "kp_0"), -- VS Code's reset zoom is Ctrl+Numpad0, not Ctrl+0
   },
 })
 

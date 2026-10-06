@@ -13,7 +13,6 @@ mac({
   desc = "Copy",
   actions = {
     default = tap("CTRL", "C"),
-    vscode = tap("CTRL", "Insert"), -- because hyprland does not distinguisdh between vscode and its integrated terminal
   },
 })
 
@@ -25,7 +24,6 @@ mac({
   desc = "Paste",
   actions = {
     default = tap("CTRL", "V"),
-    vscode = tap("SHIFT", "Insert"), -- because hyprland does not distinguisdh between vscode and its integrated terminal
   },
 })
 
@@ -203,6 +201,5 @@ mac({
   desc = "Cancel (Escape)",
   actions = {
     default = tap("", "Escape"),
-    vscode = tap("CTRL", "period"), -- quick fix
   },
 })

@@ -101,7 +101,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "Delete"),
-    vscode = PASS, -- the integrated terminal needs the raw ⌃D (end of input)
   },
 })
 

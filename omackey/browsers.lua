@@ -22,7 +22,6 @@ mac({
   desc = "Developer tools",
   actions = {
     default = tap("CTRL + SHIFT", "I"),
-    vscode = CONSUME,
   },
 })
 
@@ -44,7 +43,6 @@ mac({
   keys = "SUPER + ALT + C",
   desc = "Inspect element",
   actions = {
-    vscode = tap("ALT", "C"), -- find widget: match case (see vscode.lua)
   },
 })
 
@@ -100,6 +98,5 @@ mac({
   keys = "SUPER + ALT + B",
   desc = "Bookmark manager",
   actions = {
-    vscode = tap("CTRL + ALT", "B"), -- toggle the secondary side bar
   },
 })
