@@ -161,8 +161,11 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   - Every `hl.bind` flag passes through.
   - Strings become `exec_cmd`; `{ launch = … }` / `{ webapp = … }` tables
     become Omarchy launcher commands.
-  - Declare OMacKey keys with `mac{}` from `lib/bind.lua`. It handles the
-    description and the registry, and takes either:
+  - Declare OMacKey keys with `mac{}` from `lib/bind.lua`, in
+    `omackey/shortcuts.lua`, inside the `group("<Section>", { … })` whose Mac
+    meaning fits (the section is the key's category). One explicit block per
+    key, no loops. `mac{}` handles the description and the registry, and
+    takes either:
     - `actions = { default = …, terminal = …, <profile> = … }` for keys whose
       behaviour depends on the app (resolved at press time);
     - `action = …` for one action in every app (workspaces, windows, mouse).

@@ -40,6 +40,7 @@
 local keys = require("hypr.omackey.lib.keys")
 local profiles = require("hypr.omackey.lib.profiles")
 local relocate = require("hypr.omackey.lib.relocate")
+local tap = require("hypr.omackey.lib.send").tap
 
 local PASS, CONSUME = "pass", "consume"
 
@@ -56,19 +57,72 @@ local catchall_candidates = {}
 
 -- Declare ---------------------------------------------------------------
 
+-- The file a spec was declared in (for the docs), from the caller `level`
+-- frames up.
+local function source_file(level)
+  local info = debug and debug.getinfo and debug.getinfo(level + 1, "S")
+  return info and info.source and info.source:match("([^/@]+)$") or nil
+end
+
 function M.mac(spec)
   if spec.action == nil and spec.actions == nil then
     spec.actions = {}
   end
+  spec.file = spec.file or source_file(2)
   table.insert(M.registry, spec)
   return spec
 end
 
--- The catch-all: specs for chords that apply only where nothing else (no
--- other spec, no Omarchy bind) claims the chord. Expanded by build().
-function M.catchall(specs)
+-- group("Text", { mac({…}), mac({…}) }): gives the specs of one section their
+-- category.
+function M.group(category, specs)
   for _, spec in ipairs(specs) do
-    table.insert(catchall_candidates, spec)
+    spec.category = category
+  end
+end
+
+-- The catch-all: for every covered key and modifier variant, a spec that
+-- sends Ctrl (or Ctrl+Shift) + the same key, or consumes the chord. build()
+-- keeps only the chords nothing else claims (no other spec, no Omarchy bind).
+--
+--   catchall({
+--     category = "Catch-all",
+--     covers = { "letter", "punctuation", "return" },  -- key kinds or names (lib/keys.lua)
+--     variants = { { keys = "SUPER", sends = "CTRL", glyph = "⌘", text = "Ctrl+" }, … },
+--     consumed = { "SUPER + H", … },                     -- nothing is sent
+--   })
+function M.catchall(decl)
+  local file = source_file(2)
+  local covers, consumed = {}, {}
+  for _, item in ipairs(decl.covers) do
+    covers[item] = true
+  end
+  for _, chord in ipairs(decl.consumed or {}) do
+    consumed[keys.normalize(chord)] = true
+  end
+
+  for _, variant in ipairs(decl.variants) do
+    for _, key in ipairs(keys.list) do
+      if covers[key.kind] or covers[key.name] then
+        local chord = variant.keys .. " + " .. key.name
+        local name = variant.glyph .. key.glyph
+
+        local desc, default = name .. " sent as " .. variant.text .. key.label, tap(variant.sends, key.name)
+        if consumed[keys.normalize(chord)] then
+          desc, default = name .. " not mapped", CONSUME
+        end
+
+        table.insert(catchall_candidates, {
+          id = "catchall-" .. variant.glyph .. key.name,
+          category = decl.category,
+          file = file,
+          mac = name,
+          keys = chord,
+          desc = desc,
+          actions = { default = default },
+        })
+      end
+    end
   end
 end
 

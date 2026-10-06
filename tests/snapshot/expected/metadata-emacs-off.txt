@@ -1,164 +1,164 @@
-key add-cursor-above  SUPER+ALT+up  category="VS Code"  mac="⌘⌥↑"  profiles={obsidian,vscode}
-key add-cursor-below  SUPER+ALT+down  category="VS Code"  mac="⌘⌥↓"  profiles={obsidian,vscode}
-key back  SUPER+bracketleft  category="Windows"  mac="⌘["  profiles={browser,default,nautilus,terminal}
-key block-comment  ALT+SHIFT+a  category="VS Code"  mac="⌥⇧A"  profiles={vscode}
-key bold  SUPER+b  category="Editing"  mac="⌘B"  profiles={default,terminal}
-key bookmark-manager  SUPER+ALT+b  category="Browser"  mac="⌘⌥B"  profiles={browser,vscode}
-key cancel  SUPER+period  category="Editing"  mac="⌘."  profiles={default,terminal,vscode}
-key capture-menu  SUPER+SHIFT+5  category="System"  mac="⌘⇧5"  action
-key catchall-⌘apostrophe  SUPER+apostrophe  category="Catch-all"  mac="⌘'"  profiles={default,terminal}
-key catchall-⌘backslash  SUPER+backslash  category="Catch-all"  mac="⌘\\"  profiles={default,terminal}
-key catchall-⌘e  SUPER+e  category="Catch-all"  mac="⌘E"  profiles={default,terminal}
-key catchall-⌘h  SUPER+h  category="Catch-all"  mac="⌘H"  profiles={default,terminal}
-key catchall-⌘j  SUPER+j  category="Catch-all"  mac="⌘J"  profiles={default,terminal}
-key catchall-⌘m  SUPER+m  category="Catch-all"  mac="⌘M"  profiles={default,terminal}
-key catchall-⌘return  SUPER+return  category="Catch-all"  mac="⌘⏎"  profiles={default,terminal}
-key catchall-⌘semicolon  SUPER+semicolon  category="Catch-all"  mac="⌘;"  profiles={default,terminal}
-key catchall-⌘⇧a  SUPER+SHIFT+a  category="Catch-all"  mac="⌘⇧A"  profiles={default,terminal}
-key catchall-⌘⇧apostrophe  SUPER+SHIFT+apostrophe  category="Catch-all"  mac="⌘⇧'"  profiles={default,terminal}
-key catchall-⌘⇧b  SUPER+SHIFT+b  category="Catch-all"  mac="⌘⇧B"  profiles={default,terminal}
-key catchall-⌘⇧backslash  SUPER+SHIFT+backslash  category="Catch-all"  mac="⌘⇧\\"  profiles={default,terminal}
-key catchall-⌘⇧c  SUPER+SHIFT+c  category="Catch-all"  mac="⌘⇧C"  profiles={default,terminal}
-key catchall-⌘⇧e  SUPER+SHIFT+e  category="Catch-all"  mac="⌘⇧E"  profiles={default,terminal}
-key catchall-⌘⇧f  SUPER+SHIFT+f  category="Catch-all"  mac="⌘⇧F"  profiles={default,terminal}
-key catchall-⌘⇧h  SUPER+SHIFT+h  category="Catch-all"  mac="⌘⇧H"  profiles={default,terminal}
-key catchall-⌘⇧i  SUPER+SHIFT+i  category="Catch-all"  mac="⌘⇧I"  profiles={default,terminal}
-key catchall-⌘⇧k  SUPER+SHIFT+k  category="Catch-all"  mac="⌘⇧K"  profiles={default,terminal}
-key catchall-⌘⇧l  SUPER+SHIFT+l  category="Catch-all"  mac="⌘⇧L"  profiles={default,terminal}
-key catchall-⌘⇧m  SUPER+SHIFT+m  category="Catch-all"  mac="⌘⇧M"  profiles={default,terminal}
-key catchall-⌘⇧o  SUPER+SHIFT+o  category="Catch-all"  mac="⌘⇧O"  profiles={default,terminal}
-key catchall-⌘⇧p  SUPER+SHIFT+p  category="Catch-all"  mac="⌘⇧P"  profiles={default,terminal}
-key catchall-⌘⇧q  SUPER+SHIFT+q  category="Catch-all"  mac="⌘⇧Q"  profiles={default,terminal}
-key catchall-⌘⇧r  SUPER+SHIFT+r  category="Catch-all"  mac="⌘⇧R"  profiles={default,terminal}
-key catchall-⌘⇧return  SUPER+SHIFT+return  category="Catch-all"  mac="⌘⇧⏎"  profiles={default,terminal}
-key catchall-⌘⇧semicolon  SUPER+SHIFT+semicolon  category="Catch-all"  mac="⌘⇧;"  profiles={default,terminal}
-key catchall-⌘⇧x  SUPER+SHIFT+x  category="Catch-all"  mac="⌘⇧X"  profiles={default,terminal}
-key catchall-⌘⇧y  SUPER+SHIFT+y  category="Catch-all"  mac="⌘⇧Y"  profiles={default,terminal}
-key clear-browsing-data  SUPER+SHIFT+backspace  category="Browser"  mac="⌘⇧⌫"  profiles={browser}
-key clear-screen  SUPER+k  category="Terminal"  mac="⌘K"  profiles={default,terminal}
-key click  SUPER+mouse:272  category="Mouse"  mac="⌘-click"  action
-key click-release  SUPER+mouse:272 (release)  category="Mouse"  mac="⌘-click release"  action
-key click-release-after-cmd  mouse:272 (release)  category="Mouse"  mac="click release after ⌘"  action
-key click-release-after-cmd-shift  SHIFT+mouse:272 (release)  category="Mouse"  mac="click release after ⌘ with ⇧"  action
-key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac="⌘⇧-click release"  action
-key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⌘⇧-click"  action
-key close-tab  SUPER+w  category="Windows"  mac="⌘W"  profiles={default,ghostty,kitty,no-tabs,terminal}
-key close-window  SUPER+SHIFT+w  category="Windows"  mac="⌘⇧W"  action
-key copy  SUPER+c  category="Editing"  mac="⌘C"  profiles={default,terminal,vscode}
-key copy-line-down  ALT+SHIFT+down  category="VS Code"  mac="⌥⇧↓"  profiles={vscode}
-key copy-line-up  ALT+SHIFT+up  category="VS Code"  mac="⌥⇧↑"  profiles={vscode}
-key cut  SUPER+x  category="Editing"  mac="⌘X"  profiles={default,terminal}
-key delete-line-end  SUPER+delete  category="Editing"  mac="⌘⌦"  profiles={default,terminal}
-key delete-line-start  SUPER+backspace  category="Editing"  mac="⌘⌫"  profiles={default,nautilus,terminal}
-key delete-word-left  ALT+backspace  category="Editing"  mac="⌥⌫"  profiles={default,terminal}
-key delete-word-right  ALT+delete  category="Editing"  mac="⌥⌦"  profiles={default,terminal}
-key devtools  SUPER+ALT+i  category="Browser"  mac="⌘⌥I"  profiles={default,terminal,vscode}
-key devtools-console  SUPER+ALT+j  category="Browser"  mac="⌘⌥J"  profiles={browser}
-key devtools-inspect  SUPER+ALT+c  category="Browser"  mac="⌘⌥C"  profiles={browser,vscode}
-key dictation-start  xf86voicecommand  category="System"  mac="F5"  action
-key dictation-stop  xf86voicecommand (release)  category="System"  mac="F5 (release)"  action
-key dictation-toggle  SHIFT+xf86voicecommand  category="System"  mac="⇧F5"  action
-key do-not-disturb  xf86donotdisturb  category="System"  mac="F6"  action
-key document-end  SUPER+down  category="Cursor"  mac="⌘↓"  profiles={default,ghostty,kitty,nautilus,terminal}
-key document-start  SUPER+up  category="Cursor"  mac="⌘↑"  profiles={default,ghostty,kitty,nautilus,terminal}
-key downloads  SUPER+SHIFT+j  category="Browser"  mac="⌘⇧J"  profiles={browser,default,firefox,terminal}
-key emacs-char-left  CTRL+b  category="Emacs"  mac="⌃B"  profiles={default,terminal}  NOT BOUND
-key emacs-char-right  CTRL+f  category="Emacs"  mac="⌃F"  profiles={default,terminal}  NOT BOUND
-key emacs-delete-left  CTRL+h  category="Emacs"  mac="⌃H"  profiles={default,terminal}  NOT BOUND
-key emacs-delete-right  CTRL+d  category="Emacs"  mac="⌃D"  profiles={default,terminal,vscode}  NOT BOUND
-key emacs-kill-line  CTRL+k  category="Emacs"  mac="⌃K"  profiles={default,terminal}  NOT BOUND
-key emacs-line-down  CTRL+n  category="Emacs"  mac="⌃N"  profiles={default,terminal}  NOT BOUND
-key emacs-line-end  CTRL+e  category="Emacs"  mac="⌃E"  profiles={default,terminal}  NOT BOUND
-key emacs-line-start  CTRL+a  category="Emacs"  mac="⌃A"  profiles={default,terminal}  NOT BOUND
-key emacs-line-up  CTRL+p  category="Emacs"  mac="⌃P"  profiles={default,terminal}  NOT BOUND
-key emoji-picker  SUPER+CTRL+space  category="System"  mac="⌃⌘Space"  action
-key expand-selection  SUPER+CTRL+SHIFT+right  category="VS Code"  mac="⌃⇧⌘→"  profiles={vscode}
-key find  SUPER+f  category="Editing"  mac="⌘F"  profiles={default,foot,ghostty,kitty,terminal}
-key find-in-selection  SUPER+ALT+l  category="VS Code"  mac="⌘⌥L"  profiles={vscode}
-key find-next  SUPER+g  category="Editing"  mac="⌘G"  profiles={default,libreoffice,terminal}
-key find-preserve-case  SUPER+ALT+p  category="VS Code"  mac="⌘⌥P"  profiles={vscode}
-key find-previous  SUPER+SHIFT+g  category="Editing"  mac="⌘⇧G"  profiles={default,libreoffice,nautilus,terminal}
-key find-regex  SUPER+ALT+r  category="VS Code"  mac="⌘⌥R"  profiles={vscode}
-key find-whole-word  SUPER+ALT+w  category="VS Code"  mac="⌘⌥W"  profiles={vscode}
-key fold  SUPER+ALT+bracketleft  category="VS Code"  mac="⌘⌥["  profiles={vscode}
-key force-quit  SUPER+ALT+escape  category="System"  mac="⌘⌥Esc"  action
-key forward  SUPER+bracketright  category="Windows"  mac="⌘]"  profiles={browser,default,nautilus,terminal}
-key history  SUPER+y  category="Browser"  mac="⌘Y"  profiles={browser,default,terminal}
-key italic  SUPER+i  category="Editing"  mac="⌘I"  profiles={default,terminal}
-key line-end  SUPER+right  category="Cursor"  mac="⌘→"  profiles={default}
-key line-start  SUPER+left  category="Cursor"  mac="⌘←"  profiles={default}
-key location  SUPER+l  category="Windows"  mac="⌘L"  profiles={default,terminal}
-key lock-screen  SUPER+CTRL+q  category="System"  mac="⌃⌘Q"  action
-key new-tab  SUPER+t  category="Windows"  mac="⌘T"  profiles={default,ghostty,kitty,terminal}
-key new-window  SUPER+n  category="Windows"  mac="⌘N"  profiles={default,terminal}
-key new-window-private  SUPER+SHIFT+n  category="Windows"  mac="⌘⇧N"  profiles={default,firefox,terminal}
-key next-app-window  SUPER+grave  category="Windows"  mac="⌘`"  action
-key next-tab  SUPER+SHIFT+bracketright  category="Windows"  mac="⌘⇧]"  profiles={default,ghostty,kitty,terminal}
-key next-tab-arrow  SUPER+ALT+right  category="Windows"  mac="⌘⌥→"  profiles={default,ghostty,kitty,obsidian,terminal}
-key open  SUPER+o  category="Windows"  mac="⌘O"  profiles={default,terminal}
-key paste  SUPER+v  category="Editing"  mac="⌘V"  profiles={default,terminal,vscode}
-key paste-plain  SUPER+SHIFT+v  category="Editing"  mac="⌘⇧V"  profiles={default,libreoffice,terminal}
-key paste-special  SUPER+ALT+v  category="LibreOffice"  mac="⌘⌥V"  profiles={libreoffice}
-key preferences  SUPER+comma  category="Windows"  mac="⌘,"  profiles={default,firefox,ghostty,kitty,libreoffice,terminal}
-key previous-app-window  SUPER+SHIFT+grave  category="Windows"  mac="⌘⇧`"  action
-key previous-tab  SUPER+SHIFT+bracketleft  category="Windows"  mac="⌘⇧["  profiles={default,ghostty,kitty,terminal}
-key previous-tab-arrow  SUPER+ALT+left  category="Windows"  mac="⌘⌥←"  profiles={default,ghostty,kitty,obsidian,terminal}
-key print  SUPER+p  category="Windows"  mac="⌘P"  profiles={default,terminal}
-key quit-app  SUPER+q  category="Windows"  mac="⌘Q"  action
-key redo  SUPER+SHIFT+z  category="Editing"  mac="⌘⇧Z"  profiles={default,terminal}
-key redo-selection  SUPER+SHIFT+u  category="Obsidian"  mac="⌘⇧U"  profiles={default,obsidian,terminal}
-key reload  SUPER+r  category="Windows"  mac="⌘R"  profiles={default,terminal}
-key reopen-tab  SUPER+SHIFT+t  category="Windows"  mac="⌘⇧T"  profiles={default,terminal}
-key replace  SUPER+ALT+f  category="VS Code"  mac="⌘⌥F"  profiles={obsidian,vscode}
-key save  SUPER+s  category="Editing"  mac="⌘S"  profiles={default,terminal}
-key save-as  SUPER+SHIFT+s  category="Editing"  mac="⌘⇧S"  profiles={default,terminal}
-key screenshot-region-clipboard  SUPER+CTRL+SHIFT+4  category="System"  mac="⌃⌘⇧4"  action
-key screenshot-region-file  SUPER+SHIFT+4  category="System"  mac="⌘⇧4"  action
-key screenshot-screen-clipboard  SUPER+CTRL+SHIFT+3  category="System"  mac="⌃⌘⇧3"  action
-key screenshot-screen-file  SUPER+SHIFT+3  category="System"  mac="⌘⇧3"  action
-key scroll-down  SUPER+mouse_down  category="Mouse"  mac="⌘-scroll down"  action
-key scroll-up  SUPER+mouse_up  category="Mouse"  mac="⌘-scroll up"  action
-key select-all  SUPER+a  category="Editing"  mac="⌘A"  profiles={default,ghostty,terminal}
-key select-document-end  SUPER+SHIFT+down  category="Cursor"  mac="⌘⇧↓"  profiles={default,terminal}
-key select-document-start  SUPER+SHIFT+up  category="Cursor"  mac="⌘⇧↑"  profiles={default,terminal}
-key select-line-end  SUPER+SHIFT+right  category="Cursor"  mac="⌘⇧→"  profiles={default,terminal}
-key select-line-start  SUPER+SHIFT+left  category="Cursor"  mac="⌘⇧←"  profiles={default,terminal}
-key select-word-left  ALT+SHIFT+left  category="Cursor"  mac="⌥⇧←"  profiles={default,terminal}
-key select-word-right  ALT+SHIFT+right  category="Cursor"  mac="⌥⇧→"  profiles={default,terminal}
-key show-hidden-files  SUPER+SHIFT+period  category="Files"  mac="⌘⇧."  profiles={default,nautilus,terminal}
-key shrink-selection  SUPER+CTRL+SHIFT+left  category="VS Code"  mac="⌃⇧⌘←"  profiles={vscode}
-key split-down  SUPER+SHIFT+d  category="Terminal"  mac="⌘⇧D"  profiles={default,ghostty,terminal}
-key split-right  SUPER+d  category="Terminal"  mac="⌘D"  profiles={default,ghostty,terminal}
-key switch-app  SUPER+tab  category="Windows"  mac="⌘Tab"  action
-key switch-app-back  SUPER+SHIFT+tab  category="Windows"  mac="⌘⇧Tab"  action
-key tab-1  SUPER+1  category="Windows"  mac="⌘1"  profiles={default,ghostty,nautilus,terminal}
-key tab-2  SUPER+2  category="Windows"  mac="⌘2"  profiles={default,ghostty,nautilus,terminal}
-key tab-3  SUPER+3  category="Windows"  mac="⌘3"  profiles={default,ghostty,nautilus,terminal}
-key tab-4  SUPER+4  category="Windows"  mac="⌘4"  profiles={default,ghostty,nautilus,terminal}
-key tab-5  SUPER+5  category="Windows"  mac="⌘5"  profiles={default,ghostty,nautilus,terminal}
-key tab-6  SUPER+6  category="Windows"  mac="⌘6"  profiles={default,ghostty,nautilus,terminal}
-key tab-7  SUPER+7  category="Windows"  mac="⌘7"  profiles={default,ghostty,nautilus,terminal}
-key tab-8  SUPER+8  category="Windows"  mac="⌘8"  profiles={default,ghostty,nautilus,terminal}
-key tab-9  SUPER+9  category="Windows"  mac="⌘9"  profiles={default,ghostty,nautilus,terminal}
-key toggle-bar  SUPER+ALT+d  category="System"  mac="⌥⌘D"  action
-key toggle-comment  SUPER+slash  category="Editing"  mac="⌘/"  profiles={default,terminal}
-key underline  SUPER+u  category="Editing"  mac="⌘U"  profiles={default,terminal}
-key undo  SUPER+z  category="Editing"  mac="⌘Z"  profiles={default,terminal}
-key unfold  SUPER+ALT+bracketright  category="VS Code"  mac="⌘⌥]"  profiles={vscode}
-key view-source  SUPER+ALT+u  category="Browser"  mac="⌘⌥U"  profiles={browser}
-key window-to-next-workspace-down  CTRL+ALT+SHIFT+down  category="Spaces"  mac="⌃⌥⇧↓"  action
-key window-to-next-workspace-right  CTRL+ALT+SHIFT+right  category="Spaces"  mac="⌃⌥⇧→"  action
-key window-to-previous-workspace-left  CTRL+ALT+SHIFT+left  category="Spaces"  mac="⌃⌥⇧←"  action
-key window-to-previous-workspace-up  CTRL+ALT+SHIFT+up  category="Spaces"  mac="⌃⌥⇧↑"  action
-key word-left  ALT+left  category="Cursor"  mac="⌥←"  profiles={default}
-key word-right  ALT+right  category="Cursor"  mac="⌥→"  profiles={default}
-key workspace-next-down  CTRL+ALT+down  category="Spaces"  mac="⌃⌥↓"  action
-key workspace-previous-up  CTRL+ALT+up  category="Spaces"  mac="⌃⌥↑"  action
-key zoom-in  SUPER+equal  category="Windows"  mac="⌘="  profiles={default,kitty}
-key zoom-in-plus  SUPER+SHIFT+equal  category="Windows"  mac="⌘+"  profiles={default,kitty}
-key zoom-out  SUPER+minus  category="Windows"  mac="⌘-"  profiles={default,kitty}
-key zoom-out-shifted  SUPER+SHIFT+minus  category="VS Code"  mac="⌘⇧-"  profiles={default,terminal,vscode}
-key zoom-reset  SUPER+0  category="Windows"  mac="⌘0"  profiles={default,kitty,vscode}
+key add-cursor-above  SUPER+ALT+up  category="Code editing"  mac="⌘⌥↑"  profiles={obsidian,vscode}  file=shortcuts.lua
+key add-cursor-below  SUPER+ALT+down  category="Code editing"  mac="⌘⌥↓"  profiles={obsidian,vscode}  file=shortcuts.lua
+key back  SUPER+bracketleft  category="Navigation"  mac="⌘["  profiles={browser,default,nautilus,terminal}  file=shortcuts.lua
+key block-comment  ALT+SHIFT+a  category="Code editing"  mac="⌥⇧A"  profiles={vscode}  file=shortcuts.lua
+key bold  SUPER+b  category="Editing"  mac="⌘B"  profiles={default,terminal}  file=shortcuts.lua
+key bookmark-manager  SUPER+ALT+b  category="Navigation"  mac="⌘⌥B"  profiles={browser,vscode}  file=shortcuts.lua
+key cancel  SUPER+period  category="Editing"  mac="⌘."  profiles={default,terminal,vscode}  file=shortcuts.lua
+key capture-menu  SUPER+SHIFT+5  category="System"  mac="⌘⇧5"  action  file=shortcuts.lua
+key catchall-⌘apostrophe  SUPER+apostrophe  category="Catch-all"  mac="⌘'"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘backslash  SUPER+backslash  category="Catch-all"  mac="⌘\\"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘e  SUPER+e  category="Catch-all"  mac="⌘E"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘h  SUPER+h  category="Catch-all"  mac="⌘H"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘j  SUPER+j  category="Catch-all"  mac="⌘J"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘m  SUPER+m  category="Catch-all"  mac="⌘M"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘return  SUPER+return  category="Catch-all"  mac="⌘⏎"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘semicolon  SUPER+semicolon  category="Catch-all"  mac="⌘;"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧a  SUPER+SHIFT+a  category="Catch-all"  mac="⌘⇧A"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧apostrophe  SUPER+SHIFT+apostrophe  category="Catch-all"  mac="⌘⇧'"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧b  SUPER+SHIFT+b  category="Catch-all"  mac="⌘⇧B"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧backslash  SUPER+SHIFT+backslash  category="Catch-all"  mac="⌘⇧\\"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧c  SUPER+SHIFT+c  category="Catch-all"  mac="⌘⇧C"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧e  SUPER+SHIFT+e  category="Catch-all"  mac="⌘⇧E"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧f  SUPER+SHIFT+f  category="Catch-all"  mac="⌘⇧F"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧h  SUPER+SHIFT+h  category="Catch-all"  mac="⌘⇧H"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧i  SUPER+SHIFT+i  category="Catch-all"  mac="⌘⇧I"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧k  SUPER+SHIFT+k  category="Catch-all"  mac="⌘⇧K"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧l  SUPER+SHIFT+l  category="Catch-all"  mac="⌘⇧L"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧m  SUPER+SHIFT+m  category="Catch-all"  mac="⌘⇧M"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧o  SUPER+SHIFT+o  category="Catch-all"  mac="⌘⇧O"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧p  SUPER+SHIFT+p  category="Catch-all"  mac="⌘⇧P"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧q  SUPER+SHIFT+q  category="Catch-all"  mac="⌘⇧Q"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧r  SUPER+SHIFT+r  category="Catch-all"  mac="⌘⇧R"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧return  SUPER+SHIFT+return  category="Catch-all"  mac="⌘⇧⏎"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧semicolon  SUPER+SHIFT+semicolon  category="Catch-all"  mac="⌘⇧;"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧x  SUPER+SHIFT+x  category="Catch-all"  mac="⌘⇧X"  profiles={default,terminal}  file=shortcuts.lua
+key catchall-⌘⇧y  SUPER+SHIFT+y  category="Catch-all"  mac="⌘⇧Y"  profiles={default,terminal}  file=shortcuts.lua
+key clear-browsing-data  SUPER+SHIFT+backspace  category="Navigation"  mac="⌘⇧⌫"  profiles={browser}  file=shortcuts.lua
+key clear-screen  SUPER+k  category="Terminal"  mac="⌘K"  profiles={default,terminal}  file=shortcuts.lua
+key click  SUPER+mouse:272  category="Mouse"  mac="⌘-click"  action  file=shortcuts.lua
+key click-release  SUPER+mouse:272 (release)  category="Mouse"  mac="⌘-click release"  action  file=shortcuts.lua
+key click-release-after-cmd  mouse:272 (release)  category="Mouse"  mac="click release after ⌘"  action  file=shortcuts.lua
+key click-release-after-cmd-shift  SHIFT+mouse:272 (release)  category="Mouse"  mac="click release after ⌘ with ⇧"  action  file=shortcuts.lua
+key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac="⌘⇧-click release"  action  file=shortcuts.lua
+key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⌘⇧-click"  action  file=shortcuts.lua
+key close-tab  SUPER+w  category="Tabs"  mac="⌘W"  profiles={default,ghostty,kitty,no-tabs,terminal}  file=shortcuts.lua
+key close-window  SUPER+SHIFT+w  category="Windows and apps"  mac="⌘⇧W"  action  file=shortcuts.lua
+key copy  SUPER+c  category="Editing"  mac="⌘C"  profiles={default,terminal,vscode}  file=shortcuts.lua
+key copy-line-down  ALT+SHIFT+down  category="Code editing"  mac="⌥⇧↓"  profiles={vscode}  file=shortcuts.lua
+key copy-line-up  ALT+SHIFT+up  category="Code editing"  mac="⌥⇧↑"  profiles={vscode}  file=shortcuts.lua
+key cut  SUPER+x  category="Editing"  mac="⌘X"  profiles={default,terminal}  file=shortcuts.lua
+key delete-line-end  SUPER+delete  category="Text"  mac="⌘⌦"  profiles={default,terminal}  file=shortcuts.lua
+key delete-line-start  SUPER+backspace  category="Text"  mac="⌘⌫"  profiles={default,nautilus,terminal}  file=shortcuts.lua
+key delete-word-left  ALT+backspace  category="Text"  mac="⌥⌫"  profiles={default,terminal}  file=shortcuts.lua
+key delete-word-right  ALT+delete  category="Text"  mac="⌥⌦"  profiles={default,terminal}  file=shortcuts.lua
+key devtools  SUPER+ALT+i  category="Developer tools"  mac="⌘⌥I"  profiles={default,terminal,vscode}  file=shortcuts.lua
+key devtools-console  SUPER+ALT+j  category="Developer tools"  mac="⌘⌥J"  profiles={browser}  file=shortcuts.lua
+key devtools-inspect  SUPER+ALT+c  category="Developer tools"  mac="⌘⌥C"  profiles={browser,vscode}  file=shortcuts.lua
+key dictation-start  xf86voicecommand  category="System"  mac="F5"  action  file=shortcuts.lua
+key dictation-stop  xf86voicecommand (release)  category="System"  mac="F5 (release)"  action  file=shortcuts.lua
+key dictation-toggle  SHIFT+xf86voicecommand  category="System"  mac="⇧F5"  action  file=shortcuts.lua
+key do-not-disturb  xf86donotdisturb  category="System"  mac="F6"  action  file=shortcuts.lua
+key document-end  SUPER+down  category="Text"  mac="⌘↓"  profiles={default,ghostty,kitty,nautilus,terminal}  file=shortcuts.lua
+key document-start  SUPER+up  category="Text"  mac="⌘↑"  profiles={default,ghostty,kitty,nautilus,terminal}  file=shortcuts.lua
+key downloads  SUPER+SHIFT+j  category="Navigation"  mac="⌘⇧J"  profiles={browser,default,firefox,terminal}  file=shortcuts.lua
+key emacs-char-left  CTRL+b  category="Emacs keys"  mac="⌃B"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emacs-char-right  CTRL+f  category="Emacs keys"  mac="⌃F"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emacs-delete-left  CTRL+h  category="Emacs keys"  mac="⌃H"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emacs-delete-right  CTRL+d  category="Emacs keys"  mac="⌃D"  profiles={default,terminal,vscode}  NOT BOUND  file=shortcuts.lua
+key emacs-kill-line  CTRL+k  category="Emacs keys"  mac="⌃K"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emacs-line-down  CTRL+n  category="Emacs keys"  mac="⌃N"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emacs-line-end  CTRL+e  category="Emacs keys"  mac="⌃E"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emacs-line-start  CTRL+a  category="Emacs keys"  mac="⌃A"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emacs-line-up  CTRL+p  category="Emacs keys"  mac="⌃P"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua
+key emoji-picker  SUPER+CTRL+space  category="System"  mac="⌃⌘Space"  action  file=shortcuts.lua
+key expand-selection  SUPER+CTRL+SHIFT+right  category="Code editing"  mac="⌃⇧⌘→"  profiles={vscode}  file=shortcuts.lua
+key find  SUPER+f  category="Find"  mac="⌘F"  profiles={default,foot,ghostty,kitty,terminal}  file=shortcuts.lua
+key find-in-selection  SUPER+ALT+l  category="Find"  mac="⌘⌥L"  profiles={vscode}  file=shortcuts.lua
+key find-next  SUPER+g  category="Find"  mac="⌘G"  profiles={default,libreoffice,terminal}  file=shortcuts.lua
+key find-preserve-case  SUPER+ALT+p  category="Find"  mac="⌘⌥P"  profiles={vscode}  file=shortcuts.lua
+key find-previous  SUPER+SHIFT+g  category="Find"  mac="⌘⇧G"  profiles={default,libreoffice,nautilus,terminal}  file=shortcuts.lua
+key find-regex  SUPER+ALT+r  category="Find"  mac="⌘⌥R"  profiles={vscode}  file=shortcuts.lua
+key find-whole-word  SUPER+ALT+w  category="Find"  mac="⌘⌥W"  profiles={vscode}  file=shortcuts.lua
+key fold  SUPER+ALT+bracketleft  category="Code editing"  mac="⌘⌥["  profiles={vscode}  file=shortcuts.lua
+key force-quit  SUPER+ALT+escape  category="System"  mac="⌘⌥Esc"  action  file=shortcuts.lua
+key forward  SUPER+bracketright  category="Navigation"  mac="⌘]"  profiles={browser,default,nautilus,terminal}  file=shortcuts.lua
+key history  SUPER+y  category="Navigation"  mac="⌘Y"  profiles={browser,default,terminal}  file=shortcuts.lua
+key italic  SUPER+i  category="Editing"  mac="⌘I"  profiles={default,terminal}  file=shortcuts.lua
+key line-end  SUPER+right  category="Text"  mac="⌘→"  profiles={default}  file=shortcuts.lua
+key line-start  SUPER+left  category="Text"  mac="⌘←"  profiles={default}  file=shortcuts.lua
+key location  SUPER+l  category="Navigation"  mac="⌘L"  profiles={default,terminal}  file=shortcuts.lua
+key lock-screen  SUPER+CTRL+q  category="System"  mac="⌃⌘Q"  action  file=shortcuts.lua
+key new-tab  SUPER+t  category="Tabs"  mac="⌘T"  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua
+key new-window  SUPER+n  category="Windows and apps"  mac="⌘N"  profiles={default,terminal}  file=shortcuts.lua
+key new-window-private  SUPER+SHIFT+n  category="Windows and apps"  mac="⌘⇧N"  profiles={default,firefox,terminal}  file=shortcuts.lua
+key next-app-window  SUPER+grave  category="Windows and apps"  mac="⌘`"  action  file=shortcuts.lua
+key next-tab  SUPER+SHIFT+bracketright  category="Tabs"  mac="⌘⇧]"  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua
+key next-tab-arrow  SUPER+ALT+right  category="Tabs"  mac="⌘⌥→"  profiles={default,ghostty,kitty,obsidian,terminal}  file=shortcuts.lua
+key open  SUPER+o  category="Navigation"  mac="⌘O"  profiles={default,terminal}  file=shortcuts.lua
+key paste  SUPER+v  category="Editing"  mac="⌘V"  profiles={default,terminal,vscode}  file=shortcuts.lua
+key paste-plain  SUPER+SHIFT+v  category="Editing"  mac="⌘⇧V"  profiles={default,libreoffice,terminal}  file=shortcuts.lua
+key paste-special  SUPER+ALT+v  category="Editing"  mac="⌘⌥V"  profiles={libreoffice}  file=shortcuts.lua
+key preferences  SUPER+comma  category="Navigation"  mac="⌘,"  profiles={default,firefox,ghostty,kitty,libreoffice,terminal}  file=shortcuts.lua
+key previous-app-window  SUPER+SHIFT+grave  category="Windows and apps"  mac="⌘⇧`"  action  file=shortcuts.lua
+key previous-tab  SUPER+SHIFT+bracketleft  category="Tabs"  mac="⌘⇧["  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua
+key previous-tab-arrow  SUPER+ALT+left  category="Tabs"  mac="⌘⌥←"  profiles={default,ghostty,kitty,obsidian,terminal}  file=shortcuts.lua
+key print  SUPER+p  category="Navigation"  mac="⌘P"  profiles={default,terminal}  file=shortcuts.lua
+key quit-app  SUPER+q  category="Windows and apps"  mac="⌘Q"  action  file=shortcuts.lua
+key redo  SUPER+SHIFT+z  category="Editing"  mac="⌘⇧Z"  profiles={default,terminal}  file=shortcuts.lua
+key redo-selection  SUPER+SHIFT+u  category="Editing"  mac="⌘⇧U"  profiles={default,obsidian,terminal}  file=shortcuts.lua
+key reload  SUPER+r  category="Navigation"  mac="⌘R"  profiles={default,terminal}  file=shortcuts.lua
+key reopen-tab  SUPER+SHIFT+t  category="Tabs"  mac="⌘⇧T"  profiles={default,terminal}  file=shortcuts.lua
+key replace  SUPER+ALT+f  category="Find"  mac="⌘⌥F"  profiles={obsidian,vscode}  file=shortcuts.lua
+key save  SUPER+s  category="Editing"  mac="⌘S"  profiles={default,terminal}  file=shortcuts.lua
+key save-as  SUPER+SHIFT+s  category="Editing"  mac="⌘⇧S"  profiles={default,terminal}  file=shortcuts.lua
+key screenshot-region-clipboard  SUPER+CTRL+SHIFT+4  category="System"  mac="⌃⌘⇧4"  action  file=shortcuts.lua
+key screenshot-region-file  SUPER+SHIFT+4  category="System"  mac="⌘⇧4"  action  file=shortcuts.lua
+key screenshot-screen-clipboard  SUPER+CTRL+SHIFT+3  category="System"  mac="⌃⌘⇧3"  action  file=shortcuts.lua
+key screenshot-screen-file  SUPER+SHIFT+3  category="System"  mac="⌘⇧3"  action  file=shortcuts.lua
+key scroll-down  SUPER+mouse_down  category="Mouse"  mac="⌘-scroll down"  action  file=shortcuts.lua
+key scroll-up  SUPER+mouse_up  category="Mouse"  mac="⌘-scroll up"  action  file=shortcuts.lua
+key select-all  SUPER+a  category="Editing"  mac="⌘A"  profiles={default,ghostty,terminal}  file=shortcuts.lua
+key select-document-end  SUPER+SHIFT+down  category="Text"  mac="⌘⇧↓"  profiles={default,terminal}  file=shortcuts.lua
+key select-document-start  SUPER+SHIFT+up  category="Text"  mac="⌘⇧↑"  profiles={default,terminal}  file=shortcuts.lua
+key select-line-end  SUPER+SHIFT+right  category="Text"  mac="⌘⇧→"  profiles={default,terminal}  file=shortcuts.lua
+key select-line-start  SUPER+SHIFT+left  category="Text"  mac="⌘⇧←"  profiles={default,terminal}  file=shortcuts.lua
+key select-word-left  ALT+SHIFT+left  category="Text"  mac="⌥⇧←"  profiles={default,terminal}  file=shortcuts.lua
+key select-word-right  ALT+SHIFT+right  category="Text"  mac="⌥⇧→"  profiles={default,terminal}  file=shortcuts.lua
+key show-hidden-files  SUPER+SHIFT+period  category="View"  mac="⌘⇧."  profiles={default,nautilus,terminal}  file=shortcuts.lua
+key shrink-selection  SUPER+CTRL+SHIFT+left  category="Code editing"  mac="⌃⇧⌘←"  profiles={vscode}  file=shortcuts.lua
+key split-down  SUPER+SHIFT+d  category="Terminal"  mac="⌘⇧D"  profiles={default,ghostty,terminal}  file=shortcuts.lua
+key split-right  SUPER+d  category="Terminal"  mac="⌘D"  profiles={default,ghostty,terminal}  file=shortcuts.lua
+key switch-app  SUPER+tab  category="Windows and apps"  mac="⌘Tab"  action  file=shortcuts.lua
+key switch-app-back  SUPER+SHIFT+tab  category="Windows and apps"  mac="⌘⇧Tab"  action  file=shortcuts.lua
+key tab-1  SUPER+1  category="Tabs"  mac="⌘1"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-2  SUPER+2  category="Tabs"  mac="⌘2"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-3  SUPER+3  category="Tabs"  mac="⌘3"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-4  SUPER+4  category="Tabs"  mac="⌘4"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-5  SUPER+5  category="Tabs"  mac="⌘5"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-6  SUPER+6  category="Tabs"  mac="⌘6"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-7  SUPER+7  category="Tabs"  mac="⌘7"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-8  SUPER+8  category="Tabs"  mac="⌘8"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key tab-9  SUPER+9  category="Tabs"  mac="⌘9"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua
+key toggle-bar  SUPER+ALT+d  category="System"  mac="⌥⌘D"  action  file=shortcuts.lua
+key toggle-comment  SUPER+slash  category="Code editing"  mac="⌘/"  profiles={default,terminal}  file=shortcuts.lua
+key underline  SUPER+u  category="Editing"  mac="⌘U"  profiles={default,terminal}  file=shortcuts.lua
+key undo  SUPER+z  category="Editing"  mac="⌘Z"  profiles={default,terminal}  file=shortcuts.lua
+key unfold  SUPER+ALT+bracketright  category="Code editing"  mac="⌘⌥]"  profiles={vscode}  file=shortcuts.lua
+key view-source  SUPER+ALT+u  category="Developer tools"  mac="⌘⌥U"  profiles={browser}  file=shortcuts.lua
+key window-to-next-workspace-down  CTRL+ALT+SHIFT+down  category="Spaces"  mac="⌃⌥⇧↓"  action  file=shortcuts.lua
+key window-to-next-workspace-right  CTRL+ALT+SHIFT+right  category="Spaces"  mac="⌃⌥⇧→"  action  file=shortcuts.lua
+key window-to-previous-workspace-left  CTRL+ALT+SHIFT+left  category="Spaces"  mac="⌃⌥⇧←"  action  file=shortcuts.lua
+key window-to-previous-workspace-up  CTRL+ALT+SHIFT+up  category="Spaces"  mac="⌃⌥⇧↑"  action  file=shortcuts.lua
+key word-left  ALT+left  category="Text"  mac="⌥←"  profiles={default}  file=shortcuts.lua
+key word-right  ALT+right  category="Text"  mac="⌥→"  profiles={default}  file=shortcuts.lua
+key workspace-next-down  CTRL+ALT+down  category="Spaces"  mac="⌃⌥↓"  action  file=shortcuts.lua
+key workspace-previous-up  CTRL+ALT+up  category="Spaces"  mac="⌃⌥↑"  action  file=shortcuts.lua
+key zoom-in  SUPER+equal  category="View"  mac="⌘="  profiles={default,kitty}  file=shortcuts.lua
+key zoom-in-plus  SUPER+SHIFT+equal  category="View"  mac="⌘+"  profiles={default,kitty}  file=shortcuts.lua
+key zoom-out  SUPER+minus  category="View"  mac="⌘-"  profiles={default,kitty}  file=shortcuts.lua
+key zoom-out-shifted  SUPER+SHIFT+minus  category="View"  mac="⌘⇧-"  profiles={default,terminal,vscode}  file=shortcuts.lua
+key zoom-reset  SUPER+0  category="View"  mac="⌘0"  profiles={default,kitty,vscode}  file=shortcuts.lua
 relocated SUPER+w → CTRL+ALT+w  "Close window"
 relocated SUPER+j → CTRL+ALT+j  "Toggle window split"
 relocated SUPER+p → CTRL+ALT+p  "Pseudo window"

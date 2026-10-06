@@ -776,3 +776,20 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     problem in `omackey.status()` plus one notification;
     `close_window_classes = { "omackey.keylog" }` → ⌘W closes the keylog
     window. `check.sh` three ✓; live help menu identical; replay same entries.
+- **2026-10-07 — R5 done** (snapshot update approved by the user).
+  - `omackey/shortcuts.lua` (≈1,480 lines) replaces `text`, `editing`,
+    `windows`, `spaces`, `system`, `mouse`, `emacs` and `catchall.lua`: 15
+    sections in the order of the R5 table, each `group("<Section>", { … })`,
+    which sets the category (no `category =` fields left). Assembled by a
+    throwaway script from the modules' blocks and the comments above them;
+    section intros written by hand. The ⌘1–⌘9 and ⌃⌥⇧-arrow loops were
+    unrolled into explicit blocks first (snapshot-identical).
+  - The catch-all is a declaration: `catchall{ covers, variants, consumed }`;
+    `lib/bind.lua` generates its specs (same ids, descriptions and order).
+  - `mac{}` records `spec.file`; `render.lua` prints it in `metadata-*.txt`.
+  - `switcher.start()` moved from the windows module to `init.lua` (after
+    the bind loop); the manifest's `MODULES` is `{ "shortcuts" }`.
+  - Snapshot: frozen files identical in all variants. `metadata-*.txt`: only
+    the categories change (15 new ones), plus the new `file=shortcuts.lua`
+    column; `order-*.txt`: same binds, new order. Self-test passes unchanged.
+    `check.sh` three ✓; live help menu identical; replay same entries.

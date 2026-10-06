@@ -256,7 +256,7 @@ for _, spec in ipairs(specs) do
   local actions = spec.action ~= nil and "action" or ("profiles={" .. table.concat(profiles, ",") .. "}")
   table.insert(lines, string.format("key %s  %s%s  category=%q  mac=%q  %s%s", tostring(spec.id),
     mock.chord(spec.keys), spec.release and " (release)" or "", tostring(spec.category), tostring(spec.mac),
-    actions, spec.bound == false and "  NOT BOUND" or ""))
+    actions, spec.bound == false and "  NOT BOUND" or "") .. (spec.file and ("  file=" .. spec.file) or ""))
 end
 local relocate = package.loaded["hypr.omackey.lib.relocate"]
 for _, row in ipairs(relocate and relocate.applied or {}) do
