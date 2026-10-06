@@ -4,17 +4,16 @@
 -- per-app entries by id. The section a spec sits in is its category.
 --
 -- Declaring binds nothing: lib/bind.lua validates the complete set and binds
--- it in one pass (init.lua). Helpers and state live in lib/.
+-- it in one pass (load.lua). Helpers and state live in lib/.
 
 local bind = require("hypr.omackey.lib.bind")
 local click = require("hypr.omackey.lib.click")
 local ctrl_hold = require("hypr.omackey.lib.ctrl_hold")
 local send = require("hypr.omackey.lib.send")
-local settings = require("hypr.omackey.settings")
 local switcher = require("hypr.omackey.lib.switcher")
 local windows = require("hypr.omackey.lib.windows")
 
-local mac, group, catchall = bind.mac, bind.group, bind.catchall
+local mac, group, catchall, does = bind.mac, bind.group, bind.catchall, bind.does
 local PASS, CONSUME = bind.PASS, bind.CONSUME
 local tap, seq = send.tap, send.seq
 
@@ -725,7 +724,7 @@ group("Windows and apps", {
     mac = "⌘⇧W",
     keys = "SUPER + SHIFT + W",
     desc = "Close window",
-    action = hl.dsp.window.close(),
+    action = does("Close the window", hl.dsp.window.close()),
   }),
 
   mac({
@@ -733,7 +732,7 @@ group("Windows and apps", {
     mac = "⌘Q",
     keys = "SUPER + Q",
     desc = "Quit app (close all its windows)",
-    action = windows.quit_app, -- terminals too, as Terminal.app does
+    action = does("Close every window of the app", windows.quit_app), -- terminals too, as Terminal.app does
   }),
 
   -- ⌘Tab flips between the last two apps and, with ⌘ held, steps further along
@@ -744,9 +743,9 @@ group("Windows and apps", {
     mac = "⌘Tab",
     keys = "SUPER + TAB",
     desc = "Switch app",
-    action = function()
+    action = does("Switch to the next app, most recently used first", function()
       switcher.step(true)
-    end,
+    end),
   }),
 
   mac({
@@ -754,9 +753,9 @@ group("Windows and apps", {
     mac = "⌘⇧Tab",
     keys = "SUPER + SHIFT + TAB",
     desc = "Switch app backwards",
-    action = function()
+    action = does("Switch to the previous app in the recency list", function()
       switcher.step(false)
-    end,
+    end),
   }),
 
   -- Fixed-order ring of the active app's windows, across workspaces. With one
@@ -766,9 +765,9 @@ group("Windows and apps", {
     mac = "⌘`",
     keys = "SUPER + grave",
     desc = "Next window of this app",
-    action = function()
+    action = does("Focus the next window of the app", function()
       windows.cycle_app_windows(1)
-    end,
+    end),
   }),
 
   mac({
@@ -776,9 +775,9 @@ group("Windows and apps", {
     mac = "⌘⇧`",
     keys = "SUPER + SHIFT + grave",
     desc = "Previous window of this app",
-    action = function()
+    action = does("Focus the previous window of the app", function()
       windows.cycle_app_windows(-1)
-    end,
+    end),
   }),
 })
 
@@ -1070,7 +1069,7 @@ group("Spaces", {
     mac = "⌃⌥↑",
     keys = "CTRL + ALT + UP",
     desc = "Previous workspace",
-    action = hl.dsp.focus({ workspace = "e-1" }),
+    action = does("Focus the previous workspace", hl.dsp.focus({ workspace = "e-1" })),
   }),
 
   mac({
@@ -1078,7 +1077,7 @@ group("Spaces", {
     mac = "⌃⌥↓",
     keys = "CTRL + ALT + DOWN",
     desc = "Next workspace",
-    action = hl.dsp.focus({ workspace = "e+1" }),
+    action = does("Focus the next workspace", hl.dsp.focus({ workspace = "e+1" })),
   }),
 
   mac({
@@ -1086,7 +1085,7 @@ group("Spaces", {
     mac = "⌃⌥⇧←",
     keys = "CTRL + ALT + SHIFT + LEFT",
     desc = "Move window to previous workspace",
-    action = hl.dsp.window.move({ workspace = "e-1" }),
+    action = does("Move the window to the previous workspace", hl.dsp.window.move({ workspace = "e-1" })),
   }),
 
   mac({
@@ -1094,7 +1093,7 @@ group("Spaces", {
     mac = "⌃⌥⇧↑",
     keys = "CTRL + ALT + SHIFT + UP",
     desc = "Move window to previous workspace",
-    action = hl.dsp.window.move({ workspace = "e-1" }),
+    action = does("Move the window to the previous workspace", hl.dsp.window.move({ workspace = "e-1" })),
   }),
 
   mac({
@@ -1102,7 +1101,7 @@ group("Spaces", {
     mac = "⌃⌥⇧→",
     keys = "CTRL + ALT + SHIFT + RIGHT",
     desc = "Move window to next workspace",
-    action = hl.dsp.window.move({ workspace = "e+1" }),
+    action = does("Move the window to the next workspace", hl.dsp.window.move({ workspace = "e+1" })),
   }),
 
   mac({
@@ -1110,7 +1109,7 @@ group("Spaces", {
     mac = "⌃⌥⇧↓",
     keys = "CTRL + ALT + SHIFT + DOWN",
     desc = "Move window to next workspace",
-    action = hl.dsp.window.move({ workspace = "e+1" }),
+    action = does("Move the window to the next workspace", hl.dsp.window.move({ workspace = "e+1" })),
   }),
 })
 
@@ -1123,7 +1122,7 @@ group("System", {
     mac = "⌃⌘Q",
     keys = "CTRL + SUPER + Q",
     desc = "Lock screen",
-    action = hl.dsp.exec_cmd("omarchy-system-lock"),
+    action = does("Lock the screen", hl.dsp.exec_cmd("omarchy-system-lock")),
   }),
 
   -- Screenshots: Omarchy's capture CLI. `save` writes a file, `copy` only fills
@@ -1133,7 +1132,7 @@ group("System", {
     mac = "⌘⇧3",
     keys = "SUPER + SHIFT + code:12",
     desc = "Screenshot of the screen to file",
-    action = hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen save"),
+    action = does("Save a screenshot of the screen to a file", hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen save")),
   }),
 
   mac({
@@ -1141,7 +1140,7 @@ group("System", {
     mac = "⌃⌘⇧3",
     keys = "SUPER + CTRL + SHIFT + code:12",
     desc = "Screenshot of the screen to clipboard",
-    action = hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen copy"),
+    action = does("Copy a screenshot of the screen to the clipboard", hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen copy")),
   }),
 
   -- Region capture uses Omarchy's picker: Return captures the window under the
@@ -1151,7 +1150,7 @@ group("System", {
     mac = "⌘⇧4",
     keys = "SUPER + SHIFT + code:13",
     desc = "Screenshot of a region to file",
-    action = hl.dsp.exec_cmd("omarchy-capture-screenshot region save"),
+    action = does("Save a screenshot of a region to a file", hl.dsp.exec_cmd("omarchy-capture-screenshot region save")),
   }),
 
   mac({
@@ -1159,7 +1158,7 @@ group("System", {
     mac = "⌃⌘⇧4",
     keys = "SUPER + CTRL + SHIFT + code:13",
     desc = "Screenshot of a region to clipboard",
-    action = hl.dsp.exec_cmd("omarchy-capture-screenshot region copy"),
+    action = does("Copy a screenshot of a region to the clipboard", hl.dsp.exec_cmd("omarchy-capture-screenshot region copy")),
   }),
 
   -- Capture menu: Omarchy's, which also covers screen recording.
@@ -1168,7 +1167,7 @@ group("System", {
     mac = "⌘⇧5",
     keys = "SUPER + SHIFT + code:14",
     desc = "Capture menu",
-    action = hl.dsp.exec_cmd("omarchy-menu toggle capture"),
+    action = does("Open Omarchy's capture menu", hl.dsp.exec_cmd("omarchy-menu toggle capture")),
   }),
 
   -- Force quit: the Mac asks which app in a dialog; here the active window's
@@ -1178,7 +1177,7 @@ group("System", {
     mac = "⌘⌥Esc",
     keys = "SUPER + ALT + ESCAPE",
     desc = "Force quit the active window",
-    action = hl.dsp.window.kill(),
+    action = does("Kill the window's process", hl.dsp.window.kill()),
   }),
 
   -- Emoji & symbols: Omarchy's picker (it also stays on ⌃⌘E).
@@ -1187,7 +1186,7 @@ group("System", {
     mac = "⌃⌘Space",
     keys = "SUPER + CTRL + SPACE",
     desc = "Emoji and symbols",
-    action = hl.dsp.exec_cmd("omarchy-shell shell toggle omarchy.emojis"),
+    action = does("Open the emoji picker", hl.dsp.exec_cmd("omarchy-shell shell toggle omarchy.emojis")),
   }),
 
   -- Show/hide the Dock: Omarchy's top bar (it also stays on ⌘⇧Space).
@@ -1196,7 +1195,7 @@ group("System", {
     mac = "⌥⌘D",
     keys = "SUPER + ALT + D",
     desc = "Toggle top bar (Dock)",
-    action = hl.dsp.exec_cmd("omarchy-toggle-bar"),
+    action = does("Show or hide the status bar", hl.dsp.exec_cmd("omarchy-toggle-bar")),
   }),
 
   -- Mac F-row keys that Omarchy leaves unbound. The keysyms are what the NuPhy
@@ -1209,7 +1208,7 @@ group("System", {
     mac = "F6",
     keys = "XF86DoNotDisturb",
     desc = "Toggle silencing notifications (Do Not Disturb)",
-    action = hl.dsp.exec_cmd("omarchy-toggle-notification-silencing"),
+    action = does("Silence or restore notifications", hl.dsp.exec_cmd("omarchy-toggle-notification-silencing")),
   }),
 
   -- F5: Dictation, push-to-talk like Omarchy's F9 (record while held), and
@@ -1221,7 +1220,7 @@ group("System", {
     keys = "XF86VoiceCommand",
     desc = "Start dictation (push-to-talk)",
     requires = "voxtype",
-    action = hl.dsp.exec_cmd("voxtype record start"),
+    action = does("Start voxtype recording", hl.dsp.exec_cmd("voxtype record start")),
   }),
 
   mac({
@@ -1230,7 +1229,7 @@ group("System", {
     keys = "XF86VoiceCommand",
     desc = "Stop dictation (push-to-talk)",
     requires = "voxtype",
-    action = hl.dsp.exec_cmd("voxtype record stop"),
+    action = does("Stop voxtype recording and type the text", hl.dsp.exec_cmd("voxtype record stop")),
     release = true,
   }),
 
@@ -1240,7 +1239,7 @@ group("System", {
     keys = "SHIFT + XF86VoiceCommand",
     desc = "Toggle dictation",
     requires = "voxtype",
-    action = hl.dsp.exec_cmd("voxtype record toggle"),
+    action = does("Start or stop voxtype recording", hl.dsp.exec_cmd("voxtype record toggle")),
   }),
 })
 
@@ -1321,7 +1320,7 @@ group("Mouse", {
     keys = "SUPER + mouse_up",
     desc = "⌘-scroll up sent as Ctrl-scroll",
     requires = "wtype",
-    action = ctrl_hold.tick,
+    action = does("Scroll with Ctrl held (zooms in apps that zoom on Ctrl + wheel)", ctrl_hold.tick),
   }),
 
   mac({
@@ -1330,7 +1329,7 @@ group("Mouse", {
     keys = "SUPER + mouse_down",
     desc = "⌘-scroll down sent as Ctrl-scroll",
     requires = "wtype",
-    action = ctrl_hold.tick,
+    action = does("Scroll with Ctrl held (zooms in apps that zoom on Ctrl + wheel)", ctrl_hold.tick),
   }),
 })
 
@@ -1349,7 +1348,7 @@ group("Emacs keys", {
     keys = "CTRL + A",
     desc = "Line start (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "Home"),
     },
@@ -1361,7 +1360,7 @@ group("Emacs keys", {
     keys = "CTRL + E",
     desc = "Line end (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "End"),
     },
@@ -1373,7 +1372,7 @@ group("Emacs keys", {
     keys = "CTRL + F",
     desc = "Cursor right (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "Right"),
     },
@@ -1385,7 +1384,7 @@ group("Emacs keys", {
     keys = "CTRL + B",
     desc = "Cursor left (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "Left"),
     },
@@ -1397,7 +1396,7 @@ group("Emacs keys", {
     keys = "CTRL + N",
     desc = "Cursor down (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "Down"),
     },
@@ -1409,7 +1408,7 @@ group("Emacs keys", {
     keys = "CTRL + P",
     desc = "Cursor up (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "Up"),
     },
@@ -1421,7 +1420,7 @@ group("Emacs keys", {
     keys = "CTRL + D",
     desc = "Delete right (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "Delete"),
     },
@@ -1433,7 +1432,7 @@ group("Emacs keys", {
     keys = "CTRL + H",
     desc = "Delete left (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = tap("", "BackSpace"),
     },
@@ -1445,7 +1444,7 @@ group("Emacs keys", {
     keys = "CTRL + K",
     desc = "Delete to line end (Emacs key)",
     repeating = true,
-    enabled = settings.emacs_keys,
+    setting = "emacs_keys",
     actions = {
       default = seq(tap("SHIFT", "End"), tap("", "Delete")),
     },

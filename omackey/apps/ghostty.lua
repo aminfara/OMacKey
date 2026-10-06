@@ -3,6 +3,7 @@
 -- Everything not listed here falls back to apps/terminal.lua.
 
 local app = require("hypr.omackey.lib.profiles").app
+local does = require("hypr.omackey.lib.action").does
 local tap = require("hypr.omackey.lib.send").tap
 
 local actions = {
@@ -27,9 +28,9 @@ local actions = {
   ["next-tab-arrow"] = tap("CTRL", "Page_Down"),
   -- Ghostty's own Ctrl+, runs xdg-open, which starts nvim without a terminal
   -- and shows nothing (§9 F10), so ⌘, opens the config in Omarchy's editor.
-  ["preferences"] = function()
+  ["preferences"] = does("Open Ghostty's config file in Omarchy's editor", function()
     hl.dispatch(hl.dsp.exec_cmd('omarchy-launch-editor "$HOME/.config/ghostty/config"'))
-  end,
+  end),
   -- Terminal
   ["split-right"] = tap("CTRL + SHIFT", "O"),
   ["split-down"] = tap("CTRL + SHIFT", "E"),

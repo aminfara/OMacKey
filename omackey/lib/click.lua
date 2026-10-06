@@ -6,22 +6,27 @@
 -- button comes up (⌘ may be released first). `pending` remembers the modifiers of
 -- the press that is still open; a release without one passes through untouched.
 
+local does = require("hypr.omackey.lib.action").does
 local button = require("hypr.omackey.lib.send").button
 
 local M = {
   pending = nil, -- e.g. "CTRL" while a synthetic press is open
 }
 
--- Bind handler for the press: consumed.
+-- Action for the press: consumed, and the app gets a press with `mods`
+-- instead (click.press("CTRL + SHIFT") → "Left click with Ctrl+Shift held
+-- instead of ⌘").
 function M.press(mods)
-  return function()
+  local label = mods:lower():gsub("%f[%w]%l", string.upper):gsub("%s*%+%s*", "+")
+
+  return does("Left click with " .. label .. " held instead of ⌘", function()
     M.pending = mods
     button(mods, "mouse:272", "down")
-  end
+  end)
 end
 
--- Bind handler for the release, used on every modifier state a release can have.
-function M.release()
+-- Action for the release, used on every modifier state a release can have.
+M.release = does("End the synthetic click; any other release passes through", function()
   local mods = M.pending
   if not mods then
     return { ok = false } -- an ordinary release: let it through
@@ -29,6 +34,6 @@ function M.release()
 
   M.pending = nil
   button(mods, "mouse:272", "up")
-end
+end)
 
 return M

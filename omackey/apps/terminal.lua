@@ -49,7 +49,7 @@ local actions = {
   -- Windows and tabs
   -- foot, Alacritty and Omarchy's TUIs have no tabs, so close the window.
   -- Ctrl+W is readline's word delete.
-  ["close-tab"] = windows.close,
+  ["close-tab"] = bind.does("Close the window", windows.close),
   -- foot, Ghostty, kitty and Alacritty open a new window on Ctrl+Shift+N.
   ["new-window"] = tap("CTRL + SHIFT", "N"),
   ["new-window-private"] = CONSUME,

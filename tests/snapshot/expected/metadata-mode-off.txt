@@ -1,0 +1,7 @@
+key mac-mode  SUPER+CTRL+SHIFT+m  category="System"  mac="⌃⌘⇧M"  action  file=mode.lua  text="Switch OMacKey on or off, then reload the config"
+dropped SUPER+c  "nil"
+dropped SUPER+v  "nil"
+dropped SUPER+x  "nil"
+setting emacs_keys  default=true  "Mac text-field editing keys on physical ⌃: ⌃A / ⌃E line start / end, ⌃F / ⌃B / ⌃N / ⌃P arrows, ⌃D / ⌃H delete, ⌃K delete to line end. Terminals keep the raw key, and so does ⌃D in VS Code. They take ⌃A, ⌃F, ⌃H … away from GUI apps (select all, find, history): set this to false to get those back."
+setting release_ms  default=20  "How long a synthetic key stays down before its release is sent (Omarchy uses 50 ms)."
+setting close_window_classes  default={}  "Window classes of GUI apps where Ctrl+W doesn't close the window, so ⌘W closes it instead. Add a class (see hyprctl clients) when ⌘W does nothing."

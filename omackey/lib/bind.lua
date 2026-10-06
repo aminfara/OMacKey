@@ -33,20 +33,29 @@
 --   })
 --
 -- An action is a function (it may return { ok = false } to pass the key
--- through), a callable table, a Hyprland dispatcher, PASS or CONSUME.
--- `enabled = false` or `requires = "<command>"` (not on PATH) declares a spec
--- that is not bound.
+-- through), a Hyprland dispatcher, PASS or CONSUME, and carries a text saying
+-- what it does (lib/action.lua): send.tap / send.seq make their own, and
+-- does("text", fn_or_dispatcher) adds one. build() rejects an action without
+-- a text.
+--
+-- A spec is declared but not bound when `enabled = false`, when
+-- `setting = "<option>"` names a false user option (settings.lua), or when
+-- `requires = "<command>"` is not on PATH. `plain = true` binds a function
+-- without auto_consuming: its key is always consumed.
 
+local action_lib = require("hypr.omackey.lib.action")
 local keys = require("hypr.omackey.lib.keys")
 local profiles = require("hypr.omackey.lib.profiles")
 local relocate = require("hypr.omackey.lib.relocate")
+local settings = require("hypr.omackey.settings")
 local tap = require("hypr.omackey.lib.send").tap
 
-local PASS, CONSUME = "pass", "consume"
+local PASS, CONSUME = action_lib.PASS, action_lib.CONSUME
 
 local M = {
   PASS = PASS,
   CONSUME = CONSUME,
+  does = action_lib.does,
   registry = {}, -- every declared spec, then the catch-all's, in order
   by_id = {},
   bound = {}, -- the specs apply() bound, in bind order
@@ -142,6 +151,15 @@ local function kind_of(action)
   end
 end
 
+-- Why an action can't be used, or nil: not an action at all, or no text.
+local function flaw(action)
+  if not kind_of(action) then
+    return "is invalid: " .. string.format("%q", tostring(action))
+  elseif not action_lib.text_of(action) then
+    return "has no text (describe it with does(\"…\", …))"
+  end
+end
+
 -- The first problem with a spec, or nil.
 local function problem(spec)
   for _, field in ipairs({ "id", "keys", "desc" }) do
@@ -152,22 +170,25 @@ local function problem(spec)
   if spec.action ~= nil and spec.actions ~= nil then
     return "has both 'action' and 'actions'"
   end
-  if spec.action ~= nil and not kind_of(spec.action) then
-    return "has an invalid action " .. string.format("%q", tostring(spec.action))
+  if spec.action ~= nil and flaw(spec.action) then
+    return "has an action that " .. flaw(spec.action)
+  end
+  if spec.setting ~= nil and type(settings[spec.setting]) ~= "boolean" then
+    return "names an unknown on/off setting '" .. tostring(spec.setting) .. "'"
   end
   for profile, action in pairs(spec.actions or {}) do
     if profile ~= "default" and not profiles.by_name[profile] then
       return "has an unknown app profile '" .. tostring(profile) .. "'"
     end
-    if not kind_of(action) then
-      return "has an invalid action for " .. profile .. ": " .. string.format("%q", tostring(action))
+    if flaw(action) then
+      return "has an action for " .. profile .. " that " .. flaw(action)
     end
   end
 end
 
 local present = {}
 local function enabled(spec)
-  if spec.enabled == false then
+  if spec.enabled == false or (spec.setting and not settings[spec.setting]) then
     return false
   end
   if spec.requires then
@@ -193,8 +214,8 @@ local function overlay(fail_app)
         fail_app(def, "names an unknown key id '" .. tostring(id) .. "'")
       elseif spec.actions == nil then
         fail_app(def, "can't change '" .. id .. "', which has one action for every app")
-      elseif not kind_of(action) then
-        fail_app(def, "has an invalid action for '" .. id .. "': " .. string.format("%q", tostring(action)))
+      elseif flaw(action) then
+        fail_app(def, "has an action for '" .. id .. "' that " .. flaw(action))
       elseif spec.actions[def.name] ~= nil then
         fail_app(def, "sets '" .. id .. "' twice")
       else
@@ -203,8 +224,8 @@ local function overlay(fail_app)
     end
 
     if def.catchall ~= nil then
-      if not kind_of(def.catchall) then
-        fail_app(def, "has an invalid catchall action " .. string.format("%q", tostring(def.catchall)))
+      if flaw(def.catchall) then
+        fail_app(def, "has a catchall action that " .. flaw(def.catchall))
       else
         for _, spec in ipairs(M.registry) do
           if spec.catchall then
@@ -287,7 +308,7 @@ local function perform(action)
   elseif action == CONSUME then
     return
   elseif kind_of(action) == "dispatcher" then
-    hl.dispatch(action)
+    hl.dispatch(action_lib.unwrap(action))
     return
   end
   return action() -- may return { ok = false } to pass the key through
@@ -307,7 +328,7 @@ end
 
 local function bind(spec)
   if spec.action ~= nil and kind_of(spec.action) == "dispatcher" then
-    hl.bind(spec.keys, spec.action, {
+    hl.bind(spec.keys, action_lib.unwrap(spec.action), {
       description = spec.desc,
       repeating = spec.repeating,
       release = spec.release,
@@ -329,7 +350,7 @@ local function bind(spec)
     description = spec.desc,
     repeating = spec.repeating,
     release = spec.release,
-    auto_consuming = true,
+    auto_consuming = not spec.plain or nil,
   })
 end
 

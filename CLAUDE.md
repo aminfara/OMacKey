@@ -110,6 +110,10 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   - `omackey.status()`
   - `omackey.trigger("<id>")` runs a binding's handler as if pressed
   - `omackey.fired("<id>")` counts real presses since the last reload
+  - `omackey.explain("<id>")` prints the key's default action and every app's
+    action as text
+  - (all four are in `lib/introspect.lua`; `lib/catalog.lua` holds the key,
+    app, relocation and settings data they and the docs read)
   - `require("hypr.omackey.lib.bind").by_id`
 - **Handler test:**
   1. Start `scripts/keylog.py --log <scratchpad>/keylog.txt` in the
@@ -132,15 +136,18 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   2. `load.pre()`: `lib/relocate.lua` wraps `hl.bind`
   3. `default.hypr.omarchy` (Omarchy defaults, registered on relocated keys)
   4. `load.init()`: unwrap `hl.bind`, then `init.lua` (the manifest) loads
-     its `MODULES` and `APPS` (they only declare specs), then `bind.build()` validates them and
-     expands the catch-all, and `bind.apply()` binds them in one loop
+     its `MODULES` and `APPS` (they only declare specs), `lib/mode.lua`
+     declares the Mac-mode toggle (`mac-mode`), then `bind.build()` validates
+     them and expands the catch-all, and `bind.apply()` binds them in one
+     loop. With OMacKey off, only the toggle is declared and bound; the mode
+     file is read once per load
   5. the user's `hypr.*` files, so the user's `bindings.lua` overrides still
      win.
 - **Errors.** Both loader stages are `pcall`-guarded. An error becomes a
   Hyprland notification plus an entry in `omackey.status()`; it does not show
   up in `hyprctl configerrors`. A module that fails to load, or a spec that
   fails validation (missing field, duplicate id or chord, a chord Omarchy
-  still binds, unknown profile, invalid action), is reported the same way and
+  still binds, unknown profile, invalid action, action without a text), is reported the same way and
   skipped; the rest still loads.
 - **No stdout at load.** Omarchy's help menu replays this config and parses
   stdout, so never `print` from OMacKey at load time.
@@ -170,10 +177,15 @@ replay the config the way the help menu does. Extract the Lua heredoc from
       behaviour depends on the app (resolved at press time);
     - `action = …` for one action in every app (workspaces, windows, mouse).
       A dispatcher there is bound natively.
-    - An action is a function, a callable table, a dispatcher, or
-      `bind.PASS` / `bind.CONSUME`.
-    - `enabled = <bool>` or `requires = "<command>"` declare a spec that is
-      bound only when enabled or the command is on PATH.
+    - An action is a function, a dispatcher, or `bind.PASS` / `bind.CONSUME`,
+      and every action carries a text (`lib/action.lua`): `send.tap` /
+      `send.seq` make theirs ("Ctrl+Shift+F"); wrap anything else with
+      `does("Close every window of the app", fn_or_dispatcher)`
+      (`bind.does`). `build()` rejects an action without a text.
+    - `enabled = <bool>`, `setting = "<option>"` or `requires = "<command>"`
+      declare a spec that is bound only when enabled, when the user option
+      is on, or when the command is on PATH. `plain = true` binds a function
+      without `auto_consuming`.
   - Users opt out of a default with `hl.unbind` in their own `bindings.lua`.
     Don't add config flags for that; flags are for opt-in extras only (D12).
   - User options live in `omackey/settings.lua` (defaults, checks, docs). A

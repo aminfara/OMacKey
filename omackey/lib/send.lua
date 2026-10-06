@@ -6,8 +6,11 @@
 -- Explicit `mods` replace the physically held modifiers for the event, and no
 -- `window` is given, so layer-shell surfaces (Omarchy menus) receive it too.
 
+local action = require("hypr.omackey.lib.action")
 local settings = require("hypr.omackey.settings")
 local keys = require("hypr.omackey.lib.keys")
+
+local does, text_of = action.does, action.text_of
 
 local M = {}
 
@@ -38,26 +41,49 @@ function M.button(mods, button, state)
   key_state(mods, button, state)
 end
 
--- send.tap("CTRL + SHIFT", "Home") → function that presses and releases the
--- chord once. Key names are resolved now, so a typo fails at config load.
+-- How a chord reads in a description: "CTRL + SHIFT", "Home" → "Ctrl+Shift+Home".
+-- MOD2 (NumLock) is sent with the chord but is not part of what the user means.
+local MODIFIER_NAMES = { CTRL = "Ctrl", CONTROL = "Ctrl", SHIFT = "Shift", ALT = "Alt", SUPER = "Super" }
+
+local function chord_text(mods, key)
+  local parts = {}
+  for modifier in tostring(mods):gmatch("[^%s+]+") do
+    local name = MODIFIER_NAMES[modifier:upper()]
+    if name then
+      table.insert(parts, name)
+    end
+  end
+  table.insert(parts, keys.by_name[string.lower(key)].label)
+  return table.concat(parts, "+")
+end
+
+-- send.tap("CTRL + SHIFT", "Home") → an action that presses and releases the
+-- chord once; its text is "Ctrl+Shift+Home". Key names are resolved now, so a
+-- typo fails at config load.
 function M.tap(mods, key)
   local code = keys.code(key)
 
-  return function()
+  return does(chord_text(mods, key), function()
     key_state(mods, code, "down")
     after(settings.release_ms, function()
       key_state(mods, code, "up")
     end)
-  end
+  end)
 end
 
--- send.seq(send.tap(...), send.tap(...)) → function that taps each chord in
--- order, spaced so one is released before the next goes down.
+-- send.seq(send.tap(...), send.tap(...)) → an action that taps each chord in
+-- order, spaced so one is released before the next goes down; its text joins
+-- the steps' texts ("Ctrl+F, then Return").
 function M.seq(...)
   local steps = { ... }
   local gap = settings.release_ms + 5
 
-  return function()
+  local texts = {}
+  for _, step in ipairs(steps) do
+    table.insert(texts, text_of(step) or error("OMacKey: send.seq() steps need a text (use send.tap)", 2))
+  end
+
+  return does(table.concat(texts, ", then "), function()
     for i, step in ipairs(steps) do
       if i == 1 then
         step()
@@ -65,7 +91,7 @@ function M.seq(...)
         after((i - 1) * gap, step)
       end
     end
-  end
+  end)
 end
 
 return M

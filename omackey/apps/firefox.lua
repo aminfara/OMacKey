@@ -3,6 +3,7 @@
 -- listed here use the browser family's entries, then the generic ones.
 
 local app = require("hypr.omackey.lib.profiles").app
+local does = require("hypr.omackey.lib.action").does
 local tap = require("hypr.omackey.lib.send").tap
 
 app({
@@ -14,9 +15,9 @@ app({
     ["new-window-private"] = tap("CTRL + SHIFT", "P"), -- private window
     -- Firefox opens its settings when run with this URL (the Chromium family
     -- turns such URLs into a blank tab, §9 F11).
-    ["preferences"] = function()
+    ["preferences"] = does("Open about:preferences in Firefox", function()
       hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
-    end,
+    end),
     -- Browser
     -- ⌘⇧J as in Chrome (user's choice); Firefox's downloads window.
     ["downloads"] = tap("CTRL + SHIFT", "Y"),

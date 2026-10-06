@@ -793,3 +793,46 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     the categories change (15 new ones), plus the new `file=shortcuts.lua`
     column; `order-*.txt`: same binds, new order. Self-test passes unchanged.
     `check.sh` three ✓; live help menu identical; replay same entries.
+- **2026-10-07 — R6 done.** Built by a subagent and reviewed. Physical test
+  (user): ⌃⌘⇧M turns OMacKey off and on again. Snapshot update approved:
+  `bindings=` +1 in `load-*.txt`, the catalog columns and lines in
+  `metadata-*.txt`, the toggle's place in `order-*.txt`. Self-test passes.
+  - `lib/action.lua`: `does(text, fn_or_dispatcher)`, `text_of`, `unwrap`,
+    `PASS` / `CONSUME` with standard texts. A described function is a
+    callable table (`__call`), so handlers and `{ ok = false }` pass-through
+    work as before; a described dispatcher holds the dispatcher and is
+    unwrapped before `hl.bind`, so it is still bound natively. `bind.does`
+    re-exports it. `send.tap` / `send.seq` return described actions
+    ("Ctrl+Shift+F", "Ctrl+F, then Return, then Esc"); `click.press` /
+    `click.release` too. `send.button` stays an immediate send (only
+    `click.lua` calls it). Every bare function or dispatcher action in
+    `shortcuts.lua` and `apps/*.lua` is wrapped with `does`. Hyprland's
+    dispatchers are opaque userdata, so there is no derived text: a raw
+    dispatcher without `does` fails validation like any action without a text
+    (`'<id>' has an action that has no text`), also for app entries and
+    `catchall`.
+  - `lib/catalog.lua`: `keys()`, `find(id)`, `apps()`, `relocations()`,
+    `settings()`, plain data read from the registry, profiles, relocations and
+    settings (no Hyprland calls). Emacs specs use `setting = "emacs_keys"`
+    instead of `enabled = settings.emacs_keys`, so the catalog can name the
+    condition.
+  - `lib/introspect.lua` holds `omackey.status / fired / trigger` unchanged
+    and adds `omackey.explain(id)`; `load.lua` installs them.
+  - Loader: `load.lua` reads the mode file once and runs declare (init.lua,
+    `mode.declare()`), build, bind for both modes. The toggle is
+    `mac{ id = "mac-mode", plain = true }` in `lib/mode.lua`, category
+    System; `plain` keeps the bind without `auto_consuming` as before. In
+    off-mode only it is declared. `init.lua` no longer builds or binds, and
+    `switcher.start()` moved to `load.lua`.
+  - Snapshot: declared differences only. `load-*.txt` (four variants with
+    OMacKey on): `bindings=` +1. `order-*.txt`: the toggle now registers
+    before the catch-all binds instead of last. `metadata-*.txt`: the toggle,
+    an action-text column, and app / setting / dropped lines. Everything else
+    is identical, `binds-mode-off.txt` included. `render.lua` falls back to
+    the registry for trees without `lib/catalog.lua`. After the snapshot is
+    updated the self-test passes in full (until then its rename case fails
+    on the declared `load-*.txt` diff).
+  - `check.sh` three ✓; live help menu identical; help-menu replay with mode
+    on and off has the same entries as before. Physical test (user): ⌃⌘⇧M
+    turns OMacKey off (Omarchy keys back, notification), and again turns it
+    on.

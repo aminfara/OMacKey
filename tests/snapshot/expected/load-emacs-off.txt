@@ -1,4 +1,4 @@
-status: bindings=152 relocated=114
+status: bindings=153 relocated=114
 subscribed at load: hyprland.start ×1
 subscribed at load: layer.closed ×1
 subscribed at load: layer.opened ×1

@@ -1,10 +1,12 @@
--- Mac mode on/off (Phase 7d). The switch is a state file, read once at load:
+-- Mac mode on/off. The switch is a state file, read once per load (load.lua):
 --
 --   ${XDG_STATE_HOME:-~/.local/state}/omackey/off   exists → OMacKey is off
 --
--- Off means load.lua skips the relocations and every Mac bind, so Omarchy's own
--- bindings come back untouched, and registers only the toggle key below.
+-- Off means load.lua skips the relocations and every Mac shortcut, so Omarchy's
+-- own bindings come back untouched, and declares only the toggle key below.
 -- scripts/omackey-mode flips the same file from a terminal.
+
+local bind = require("hypr.omackey.lib.bind")
 
 local M = {}
 
@@ -45,9 +47,19 @@ function M.toggle()
   ))
 end
 
--- The one bind that exists in both modes.
-function M.bind()
-  hl.bind(M.key, M.toggle, { description = "OMacKey on/off (Mac mode)" })
+-- Declares the toggle, the one shortcut that exists in both modes. A plain
+-- bind: the key is always consumed.
+function M.declare()
+  bind.group("System", {
+    bind.mac({
+      id = "mac-mode",
+      mac = "⌃⌘⇧M",
+      keys = M.key,
+      desc = "OMacKey on/off (Mac mode)",
+      plain = true,
+      action = bind.does("Switch OMacKey on or off, then reload the config", M.toggle),
+    }),
+  })
 end
 
 return M

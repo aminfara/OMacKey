@@ -238,30 +238,87 @@ write("load", lines)
 lines = {}
 local bind_module = package.loaded["hypr.omackey.lib.bind"]
 local registry = bind_module and bind_module.registry or {}
-local specs = {}
-for _, spec in ipairs(registry) do
-  table.insert(specs, spec)
+local ok_catalog, catalog = pcall(require, "hypr.omackey.lib.catalog")
+
+-- With lib/catalog.lua the keys, apps and settings come from it, and the
+-- action texts are shown; older trees (scripts/snapshot.sh --against) have no
+-- catalog and are read from the registry, without the texts.
+local rows = {}
+if ok_catalog then
+  rows = catalog.keys()
+else
+  for _, spec in ipairs(registry) do
+    local row = { id = spec.id, keys = spec.keys, mac = spec.mac, category = spec.category, file = spec.file,
+      flags = { release = spec.release }, bound = spec.bound ~= false, apps = {}, has_action = spec.action ~= nil }
+    local names = {}
+    for name in pairs(spec.actions or {}) do
+      table.insert(names, name)
+    end
+    row.profiles = names
+    table.insert(rows, row)
+  end
 end
-table.sort(specs, function(a, b)
+table.sort(rows, function(a, b)
   return tostring(a.id) < tostring(b.id)
 end)
-for _, spec in ipairs(specs) do
-  local profiles = {}
-  for profile in pairs(spec.actions or {}) do
-    table.insert(profiles, profile)
+
+local function quoted(text)
+  return string.format("%q", tostring(text))
+end
+
+for _, row in ipairs(rows) do
+  local profiles, texts = row.profiles or {}, ""
+  if ok_catalog then
+    -- Profile names of the row: "default" when the generic action has a text,
+    -- then the apps that differ.
+    profiles = {}
+    if row.default then
+      table.insert(profiles, "default")
+    end
+    for name in pairs(row.apps) do
+      table.insert(profiles, name)
+    end
+    if row.action then
+      texts = "  text=" .. quoted(row.action)
+    else
+      local parts = {}
+      table.sort(profiles)
+      for _, name in ipairs(profiles) do
+        table.insert(parts, name .. "=" .. quoted(name == "default" and row.default or row.apps[name]))
+      end
+      texts = "  text={" .. table.concat(parts, ", ") .. "}"
+    end
   end
   table.sort(profiles)
+
   -- A spec with one action for every app shows "action" instead of profiles;
   -- a declared spec that was not bound (disabled, missing command) is marked.
-  local actions = spec.action ~= nil and "action" or ("profiles={" .. table.concat(profiles, ",") .. "}")
-  table.insert(lines, string.format("key %s  %s%s  category=%q  mac=%q  %s%s", tostring(spec.id),
-    mock.chord(spec.keys), spec.release and " (release)" or "", tostring(spec.category), tostring(spec.mac),
-    actions, spec.bound == false and "  NOT BOUND" or "") .. (spec.file and ("  file=" .. spec.file) or ""))
+  local has_action = row.action ~= nil or row.has_action
+  local actions = has_action and "action" or ("profiles={" .. table.concat(profiles, ",") .. "}")
+  table.insert(lines, string.format("key %s  %s%s  category=%q  mac=%q  %s%s", tostring(row.id),
+    mock.chord(row.keys), row.flags.release and " (release)" or "", tostring(row.category), tostring(row.mac),
+    actions, row.bound == false and "  NOT BOUND" or "") .. (row.file and ("  file=" .. row.file) or "") .. texts)
 end
 local relocate = package.loaded["hypr.omackey.lib.relocate"]
 for _, row in ipairs(relocate and relocate.applied or {}) do
   table.insert(lines, string.format("relocated %s → %s  %q", mock.chord(row.from), mock.chord(row.to),
     tostring(row.description)))
+end
+if ok_catalog then
+  for _, row in ipairs(catalog.relocations()) do
+    if row.dropped then
+      table.insert(lines, string.format("dropped %s  %s", mock.chord(row.from), quoted(row.description)))
+    end
+  end
+  for _, app in ipairs(catalog.apps()) do
+    table.insert(lines, string.format("app %s  family=%s  classes={%s}  tags={%s}  catchall=%s", app.name,
+      tostring(app.family), table.concat(app.classes, ","), table.concat(app.tags, ","),
+      app.catchall and quoted(app.catchall) or "none"))
+  end
+  for _, setting in ipairs(catalog.settings()) do
+    table.insert(lines, string.format("setting %s  default=%s  %s", setting.name, mock.literal(setting.default),
+      quoted(setting.doc)))
+  end
 end
 write("metadata", lines)
 
