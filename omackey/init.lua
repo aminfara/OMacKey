@@ -1,12 +1,25 @@
--- Declares the Mac shortcuts (the modules listed in config.lua) and the app
--- profiles (APPS below), then builds and binds them in one pass
--- (lib/bind.lua), after Omarchy's defaults.
+-- The manifest: declares the Mac shortcuts (MODULES) and the app profiles
+-- (APPS), then builds and binds them in one pass (lib/bind.lua), after
+-- Omarchy's defaults.
 --
 -- A module that fails to load is reported and skipped, and so is every spec
 -- that fails validation; the rest still loads.
 
-local config = require("hypr.omackey.config")
 local bind = require("hypr.omackey.lib.bind")
+local settings = require("hypr.omackey.settings")
+
+-- Modules that declare the Mac shortcuts (omackey/<name>.lua), in this order;
+-- they are bound in the same order.
+local MODULES = {
+  "spaces", -- workspaces on ⌃ (vertical pair, move window)
+  "text", -- cursor movement, selection, deletion
+  "editing", -- clipboard, undo/redo, find, save, code editing
+  "windows", -- windows and tabs, navigation, browser and terminal keys
+  "system", -- OS controls (lock, screenshots, emoji)
+  "mouse", -- ⌘-click and ⌘-scroll as Ctrl-click and Ctrl-scroll (scroll needs wtype)
+  "emacs", -- Emacs ⌃ keys (bound only when the emacs_keys setting is on)
+  "catchall", -- every ⌘ / ⌘⇧ key nothing else claims
+}
 
 -- App profiles (omackey/apps/<name>.lua), in match order: the first app whose
 -- classes or tags match the active window wins, so specific apps come before
@@ -32,7 +45,11 @@ local function declare(path)
   end
 end
 
-for _, name in ipairs(config.modules) do
+for _, message in ipairs(settings.errors) do
+  table.insert(bind.errors, message)
+end
+
+for _, name in ipairs(MODULES) do
   declare(name)
 end
 for _, name in ipairs(APPS) do

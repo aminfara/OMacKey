@@ -59,7 +59,7 @@ check() {
 # The edits. Each changes "$file", the first file holding the case's pattern.
 tap_modifier() { sed -i '0,/tap("CTRL", "Home")/s//tap("ALT", "Home")/' "$file"; }
 delete_app_entry() { sed -i '/tap("CTRL + SHIFT", "R")/d' "$file"; }
-release_ms() { sed -i 's/release_ms = 20/release_ms = 25/' "$file"; }
+release_ms() { sed -i 's/default = 20,/default = 25,/' "$file"; }
 match_order() { sed -i -e '/^  "firefox",$/{h;d}' -e '/^  "nautilus",$/G' "$file"; }
 broken_relocation() { sed -i 's/from = "SUPER + J", to/from = "SUPER + JJ", to/' "$file"; }
 print_at_load() { sed -i '1i print("snapshot selftest")' "$file"; }
@@ -68,7 +68,7 @@ rename_local() { sed -i 's/\bpending\b/pending_timers/g' "$file"; }
 
 check "a changed tap modifier" 1 'tap("CTRL", "Home")' tap_modifier
 check "a deleted app entry (foot's ⌘F)" 1 'tap("CTRL + SHIFT", "R")' delete_app_entry
-check "release_ms changed" 1 'release_ms = 20' release_ms
+check "release_ms changed" 1 'default = 20,' release_ms
 check "app match order (Firefox after the generic browser)" 1 '  "firefox",' match_order
 check "a broken relocation row" 1 'from = "SUPER + J", to' broken_relocation
 check "a print at load" 1 'from = "SUPER + J", to' print_at_load

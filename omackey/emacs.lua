@@ -1,11 +1,11 @@
 -- Emacs-style ⌃ keys for text fields (PLAN.md §5), as in every Mac text field.
--- Controlled by `emacs_keys` in config.lua: declared either way, bound only when
--- it is true.
+-- Controlled by the `emacs_keys` setting (settings.lua): declared either way,
+-- bound only when it is true.
 --
 -- Terminals pass the raw key (readline already has all of these), and so does
 -- ⌃D in VS Code (apps/terminal.lua, apps/vscode.lua).
 
-local config = require("hypr.omackey.config")
+local settings = require("hypr.omackey.settings")
 local bind = require("hypr.omackey.lib.bind")
 local mac, PASS = bind.mac, bind.PASS
 local send = require("hypr.omackey.lib.send")
@@ -18,7 +18,7 @@ mac({
   keys = "CTRL + A",
   desc = "Line start (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "Home"),
   },
@@ -31,7 +31,7 @@ mac({
   keys = "CTRL + E",
   desc = "Line end (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "End"),
   },
@@ -44,7 +44,7 @@ mac({
   keys = "CTRL + F",
   desc = "Cursor right (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "Right"),
   },
@@ -57,7 +57,7 @@ mac({
   keys = "CTRL + B",
   desc = "Cursor left (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "Left"),
   },
@@ -70,7 +70,7 @@ mac({
   keys = "CTRL + N",
   desc = "Cursor down (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "Down"),
   },
@@ -83,7 +83,7 @@ mac({
   keys = "CTRL + P",
   desc = "Cursor up (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "Up"),
   },
@@ -96,7 +96,7 @@ mac({
   keys = "CTRL + D",
   desc = "Delete right (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "Delete"),
   },
@@ -109,7 +109,7 @@ mac({
   keys = "CTRL + H",
   desc = "Delete left (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = tap("", "BackSpace"),
   },
@@ -122,7 +122,7 @@ mac({
   keys = "CTRL + K",
   desc = "Delete to line end (Emacs key)",
   repeating = true,
-  enabled = config.emacs_keys,
+  enabled = settings.emacs_keys,
   actions = {
     default = seq(tap("SHIFT", "End"), tap("", "Delete")),
   },

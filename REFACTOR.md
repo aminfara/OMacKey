@@ -757,3 +757,22 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
   and kitty; ⌘⇧N in Firefox; ⌘⌥← in Obsidian; ⌘↑ in Nautilus pass. ⌘0 in
   VS Code and ⌘G / ⌘⇧G in LibreOffice failed and were pre-existing (the
   snapshot equals `dc3b0a9`); both fixed above.
+- **2026-10-07 — R4 done.**
+  - `omackey/settings.lua`: each option with its default, a check and a doc
+    string (`emacs_keys`, `release_ms`, `close_window_classes`), merged with
+    the optional user file `${XDG_CONFIG_HOME:-~/.config}/omackey/settings.lua`
+    (`loadfile` with an empty environment). Errors go into `settings.errors`,
+    which `init.lua` reports with the other config errors.
+  - `config.lua` is gone: `init.lua` holds the `MODULES` and `APPS` manifest.
+    `send.lua`, `emacs.lua` and `apps/no-tabs.lua` read the settings.
+  - Snapshot: every rendered file identical; the `emacs-off` variant now uses
+    a user settings file (the harness switches by itself when
+    `omackey/settings.lua` exists). The self-test's `release_ms` case edits
+    `default = 20,`.
+  - Dry runs (render.lua with a scratch `XDG_CONFIG_HOME`): no file → binds
+    and behaviour equal `main`; `emacs_keys = false` → equal `emacs-off`; a
+    syntax error, an unknown option, wrong types (two options) and a file
+    that calls `hl` → defaults kept, binds and behaviour equal `main`, each
+    problem in `omackey.status()` plus one notification;
+    `close_window_classes = { "omackey.keylog" }` → ⌘W closes the keylog
+    window. `check.sh` three ✓; live help menu identical; replay same entries.

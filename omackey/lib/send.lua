@@ -6,7 +6,7 @@
 -- Explicit `mods` replace the physically held modifiers for the event, and no
 -- `window` is given, so layer-shell surfaces (Omarchy menus) receive it too.
 
-local config = require("hypr.omackey.config")
+local settings = require("hypr.omackey.settings")
 local keys = require("hypr.omackey.lib.keys")
 
 local M = {}
@@ -45,7 +45,7 @@ function M.tap(mods, key)
 
   return function()
     key_state(mods, code, "down")
-    after(config.release_ms, function()
+    after(settings.release_ms, function()
       key_state(mods, code, "up")
     end)
   end
@@ -55,7 +55,7 @@ end
 -- order, spaced so one is released before the next goes down.
 function M.seq(...)
   local steps = { ... }
-  local gap = config.release_ms + 5
+  local gap = settings.release_ms + 5
 
   return function()
     for i, step in ipairs(steps) do

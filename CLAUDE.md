@@ -131,8 +131,8 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   1. Omarchy `bootstrap.lua`
   2. `load.pre()`: `lib/relocate.lua` wraps `hl.bind`
   3. `default.hypr.omarchy` (Omarchy defaults, registered on relocated keys)
-  4. `load.init()`: unwrap `hl.bind`, then `init.lua` loads `config.modules`
-     (they only declare specs), then `bind.build()` validates them and
+  4. `load.init()`: unwrap `hl.bind`, then `init.lua` (the manifest) loads
+     its `MODULES` and `APPS` (they only declare specs), then `bind.build()` validates them and
      expands the catch-all, and `bind.apply()` binds them in one loop
   5. the user's `hypr.*` files, so the user's `bindings.lua` overrides still
      win.
@@ -173,6 +173,11 @@ replay the config the way the help menu does. Extract the Lua heredoc from
       bound only when enabled or the command is on PATH.
   - Users opt out of a default with `hl.unbind` in their own `bindings.lua`.
     Don't add config flags for that; flags are for opt-in extras only (D12).
+  - User options live in `omackey/settings.lua` (defaults, checks, docs). A
+    user overrides them in `${XDG_CONFIG_HOME:-~/.config}/omackey/settings.lua`,
+    which only exists if they create it (loaded as data, empty environment;
+    bad entries are reported in `omackey.status()` and ignored). Read options
+    with `require("hypr.omackey.settings").<name>`.
 - **Sending keys:**
   - Only through `lib/send.lua`: `send_key_state` down, then a timer sends up.
   - Never use `hl.dsp.send_shortcut` (Hyprland #14099: stuck or repeating

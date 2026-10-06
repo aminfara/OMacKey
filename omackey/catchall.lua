@@ -5,7 +5,7 @@
 --
 -- This only declares a spec for every chord it covers; lib/bind.lua keeps the
 -- ones nobody else claimed once everything is declared, so the module's
--- position in config.modules doesn't matter. A key you rebind in
+-- position in the manifest (init.lua) doesn't matter. A key you rebind in
 -- ~/.config/hypr/bindings.lua still wins, since that file loads later.
 
 local bind = require("hypr.omackey.lib.bind")
