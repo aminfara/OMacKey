@@ -1,5 +1,8 @@
 # OMacKey — Phased Plan
 
+> **Refactor in progress (2026-10-06):** this file is frozen while `REFACTOR.md`
+> runs; new facts and progress go there.
+
 Living document and single source of truth for scope, decisions, key tables and
 progress. Work is done in small sessions (one key, then one group of related
 keys). Every session starts by reading `CLAUDE.md`, the **Status board** and the
