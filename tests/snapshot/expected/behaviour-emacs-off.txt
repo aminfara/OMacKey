@@ -467,11 +467,19 @@ SUPER+SHIFT+g "Find previous"  { auto_consuming = true, repeating = true }
     +0 send_key_state({ key = "code:69", mods = "SHIFT", state = "down" })
     +20 send_key_state({ key = "code:69", mods = "SHIFT", state = "up" })
     → handled
-  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, libreoffice, soffice:
+  foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
     → handled
   nautilus:
     +0 send_key_state({ key = "code:46", mods = "CTRL", state = "down" })
     +20 send_key_state({ key = "code:46", mods = "CTRL", state = "up" })
+    → handled
+  libreoffice, soffice:
+    +0 send_key_state({ key = "code:41", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:41", mods = "CTRL", state = "up" })
+    +25 send_key_state({ key = "code:36", mods = "SHIFT", state = "down" })
+    +45 send_key_state({ key = "code:36", mods = "SHIFT", state = "up" })
+    +50 send_key_state({ key = "code:9", mods = "", state = "down" })
+    +70 send_key_state({ key = "code:9", mods = "", state = "up" })
     → handled
 SUPER+SHIFT+grave "Previous window of this app"  { auto_consuming = true }
   none, empty-class:
@@ -859,8 +867,12 @@ SUPER+g "Find next"  { auto_consuming = true, repeating = true }
   foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
     → handled
   libreoffice, soffice:
-    +0 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "down" })
-    +20 send_key_state({ key = "code:41", mods = "CTRL + SHIFT", state = "up" })
+    +0 send_key_state({ key = "code:41", mods = "CTRL", state = "down" })
+    +20 send_key_state({ key = "code:41", mods = "CTRL", state = "up" })
+    +25 send_key_state({ key = "code:36", mods = "", state = "down" })
+    +45 send_key_state({ key = "code:36", mods = "", state = "up" })
+    +50 send_key_state({ key = "code:9", mods = "", state = "down" })
+    +70 send_key_state({ key = "code:9", mods = "", state = "up" })
     → handled
 SUPER+grave "Next window of this app"  { auto_consuming = true }
   none, empty-class:

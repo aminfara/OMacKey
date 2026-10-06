@@ -713,7 +713,7 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     directly with Ctrl (which is the point). The bind fires only on the tick
     that starts a hold. This also explains PLAN.md F20's "not understood"
     slow ticks: they never reached the bind.
-- **2026-10-07 — R3 (physical tests pending).**
+- **2026-10-07 — R3 (built; see "R3 done" below).**
   - `lib/profiles.lua` (`app{}`, match index by class and tag, chains built
     once) replaces `lib/apps.lua`; `init.lua` holds the `APPS` manifest in
     match order. `bind.build()` overlays app actions by key id and applies an
@@ -748,3 +748,12 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
   - **LibreOffice ⌘G.** Ctrl+Shift+F is `.uno:RepeatSearch` in Writer, but it
     repeats the Find & Replace dialog's search, not one typed in the find bar
     (⌘F), so ⌘G did nothing in the usual workflow.
+    Fix: ⌘G / ⌘⇧G drive the find bar: Ctrl+F, then Return / Shift+Return,
+    then Escape (25 ms apart). LibreOffice now has a find-previous key, so
+    PLAN.md §7's "no key finds the previous match" goes when §7 becomes
+    LIMITATIONS.md (R8). Physical test (user): both keys step through the
+    find bar's matches in Writer; VS Code ⌘0 resets the zoom.
+- **2026-10-07 — R3 done.** Physical smoke tests (user): ⌘F in foot, Ghostty
+  and kitty; ⌘⇧N in Firefox; ⌘⌥← in Obsidian; ⌘↑ in Nautilus pass. ⌘0 in
+  VS Code and ⌘G / ⌘⇧G in LibreOffice failed and were pre-existing (the
+  snapshot equals `dc3b0a9`); both fixed above.
