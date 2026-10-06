@@ -34,7 +34,6 @@ mac({
   keys = "SUPER + ALT + J",
   desc = "Developer console",
   actions = {
-    browser = tap("CTRL + SHIFT", "J"),
   },
 })
 
@@ -45,7 +44,6 @@ mac({
   keys = "SUPER + ALT + C",
   desc = "Inspect element",
   actions = {
-    browser = tap("CTRL + SHIFT", "C"),
     vscode = tap("ALT", "C"), -- find widget: match case (see vscode.lua)
   },
 })
@@ -57,7 +55,6 @@ mac({
   keys = "SUPER + ALT + U",
   desc = "View page source",
   actions = {
-    browser = tap("CTRL", "U"),
   },
 })
 
@@ -69,7 +66,6 @@ mac({
   desc = "History",
   actions = {
     default = tap("CTRL", "Y"),
-    browser = tap("CTRL", "H"),
   },
 })
 
@@ -83,7 +79,6 @@ mac({
   desc = "Downloads",
   actions = {
     default = tap("CTRL + SHIFT", "J"),
-    browser = tap("CTRL", "J"),
     firefox = tap("CTRL + SHIFT", "Y"),
   },
 })
@@ -96,7 +91,6 @@ mac({
   keys = "SUPER + SHIFT + BACKSPACE",
   desc = "Clear browsing data",
   actions = {
-    browser = tap("CTRL + SHIFT", "Delete"),
   },
 })
 
@@ -107,7 +101,6 @@ mac({
   keys = "SUPER + ALT + B",
   desc = "Bookmark manager",
   actions = {
-    browser = tap("CTRL + SHIFT", "O"),
     vscode = tap("CTRL + ALT", "B"), -- toggle the secondary side bar
   },
 })

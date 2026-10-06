@@ -199,7 +199,6 @@ mac({
   desc = "Back or outdent",
   actions = {
     default = tap("CTRL", "bracketleft"),
-    browser = tap("ALT", "Left"),
     nautilus = tap("ALT", "Left"),
   },
 })
@@ -212,7 +211,6 @@ mac({
   desc = "Forward or indent",
   actions = {
     default = tap("CTRL", "bracketright"),
-    browser = tap("ALT", "Right"),
     nautilus = tap("ALT", "Right"),
   },
 })
