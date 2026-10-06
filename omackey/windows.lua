@@ -67,7 +67,6 @@ mac({
   desc = "New private window or folder",
   actions = {
     default = tap("CTRL + SHIFT", "N"),
-    firefox = tap("CTRL + SHIFT", "P"),
   },
 })
 
@@ -355,9 +354,6 @@ mac({
   desc = "Preferences",
   actions = {
     default = tap("CTRL", "comma"),
-    firefox = function()
-      hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
-    end,
     libreoffice = tap("ALT", "F12"), -- Tools > Options
   },
 })

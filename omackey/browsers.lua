@@ -79,7 +79,6 @@ mac({
   desc = "Downloads",
   actions = {
     default = tap("CTRL + SHIFT", "J"),
-    firefox = tap("CTRL + SHIFT", "Y"),
   },
 })
 
