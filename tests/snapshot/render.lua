@@ -251,9 +251,12 @@ for _, spec in ipairs(specs) do
     table.insert(profiles, profile)
   end
   table.sort(profiles)
-  table.insert(lines, string.format("key %s  %s%s  category=%q  mac=%q  profiles={%s}", tostring(spec.id),
+  -- A spec with one action for every app shows "action" instead of profiles;
+  -- a declared spec that was not bound (disabled, missing command) is marked.
+  local actions = spec.action ~= nil and "action" or ("profiles={" .. table.concat(profiles, ",") .. "}")
+  table.insert(lines, string.format("key %s  %s%s  category=%q  mac=%q  %s%s", tostring(spec.id),
     mock.chord(spec.keys), spec.release and " (release)" or "", tostring(spec.category), tostring(spec.mac),
-    table.concat(profiles, ",")))
+    actions, spec.bound == false and "  NOT BOUND" or ""))
 end
 local relocate = package.loaded["hypr.omackey.lib.relocate"]
 for _, row in ipairs(relocate and relocate.applied or {}) do

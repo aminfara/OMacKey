@@ -1,12 +1,14 @@
--- Phase 6b: browser shortcuts (PLAN.md §5). Mac Chrome and Firefox put these on
+-- Browser shortcuts (PLAN.md §5). Mac Chrome and Firefox put these on
 -- ⌘⌥ or ⌘⇧ + a letter; the Linux builds use Ctrl+Shift or Ctrl with other
 -- letters. The per-browser entries for keys that exist everywhere (⌘⇧N, ⌘,
 -- ⌘[ ⌘]) sit in windows.lua.
 --
--- Outside browsers these have no action, so the raw ⌘ chord reaches the app as
--- before; Phase 7a decides what the catch-all sends there.
+-- A key here without a `default` does nothing outside browsers: the raw chord
+-- reaches the app. ⌘Y and ⌘⇧J send Ctrl+Y / Ctrl+Shift+J elsewhere, like the
+-- catch-all.
 
-local mac = require("hypr.omackey.lib.bind").mac
+local bind = require("hypr.omackey.lib.bind")
+local mac, CONSUME = bind.mac, bind.CONSUME
 local tap = require("hypr.omackey.lib.send").tap
 
 -- DevTools. Obsidian toggles its on Ctrl+Shift+I too, so every GUI app gets it;
@@ -20,8 +22,8 @@ mac({
   desc = "Developer tools",
   actions = {
     default = tap("CTRL + SHIFT", "I"),
-    terminal = "consume",
-    vscode = "consume",
+    terminal = CONSUME,
+    vscode = CONSUME,
   },
 })
 
@@ -45,7 +47,7 @@ mac({
   desc = "Inspect element",
   actions = {
     browser = tap("CTRL + SHIFT", "C"),
-    vscode = tap("ALT", "C"), -- find widget: match case (vscode.lua, 6c-2)
+    vscode = tap("ALT", "C"), -- find widget: match case (see vscode.lua)
   },
 })
 
@@ -67,6 +69,8 @@ mac({
   keys = "SUPER + Y",
   desc = "History",
   actions = {
+    default = tap("CTRL", "Y"),
+    terminal = CONSUME,
     browser = tap("CTRL", "H"),
   },
 })
@@ -80,12 +84,14 @@ mac({
   keys = "SUPER + SHIFT + J",
   desc = "Downloads",
   actions = {
+    default = tap("CTRL + SHIFT", "J"),
+    terminal = CONSUME,
     browser = tap("CTRL", "J"),
     firefox = tap("CTRL + SHIFT", "Y"),
   },
 })
 
--- Omarchy's "Toggle window gaps" moved to ⌃⌥⇧⌫ in Phase 1a.
+-- Omarchy's "Toggle window gaps" is on ⌃⌥⇧⌫.
 mac({
   id = "clear-browsing-data",
   category = "Browser",
@@ -105,6 +111,6 @@ mac({
   desc = "Bookmark manager",
   actions = {
     browser = tap("CTRL + SHIFT", "O"),
-    vscode = tap("CTRL + ALT", "B"), -- toggle the secondary side bar (6c-2)
+    vscode = tap("CTRL + ALT", "B"), -- toggle the secondary side bar
   },
 })

@@ -1,4 +1,4 @@
--- Phase 6f: LibreOffice keys with no generic counterpart (PLAN.md §5). The entries
+-- LibreOffice keys with no generic counterpart (PLAN.md §5). The entries
 -- for keys that exist everywhere (⌘G, ⌘⇧G, ⌘⇧V, ⌘,) sit in editing.lua and
 -- windows.lua next to the generic ones. Chords read from the installed
 -- registry (§9 F17).

@@ -9,10 +9,12 @@
 -- release passes through on its own and closes the synthetic press.
 --
 -- Scroll: a wheel tick can't be re-sent, so it needs a real Ctrl instead:
--- lib/ctrl_hold.lua holds one through `wtype`, and nothing is bound without it.
+-- lib/ctrl_hold.lua holds one through `wtype`, and the scroll keys are bound only
+-- with wtype installed.
 
 local mac = require("hypr.omackey.lib.bind").mac
 local click = require("hypr.omackey.lib.click")
+local ctrl_hold = require("hypr.omackey.lib.ctrl_hold")
 
 -- ⌘-click and ⌘⇧-click (Ctrl+Shift-click extends a selection in file managers).
 mac({
@@ -21,7 +23,7 @@ mac({
   mac = "⌘-click",
   keys = "SUPER + mouse:272",
   desc = "⌘-click sent as Ctrl-click",
-  actions = { default = click.press("CTRL") },
+  action = click.press("CTRL"),
 })
 
 mac({
@@ -30,7 +32,7 @@ mac({
   mac = "⌘⇧-click",
   keys = "SUPER + SHIFT + mouse:272",
   desc = "⌘⇧-click sent as Ctrl+Shift-click",
-  actions = { default = click.press("CTRL + SHIFT") },
+  action = click.press("CTRL + SHIFT"),
 })
 
 -- The release can come with any modifiers still held. These close a pending
@@ -42,7 +44,7 @@ mac({
   keys = "SUPER + mouse:272",
   desc = "⌘-click release",
   release = true,
-  actions = { default = click.release },
+  action = click.release,
 })
 
 mac({
@@ -52,7 +54,7 @@ mac({
   keys = "SUPER + SHIFT + mouse:272",
   desc = "⌘⇧-click release",
   release = true,
-  actions = { default = click.release },
+  action = click.release,
 })
 
 mac({
@@ -62,7 +64,7 @@ mac({
   keys = "mouse:272",
   desc = "Click release after ⌘ was let go",
   release = true,
-  actions = { default = click.release },
+  action = click.release,
 })
 
 mac({
@@ -72,14 +74,8 @@ mac({
   keys = "SHIFT + mouse:272",
   desc = "Click release after ⌘ was let go (⇧ held)",
   release = true,
-  actions = { default = click.release },
+  action = click.release,
 })
-
-if not o.cmd_present("wtype") then
-  return
-end
-
-local ctrl_hold = require("hypr.omackey.lib.ctrl_hold")
 
 mac({
   id = "scroll-up",
@@ -87,7 +83,8 @@ mac({
   mac = "⌘-scroll up",
   keys = "SUPER + mouse_up",
   desc = "⌘-scroll up sent as Ctrl-scroll",
-  actions = { default = ctrl_hold.tick },
+  requires = "wtype",
+  action = ctrl_hold.tick,
 })
 
 mac({
@@ -96,5 +93,6 @@ mac({
   mac = "⌘-scroll down",
   keys = "SUPER + mouse_down",
   desc = "⌘-scroll down sent as Ctrl-scroll",
-  actions = { default = ctrl_hold.tick },
+  requires = "wtype",
+  action = ctrl_hold.tick,
 })

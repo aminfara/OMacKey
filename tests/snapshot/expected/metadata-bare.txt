@@ -5,7 +5,7 @@ key block-comment  ALT+SHIFT+a  category="VS Code"  mac="⌥⇧A"  profiles={vsc
 key bold  SUPER+b  category="Editing"  mac="⌘B"  profiles={default,terminal}
 key bookmark-manager  SUPER+ALT+b  category="Browser"  mac="⌘⌥B"  profiles={browser,vscode}
 key cancel  SUPER+period  category="Editing"  mac="⌘."  profiles={default,terminal,vscode}
-key capture-menu  SUPER+SHIFT+5  category="System"  mac="⌘⇧5"  profiles={}
+key capture-menu  SUPER+SHIFT+5  category="System"  mac="⌘⇧5"  action
 key catchall-⌘apostrophe  SUPER+apostrophe  category="Catch-all"  mac="⌘'"  profiles={default,terminal}
 key catchall-⌘backslash  SUPER+backslash  category="Catch-all"  mac="⌘\\"  profiles={default,terminal}
 key catchall-⌘e  SUPER+e  category="Catch-all"  mac="⌘E"  profiles={default,terminal}
@@ -36,14 +36,14 @@ key catchall-⌘⇧x  SUPER+SHIFT+x  category="Catch-all"  mac="⌘⇧X"  profil
 key catchall-⌘⇧y  SUPER+SHIFT+y  category="Catch-all"  mac="⌘⇧Y"  profiles={default,terminal}
 key clear-browsing-data  SUPER+SHIFT+backspace  category="Browser"  mac="⌘⇧⌫"  profiles={browser}
 key clear-screen  SUPER+k  category="Terminal"  mac="⌘K"  profiles={default,terminal}
-key click  SUPER+mouse:272  category="Mouse"  mac="⌘-click"  profiles={default}
-key click-release  SUPER+mouse:272 (release)  category="Mouse"  mac="⌘-click release"  profiles={default}
-key click-release-after-cmd  mouse:272 (release)  category="Mouse"  mac="click release after ⌘"  profiles={default}
-key click-release-after-cmd-shift  SHIFT+mouse:272 (release)  category="Mouse"  mac="click release after ⌘ with ⇧"  profiles={default}
-key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac="⌘⇧-click release"  profiles={default}
-key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⌘⇧-click"  profiles={default}
+key click  SUPER+mouse:272  category="Mouse"  mac="⌘-click"  action
+key click-release  SUPER+mouse:272 (release)  category="Mouse"  mac="⌘-click release"  action
+key click-release-after-cmd  mouse:272 (release)  category="Mouse"  mac="click release after ⌘"  action
+key click-release-after-cmd-shift  SHIFT+mouse:272 (release)  category="Mouse"  mac="click release after ⌘ with ⇧"  action
+key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac="⌘⇧-click release"  action
+key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⌘⇧-click"  action
 key close-tab  SUPER+w  category="Windows"  mac="⌘W"  profiles={default,ghostty,kitty,no-tabs,terminal}
-key close-window  SUPER+SHIFT+w  category="Windows"  mac="⌘⇧W"  profiles={}
+key close-window  SUPER+SHIFT+w  category="Windows"  mac="⌘⇧W"  action
 key copy  SUPER+c  category="Editing"  mac="⌘C"  profiles={default,terminal,vscode}
 key copy-line-down  ALT+SHIFT+down  category="VS Code"  mac="⌥⇧↓"  profiles={vscode}
 key copy-line-up  ALT+SHIFT+up  category="VS Code"  mac="⌥⇧↑"  profiles={vscode}
@@ -55,7 +55,10 @@ key delete-word-right  ALT+delete  category="Editing"  mac="⌥⌦"  profiles={d
 key devtools  SUPER+ALT+i  category="Browser"  mac="⌘⌥I"  profiles={default,terminal,vscode}
 key devtools-console  SUPER+ALT+j  category="Browser"  mac="⌘⌥J"  profiles={browser}
 key devtools-inspect  SUPER+ALT+c  category="Browser"  mac="⌘⌥C"  profiles={browser,vscode}
-key do-not-disturb  xf86donotdisturb  category="System"  mac="F6"  profiles={}
+key dictation-start  xf86voicecommand  category="System"  mac="F5"  action  NOT BOUND
+key dictation-stop  xf86voicecommand (release)  category="System"  mac="F5 (release)"  action  NOT BOUND
+key dictation-toggle  SHIFT+xf86voicecommand  category="System"  mac="⇧F5"  action  NOT BOUND
+key do-not-disturb  xf86donotdisturb  category="System"  mac="F6"  action
 key document-end  SUPER+down  category="Cursor"  mac="⌘↓"  profiles={default,ghostty,kitty,nautilus,terminal}
 key document-start  SUPER+up  category="Cursor"  mac="⌘↑"  profiles={default,ghostty,kitty,nautilus,terminal}
 key downloads  SUPER+SHIFT+j  category="Browser"  mac="⌘⇧J"  profiles={browser,default,firefox,terminal}
@@ -68,7 +71,7 @@ key emacs-line-down  CTRL+n  category="Emacs"  mac="⌃N"  profiles={default,ter
 key emacs-line-end  CTRL+e  category="Emacs"  mac="⌃E"  profiles={default,terminal}
 key emacs-line-start  CTRL+a  category="Emacs"  mac="⌃A"  profiles={default,terminal}
 key emacs-line-up  CTRL+p  category="Emacs"  mac="⌃P"  profiles={default,terminal}
-key emoji-picker  SUPER+CTRL+space  category="System"  mac="⌃⌘Space"  profiles={}
+key emoji-picker  SUPER+CTRL+space  category="System"  mac="⌃⌘Space"  action
 key expand-selection  SUPER+CTRL+SHIFT+right  category="VS Code"  mac="⌃⇧⌘→"  profiles={vscode}
 key find  SUPER+f  category="Editing"  mac="⌘F"  profiles={default,foot,ghostty,kitty,terminal}
 key find-in-selection  SUPER+ALT+l  category="VS Code"  mac="⌘⌥L"  profiles={vscode}
@@ -78,18 +81,18 @@ key find-previous  SUPER+SHIFT+g  category="Editing"  mac="⌘⇧G"  profiles={d
 key find-regex  SUPER+ALT+r  category="VS Code"  mac="⌘⌥R"  profiles={vscode}
 key find-whole-word  SUPER+ALT+w  category="VS Code"  mac="⌘⌥W"  profiles={vscode}
 key fold  SUPER+ALT+bracketleft  category="VS Code"  mac="⌘⌥["  profiles={vscode}
-key force-quit  SUPER+ALT+escape  category="System"  mac="⌘⌥Esc"  profiles={}
+key force-quit  SUPER+ALT+escape  category="System"  mac="⌘⌥Esc"  action
 key forward  SUPER+bracketright  category="Windows"  mac="⌘]"  profiles={browser,default,nautilus,terminal}
 key history  SUPER+y  category="Browser"  mac="⌘Y"  profiles={browser,default,terminal}
 key italic  SUPER+i  category="Editing"  mac="⌘I"  profiles={default,terminal}
 key line-end  SUPER+right  category="Cursor"  mac="⌘→"  profiles={default}
 key line-start  SUPER+left  category="Cursor"  mac="⌘←"  profiles={default}
 key location  SUPER+l  category="Windows"  mac="⌘L"  profiles={default,terminal}
-key lock-screen  SUPER+CTRL+q  category="System"  mac="⌃⌘Q"  profiles={}
+key lock-screen  SUPER+CTRL+q  category="System"  mac="⌃⌘Q"  action
 key new-tab  SUPER+t  category="Windows"  mac="⌘T"  profiles={default,ghostty,kitty,terminal}
 key new-window  SUPER+n  category="Windows"  mac="⌘N"  profiles={default,terminal}
 key new-window-private  SUPER+SHIFT+n  category="Windows"  mac="⌘⇧N"  profiles={default,firefox,terminal}
-key next-app-window  SUPER+grave  category="Windows"  mac="⌘`"  profiles={default}
+key next-app-window  SUPER+grave  category="Windows"  mac="⌘`"  action
 key next-tab  SUPER+SHIFT+bracketright  category="Windows"  mac="⌘⇧]"  profiles={default,ghostty,kitty,terminal}
 key next-tab-arrow  SUPER+ALT+right  category="Windows"  mac="⌘⌥→"  profiles={default,ghostty,kitty,obsidian,terminal}
 key open  SUPER+o  category="Windows"  mac="⌘O"  profiles={default,terminal}
@@ -97,11 +100,11 @@ key paste  SUPER+v  category="Editing"  mac="⌘V"  profiles={default,terminal,v
 key paste-plain  SUPER+SHIFT+v  category="Editing"  mac="⌘⇧V"  profiles={default,libreoffice,terminal}
 key paste-special  SUPER+ALT+v  category="LibreOffice"  mac="⌘⌥V"  profiles={libreoffice}
 key preferences  SUPER+comma  category="Windows"  mac="⌘,"  profiles={default,firefox,ghostty,kitty,libreoffice,terminal}
-key previous-app-window  SUPER+SHIFT+grave  category="Windows"  mac="⌘⇧`"  profiles={default}
+key previous-app-window  SUPER+SHIFT+grave  category="Windows"  mac="⌘⇧`"  action
 key previous-tab  SUPER+SHIFT+bracketleft  category="Windows"  mac="⌘⇧["  profiles={default,ghostty,kitty,terminal}
 key previous-tab-arrow  SUPER+ALT+left  category="Windows"  mac="⌘⌥←"  profiles={default,ghostty,kitty,obsidian,terminal}
 key print  SUPER+p  category="Windows"  mac="⌘P"  profiles={default,terminal}
-key quit-app  SUPER+q  category="Windows"  mac="⌘Q"  profiles={default}
+key quit-app  SUPER+q  category="Windows"  mac="⌘Q"  action
 key redo  SUPER+SHIFT+z  category="Editing"  mac="⌘⇧Z"  profiles={default,terminal}
 key redo-selection  SUPER+SHIFT+u  category="Obsidian"  mac="⌘⇧U"  profiles={default,obsidian,terminal}
 key reload  SUPER+r  category="Windows"  mac="⌘R"  profiles={default,terminal}
@@ -109,10 +112,12 @@ key reopen-tab  SUPER+SHIFT+t  category="Windows"  mac="⌘⇧T"  profiles={defa
 key replace  SUPER+ALT+f  category="VS Code"  mac="⌘⌥F"  profiles={obsidian,vscode}
 key save  SUPER+s  category="Editing"  mac="⌘S"  profiles={default,terminal}
 key save-as  SUPER+SHIFT+s  category="Editing"  mac="⌘⇧S"  profiles={default,terminal}
-key screenshot-region-clipboard  SUPER+CTRL+SHIFT+4  category="System"  mac="⌃⌘⇧4"  profiles={}
-key screenshot-region-file  SUPER+SHIFT+4  category="System"  mac="⌘⇧4"  profiles={}
-key screenshot-screen-clipboard  SUPER+CTRL+SHIFT+3  category="System"  mac="⌃⌘⇧3"  profiles={}
-key screenshot-screen-file  SUPER+SHIFT+3  category="System"  mac="⌘⇧3"  profiles={}
+key screenshot-region-clipboard  SUPER+CTRL+SHIFT+4  category="System"  mac="⌃⌘⇧4"  action
+key screenshot-region-file  SUPER+SHIFT+4  category="System"  mac="⌘⇧4"  action
+key screenshot-screen-clipboard  SUPER+CTRL+SHIFT+3  category="System"  mac="⌃⌘⇧3"  action
+key screenshot-screen-file  SUPER+SHIFT+3  category="System"  mac="⌘⇧3"  action
+key scroll-down  SUPER+mouse_down  category="Mouse"  mac="⌘-scroll down"  action  NOT BOUND
+key scroll-up  SUPER+mouse_up  category="Mouse"  mac="⌘-scroll up"  action  NOT BOUND
 key select-all  SUPER+a  category="Editing"  mac="⌘A"  profiles={default,ghostty,terminal}
 key select-document-end  SUPER+SHIFT+down  category="Cursor"  mac="⌘⇧↓"  profiles={default,terminal}
 key select-document-start  SUPER+SHIFT+up  category="Cursor"  mac="⌘⇧↑"  profiles={default,terminal}
@@ -124,8 +129,8 @@ key show-hidden-files  SUPER+SHIFT+period  category="Files"  mac="⌘⇧."  prof
 key shrink-selection  SUPER+CTRL+SHIFT+left  category="VS Code"  mac="⌃⇧⌘←"  profiles={vscode}
 key split-down  SUPER+SHIFT+d  category="Terminal"  mac="⌘⇧D"  profiles={default,ghostty,terminal}
 key split-right  SUPER+d  category="Terminal"  mac="⌘D"  profiles={default,ghostty,terminal}
-key switch-app  SUPER+tab  category="Windows"  mac="⌘Tab"  profiles={default}
-key switch-app-back  SUPER+SHIFT+tab  category="Windows"  mac="⌘⇧Tab"  profiles={default}
+key switch-app  SUPER+tab  category="Windows"  mac="⌘Tab"  action
+key switch-app-back  SUPER+SHIFT+tab  category="Windows"  mac="⌘⇧Tab"  action
 key tab-1  SUPER+1  category="Windows"  mac="⌘1"  profiles={default,ghostty,nautilus,terminal}
 key tab-2  SUPER+2  category="Windows"  mac="⌘2"  profiles={default,ghostty,nautilus,terminal}
 key tab-3  SUPER+3  category="Windows"  mac="⌘3"  profiles={default,ghostty,nautilus,terminal}
@@ -135,20 +140,20 @@ key tab-6  SUPER+6  category="Windows"  mac="⌘6"  profiles={default,ghostty,na
 key tab-7  SUPER+7  category="Windows"  mac="⌘7"  profiles={default,ghostty,nautilus,terminal}
 key tab-8  SUPER+8  category="Windows"  mac="⌘8"  profiles={default,ghostty,nautilus,terminal}
 key tab-9  SUPER+9  category="Windows"  mac="⌘9"  profiles={default,ghostty,nautilus,terminal}
-key toggle-bar  SUPER+ALT+d  category="System"  mac="⌥⌘D"  profiles={}
+key toggle-bar  SUPER+ALT+d  category="System"  mac="⌥⌘D"  action
 key toggle-comment  SUPER+slash  category="Editing"  mac="⌘/"  profiles={default,terminal}
 key underline  SUPER+u  category="Editing"  mac="⌘U"  profiles={default,terminal}
 key undo  SUPER+z  category="Editing"  mac="⌘Z"  profiles={default,terminal}
 key unfold  SUPER+ALT+bracketright  category="VS Code"  mac="⌘⌥]"  profiles={vscode}
 key view-source  SUPER+ALT+u  category="Browser"  mac="⌘⌥U"  profiles={browser}
-key window-to-next-workspace-down  CTRL+ALT+SHIFT+down  category="Spaces"  mac="⌃⌥⇧↓"  profiles={}
-key window-to-next-workspace-right  CTRL+ALT+SHIFT+right  category="Spaces"  mac="⌃⌥⇧→"  profiles={}
-key window-to-previous-workspace-left  CTRL+ALT+SHIFT+left  category="Spaces"  mac="⌃⌥⇧←"  profiles={}
-key window-to-previous-workspace-up  CTRL+ALT+SHIFT+up  category="Spaces"  mac="⌃⌥⇧↑"  profiles={}
+key window-to-next-workspace-down  CTRL+ALT+SHIFT+down  category="Spaces"  mac="⌃⌥⇧↓"  action
+key window-to-next-workspace-right  CTRL+ALT+SHIFT+right  category="Spaces"  mac="⌃⌥⇧→"  action
+key window-to-previous-workspace-left  CTRL+ALT+SHIFT+left  category="Spaces"  mac="⌃⌥⇧←"  action
+key window-to-previous-workspace-up  CTRL+ALT+SHIFT+up  category="Spaces"  mac="⌃⌥⇧↑"  action
 key word-left  ALT+left  category="Cursor"  mac="⌥←"  profiles={default}
 key word-right  ALT+right  category="Cursor"  mac="⌥→"  profiles={default}
-key workspace-next-down  CTRL+ALT+down  category="Spaces"  mac="⌃⌥↓"  profiles={}
-key workspace-previous-up  CTRL+ALT+up  category="Spaces"  mac="⌃⌥↑"  profiles={}
+key workspace-next-down  CTRL+ALT+down  category="Spaces"  mac="⌃⌥↓"  action
+key workspace-previous-up  CTRL+ALT+up  category="Spaces"  mac="⌃⌥↑"  action
 key zoom-in  SUPER+equal  category="Windows"  mac="⌘="  profiles={default,kitty}
 key zoom-in-plus  SUPER+SHIFT+equal  category="Windows"  mac="⌘+"  profiles={default,kitty}
 key zoom-out  SUPER+minus  category="Windows"  mac="⌘-"  profiles={default,kitty}

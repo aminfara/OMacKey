@@ -1,6 +1,7 @@
--- Phase 2: cursor movement, selection and deletion (PLAN.md §5).
+-- Cursor movement, selection and deletion (PLAN.md §5).
 
-local mac = require("hypr.omackey.lib.bind").mac
+local bind = require("hypr.omackey.lib.bind")
+local mac, PASS, CONSUME = bind.mac, bind.PASS, bind.CONSUME
 local send = require("hypr.omackey.lib.send")
 local tap, seq = send.tap, send.seq
 
@@ -37,7 +38,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "Home"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -50,7 +51,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "End"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -87,7 +88,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Left"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -100,7 +101,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Right"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -147,7 +148,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Home"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -160,7 +161,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "End"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -173,7 +174,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "BackSpace"),
-    terminal = "pass", -- readline: Alt+BackSpace is backward-kill-word
+    terminal = PASS, -- readline: Alt+BackSpace is backward-kill-word
   },
 })
 

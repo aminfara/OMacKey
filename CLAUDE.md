@@ -132,12 +132,16 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   2. `load.pre()`: `lib/relocate.lua` wraps `hl.bind`
   3. `default.hypr.omarchy` (Omarchy defaults, registered on relocated keys)
   4. `load.init()`: unwrap `hl.bind`, then `init.lua` loads `config.modules`
-     (the Mac binds)
+     (they only declare specs), then `bind.build()` validates them and
+     expands the catch-all, and `bind.apply()` binds them in one loop
   5. the user's `hypr.*` files, so the user's `bindings.lua` overrides still
      win.
 - **Errors.** Both loader stages are `pcall`-guarded. An error becomes a
   Hyprland notification plus an entry in `omackey.status()`; it does not show
-  up in `hyprctl configerrors`.
+  up in `hyprctl configerrors`. A module that fails to load, or a spec that
+  fails validation (missing field, duplicate id or chord, a chord Omarchy
+  still binds, unknown profile, invalid action), is reported the same way and
+  skipped; the rest still loads.
 - **No stdout at load.** Omarchy's help menu replays this config and parses
   stdout, so never `print` from OMacKey at load time.
 - **Module paths:** `bootstrap.lua` adds `~/.config/?.lua`, with no `?/init.lua`
@@ -157,12 +161,16 @@ replay the config the way the help menu does. Extract the Lua heredoc from
   - Every `hl.bind` flag passes through.
   - Strings become `exec_cmd`; `{ launch = … }` / `{ webapp = … }` tables
     become Omarchy launcher commands.
-  - Use OMacKey's helpers in `lib/bind.lua`. Both handle descriptions and the
-    docs registry:
-    - `mac{}` for keys whose behaviour depends on the app (synthetic chords,
-      per-profile actions);
-    - `action{}` for plain Hyprland actions that are the same everywhere
-      (workspaces, windows).
+  - Declare OMacKey keys with `mac{}` from `lib/bind.lua`. It handles the
+    description and the registry, and takes either:
+    - `actions = { default = …, terminal = …, <profile> = … }` for keys whose
+      behaviour depends on the app (resolved at press time);
+    - `action = …` for one action in every app (workspaces, windows, mouse).
+      A dispatcher there is bound natively.
+    - An action is a function, a callable table, a dispatcher, or
+      `bind.PASS` / `bind.CONSUME`.
+    - `enabled = <bool>` or `requires = "<command>"` declare a spec that is
+      bound only when enabled or the command is on PATH.
   - Users opt out of a default with `hl.unbind` in their own `bindings.lua`.
     Don't add config flags for that; flags are for opt-in extras only (D12).
 - **Sending keys:**

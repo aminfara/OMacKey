@@ -26,7 +26,7 @@ local function guarded(stage, fn)
   end
 end
 
--- Phase 7d: with OMacKey switched off (lib/mode.lua) nothing is relocated or
+-- With OMacKey switched off (lib/mode.lua) nothing is relocated or
 -- bound except the toggle key, so Omarchy's defaults load as they ship.
 local function enabled()
   local ok, on = pcall(function()
@@ -72,7 +72,7 @@ function omackey.status()
   local relocate = package.loaded["hypr.omackey.lib.relocate"]
   local bind = package.loaded["hypr.omackey.lib.bind"]
   local parts = {
-    "bindings=" .. (bind and #bind.registry or 0),
+    "bindings=" .. (bind and #bind.bound or 0),
     "relocated=" .. (relocate and #relocate.applied or 0),
   }
 
@@ -87,8 +87,8 @@ function omackey.status()
   return table.concat(parts, " ")
 end
 
--- How often a mac{} binding fired since the last reload (automated tests;
--- action{} bindings are not counted).
+-- How often a binding fired since the last reload (automated tests). Bindings
+-- with a dispatcher action are bound natively and not counted (-1).
 function omackey.fired(id)
   local bind = package.loaded["hypr.omackey.lib.bind"]
   local spec = bind and bind.by_id[id]
@@ -104,8 +104,12 @@ function omackey.trigger(id)
     return "unknown binding id: " .. tostring(id)
   end
 
-  if spec.dispatcher then
-    hl.dispatch(spec.dispatcher)
+  if not spec.bound then
+    return "not bound: " .. tostring(id)
+  end
+
+  if not spec.handler then
+    hl.dispatch(spec.action)
     return "dispatched"
   end
 

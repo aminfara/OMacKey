@@ -1,11 +1,12 @@
--- Phase 6a: keys that only mean something in a terminal (PLAN.md §5). The
+-- Keys that only mean something in a terminal (PLAN.md §5). The
 -- per-terminal entries for keys that exist everywhere (⌘W, ⌘T, ⌘F…) sit in
 -- windows.lua, editing.lua and text.lua next to the generic ones.
 --
--- Outside terminals these have no action, so the raw ⌘ chord reaches the app as
--- it did before; Phase 7a decides what the catch-all sends there.
+-- Outside terminals they send Ctrl / Ctrl+Shift + the same key, like the
+-- catch-all.
 
-local mac = require("hypr.omackey.lib.bind").mac
+local bind = require("hypr.omackey.lib.bind")
+local mac, CONSUME = bind.mac, bind.CONSUME
 local tap = require("hypr.omackey.lib.send").tap
 
 -- Clear screen. Ghostty on the Mac clears the screen and all scrollback; Ctrl+L
@@ -17,6 +18,7 @@ mac({
   keys = "SUPER + K",
   desc = "Clear terminal screen",
   actions = {
+    default = tap("CTRL", "K"),
     terminal = tap("CTRL", "L"),
   },
 })
@@ -30,7 +32,8 @@ mac({
   keys = "SUPER + D",
   desc = "Split terminal right",
   actions = {
-    terminal = "consume",
+    default = tap("CTRL", "D"),
+    terminal = CONSUME,
     ghostty = tap("CTRL + SHIFT", "O"),
   },
 })
@@ -42,7 +45,8 @@ mac({
   keys = "SUPER + SHIFT + D",
   desc = "Split terminal down",
   actions = {
-    terminal = "consume",
+    default = tap("CTRL + SHIFT", "D"),
+    terminal = CONSUME,
     ghostty = tap("CTRL + SHIFT", "E"),
   },
 })

@@ -4,7 +4,7 @@ local bind = require("hypr.omackey.lib.bind")
 local tap = require("hypr.omackey.lib.send").tap
 local switcher = require("hypr.omackey.lib.switcher")
 local windows = require("hypr.omackey.lib.windows")
-local mac, action = bind.mac, bind.action
+local mac, CONSUME = bind.mac, bind.CONSUME
 
 switcher.start()
 
@@ -33,13 +33,13 @@ mac({
 -- ends in, so one action covers every app (Ctrl+Shift+W for
 -- browsers and VS Code would do the same). Omarchy's Omawrite launcher is on
 -- ⌃⌥⌘W.
-action({
+mac({
   id = "close-window",
   category = "Windows",
   mac = "⌘⇧W",
   keys = "SUPER + SHIFT + W",
   desc = "Close window",
-  dispatcher = hl.dsp.window.close(),
+  action = hl.dsp.window.close(),
 })
 
 mac({
@@ -48,9 +48,7 @@ mac({
   mac = "⌘Q",
   keys = "SUPER + Q",
   desc = "Quit app (close all its windows)",
-  actions = {
-    default = windows.quit_app, -- terminals too, as Terminal.app does
-  },
+  action = windows.quit_app, -- terminals too, as Terminal.app does
 })
 
 -- Terminals have no ⌘ chord to receive, so these send their own: foot,
@@ -77,7 +75,7 @@ mac({
   desc = "New private window or folder",
   actions = {
     default = tap("CTRL + SHIFT", "N"),
-    terminal = "consume",
+    terminal = CONSUME,
     firefox = tap("CTRL + SHIFT", "P"),
   },
 })
@@ -104,7 +102,7 @@ mac({
   desc = "Reopen closed tab",
   actions = {
     default = tap("CTRL + SHIFT", "T"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -119,7 +117,7 @@ mac({
   desc = "Open",
   actions = {
     default = tap("CTRL", "O"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -131,7 +129,7 @@ mac({
   desc = "Print or quick open",
   actions = {
     default = tap("CTRL", "P"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -143,7 +141,7 @@ mac({
   desc = "Reload",
   actions = {
     default = tap("CTRL", "R"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -155,7 +153,7 @@ mac({
   desc = "Focus address bar",
   actions = {
     default = tap("CTRL", "L"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -224,7 +222,7 @@ mac({
     default = tap("CTRL", "bracketleft"),
     browser = tap("ALT", "Left"),
     nautilus = tap("ALT", "Left"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -238,7 +236,7 @@ mac({
     default = tap("CTRL", "bracketright"),
     browser = tap("ALT", "Right"),
     nautilus = tap("ALT", "Right"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -261,9 +259,9 @@ for n = 1, 9 do
     desc = "Go to tab " .. digit,
     actions = {
       default = tap("CTRL", digit),
-      terminal = "consume",
+      terminal = CONSUME,
       ghostty = tap("ALT", digit),
-      nautilus = nautilus_views[digit] or "consume",
+      nautilus = nautilus_views[digit] or CONSUME,
     },
   })
 end
@@ -280,7 +278,7 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    terminal = "consume",
+    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Left"),
   },
@@ -294,7 +292,7 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    terminal = "consume",
+    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Right"),
   },
@@ -308,7 +306,7 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    terminal = "consume",
+    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Left"),
     obsidian = tap("CTRL + ALT", "Left"), -- navigate back, as on the Mac
@@ -323,7 +321,7 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    terminal = "consume",
+    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Right"),
     obsidian = tap("CTRL + ALT", "Right"), -- navigate forward
@@ -339,11 +337,9 @@ mac({
   mac = "⌘Tab",
   keys = "SUPER + TAB",
   desc = "Switch app",
-  actions = {
-    default = function()
-      switcher.step(true)
-    end,
-  },
+  action = function()
+    switcher.step(true)
+  end,
 })
 
 mac({
@@ -352,11 +348,9 @@ mac({
   mac = "⌘⇧Tab",
   keys = "SUPER + SHIFT + TAB",
   desc = "Switch app backwards",
-  actions = {
-    default = function()
-      switcher.step(false)
-    end,
-  },
+  action = function()
+    switcher.step(false)
+  end,
 })
 
 -- Fixed-order ring of the active app's windows, across workspaces. With one
@@ -367,11 +361,9 @@ mac({
   mac = "⌘`",
   keys = "SUPER + grave",
   desc = "Next window of this app",
-  actions = {
-    default = function()
-      windows.cycle_app_windows(1)
-    end,
-  },
+  action = function()
+    windows.cycle_app_windows(1)
+  end,
 })
 
 mac({
@@ -380,11 +372,9 @@ mac({
   mac = "⌘⇧`",
   keys = "SUPER + SHIFT + grave",
   desc = "Previous window of this app",
-  actions = {
-    default = function()
-      windows.cycle_app_windows(-1)
-    end,
-  },
+  action = function()
+    windows.cycle_app_windows(-1)
+  end,
 })
 
 -- Preferences. Omarchy's "dismiss last notification" is on ⌃⌘⇧,.
@@ -404,7 +394,7 @@ mac({
   desc = "Preferences",
   actions = {
     default = tap("CTRL", "comma"),
-    terminal = "consume",
+    terminal = CONSUME,
     firefox = function()
       hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
     end,

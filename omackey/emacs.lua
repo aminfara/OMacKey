@@ -1,5 +1,6 @@
--- Phase 7c: Emacs-style ⌃ keys for text fields (PLAN.md §5), as in every Mac text
--- field. Controlled by `emacs_keys` in config.lua: nothing is bound when it is false.
+-- Emacs-style ⌃ keys for text fields (PLAN.md §5), as in every Mac text field.
+-- Controlled by `emacs_keys` in config.lua: declared either way, bound only when
+-- it is true.
 --
 -- Terminals pass the raw key (readline already has all of these). VS Code gets
 -- the translation like any GUI app, except ⌃D: its integrated terminal can't be
@@ -7,12 +8,8 @@
 -- shell.
 
 local config = require("hypr.omackey.config")
-
-if not config.emacs_keys then
-  return
-end
-
-local mac = require("hypr.omackey.lib.bind").mac
+local bind = require("hypr.omackey.lib.bind")
+local mac, PASS = bind.mac, bind.PASS
 local send = require("hypr.omackey.lib.send")
 local tap, seq = send.tap, send.seq
 
@@ -23,9 +20,10 @@ mac({
   keys = "CTRL + A",
   desc = "Line start (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "Home"),
-    terminal = "pass",
+    terminal = PASS,
   },
 })
 
@@ -36,9 +34,10 @@ mac({
   keys = "CTRL + E",
   desc = "Line end (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "End"),
-    terminal = "pass",
+    terminal = PASS,
   },
 })
 
@@ -49,9 +48,10 @@ mac({
   keys = "CTRL + F",
   desc = "Cursor right (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "Right"),
-    terminal = "pass",
+    terminal = PASS,
   },
 })
 
@@ -62,9 +62,10 @@ mac({
   keys = "CTRL + B",
   desc = "Cursor left (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "Left"),
-    terminal = "pass",
+    terminal = PASS,
   },
 })
 
@@ -75,9 +76,10 @@ mac({
   keys = "CTRL + N",
   desc = "Cursor down (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "Down"),
-    terminal = "pass",
+    terminal = PASS,
   },
 })
 
@@ -88,9 +90,10 @@ mac({
   keys = "CTRL + P",
   desc = "Cursor up (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "Up"),
-    terminal = "pass",
+    terminal = PASS,
   },
 })
 
@@ -101,10 +104,11 @@ mac({
   keys = "CTRL + D",
   desc = "Delete right (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "Delete"),
-    terminal = "pass",
-    vscode = "pass", -- the integrated terminal needs the raw ⌃D (end of input)
+    terminal = PASS,
+    vscode = PASS, -- the integrated terminal needs the raw ⌃D (end of input)
   },
 })
 
@@ -115,9 +119,10 @@ mac({
   keys = "CTRL + H",
   desc = "Delete left (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = tap("", "BackSpace"),
-    terminal = "pass",
+    terminal = PASS,
   },
 })
 
@@ -128,8 +133,9 @@ mac({
   keys = "CTRL + K",
   desc = "Delete to line end (Emacs key)",
   repeating = true,
+  enabled = config.emacs_keys,
   actions = {
     default = seq(tap("SHIFT", "End"), tap("", "Delete")),
-    terminal = "pass",
+    terminal = PASS,
   },
 })

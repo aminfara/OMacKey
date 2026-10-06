@@ -1,7 +1,8 @@
 -- Core editing: clipboard, undo/redo, find, save (PLAN.md §5). Omarchy's
 -- universal copy, paste and cut are dropped in relocations.lua.
 
-local mac = require("hypr.omackey.lib.bind").mac
+local bind = require("hypr.omackey.lib.bind")
+local mac, CONSUME = bind.mac, bind.CONSUME
 local tap = require("hypr.omackey.lib.send").tap
 
 mac({
@@ -38,7 +39,7 @@ mac({
   desc = "Cut",
   actions = {
     default = tap("CTRL", "X"),
-    terminal = "consume", -- Ctrl+X is a readline prefix; a terminal has nothing to cut
+    terminal = CONSUME, -- Ctrl+X is a readline prefix; a terminal has nothing to cut
   },
 })
 
@@ -64,7 +65,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "Z"),
-    terminal = "consume", -- Ctrl+Z would suspend the foreground job
+    terminal = CONSUME, -- Ctrl+Z would suspend the foreground job
   },
 })
 
@@ -77,7 +78,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Z"), -- LibreOffice uses Ctrl+Y
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -89,7 +90,7 @@ mac({
   desc = "Select all",
   actions = {
     default = tap("CTRL", "A"),
-    terminal = "consume", -- Ctrl+A is readline's line start
+    terminal = CONSUME, -- Ctrl+A is readline's line start
     ghostty = tap("CTRL + SHIFT", "A"),
   },
 })
@@ -102,7 +103,7 @@ mac({
   desc = "Save",
   actions = {
     default = tap("CTRL", "S"),
-    terminal = "consume", -- Ctrl+S freezes terminal output (XOFF)
+    terminal = CONSUME, -- Ctrl+S freezes terminal output (XOFF)
   },
 })
 
@@ -114,7 +115,7 @@ mac({
   desc = "Save as",
   actions = {
     default = tap("CTRL + SHIFT", "S"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 
@@ -126,7 +127,7 @@ mac({
   desc = "Find",
   actions = {
     default = tap("CTRL", "F"),
-    terminal = "consume", -- Ctrl+F is readline's forward-char
+    terminal = CONSUME, -- Ctrl+F is readline's forward-char
     -- Each terminal's scrollback search. ⌘G / ⌘⇧G stay consumed: they only
     -- mean something while a search is open, which Hyprland can't tell (§9 F10).
     ghostty = tap("CTRL + SHIFT", "F"),
@@ -146,7 +147,7 @@ mac({
   repeating = true,
   actions = {
     default = tap("", "F3"),
-    terminal = "consume",
+    terminal = CONSUME,
     libreoffice = tap("CTRL + SHIFT", "F"), -- F3 is AutoText there; Ctrl+Shift+F repeats the search
   },
 })
@@ -160,9 +161,9 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "F3"),
-    terminal = "consume",
+    terminal = CONSUME,
     nautilus = tap("CTRL", "L"), -- go to location, as in Finder
-    libreoffice = "consume", -- Shift+F3 changes case there, and no key finds the previous match (§7)
+    libreoffice = CONSUME, -- Shift+F3 changes case there, and no key finds the previous match (§7)
   },
 })
 
@@ -174,7 +175,7 @@ mac({
   desc = "Bold",
   actions = {
     default = tap("CTRL", "B"),
-    terminal = "consume", -- Ctrl+B is readline's backward-char (and tmux's prefix)
+    terminal = CONSUME, -- Ctrl+B is readline's backward-char (and tmux's prefix)
   },
 })
 
@@ -186,7 +187,7 @@ mac({
   desc = "Italic",
   actions = {
     default = tap("CTRL", "I"),
-    terminal = "consume", -- Ctrl+I is Tab
+    terminal = CONSUME, -- Ctrl+I is Tab
   },
 })
 
@@ -198,7 +199,7 @@ mac({
   desc = "Underline",
   actions = {
     default = tap("CTRL", "U"),
-    terminal = "consume", -- Ctrl+U deletes the line (⌘⌫ owns that)
+    terminal = CONSUME, -- Ctrl+U deletes the line (⌘⌫ owns that)
   },
 })
 
@@ -210,7 +211,7 @@ mac({
   desc = "Toggle comment",
   actions = {
     default = tap("CTRL", "slash"),
-    terminal = "consume",
+    terminal = CONSUME,
   },
 })
 

@@ -1,12 +1,13 @@
--- Phase 6c: VS Code shortcuts (PLAN.md §5). The Mac keybindings use ⌘ where the
+-- VS Code shortcuts (PLAN.md §5). The Mac keybindings use ⌘ where the
 -- Linux ones use Ctrl, so most keys are covered by the generic rules. These are
 -- the ones whose Linux chord differs from the Mac's, so ⌘ → Ctrl is not enough.
 -- Chords read from the installed workbench.desktop.main.js (§9 F13).
 --
--- Elsewhere these have no action, so the raw ⌘ chord reaches the app as before;
--- Phase 7a decides what the catch-all sends there.
+-- A key here without a `default` does nothing outside VS Code: the raw chord
+-- reaches the app.
 
-local mac = require("hypr.omackey.lib.bind").mac
+local bind = require("hypr.omackey.lib.bind")
+local mac, CONSUME = bind.mac, bind.CONSUME
 local tap = require("hypr.omackey.lib.send").tap
 
 -- Add cursor above / below. Linux's own primary is Shift+Alt+Up; Ctrl+Shift+Up
@@ -37,7 +38,7 @@ mac({
   },
 })
 
--- Omarchy's webcam size binds moved to ⌃⌥ in Phase 1a.
+-- Omarchy's webcam size binds for these keys are on ⌃⌥.
 mac({
   id = "fold",
   category = "VS Code",
@@ -60,7 +61,7 @@ mac({
   },
 })
 
--- Omarchy's "Full width" moved to ⌃⌥⏎ in Phase 1a.
+-- Omarchy's "Full width" is on ⌃⌥⏎.
 mac({
   id = "replace",
   category = "VS Code",
@@ -97,10 +98,10 @@ mac({
   },
 })
 
--- Quick fix is Ctrl+. on Linux and ⌘. on the Mac. Phase 7b adds the generic
--- ⌘. (Escape) on this key and keeps this entry.
+-- Quick fix is Ctrl+. on Linux and ⌘. on the Mac: the VS Code entry of ⌘.
+-- (cancel, editing.lua).
 
--- Phase 6c-2: keys whose Mac and Linux chords differ. Found by diffing the Mac
+-- Keys whose Mac and Linux chords differ. Found by diffing the Mac
 -- and Linux keymaps in the installed workbench.desktop.main.js (§9 F15).
 
 -- Mac ⌥⇧↑ / ⌥⇧↓ copy the line. On Linux the same physical chord adds a cursor
@@ -143,7 +144,7 @@ mac({
 
 -- The Mac zooms out on ⌘⇧- as well as ⌘-. On Linux Ctrl+Shift+- is Navigate
 -- Forward, which is what the catch-all would send. Other apps keep the
--- catch-all's Ctrl+Shift+- (7a gives this entry its default).
+-- catch-all's Ctrl+Shift+-.
 mac({
   id = "zoom-out-shifted",
   category = "VS Code",
@@ -151,6 +152,8 @@ mac({
   keys = "SUPER + SHIFT + minus",
   desc = "Zoom out (VS Code)",
   actions = {
+    default = tap("CTRL + SHIFT", "minus"),
+    terminal = CONSUME,
     vscode = tap("CTRL", "minus"),
   },
 })

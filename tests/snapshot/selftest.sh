@@ -63,7 +63,7 @@ release_ms() { sed -i 's/release_ms = 20/release_ms = 25/' "$file"; }
 match_order() { sed -i -e '/{ name = "firefox", family = "browser"/{h;d}' -e '/{ name = "nautilus"/G' "$file"; }
 broken_relocation() { sed -i 's/from = "SUPER + J", to/from = "SUPER + JJ", to/' "$file"; }
 print_at_load() { sed -i '1i print("snapshot selftest")' "$file"; }
-action_typo() { sed -i '0,/terminal = "consume"/s//terminal = "consme"/' "$file"; }
+action_typo() { sed -i '0,/terminal = CONSUME/s//terminal = "consme"/' "$file"; }
 rename_local() { sed -i 's/\bpending\b/pending_timers/g' "$file"; }
 
 check "a changed tap modifier" 1 'tap("CTRL", "Home")' tap_modifier
@@ -72,7 +72,7 @@ check "release_ms changed" 1 'release_ms = 20' release_ms
 check "app match order (Firefox after the generic browser)" 1 '{ name = "firefox", family = "browser"' match_order
 check "a broken relocation row" 1 'from = "SUPER + J", to' broken_relocation
 check "a print at load" 1 'from = "SUPER + J", to' print_at_load
-check "an action string typo" 1 'terminal = "consume"' action_typo
+check "an action string typo" 1 'terminal = CONSUME' action_typo
 check "a local variable renamed (no behaviour change)" 0 'local pending = {}' rename_local
 
 # Determinism: two renders of the working tree are identical.

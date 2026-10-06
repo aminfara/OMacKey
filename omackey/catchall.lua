@@ -1,16 +1,17 @@
 -- The catch-all (PLAN.md §5). Every ⌘ / ⌘⇧ + letter, punctuation or Return key
--- that no other module and no Omarchy default claimed sends Ctrl / Ctrl+Shift +
+-- that no other spec and no Omarchy default claims sends Ctrl / Ctrl+Shift +
 -- the same key, so a Mac shortcut that has no entry of its own still does what
 -- it does on the Mac. Terminals consume them (D5).
 --
--- Keep this module last in config.modules: it reads the registry and the keys
--- Omarchy registered (lib/relocate.lua), then fills the gaps. A key you rebind
--- in ~/.config/hypr/bindings.lua still wins, since that file loads later.
+-- This only declares a spec for every chord it covers; lib/bind.lua keeps the
+-- ones nobody else claimed once everything is declared, so the module's
+-- position in config.modules doesn't matter. A key you rebind in
+-- ~/.config/hypr/bindings.lua still wins, since that file loads later.
 
 local bind = require("hypr.omackey.lib.bind")
 local keys = require("hypr.omackey.lib.keys")
-local relocate = require("hypr.omackey.lib.relocate")
 local tap = require("hypr.omackey.lib.send").tap
+local CONSUME = bind.CONSUME
 
 -- The keys covered, in key-table order: A–Z, the punctuation keys, Return.
 local covered_keys = {}
@@ -41,59 +42,31 @@ local variants = {
   { keys = "SUPER + SHIFT", ctrl = "CTRL + SHIFT", glyph = "⌘⇧", text = "Ctrl+Shift+" },
 }
 
--- Normalized chord → { variant, key } for every chord this module covers.
-local covered = {}
-for _, variant in ipairs(variants) do
-  for _, key in ipairs(covered_keys) do
-    covered[keys.normalize(variant.keys .. " + " .. key.name)] = { variant = variant, key = key }
-  end
-end
-
-local taken = {}
-for key in pairs(relocate.claimed) do
-  taken[key] = true
-end
-
--- A key another module claimed for some apps only (⌘K and ⌘D in terminals, ⌘Y in
--- browsers) has no action elsewhere, so the raw ⌘ chord would reach the app. Give
--- it the catch-all's default outside its own profiles.
-for _, spec in ipairs(bind.registry) do
-  local chord = keys.normalize(spec.keys)
-  taken[chord] = true
-
-  local target = covered[chord]
-  if target and spec.actions and spec.actions.default == nil then
-    spec.actions.default = consumed[chord] and "consume" or tap(target.variant.ctrl, target.key.name)
-    if spec.actions.terminal == nil then
-      spec.actions.terminal = "consume"
-    end
-  end
-end
-
+local specs = {}
 for _, variant in ipairs(variants) do
   for _, key in ipairs(covered_keys) do
     local name = key.name
     local chord = variant.keys .. " + " .. name
 
-    if not taken[keys.normalize(chord)] then
-      local desc = variant.glyph .. key.glyph .. " sent as " .. variant.text .. key.label
-      local default = tap(variant.ctrl, name)
-      if consumed[keys.normalize(chord)] then
-        desc = variant.glyph .. key.glyph .. " not mapped"
-        default = "consume"
-      end
-
-      bind.mac({
-        id = "catchall-" .. variant.glyph .. name,
-        category = "Catch-all",
-        mac = variant.glyph .. key.glyph,
-        keys = chord,
-        desc = desc,
-        actions = {
-          default = default,
-          terminal = "consume",
-        },
-      })
+    local desc = variant.glyph .. key.glyph .. " sent as " .. variant.text .. key.label
+    local default = tap(variant.ctrl, name)
+    if consumed[keys.normalize(chord)] then
+      desc = variant.glyph .. key.glyph .. " not mapped"
+      default = CONSUME
     end
+
+    table.insert(specs, {
+      id = "catchall-" .. variant.glyph .. name,
+      category = "Catch-all",
+      mac = variant.glyph .. key.glyph,
+      keys = chord,
+      desc = desc,
+      actions = {
+        default = default,
+        terminal = CONSUME,
+      },
+    })
   end
 end
+
+bind.catchall(specs)

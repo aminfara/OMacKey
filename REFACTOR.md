@@ -670,3 +670,46 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     Scratch-HOME replay: the only difference is the three "Universal copy /
     paste / cut" entries gone, as planned.
   - Comments in touched files no longer name phases.
+- **2026-10-07 — R2 done.**
+  - `lib/bind.lua`: `mac{}` and `catchall{}` only declare; `build()` validates,
+    resolves `enabled` / `requires` and expands the catch-all against every
+    enabled spec and `relocate.claimed`; `apply()` binds in one loop.
+    `action{}` is gone: `mac{ action = … }` (a dispatcher binds natively, as
+    before; anything else gets `auto_consuming` and the press counter).
+    `bind.PASS` / `bind.CONSUME` replace the strings in every module.
+  - `action =` is used where the action is the same in every app: Spaces,
+    System, ⌘⇧W, ⌘Q, ⌘Tab / ⌘⇧Tab, ⌘\` / ⌘⇧\`, ⌘-click and its releases,
+    ⌘-scroll. The default-only text keys (⌘← ⌘→ ⌥← ⌥→) keep `actions`: they
+    are synthetic chords an app may need to override.
+  - The catch-all used to write a `default` into eight specs at load; those
+    are now written in the specs: clear-screen, split-right, split-down
+    (Ctrl / Ctrl+Shift + key), history, downloads, show-hidden-files,
+    zoom-out-shifted (same, plus `terminal = CONSUME`), redo-selection
+    (`CONSUME`).
+  - Conditional specs are declared and marked: Emacs keys
+    `enabled = config.emacs_keys`, ⌘-scroll `requires = "wtype"`, dictation
+    `requires = "voxtype"`. `omackey.status()` counts `bind.bound`;
+    `omackey.trigger` answers "not bound" for a declared, unbound spec.
+  - Validation, checked with a planted copy: a duplicate id, the same chord
+    twice, a chord Omarchy holds, an unknown profile, an invalid action, a
+    missing field, both `action` and `actions`, and a module that throws
+    (an unknown key name in `tap`) are each reported in `omackey.status()`
+    plus one notification, and skipped; the rest loads. A Lua error inside a
+    module skips the rest of that module (`init.lua` requires each module
+    under `pcall`), since `tap()` resolves key names when it is declared.
+  - Snapshot: frozen files identical in all five variants. `order-*.txt`
+    unchanged after all (binds were already registered in declaration order
+    with the catch-all last). `metadata-*.txt` changed as declared: the
+    single-action specs show `action` instead of `profiles={…}` (render.lua
+    prints that column), and unbound declared specs appear marked
+    `NOT BOUND` (5 in `bare`, 9 in `emacs-off`). The self-test's typo case
+    now edits `terminal = CONSUME`.
+  - `check.sh` three ✓; live help menu and help-menu replay identical.
+  - Physical tests (user): ⌘-click, ⌘⇧-click (⌘ let go first), ⌘-scroll
+    burst, ⌘Tab hold-stepping and ⌘Q all pass.
+  - Found while testing: a slow ⌘-scroll-up burst counted only one press of
+    `scroll-up`. Expected: once wtype holds Ctrl, the modifier state is ⌃⌘,
+    so ⌘ + wheel no longer matches the bind and the ticks reach the app
+    directly with Ctrl (which is the point). The bind fires only on the tick
+    that starts a hold. This also explains PLAN.md F20's "not understood"
+    slow ticks: they never reached the bind.
