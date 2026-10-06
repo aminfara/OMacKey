@@ -110,7 +110,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "Home"),
-    nautilus = tap("ALT", "Up"), -- parent folder, as in Finder
   },
 })
 
@@ -123,7 +122,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "End"),
-    nautilus = tap("", "Return"), -- open the selection, as in Finder
   },
 })
 
@@ -184,7 +182,6 @@ mac({
   repeating = true,
   actions = {
     default = seq(tap("SHIFT", "Home"), tap("", "BackSpace")),
-    nautilus = tap("", "Delete"), -- move to trash, as in Finder
   },
 })
 

@@ -197,7 +197,6 @@ mac({
   desc = "Back or outdent",
   actions = {
     default = tap("CTRL", "bracketleft"),
-    nautilus = tap("ALT", "Left"),
   },
 })
 
@@ -209,7 +208,6 @@ mac({
   desc = "Forward or indent",
   actions = {
     default = tap("CTRL", "bracketright"),
-    nautilus = tap("ALT", "Right"),
   },
 })
 
@@ -219,7 +217,6 @@ mac({
 -- tab). kitty has no key for tab N. Nautilus has no tabs by number here: ⌘1 / ⌘2
 -- are Finder's icon / list view, which are Nautilus's Ctrl+2 / Ctrl+1 (§9 F5),
 -- and ⌘3–9 do nothing (Finder's columns and gallery views don't exist).
-local nautilus_views = { ["1"] = tap("CTRL", "2"), ["2"] = tap("CTRL", "1") }
 
 for n = 1, 9 do
   local digit = tostring(n)
@@ -232,7 +229,6 @@ for n = 1, 9 do
     desc = "Go to tab " .. digit,
     actions = {
       default = tap("CTRL", digit),
-      nautilus = nautilus_views[digit] or CONSUME,
     },
   })
 end

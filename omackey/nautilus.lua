@@ -16,6 +16,5 @@ mac({
   desc = "Show hidden files (Files)",
   actions = {
     default = tap("CTRL + SHIFT", "period"),
-    nautilus = tap("CTRL", "H"),
   },
 })

@@ -142,7 +142,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "F3"),
-    nautilus = tap("CTRL", "L"), -- go to location, as in Finder
     libreoffice = CONSUME, -- Shift+F3 changes case there, and no key finds the previous match (§7)
   },
 })
