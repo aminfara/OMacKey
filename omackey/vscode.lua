@@ -153,7 +153,6 @@ mac({
   desc = "Zoom out (VS Code)",
   actions = {
     default = tap("CTRL + SHIFT", "minus"),
-    terminal = CONSUME,
     vscode = tap("CTRL", "minus"),
   },
 })

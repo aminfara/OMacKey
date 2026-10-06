@@ -38,7 +38,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "Home"),
-    terminal = CONSUME,
   },
 })
 
@@ -51,7 +50,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "End"),
-    terminal = CONSUME,
   },
 })
 
@@ -88,7 +86,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Left"),
-    terminal = CONSUME,
   },
 })
 
@@ -101,7 +98,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Right"),
-    terminal = CONSUME,
   },
 })
 
@@ -114,9 +110,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "Home"),
-    -- Scrollback up a page. Ghostty does what Terminal.app does and jumps to
-    -- the previous prompt; kitty's page-scroll key carries Ctrl (§9 F10).
-    terminal = tap("SHIFT", "Page_Up"),
     ghostty = tap("CTRL + SHIFT", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Page_Up"),
     nautilus = tap("ALT", "Up"), -- parent folder, as in Finder
@@ -132,7 +125,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "End"),
-    terminal = tap("SHIFT", "Page_Down"),
     ghostty = tap("CTRL + SHIFT", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Page_Down"),
     nautilus = tap("", "Return"), -- open the selection, as in Finder
@@ -148,7 +140,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Home"),
-    terminal = CONSUME,
   },
 })
 
@@ -161,7 +152,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "End"),
-    terminal = CONSUME,
   },
 })
 
@@ -174,7 +164,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "BackSpace"),
-    terminal = PASS, -- readline: Alt+BackSpace is backward-kill-word
   },
 })
 
@@ -187,7 +176,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "Delete"),
-    terminal = tap("ALT", "d"), -- readline kill-word
   },
 })
 
@@ -200,7 +188,6 @@ mac({
   repeating = true,
   actions = {
     default = seq(tap("SHIFT", "Home"), tap("", "BackSpace")),
-    terminal = tap("CTRL", "u"), -- readline unix-line-discard
     nautilus = tap("", "Delete"), -- move to trash, as in Finder
   },
 })
@@ -214,6 +201,5 @@ mac({
   repeating = true,
   actions = {
     default = seq(tap("SHIFT", "End"), tap("", "Delete")),
-    terminal = tap("CTRL", "k"), -- readline kill-line
   },
 })

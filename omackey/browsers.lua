@@ -22,7 +22,6 @@ mac({
   desc = "Developer tools",
   actions = {
     default = tap("CTRL + SHIFT", "I"),
-    terminal = CONSUME,
     vscode = CONSUME,
   },
 })
@@ -70,7 +69,6 @@ mac({
   desc = "History",
   actions = {
     default = tap("CTRL", "Y"),
-    terminal = CONSUME,
     browser = tap("CTRL", "H"),
   },
 })
@@ -85,7 +83,6 @@ mac({
   desc = "Downloads",
   actions = {
     default = tap("CTRL + SHIFT", "J"),
-    terminal = CONSUME,
     browser = tap("CTRL", "J"),
     firefox = tap("CTRL + SHIFT", "Y"),
   },

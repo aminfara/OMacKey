@@ -17,9 +17,6 @@ mac({
   desc = "Close tab or window",
   actions = {
     default = tap("CTRL", "W"),
-    -- foot, Alacritty and Omarchy's TUIs have no tabs, so close the window.
-    -- Ctrl+W is readline's word delete.
-    terminal = windows.close,
     -- Ghostty and kitty close the tab (the last one closes the window).
     -- Ghostty's close-tab key also closes a whole tab of splits (§9 F10).
     ghostty = tap("CTRL + SHIFT", "W"),
@@ -61,7 +58,6 @@ mac({
   desc = "New window",
   actions = {
     default = tap("CTRL", "N"),
-    terminal = tap("CTRL + SHIFT", "N"),
   },
 })
 
@@ -75,7 +71,6 @@ mac({
   desc = "New private window or folder",
   actions = {
     default = tap("CTRL + SHIFT", "N"),
-    terminal = CONSUME,
     firefox = tap("CTRL + SHIFT", "P"),
   },
 })
@@ -88,7 +83,6 @@ mac({
   desc = "New tab",
   actions = {
     default = tap("CTRL", "T"),
-    terminal = tap("CTRL + SHIFT", "N"), -- no tabs: a new window
     ghostty = tap("CTRL + SHIFT", "T"),
     kitty = tap("CTRL + SHIFT", "T"),
   },
@@ -102,7 +96,6 @@ mac({
   desc = "Reopen closed tab",
   actions = {
     default = tap("CTRL + SHIFT", "T"),
-    terminal = CONSUME,
   },
 })
 
@@ -117,7 +110,6 @@ mac({
   desc = "Open",
   actions = {
     default = tap("CTRL", "O"),
-    terminal = CONSUME,
   },
 })
 
@@ -129,7 +121,6 @@ mac({
   desc = "Print or quick open",
   actions = {
     default = tap("CTRL", "P"),
-    terminal = CONSUME,
   },
 })
 
@@ -141,7 +132,6 @@ mac({
   desc = "Reload",
   actions = {
     default = tap("CTRL", "R"),
-    terminal = CONSUME,
   },
 })
 
@@ -153,7 +143,6 @@ mac({
   desc = "Focus address bar",
   actions = {
     default = tap("CTRL", "L"),
-    terminal = CONSUME,
   },
 })
 
@@ -222,7 +211,6 @@ mac({
     default = tap("CTRL", "bracketleft"),
     browser = tap("ALT", "Left"),
     nautilus = tap("ALT", "Left"),
-    terminal = CONSUME,
   },
 })
 
@@ -236,7 +224,6 @@ mac({
     default = tap("CTRL", "bracketright"),
     browser = tap("ALT", "Right"),
     nautilus = tap("ALT", "Right"),
-    terminal = CONSUME,
   },
 })
 
@@ -259,7 +246,6 @@ for n = 1, 9 do
     desc = "Go to tab " .. digit,
     actions = {
       default = tap("CTRL", digit),
-      terminal = CONSUME,
       ghostty = tap("ALT", digit),
       nautilus = nautilus_views[digit] or CONSUME,
     },
@@ -278,7 +264,6 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Left"),
   },
@@ -292,7 +277,6 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Right"),
   },
@@ -306,7 +290,6 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Left"),
     obsidian = tap("CTRL + ALT", "Left"), -- navigate back, as on the Mac
@@ -321,7 +304,6 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    terminal = CONSUME,
     ghostty = tap("CTRL", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Right"),
     obsidian = tap("CTRL + ALT", "Right"), -- navigate forward
@@ -394,7 +376,6 @@ mac({
   desc = "Preferences",
   actions = {
     default = tap("CTRL", "comma"),
-    terminal = CONSUME,
     firefox = function()
       hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
     end,

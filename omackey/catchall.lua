@@ -63,7 +63,6 @@ for _, variant in ipairs(variants) do
       desc = desc,
       actions = {
         default = default,
-        terminal = CONSUME,
       },
     })
   end

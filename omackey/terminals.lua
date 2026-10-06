@@ -19,7 +19,6 @@ mac({
   desc = "Clear terminal screen",
   actions = {
     default = tap("CTRL", "K"),
-    terminal = tap("CTRL", "L"),
   },
 })
 
@@ -33,7 +32,6 @@ mac({
   desc = "Split terminal right",
   actions = {
     default = tap("CTRL", "D"),
-    terminal = CONSUME,
     ghostty = tap("CTRL + SHIFT", "O"),
   },
 })
@@ -46,7 +44,6 @@ mac({
   desc = "Split terminal down",
   actions = {
     default = tap("CTRL + SHIFT", "D"),
-    terminal = CONSUME,
     ghostty = tap("CTRL + SHIFT", "E"),
   },
 })

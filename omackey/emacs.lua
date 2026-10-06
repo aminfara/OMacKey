@@ -23,7 +23,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "Home"),
-    terminal = PASS,
   },
 })
 
@@ -37,7 +36,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "End"),
-    terminal = PASS,
   },
 })
 
@@ -51,7 +49,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "Right"),
-    terminal = PASS,
   },
 })
 
@@ -65,7 +62,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "Left"),
-    terminal = PASS,
   },
 })
 
@@ -79,7 +75,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "Down"),
-    terminal = PASS,
   },
 })
 
@@ -93,7 +88,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "Up"),
-    terminal = PASS,
   },
 })
 
@@ -107,7 +101,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "Delete"),
-    terminal = PASS,
     vscode = PASS, -- the integrated terminal needs the raw ⌃D (end of input)
   },
 })
@@ -122,7 +115,6 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = tap("", "BackSpace"),
-    terminal = PASS,
   },
 })
 
@@ -136,6 +128,5 @@ mac({
   enabled = config.emacs_keys,
   actions = {
     default = seq(tap("SHIFT", "End"), tap("", "Delete")),
-    terminal = PASS,
   },
 })

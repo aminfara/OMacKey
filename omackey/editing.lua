@@ -13,7 +13,6 @@ mac({
   desc = "Copy",
   actions = {
     default = tap("CTRL", "C"),
-    terminal = tap("CTRL", "Insert"), -- Ctrl+C is SIGINT in a terminal
     vscode = tap("CTRL", "Insert"), -- because hyprland does not distinguisdh between vscode and its integrated terminal
   },
 })
@@ -26,7 +25,6 @@ mac({
   desc = "Paste",
   actions = {
     default = tap("CTRL", "V"),
-    terminal = tap("SHIFT", "Insert"), -- Ctrl+V is a literal-next in a terminal
     vscode = tap("SHIFT", "Insert"), -- because hyprland does not distinguisdh between vscode and its integrated terminal
   },
 })
@@ -39,7 +37,6 @@ mac({
   desc = "Cut",
   actions = {
     default = tap("CTRL", "X"),
-    terminal = CONSUME, -- Ctrl+X is a readline prefix; a terminal has nothing to cut
   },
 })
 
@@ -51,7 +48,6 @@ mac({
   desc = "Paste without formatting",
   actions = {
     default = tap("CTRL + SHIFT", "V"),
-    terminal = tap("SHIFT", "Insert"), -- terminals paste plain text already
     libreoffice = tap("CTRL + ALT + SHIFT", "V"), -- Ctrl+Shift+V is Paste Special there
   },
 })
@@ -65,7 +61,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL", "Z"),
-    terminal = CONSUME, -- Ctrl+Z would suspend the foreground job
   },
 })
 
@@ -78,7 +73,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("CTRL + SHIFT", "Z"), -- LibreOffice uses Ctrl+Y
-    terminal = CONSUME,
   },
 })
 
@@ -90,7 +84,6 @@ mac({
   desc = "Select all",
   actions = {
     default = tap("CTRL", "A"),
-    terminal = CONSUME, -- Ctrl+A is readline's line start
     ghostty = tap("CTRL + SHIFT", "A"),
   },
 })
@@ -103,7 +96,6 @@ mac({
   desc = "Save",
   actions = {
     default = tap("CTRL", "S"),
-    terminal = CONSUME, -- Ctrl+S freezes terminal output (XOFF)
   },
 })
 
@@ -115,7 +107,6 @@ mac({
   desc = "Save as",
   actions = {
     default = tap("CTRL + SHIFT", "S"),
-    terminal = CONSUME,
   },
 })
 
@@ -127,7 +118,6 @@ mac({
   desc = "Find",
   actions = {
     default = tap("CTRL", "F"),
-    terminal = CONSUME, -- Ctrl+F is readline's forward-char
     -- Each terminal's scrollback search. ⌘G / ⌘⇧G stay consumed: they only
     -- mean something while a search is open, which Hyprland can't tell (§9 F10).
     ghostty = tap("CTRL + SHIFT", "F"),
@@ -147,7 +137,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("", "F3"),
-    terminal = CONSUME,
     libreoffice = tap("CTRL + SHIFT", "F"), -- F3 is AutoText there; Ctrl+Shift+F repeats the search
   },
 })
@@ -161,7 +150,6 @@ mac({
   repeating = true,
   actions = {
     default = tap("SHIFT", "F3"),
-    terminal = CONSUME,
     nautilus = tap("CTRL", "L"), -- go to location, as in Finder
     libreoffice = CONSUME, -- Shift+F3 changes case there, and no key finds the previous match (§7)
   },
@@ -175,7 +163,6 @@ mac({
   desc = "Bold",
   actions = {
     default = tap("CTRL", "B"),
-    terminal = CONSUME, -- Ctrl+B is readline's backward-char (and tmux's prefix)
   },
 })
 
@@ -187,7 +174,6 @@ mac({
   desc = "Italic",
   actions = {
     default = tap("CTRL", "I"),
-    terminal = CONSUME, -- Ctrl+I is Tab
   },
 })
 
@@ -199,7 +185,6 @@ mac({
   desc = "Underline",
   actions = {
     default = tap("CTRL", "U"),
-    terminal = CONSUME, -- Ctrl+U deletes the line (⌘⌫ owns that)
   },
 })
 
@@ -211,7 +196,6 @@ mac({
   desc = "Toggle comment",
   actions = {
     default = tap("CTRL", "slash"),
-    terminal = CONSUME,
   },
 })
 
@@ -225,7 +209,6 @@ mac({
   desc = "Cancel (Escape)",
   actions = {
     default = tap("", "Escape"),
-    terminal = tap("CTRL", "C"),
     vscode = tap("CTRL", "period"), -- quick fix
   },
 })
