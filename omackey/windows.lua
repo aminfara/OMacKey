@@ -17,9 +17,6 @@ mac({
   desc = "Close tab or window",
   actions = {
     default = tap("CTRL", "W"),
-    -- Ghostty and kitty close the tab (the last one closes the window).
-    -- Ghostty's close-tab key also closes a whole tab of splits (§9 F10).
-    ghostty = tap("CTRL + SHIFT", "W"),
     kitty = tap("CTRL + SHIFT", "W"),
     -- Apps where Ctrl+W doesn't close the window (config.lua).
     ["no-tabs"] = windows.close,
@@ -83,7 +80,6 @@ mac({
   desc = "New tab",
   actions = {
     default = tap("CTRL", "T"),
-    ghostty = tap("CTRL + SHIFT", "T"),
     kitty = tap("CTRL + SHIFT", "T"),
   },
 })
@@ -246,7 +242,6 @@ for n = 1, 9 do
     desc = "Go to tab " .. digit,
     actions = {
       default = tap("CTRL", digit),
-      ghostty = tap("ALT", digit),
       nautilus = nautilus_views[digit] or CONSUME,
     },
   })
@@ -264,7 +259,6 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    ghostty = tap("CTRL", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Left"),
   },
 })
@@ -277,7 +271,6 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    ghostty = tap("CTRL", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Right"),
   },
 })
@@ -290,7 +283,6 @@ mac({
   desc = "Previous tab",
   actions = {
     default = tap("CTRL", "Page_Up"),
-    ghostty = tap("CTRL", "Page_Up"),
     kitty = tap("CTRL + SHIFT", "Left"),
     obsidian = tap("CTRL + ALT", "Left"), -- navigate back, as on the Mac
   },
@@ -304,7 +296,6 @@ mac({
   desc = "Next tab",
   actions = {
     default = tap("CTRL", "Page_Down"),
-    ghostty = tap("CTRL", "Page_Down"),
     kitty = tap("CTRL + SHIFT", "Right"),
     obsidian = tap("CTRL + ALT", "Right"), -- navigate forward
   },
@@ -378,9 +369,6 @@ mac({
     default = tap("CTRL", "comma"),
     firefox = function()
       hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
-    end,
-    ghostty = function()
-      hl.dispatch(hl.dsp.exec_cmd('omarchy-launch-editor "$HOME/.config/ghostty/config"'))
     end,
     kitty = tap("CTRL + SHIFT", "F2"),
     libreoffice = tap("ALT", "F12"), -- Tools > Options

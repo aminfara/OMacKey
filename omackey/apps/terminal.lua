@@ -19,8 +19,7 @@ local actions = {
   ["select-line-end"] = CONSUME,
   ["select-word-left"] = CONSUME,
   ["select-word-right"] = CONSUME,
-  -- Scrollback up a page. Ghostty does what Terminal.app does and jumps to
-  -- the previous prompt; kitty's page-scroll key carries Ctrl (§9 F10).
+  -- ⌘↑ / ⌘↓: scrollback up / down a page (Ghostty and kitty have their own).
   ["document-start"] = tap("SHIFT", "Page_Up"),
   ["document-end"] = tap("SHIFT", "Page_Down"),
   ["select-document-start"] = CONSUME,

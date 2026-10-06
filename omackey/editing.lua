@@ -84,7 +84,6 @@ mac({
   desc = "Select all",
   actions = {
     default = tap("CTRL", "A"),
-    ghostty = tap("CTRL + SHIFT", "A"),
   },
 })
 
@@ -118,9 +117,6 @@ mac({
   desc = "Find",
   actions = {
     default = tap("CTRL", "F"),
-    -- Each terminal's scrollback search. ⌘G / ⌘⇧G stay consumed: they only
-    -- mean something while a search is open, which Hyprland can't tell (§9 F10).
-    ghostty = tap("CTRL + SHIFT", "F"),
     kitty = tap("CTRL + SHIFT", "slash"),
     foot = tap("CTRL + SHIFT", "R"),
   },

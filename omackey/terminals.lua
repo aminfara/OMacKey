@@ -32,7 +32,6 @@ mac({
   desc = "Split terminal right",
   actions = {
     default = tap("CTRL", "D"),
-    ghostty = tap("CTRL + SHIFT", "O"),
   },
 })
 
@@ -44,6 +43,5 @@ mac({
   desc = "Split terminal down",
   actions = {
     default = tap("CTRL + SHIFT", "D"),
-    ghostty = tap("CTRL + SHIFT", "E"),
   },
 })
