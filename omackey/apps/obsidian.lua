@@ -11,7 +11,7 @@ app({
   classes = { "md.obsidian.Obsidian", "obsidian" },
   actions = {
     -- Windows and tabs
-    -- ⌘⌥← / ⌘⌥→ navigate back / forward, as on the Mac (Mod+Alt+Left/Right on
+    -- ⌥⌘← / ⌥⌘→ navigate back / forward, as on the Mac (Mod+Alt+Left/Right on
     -- both platforms; within one tab's history).
     ["previous-tab-arrow"] = tap("CTRL + ALT", "Left"),
     ["next-tab-arrow"] = tap("CTRL + ALT", "Right"),

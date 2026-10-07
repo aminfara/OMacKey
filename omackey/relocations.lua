@@ -69,7 +69,7 @@ local relocations = {
   { from = "SUPER + ALT + S", to = "CTRL + ALT + SHIFT + S" }, -- Move window to scratchpad
 
   -- Resize (code:20 = minus, code:21 = equal). ⌘-/⌘= are app zoom on a Mac.
-  -- The ±25 px "a little" variants on SUPER + ALT stay: nothing Mac uses ⌘⌥-/=.
+  -- The ±25 px "a little" variants on SUPER + ALT stay: nothing Mac uses ⌥⌘-/=.
   { from = "SUPER + code:20", to = "CTRL + ALT + code:20" }, -- ±100 px horizontal
   { from = "SUPER + code:21", to = "CTRL + ALT + code:21" },
   { from = "SUPER + SHIFT + code:20", to = "CTRL + ALT + SHIFT + code:20" }, -- ±100 px vertical
@@ -83,7 +83,7 @@ local relocations = {
   { from = "SUPER + ALT + SLASH", to = "CTRL + ALT + SHIFT + slash" }, -- Monitor scaling down
   { from = "SUPER + BACKSPACE", to = "CTRL + ALT + BACKSPACE" }, -- Toggle window transparency (⌘⌫)
   { from = "SUPER + SHIFT + BACKSPACE", to = "CTRL + ALT + SHIFT + BACKSPACE" }, -- Toggle window gaps
-  { from = "SUPER + ALT + code:34", to = "CTRL + ALT + code:34" }, -- Webcam overlay smaller (⌘⌥[: fold)
+  { from = "SUPER + ALT + code:34", to = "CTRL + ALT + code:34" }, -- Webcam overlay smaller (⌥⌘[: fold)
   { from = "SUPER + ALT + code:35", to = "CTRL + ALT + code:35" }, -- Webcam overlay larger
 
   -- Spaces: numbers on ⌃ like macOS, arrows on ⌃⌥.
@@ -91,8 +91,8 @@ local relocations = {
   { from = "SUPER + TAB", to = "CTRL + ALT + RIGHT" }, -- Next workspace (⌘Tab: switch window)
   { from = "SUPER + SHIFT + TAB", to = "CTRL + ALT + LEFT" }, -- Previous workspace
 
-  -- Launchers → ⌃⌥⌘ + Omarchy's letter, ⌃⌥⌘⇧ for the SUPER+SHIFT+ALT
-  -- variants. Frees ⌘⏎ and ⌘⇧ + letters for apps.
+  -- Launchers → ⌃⌥⌘ + Omarchy's letter, ⌃⌥⇧⌘ for the SUPER+SHIFT+ALT
+  -- variants. Frees ⌘⏎ and ⇧⌘ + letters for apps.
   { from = "SUPER + RETURN", to = "SUPER + CTRL + ALT + RETURN" }, -- Terminal
   { from = "SUPER + SHIFT + RETURN", to = "SUPER + CTRL + ALT + SHIFT + RETURN" }, -- Browser
   { from = "SUPER + SHIFT + F", to = "SUPER + CTRL + ALT + F" }, -- File manager
@@ -121,7 +121,7 @@ local relocations = {
   { from = "SUPER + SHIFT + X", to = "SUPER + CTRL + ALT + X", optional = true }, -- X
   { from = "SUPER + SHIFT + ALT + X", to = "SUPER + CTRL + ALT + SHIFT + X", optional = true }, -- X Post
 
-  -- Omarchy info popups → ⌃⌘⇧ T/B/W/D. B, W and D collide with launcher
+  -- Omarchy info popups → ⌃⇧⌘ T/B/W/D. B, W and D collide with launcher
   -- letters; time moves with them to keep the group together. ⌃⌥⌘R/Z/Delete
   -- stay next to their ⌃⌘ siblings (show reminders, reset zoom, mirroring).
   { from = "SUPER + CTRL + ALT + T", to = "SUPER + CTRL + SHIFT + T" }, -- Show time
@@ -131,7 +131,7 @@ local relocations = {
 
   -- Utilities & help.
   { from = "SUPER + K", to = "SUPER + SHIFT + slash" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps
-  -- Next to ⌘⇧, (dismiss all) and the ⌃⌘⇧ info popups; ⌘, is preferences.
+  -- Next to ⇧⌘, (dismiss all) and the ⌃⇧⌘ info popups; ⌘, is preferences.
   -- xkbcommon names the keysym "comma"; upper-case "COMMA" does not match.
   { from = "SUPER + comma", to = "SUPER + CTRL + SHIFT + comma" }, -- Dismiss last notification
   { from = "SUPER + CTRL + Q", to = "SUPER + CTRL + ALT + Q" }, -- Calculator (⌃⌘Q: lock screen)
@@ -139,7 +139,7 @@ local relocations = {
 }
 
 -- Workspaces 1–10 (Omarchy binds digits by keycode: code:10 = 1 … code:19 = 0).
--- ⌘1–9 switch tabs and ⌘⇧3/4/5 take screenshots on a Mac.
+-- ⌘1–9 switch tabs and ⇧⌘3/4/5 take screenshots on a Mac.
 for code = 10, 19 do
   local key = "code:" .. code
   table.insert(relocations, { from = "SUPER + " .. key, to = "CTRL + " .. key }) -- Switch to workspace

@@ -18,7 +18,7 @@
   +0 focus({ workspace = "e+1" })
   +0 key 133 up
   +0 end: active <brave>, windows brave vscode foot nautilus
-## ⌘⇧Tab from the front app, twice while held
+## ⇧⌘Tab from the front app, twice while held
   +0 press SUPER + SHIFT + TAB → native
   +0 focus({ workspace = "e-1" })
   +0 press SUPER + SHIFT + TAB → native
@@ -60,7 +60,7 @@
 ## ⌘Q: a window with no class closes alone
   +0 press SUPER + Q → no bind
   +0 end: active <nameless-1>, windows nameless-1 nameless-2
-## ⌘` / ⌘⇧`: the app's windows in a fixed ring, scratchpad left out
+## ⌘` / ⇧⌘`: the app's windows in a fixed ring, scratchpad left out
   +0 press SUPER + grave → no bind
   +0 press SUPER + grave → no bind
   +0 press SUPER + grave → no bind
@@ -78,7 +78,7 @@
   +0 window.drag()
   +80 release mouse:272 → no bind
   +80 end: active <brave>, windows brave
-## ⌘⇧-click: release with ⇧ still held, and with ⌘⇧ held
+## ⇧⌘-click: release with ⇧ still held, and with ⇧⌘ held
   +0 press SUPER + SHIFT + mouse:272 → no bind
   +50 release SHIFT + mouse:272 → no bind
   +50 press SUPER + SHIFT + mouse:272 → no bind
@@ -109,7 +109,7 @@
   +1400 press SUPER + mouse_down → native
   +1400 focus({ workspace = "e+1" })
   +1400 end: active <brave>, windows brave
-## Mac-mode toggle (⌃⌘⇧M)
+## Mac-mode toggle (⌃⇧⌘M)
   +0 press CTRL + SUPER + SHIFT + M
   +0 exec_cmd("rm -f '$XDG_STATE_HOME/omackey/off' && notify-send -a OMacKey 'OMacKey is on: Mac keys' ; hyprctl reload")
   +0 → handled

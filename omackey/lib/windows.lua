@@ -59,7 +59,7 @@ function M.quit_app()
   end
 end
 
--- ⌘` (step 1) and ⌘⇧` (step -1): step through the visible windows of the
+-- ⌘` (step 1) and ⇧⌘` (step -1): step through the visible windows of the
 -- active app on every workspace, in a fixed order, wrapping around. Not
 -- recency: with three windows the ring visits all of them, as on a Mac.
 function M.cycle_app_windows(step)

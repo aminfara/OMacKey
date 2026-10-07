@@ -28,14 +28,14 @@ app({
     -- explicit mods replace the locked NumLock too, and without it the app
     -- reads KP_Insert, not KP_0.
     ["zoom-reset"] = tap("CTRL + MOD2", "kp_0"),
-    -- The Mac also zooms out on ⌘⇧-; on Linux Ctrl+Shift+- is Navigate Forward.
+    -- The Mac also zooms out on ⇧⌘-; on Linux Ctrl+Shift+- is Navigate Forward.
     ["zoom-out-shifted"] = tap("CTRL", "minus"),
     -- Browser keys with a VS Code meaning
     -- Ctrl+Shift+I is Format Document whenever the editor has focus, so DevTools
     -- would reformat the file instead (F11).
     ["devtools"] = CONSUME,
-    ["devtools-inspect"] = tap("ALT", "C"), -- ⌘⌥C: find widget, match case
-    ["bookmark-manager"] = tap("CTRL + ALT", "B"), -- ⌘⌥B: toggle the secondary side bar
+    ["devtools-inspect"] = tap("ALT", "C"), -- ⌥⌘C: find widget, match case
+    ["bookmark-manager"] = tap("CTRL + ALT", "B"), -- ⌥⌘B: toggle the secondary side bar
     -- Code editing
     -- Add cursor: Shift+Alt+Up is Linux's primary; Ctrl+Shift+Up its secondary.
     ["add-cursor-above"] = tap("CTRL + SHIFT", "Up"),
@@ -50,7 +50,7 @@ app({
     ["copy-line-up"] = tap("CTRL + SHIFT + ALT", "Up"),
     ["copy-line-down"] = tap("CTRL + SHIFT + ALT", "Down"),
     ["block-comment"] = tap("CTRL + SHIFT", "A"), -- Shift+Alt+A on the Mac
-    -- Find widget toggles: ⌘⌥ + letter on the Mac, Alt + letter on Linux.
+    -- Find widget toggles: ⌥⌘ + letter on the Mac, Alt + letter on Linux.
     ["find-whole-word"] = tap("ALT", "W"),
     ["find-regex"] = tap("ALT", "R"),
     ["find-in-selection"] = tap("ALT", "L"),

@@ -16,8 +16,8 @@ app({
   actions = {
     -- Editing
     ["paste-plain"] = tap("CTRL + ALT + SHIFT", "V"), -- Ctrl+Shift+V is Paste Special here
-    ["paste-special"] = tap("CTRL + SHIFT", "V"), -- ⌘⌥V: the Paste Special dialog
-    -- ⌘G / ⌘⇧G step through the find bar's matches: Ctrl+F focuses the bar
+    ["paste-special"] = tap("CTRL + SHIFT", "V"), -- ⌥⌘V: the Paste Special dialog
+    -- ⌘G / ⇧⌘G step through the find bar's matches: Ctrl+F focuses the bar
     -- (it keeps the search text), Return / Shift+Return find the next /
     -- previous match, Escape closes the bar with the match selected. F3 is
     -- AutoText and Shift+F3 changes case here, and Ctrl+Shift+F (Repeat

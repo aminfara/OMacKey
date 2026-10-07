@@ -20,7 +20,7 @@ app({
       hl.dispatch(hl.dsp.exec_cmd("firefox about:preferences"))
     end),
     -- Browser
-    -- ⌘⇧J as in Chrome (user's choice); Firefox's downloads window.
+    -- ⇧⌘J as in Chrome (user's choice); Firefox's downloads window.
     ["downloads"] = tap("CTRL + SHIFT", "Y"),
   },
 })

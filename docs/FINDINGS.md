@@ -90,8 +90,8 @@ Contents:
     sends Alt+F19 first; the alternatives are app settings.
   - ⌘. → Esc, except VS Code and terminals.
   - Terminal ⌘⌫ → Ctrl+U, ⌘⌦ → Ctrl+K.
-  - Browser ⌘⌥I/J → devtools.
-  - File-manager ⌘↑/↓/⌫ and ⌘⇧. (show hidden files).
+  - Browser ⌥⌘I/J → devtools.
+  - File-manager ⌘↑/↓/⌫ and ⇧⌘. (show hidden files).
 - **Hardware:** NuPhy Air75 V2 (Mac/Win mode switch), Logitech G305, desktop
   PC with no trackpad or lid. Layout `us`; fcitx5 runs as
   `hl-virtual-keyboard-fcitx5`.
@@ -125,7 +125,7 @@ Contents:
     all work.
   - Not covered yet: a physically held ⌘, and layer-shell surfaces.
 - **S11.** Input from `wtype`'s virtual keyboard **never triggers Hyprland
-  binds**. A probe bind on ⌃⌥⌘⇧Y got 0 hits from
+  binds**. A probe bind on ⌃⌥⇧⌘Y got 0 hits from
   `wtype -M logo -M ctrl -M alt -M shift -k y`.
   - wtype also uploads its own keymap: End arrived as keycode 9. So it can't
     test keycode-based sends either.
@@ -170,7 +170,7 @@ Contents:
   `apps/vscode.lua` matches it (and `code`, `code-oss`, `Code`).
 - **⌘W in VS Code** closes the active editor (also inside editor groups). With
   no editor open it does not close the window: that is native Linux behaviour,
-  macOS closes it. `Ctrl+Shift+W` closes the window (⌘⇧W, next). VS Code stays
+  macOS closes it. `Ctrl+Shift+W` closes the window (⇧⌘W, next). VS Code stays
   off the `no-tabs` list, which would close the window with editors open (LIMITATIONS.md).
 - **Terminal tag coverage.** Omarchy's `terminal` tag matches `Alacritty`,
   `kitty`, `com.mitchellh.ghostty`, `foot`, `wezterm`, `org.omarchy.*` and
@@ -275,7 +275,7 @@ Contents:
 - **Scratchpad key clash to watch.** The online Omarchy manual also lists
   `Super + Grave` and `Super + Shift + Grave` for the scratchpad. The installed
   4.0.4 has only `SUPER + S` / `SUPER + ALT + S` (checked in `tiling.lua`).
-  If a later Omarchy adds the Grave binds they collide with ⌘\` / ⌘⇧\` and need
+  If a later Omarchy adds the Grave binds they collide with ⌘\` / ⇧⌘\` and need
   a relocation (`scripts/drift.sh` flags it).
 
 ## F8 — Screenshot CLI (2026-10-03)
@@ -287,7 +287,7 @@ Contents:
 - Mode `fullscreen` captures the focused monitor with no interaction, `region`
   shows the picker. Running it again while the picker is open kills it
   (`pkill slurp`).
-- Digit keys are bound by keycode: ⌘⇧3 is `SUPER + SHIFT + code:12`; the help
+- Digit keys are bound by keycode: ⇧⌘3 is `SUPER + SHIFT + code:12`; the help
   menu shows it as `SUPER SHIFT + 3`.
 
 ## F9 — NuPhy Air75 V2 F-row in Mac mode (2026-10-03)
@@ -355,7 +355,7 @@ Contents:
     with the normal class, so the app matches. A first command that sets the
     title with `printf '\033]2;ONE\a'` makes the active tab readable from
     `hyprctl clients -j` (a new tab's shell shows its cwd): used for ⌘T, ⌘1–9,
-    ⌘⇧[ ], ⌘⌥← →, ⌘W.
+    ⇧⌘[ ], ⌥⌘← →, ⌘W.
   - Bytes a terminal sends: `stty raw -echo; dd bs=1 count=1 of=FILE`, then
     `od -An -tx1 FILE` (`xxd` is not installed). ⌘K gave `0c` in Ghostty and
     kitty.
@@ -370,19 +370,19 @@ Contents:
 - **Sources.** Chrome's keyboard-shortcut page (Mac and Linux columns; its
   summary listed `Ctrl+Shift+J` for DevTools, but Chrome's DevTools key on Linux
   is `Ctrl+Shift+I`, which the test confirmed), and Firefox's DevTools shortcut
-  docs (Mac ⌘⌥I / ⌘⌥K / ⌘⌥C = toolbox / Web Console / Inspector; Linux the
-  same letters with `Ctrl+Shift`). The fetched summary also gave ⌘⌥J for the
-  Browser Console, but a search result says ⌘⇧J, so treat ⌘⌥J in Firefox as
+  docs (Mac ⌥⌘I / ⌥⌘K / ⌥⌘C = toolbox / Web Console / Inspector; Linux the
+  same letters with `Ctrl+Shift`). The fetched summary also gave ⌥⌘J for the
+  Browser Console, but a search result says ⇧⌘J, so treat ⌥⌘J in Firefox as
   unverified (it sends `Ctrl+Shift+J`, which is Firefox's Browser Console on
   Linux). Firefox's general shortcut page would not load.
-- **The Mac letters carry over.** ⌘⌥ + I/J/C → `Ctrl+Shift` + the same letter
-  in both families. Firefox's ⌘⌥K needs `SUPER + ALT + K`, which Omarchy binds
+- **The Mac letters carry over.** ⌥⌘ + I/J/C → `Ctrl+Shift` + the same letter
+  in both families. Firefox's ⌥⌘K needs `SUPER + ALT + K`, which Omarchy binds
   to tmux keybindings.
-- **Differences per browser.** Chrome Mac: ⌘⌥U source, ⌘Y history, ⌘⇧J downloads,
-  ⌘⌥B bookmark manager, ⌘⇧⌫ clear data. Firefox Mac (⌘J downloads and ⌘⇧J
-  Browser Console confirmed by a search result; ⌘U source, ⌘⇧H history, ⌘⇧O
-  library, ⌘⇧P private from memory, not checked): OMacKey uses
-  the Chrome set in both (user's choice for ⌘⇧J), except ⌘⇧N → `Ctrl+Shift+P`
+- **Differences per browser.** Chrome Mac: ⌥⌘U source, ⌘Y history, ⇧⌘J downloads,
+  ⌥⌘B bookmark manager, ⇧⌘⌫ clear data. Firefox Mac (⌘J downloads and ⇧⌘J
+  Browser Console confirmed by a search result; ⌘U source, ⇧⌘H history, ⇧⌘O
+  library, ⇧⌘P private from memory, not checked): OMacKey uses
+  the Chrome set in both (user's choice for ⇧⌘J), except ⇧⌘N → `Ctrl+Shift+P`
   in Firefox.
 - **Firefox 155** shows "Clear browsing data and cookies" as a modal inside
   the window: until it is dismissed (Esc), further shortcuts do nothing. Its
@@ -396,12 +396,12 @@ Contents:
   instead), assumed the same. `Alt+F` did not open the Chromium menu through
   synthetic keys. Firefox does accept `firefox about:preferences` (opened the
   Settings tab in the running instance).
-- **VS Code ⌘⌥I (found by the user's physical test).** Toggle Developer Tools is
+- **VS Code ⌥⌘I (found by the user's physical test).** Toggle Developer Tools is
   `Ctrl+Shift+I` on Linux (`primary:3111`; ⌥⌘I on the Mac, `2599`), but so is
   Format Document (`kbExpr: editorTextFocus`, `linux: { primary: 3111 }`), and
   it wins with the editor focused. Read from the installed
   `workbench.desktop.main.js`. So the synthetic key would reformat the file, not
-  open DevTools. VS Code now consumes ⌘⌥I (app `vscode`); DevTools stay on
+  open DevTools. VS Code now consumes ⌥⌘I (app `vscode`); DevTools stay on
   the command palette (`Developer: Toggle Developer Tools`) or Help menu.
 - **Test recipes.** Chromium: `chromium --user-data-dir=DIR --no-first-run
   --remote-debugging-port=PORT`; `curl localhost:PORT/json` lists the tabs, so
@@ -429,8 +429,8 @@ Ctrl chords (LIMITATIONS.md).
 - **Same chord as the Mac with Ctrl for ⌘:** none of the 6c keys. Each differs:
   add cursor above/below is `Ctrl+Alt+Up/Down` on the Mac and `Shift+Alt+Up/Down`
   on Linux, with `Ctrl+Shift+Up/Down` as the Linux secondary (used). Fold /
-  unfold are `⌘⌥[` / `]` on the Mac, `Ctrl+Shift+[` / `]` on Linux. Replace is
-  `⌘⌥F` / `Ctrl+H`. Expand / shrink selection is `⌃⇧⌘→` / `←` on the Mac,
+  unfold are `⌥⌘[` / `]` on the Mac, `Ctrl+Shift+[` / `]` on Linux. Replace is
+  `⌥⌘F` / `Ctrl+H`. Expand / shrink selection is `⌃⇧⌘→` / `←` on the Mac,
   `Shift+Alt+Right` / `Left` on Linux. Reset zoom is `Ctrl+Numpad0` on both.
 - **Column select has no Linux key**, and its Mac chord with Ctrl in place of
   ⌘ is Copy Line Up/Down (`copyLinesUpAction`: Linux `Ctrl+Shift+Alt+Up`). The
@@ -442,9 +442,9 @@ Ctrl chords (LIMITATIONS.md).
 
 - **Live claims at the start of 7a** (from `hyprctl binds -j`, modmask Super or
   Super+Shift): ⌘ + A B C D F G I K L N O P Q R S T U V W X Y Z, 0–9, `- = [ ]
-  \` `` ` `` `, . /`, Space, Tab, ⌫, ⌦, Esc; ⌘⇧ + D G J N S T V W Z, 3 4 5, `=
+  \` `` ` `` `, . /`, Space, Tab, ⌫, ⌦, Esc; ⇧⌘ + D G J N S T V W Z, 3 4 5, `=
   [ ] \` `` ` `` `, /`, Space, Tab, ⌫. Omarchy's own leftovers among them
-  (⌘Space, ⌘Esc, ⌘⇧Space, ⌘⇧, ...) are why the catch-all reads Omarchy's keys
+  (⌘Space, ⌘Esc, ⇧⌘Space, ⇧⌘, ...) are why the catch-all reads Omarchy's keys
   instead of using a fixed list.
 - **`hl` has no bind-listing call** at load time (`hl.get_keybinds` is nil),
   so the claimed set comes from the `hl.bind` wrapper.
@@ -452,7 +452,7 @@ Ctrl chords (LIMITATIONS.md).
   the live Lua state until `hyprctl reload`. After the "as terminal" check the
   next GUI check silently saw the terminal rules (no keys, "ok"). Reload between
   such tests.
-- **Shifted punctuation arrives as the shifted keysym**: ⌘⇧- sent
+- **Shifted punctuation arrives as the shifted keysym**: ⇧⌘- sent
   `Ctrl+Shift+minus` and keylog logged `underscore`.
 
 ## F15 — VS Code Mac vs Linux keymap (6c-2, 2026-10-05)
@@ -475,7 +475,7 @@ Ctrl chords (LIMITATIONS.md).
   passed the raw ⌘ chord outside that app (⌘K in VS Code, so every ⌘K chord
   failed). Fixed: those specs now have a `default` of their own (Ctrl chord,
   consumed in terminals), written in `shortcuts.lua`; those keys are the `default` entries in `shortcuts.lua`, not F14's list of live claims.
-- **Zoom:** the Mac also zooms out on ⌘⇧-; Linux has `Ctrl+Shift+-` as
+- **Zoom:** the Mac also zooms out on ⇧⌘-; Linux has `Ctrl+Shift+-` as
   Navigate Forward, which the catch-all would have sent.
 
 ## F16 — Obsidian keys (6e, 2026-10-05)
@@ -485,14 +485,14 @@ Ctrl chords (LIMITATIONS.md).
   `hotkeys:[Yw(["Mod",…],key)]`; the editor (CodeMirror 6) has keymaps with
   `mac:` / `linux:` overrides. `Mod` is Ctrl on Linux and ⌘ on the Mac.
 - **Differences found.** Back / forward are `Mod+Alt+Left/Right` on both
-  platforms (so ⌘⌥ → Ctrl+Alt). Redo selection is `Mod+Shift+U` on the Mac and
+  platforms (so ⌥⌘ → Ctrl+Alt). Redo selection is `Mod+Shift+U` on the Mac and
   `Alt+U` on Linux. `Mod+Alt+Up/Down` (add cursor) and `Mod+Alt+F` / `Mod+H` (replace)
   are the same keys. Next / previous tab has the Mac key `Meta+Shift+[` and
   Linux `Ctrl+Page_Up/Down`, which the generic rule already sends.
 - **Fold has no Obsidian hotkey.** `Ctrl-Shift-[` / Mac `Cmd-Alt-[` come from
   CodeMirror's bundled `foldKeymap`, which Obsidian does not load; its fold
   commands (`editor:toggle-fold`, `fold-all`, …) have no default hotkey, so the
-  user's physical `Ctrl+Shift+[` did nothing. Mapping ⌘⌥[ would invent a Mac
+  user's physical `Ctrl+Shift+[` did nothing. Mapping ⌥⌘[ would invent a Mac
   behaviour that does not exist.
 - **Back / forward only act within one tab's history** (`activeLeaf.history`).
 - **Mac-only Emacs keys** (`Ctrl-a/e/b/f/…`) are CodeMirror's Mac keymap and a
@@ -591,7 +591,7 @@ Ctrl chords (LIMITATIONS.md).
   release: with the first version (release bind on ⌘ only) letting go of ⌘ before
   the button left the app with a press and no `mouseup`, and the stray `mouseup`
   arrived at the next click. Release binds for the plausible modifier states
-  closed it (user's retest: plain click, ⌘-click, ⌘⇧-click, drag, ⌘ released first,
+  closed it (user's retest: plain click, ⌘-click, ⇧⌘-click, drag, ⌘ released first,
   double click, a final plain click: all balanced, no strays).
 - **Test lesson.** The user's physical clicks mixed into my synthetic ones until I
   asked for hands off; a log with timestamps and the physical Ctrl from `wtype`

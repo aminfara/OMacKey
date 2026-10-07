@@ -7,7 +7,7 @@
 #   scripts/omackey-mode status   (default)
 #
 # The switch is the state file omackey/lib/mode.lua reads at load; this script
-# flips it and reloads Hyprland. ⌃⌘⇧M does the same from the keyboard.
+# flips it and reloads Hyprland. ⌃⇧⌘M does the same from the keyboard.
 
 set -euo pipefail
 

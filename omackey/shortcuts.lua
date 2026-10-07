@@ -223,8 +223,8 @@ group("Editing", {
     },
   }),
 
-  -- Paste Special (LibreOffice). ⌘⇧V pastes unformatted text everywhere, so this
-  -- is the way to the dialog. Elsewhere ⌘⌥V reaches the app as a raw chord.
+  -- Paste Special (LibreOffice). ⇧⌘V pastes unformatted text everywhere, so this
+  -- is the way to the dialog. Elsewhere ⌥⌘V reaches the app as a raw chord.
   mac({
     id = "paste-special",
     keys = "SUPER + ALT + V",
@@ -251,7 +251,7 @@ group("Editing", {
     },
   }),
 
-  -- Redo selection (Obsidian). Elsewhere ⌘⇧U is consumed, as in the catch-all
+  -- Redo selection (Obsidian). Elsewhere ⇧⌘U is consumed, as in the catch-all
   -- (Ctrl+Shift+U starts Unicode input in GTK and fcitx5).
   mac({
     id = "redo-selection",
@@ -329,7 +329,7 @@ group("Editing", {
 })
 
 -- Find ------------------------------------------------------------------------
--- Find and replace. The find-widget toggles (⌘⌥W, ⌘⌥R, ⌘⌥L, ⌘⌥P) act only in apps
+-- Find and replace. The find-widget toggles (⌥⌘W, ⌥⌘R, ⌥⌘L, ⌥⌘P) act only in apps
 -- with an entry (VS Code); elsewhere the raw chord reaches the app.
 
 group("Find", {
@@ -370,7 +370,7 @@ group("Find", {
     desc = "Replace",
   }),
 
-  -- Find widget toggles (VS Code). Match case is ⌘⌥C, which is also the
+  -- Find widget toggles (VS Code). Match case is ⌥⌘C, which is also the
   -- browsers' inspect key (Developer tools).
   mac({
     id = "find-whole-word",
@@ -588,7 +588,7 @@ group("Tabs", {
   }),
 
   -- Previous and next tab on both Mac chords: Ctrl+Page_Up/Down, which browsers,
-  -- VS Code and Nautilus take. Omarchy's group moves (⌘⌥←/→) are on ⌃⌥⌘.
+  -- VS Code and Nautilus take. Omarchy's group moves (⌥⌘←/→) are on ⌃⌥⌘.
   mac({
     id = "previous-tab",
     keys = "SUPER + SHIFT + bracketleft",
@@ -770,7 +770,7 @@ group("Navigation", {
     },
   }),
 
-  -- Preferences. Omarchy's "dismiss last notification" is on ⌃⌘⇧,. VS Code,
+  -- Preferences. Omarchy's "dismiss last notification" is on ⌃⇧⌘,. VS Code,
   -- Obsidian and Nautilus open their settings on Ctrl+, . The Chromium family has
   -- no settings key and turns a chrome:// URL given on the command line into a
   -- blank tab, so there ⌘, sends the generic Ctrl+, (some web apps use it) and
@@ -821,7 +821,7 @@ group("Navigation", {
 
 group("View", {
   -- Zoom. Omarchy's resize binds for these keys are on ⌃⌥. foot and Ghostty take
-  -- the same chords for font size. ⌘+ is ⌘⇧= and zooms in like ⌘=.
+  -- the same chords for font size. ⌘+ is ⇧⌘= and zooms in like ⌘=.
   mac({
     id = "zoom-in",
     keys = "SUPER + equal",
@@ -849,7 +849,7 @@ group("View", {
     },
   }),
 
-  -- ⌘⇧- zooms out in VS Code, as on the Mac; elsewhere it sends Ctrl+Shift+-,
+  -- ⇧⌘- zooms out in VS Code, as on the Mac; elsewhere it sends Ctrl+Shift+-,
   -- like the catch-all.
   mac({
     id = "zoom-out-shifted",
@@ -869,7 +869,7 @@ group("View", {
     },
   }),
 
-  -- Show hidden files (⌘⇧. in Finder). Elsewhere it sends Ctrl+Shift+., like the
+  -- Show hidden files (⇧⌘. in Finder). Elsewhere it sends Ctrl+Shift+., like the
   -- catch-all.
   mac({
     id = "show-hidden-files",
@@ -882,7 +882,7 @@ group("View", {
 })
 
 -- Developer tools -------------------------------------------------------------
--- Mac Chrome and Firefox put these on ⌘⌥ + a letter; the Linux builds use
+-- Mac Chrome and Firefox put these on ⌥⌘ + a letter; the Linux builds use
 -- Ctrl+Shift + the same letter.
 
 group("Developer tools", {
@@ -1023,7 +1023,7 @@ group("System", {
   }),
 
   -- Screenshots: Omarchy's capture CLI. `save` writes a file, `copy` only fills
-  -- the clipboard; ⌘⇧3 / ⌃⌘⇧3 are code:12 (digits are bound by keycode).
+  -- the clipboard; ⇧⌘3 / ⌃⇧⌘3 are code:12 (digits are bound by keycode).
   mac({
     id = "screenshot-screen-file",
     keys = "SUPER + SHIFT + code:12",
@@ -1088,7 +1088,7 @@ group("System", {
     action = does("Open the emoji picker", hl.dsp.exec_cmd("omarchy-shell shell toggle omarchy.emojis")),
   }),
 
-  -- Show/hide the Dock: Omarchy's top bar (it also stays on ⌘⇧Space).
+  -- Show/hide the Dock: Omarchy's top bar (it also stays on ⇧⌘Space).
   mac({
     id = "toggle-bar",
     keys = "SUPER + ALT + D",
@@ -1157,7 +1157,7 @@ group("System", {
 -- with wtype installed.
 
 group("Mouse", {
-  -- ⌘-click and ⌘⇧-click (Ctrl+Shift-click extends a selection in file managers).
+  -- ⌘-click and ⇧⌘-click (Ctrl+Shift-click extends a selection in file managers).
   mac({
     id = "click",
     mac = "⌘-click",
@@ -1341,7 +1341,7 @@ group("Emacs keys", {
 })
 
 -- Catch-all -------------------------------------------------------------------
--- Every ⌘ / ⌘⇧ + letter, punctuation or Return key that no other spec and no
+-- Every ⌘ / ⇧⌘ + letter, punctuation or Return key that no other spec and no
 -- Omarchy default claims sends Ctrl / Ctrl+Shift + the same key, so a Mac
 -- shortcut that has no entry of its own still does what it does on the Mac.
 -- Terminals consume them (apps/terminal.lua, D5). A key you rebind in
@@ -1359,7 +1359,7 @@ catchall({
     "SUPER + H", -- ⌘H, ⌘M: no hide or minimize on Omarchy (D13), and Ctrl+H /
     "SUPER + M", -- Ctrl+M are browser history and Enter in a terminal.
     "SUPER + SHIFT + Q", -- Ctrl+Shift+Q quits Chrome.
-    "SUPER + SHIFT + I", -- Ctrl+Shift+I is Format Document in VS Code; DevTools has ⌘⌥I.
+    "SUPER + SHIFT + I", -- Ctrl+Shift+I is Format Document in VS Code; DevTools has ⌥⌘I.
     "SUPER + SHIFT + U", -- Ctrl+Shift+U starts Unicode input in GTK and fcitx5.
     "SUPER + SHIFT + H", -- Ctrl+Shift+H is not Chrome's home page (user's choice).
   },

@@ -14,7 +14,7 @@ local actions = {
   ["document-end"] = tap("CTRL + SHIFT", "Page_Down"),
   -- Editing
   ["select-all"] = tap("CTRL + SHIFT", "A"),
-  -- Scrollback search. ⌘G / ⌘⇧G stay consumed: they only mean something while
+  -- Scrollback search. ⌘G / ⇧⌘G stay consumed: they only mean something while
   -- a search is open, which Hyprland can't tell (F10).
   ["find"] = tap("CTRL + SHIFT", "F"),
   -- Windows and tabs

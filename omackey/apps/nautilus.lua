@@ -11,12 +11,12 @@ local actions = {
   ["document-end"] = tap("", "Return"), -- ⌘↓: open the selection
   ["delete-line-start"] = tap("", "Delete"), -- ⌘⌫: move to trash
   -- Editing
-  ["find-previous"] = tap("CTRL", "L"), -- ⌘⇧G: go to location
+  ["find-previous"] = tap("CTRL", "L"), -- ⇧⌘G: go to location
   -- Windows and tabs
   ["back"] = tap("ALT", "Left"),
   ["forward"] = tap("ALT", "Right"),
   -- Files
-  ["show-hidden-files"] = tap("CTRL", "H"), -- ⌘⇧. in Finder
+  ["show-hidden-files"] = tap("CTRL", "H"), -- ⇧⌘. in Finder
 }
 
 -- ⌘1 / ⌘2 are Finder's icon / list view: Nautilus's Ctrl+2 / Ctrl+1. ⌘3–⌘9 do

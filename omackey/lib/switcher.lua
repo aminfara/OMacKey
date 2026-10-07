@@ -111,7 +111,7 @@ local function on_key(code, _, state)
   end
 end
 
--- ⌘Tab (forward) and ⌘⇧Tab (backward). The first press of a session goes to
+-- ⌘Tab (forward) and ⇧⌘Tab (backward). The first press of a session goes to
 -- the app used before this one, so tapping flips between two apps; from the
 -- front app, going backward reaches the app used longest ago. Pressing again
 -- while ⌘ is held steps further along the ring.

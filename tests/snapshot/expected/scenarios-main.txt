@@ -25,7 +25,7 @@
   +0 → handled
   +0 key 133 up
   +0 end: active <brave>, windows brave vscode foot nautilus
-## ⌘⇧Tab from the front app, twice while held
+## ⇧⌘Tab from the front app, twice while held
   +0 press SUPER + SHIFT + TAB
   +0 focus({ window = <nautilus> })
   +0 window.bring_to_top()
@@ -83,7 +83,7 @@
   +0 window.close()
   +0 → handled
   +0 end: active <nameless-2>, windows nameless-2
-## ⌘` / ⌘⇧`: the app's windows in a fixed ring, scratchpad left out
+## ⌘` / ⇧⌘`: the app's windows in a fixed ring, scratchpad left out
   +0 press SUPER + grave
   +0 focus({ window = <code-a> })
   +0 → handled
@@ -121,7 +121,7 @@
   +80 send_key_state({ key = "mouse:272", mods = "CTRL", state = "up" })
   +80 → handled
   +80 end: active <brave>, windows brave
-## ⌘⇧-click: release with ⇧ still held, and with ⌘⇧ held
+## ⇧⌘-click: release with ⇧ still held, and with ⇧⌘ held
   +0 press SUPER + SHIFT + mouse:272
   +0 send_key_state({ key = "mouse:272", mods = "CTRL + SHIFT", state = "down" })
   +0 → handled
@@ -168,7 +168,7 @@
   +1400 exec_cmd("wtype -M ctrl -s 400")
   +1400 → pass
   +1800 end: active <brave>, windows brave
-## Mac-mode toggle (⌃⌘⇧M)
+## Mac-mode toggle (⌃⇧⌘M)
   +0 press CTRL + SUPER + SHIFT + M
   +0 exec_cmd("mkdir -p '$XDG_STATE_HOME/omackey' && touch '$XDG_STATE_HOME/omackey/off' && notify-send -a OMacKey 'OMacKey is off: Omarchy keys' ; hyprctl reload")
   +0 → handled

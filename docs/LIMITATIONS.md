@@ -66,7 +66,7 @@ the details behind the F-numbers.
 | ⌘W with no editor open | Linux VS Code ignores `Ctrl+W` on an empty window (macOS closes the window). Adding VS Code to `close_window_classes` would close the window while editors are open (F3) | ⇧⌘W |
 | ⌥⌘I (Toggle Developer Tools) | `Ctrl+Shift+I` is also Format Document on Linux and wins with the editor focused (F11), so ⌥⌘I is consumed in VS Code | the command palette: "Developer: Toggle Developer Tools" |
 | ⌘↓ / ⌘↑ open a file / go up in lists (Explorer, search results) | the same key moves to the document end / start in the editor, and Hyprland can't see which has focus | Enter, or the arrow keys |
-| ⌥⇧⌘ arrows (column select) | Linux VS Code has no keyboard column select, and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (F13) | ⇧⌥ + mouse drag, or a user keybinding for `cursorColumnSelect*` |
+| ⌥⇧⌘ arrows (column select) | Linux VS Code has no keyboard column select, and `Ctrl+Shift+Alt+Up/Down`, the Mac chord with Ctrl, is Copy Line Up/Down there (F13) | ⌥⇧ + mouse drag, or a user keybinding for `cursorColumnSelect*` |
 | ⌥⌘ + other keys and ⌘ + F-keys (⌥⌘K / T / S / Y, ⌘F2, ⌘F12 …) | the catch-all covers ⌘ and ⇧⌘ only; these are obscure, and ⌘ + F-key needs Fn on the NuPhy in Mac mode | VS Code's own `Ctrl+Alt+…` / `Ctrl+F2` keys |
 | ⇧⌘Space (parameter hints), ⌘Esc | Omarchy owns them (toggle top bar, system menu) | `Ctrl+Shift+Space`, or ⌃Space for suggestions |
 | ⇧⌘U (toggle output) | no Linux key exists, and the catch-all consumes ⇧⌘U (Unicode input) | the command palette |

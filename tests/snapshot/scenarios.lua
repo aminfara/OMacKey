@@ -46,7 +46,7 @@ return {
     end,
   },
   {
-    name = "⌘⇧Tab from the front app, twice while held",
+    name = "⇧⌘Tab from the front app, twice while held",
     run = function(S)
       apps(S)
       S.press("SUPER + SHIFT + TAB")
@@ -110,7 +110,7 @@ return {
     end,
   },
   {
-    name = "⌘` / ⌘⇧`: the app's windows in a fixed ring, scratchpad left out",
+    name = "⌘` / ⇧⌘`: the app's windows in a fixed ring, scratchpad left out",
     run = function(S)
       S.windows({
         { "code-b", "com.microsoft.VSCode", ws = 2, stable_id = 30 },
@@ -146,7 +146,7 @@ return {
     end,
   },
   {
-    name = "⌘⇧-click: release with ⇧ still held, and with ⌘⇧ held",
+    name = "⇧⌘-click: release with ⇧ still held, and with ⇧⌘ held",
     run = function(S)
       S.windows({ { "nautilus", "org.gnome.Nautilus" } })
       S.press("SUPER + SHIFT + mouse:272")
@@ -179,7 +179,7 @@ return {
     end,
   },
   {
-    name = "Mac-mode toggle (⌃⌘⇧M)",
+    name = "Mac-mode toggle (⌃⇧⌘M)",
     run = function(S)
       S.windows({ { "keylog", "omackey.keylog" } })
       S.press("CTRL + SUPER + SHIFT + M")
