@@ -35,7 +35,7 @@ local function condition_of(spec)
 end
 
 -- One key:
---   id, keys (the exact string Hyprland is given, for hl.unbind), mac (glyph),
+--   id, keys (the exact string Hyprland is given, for hl.unbind), mac (glyph, "⇧⌘["),
 --   desc (what the help menu shows), category, file,
 --   flags { repeating, release, native (bound as a Hyprland dispatcher) },
 --   action     text of the action that is the same in every app, or nil

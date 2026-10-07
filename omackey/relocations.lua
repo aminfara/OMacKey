@@ -6,13 +6,15 @@
 -- order and case, and a keycode matches its key name). Each row has either
 -- `to`, the new key, where Omarchy's action, description and conditions are
 -- kept as they are; or `drop = true`, and Omarchy's bind is not registered.
+-- `to` is written the way keys.canonical() gives (lib/keys.lua: modifiers
+-- SUPER, CTRL, ALT, SHIFT; Omarchy's keycodes kept), or it is reported.
 -- `optional = true` marks binds Omarchy only registers under a condition, so
 -- their absence isn't reported as drift.
 
 local relocations = {
-  -- Dropped: OMacKey's ⌘C / ⌘V / ⌘X (editing.lua) replace Omarchy's universal
-  -- copy, paste and cut, which send Ctrl+C / Ctrl+V to VS Code and break its
-  -- integrated terminal, and Ctrl+X to terminals.
+  -- Dropped: OMacKey's ⌘C / ⌘V / ⌘X (shortcuts.lua, Editing) replace
+  -- Omarchy's universal copy, paste and cut, which send Ctrl+C / Ctrl+V to
+  -- VS Code and break its integrated terminal, and Ctrl+X to terminals.
   { from = "SUPER + C", drop = true }, -- Universal copy
   { from = "SUPER + V", drop = true }, -- Universal paste
   { from = "SUPER + X", drop = true }, -- Universal cut
@@ -22,7 +24,7 @@ local relocations = {
   { from = "SUPER + J", to = "CTRL + ALT + J" }, -- Toggle window split
   { from = "SUPER + P", to = "CTRL + ALT + P" }, -- Pseudo window
   { from = "SUPER + T", to = "CTRL + ALT + T" }, -- Toggle window floating/tiling
-  { from = "SUPER + F", to = "CTRL + SUPER + F" }, -- Full screen (Mac ⌃⌘F)
+  { from = "SUPER + F", to = "SUPER + CTRL + F" }, -- Full screen (Mac ⌃⌘F)
   { from = "SUPER + CTRL + F", to = "CTRL + ALT + F" }, -- Tiled full screen
   { from = "SUPER + ALT + F", to = "CTRL + ALT + RETURN" }, -- Full width (Rectangle "maximize")
   { from = "SUPER + O", to = "CTRL + ALT + O" }, -- Pop window out
@@ -34,12 +36,13 @@ local relocations = {
   { from = "SUPER + mouse:273", to = "CTRL + ALT + mouse:273" }, -- Resize window (drag)
   { from = "SUPER + mouse_down", to = "CTRL + ALT + mouse_down" }, -- Scroll workspace forward
   { from = "SUPER + mouse_up", to = "CTRL + ALT + mouse_up" }, -- Scroll workspace backward
-  { from = "SUPER + ALT + mouse_down", to = "CTRL + ALT + SUPER + mouse_down" }, -- Next window in group
-  { from = "SUPER + ALT + mouse_up", to = "CTRL + ALT + SUPER + mouse_up" }, -- Previous window in group
+  { from = "SUPER + ALT + mouse_down", to = "SUPER + CTRL + ALT + mouse_down" }, -- Next window in group
+  { from = "SUPER + ALT + mouse_up", to = "SUPER + CTRL + ALT + mouse_up" }, -- Previous window in group
 
   -- Arrows: ⌃ moves focus and ⌃⇧ takes the window along, within the
   -- workspace (the most frequent tiling actions get the cheapest chord);
-  -- ⌃⌥ / ⌃⌥⇧ do the same one level up, between workspaces (§6.2, spaces.lua).
+  -- ⌃⌥ / ⌃⌥⇧ do the same one level up, between workspaces (§6.2; the
+  -- Spaces section of shortcuts.lua).
   { from = "SUPER + LEFT", to = "CTRL + LEFT" }, -- Focus window
   { from = "SUPER + RIGHT", to = "CTRL + RIGHT" },
   { from = "SUPER + UP", to = "CTRL + UP" },
@@ -50,15 +53,15 @@ local relocations = {
   { from = "SUPER + SHIFT + UP", to = "CTRL + SHIFT + UP" },
   { from = "SUPER + SHIFT + DOWN", to = "CTRL + SHIFT + DOWN" },
 
-  { from = "SUPER + ALT + LEFT", to = "CTRL + ALT + SUPER + LEFT" }, -- Move window into group
-  { from = "SUPER + ALT + RIGHT", to = "CTRL + ALT + SUPER + RIGHT" },
-  { from = "SUPER + ALT + UP", to = "CTRL + ALT + SUPER + UP" },
-  { from = "SUPER + ALT + DOWN", to = "CTRL + ALT + SUPER + DOWN" },
+  { from = "SUPER + ALT + LEFT", to = "SUPER + CTRL + ALT + LEFT" }, -- Move window into group
+  { from = "SUPER + ALT + RIGHT", to = "SUPER + CTRL + ALT + RIGHT" },
+  { from = "SUPER + ALT + UP", to = "SUPER + CTRL + ALT + UP" },
+  { from = "SUPER + ALT + DOWN", to = "SUPER + CTRL + ALT + DOWN" },
 
-  { from = "SUPER + SHIFT + ALT + LEFT", to = "CTRL + ALT + SUPER + SHIFT + LEFT" }, -- Move workspace to monitor
-  { from = "SUPER + SHIFT + ALT + RIGHT", to = "CTRL + ALT + SUPER + SHIFT + RIGHT" },
-  { from = "SUPER + SHIFT + ALT + UP", to = "CTRL + ALT + SUPER + SHIFT + UP" },
-  { from = "SUPER + SHIFT + ALT + DOWN", to = "CTRL + ALT + SUPER + SHIFT + DOWN" },
+  { from = "SUPER + SHIFT + ALT + LEFT", to = "SUPER + CTRL + ALT + SHIFT + LEFT" }, -- Move workspace to monitor
+  { from = "SUPER + SHIFT + ALT + RIGHT", to = "SUPER + CTRL + ALT + SHIFT + RIGHT" },
+  { from = "SUPER + SHIFT + ALT + UP", to = "SUPER + CTRL + ALT + SHIFT + UP" },
+  { from = "SUPER + SHIFT + ALT + DOWN", to = "SUPER + CTRL + ALT + SHIFT + DOWN" },
 
   { from = "SUPER + G", to = "CTRL + ALT + G" }, -- Toggle window grouping
   { from = "SUPER + ALT + G", to = "CTRL + ALT + SHIFT + G" }, -- Move active window out of group
@@ -71,68 +74,68 @@ local relocations = {
   { from = "SUPER + code:21", to = "CTRL + ALT + code:21" },
   { from = "SUPER + SHIFT + code:20", to = "CTRL + ALT + SHIFT + code:20" }, -- ±100 px vertical
   { from = "SUPER + SHIFT + code:21", to = "CTRL + ALT + SHIFT + code:21" },
-  { from = "SUPER + CTRL + code:20", to = "CTRL + ALT + SUPER + code:20" }, -- ±300 px horizontal
-  { from = "SUPER + CTRL + code:21", to = "CTRL + ALT + SUPER + code:21" },
-  { from = "SUPER + CTRL + SHIFT + code:20", to = "CTRL + ALT + SUPER + SHIFT + code:20" }, -- ±300 px vertical
-  { from = "SUPER + CTRL + SHIFT + code:21", to = "CTRL + ALT + SUPER + SHIFT + code:21" },
+  { from = "SUPER + CTRL + code:20", to = "SUPER + CTRL + ALT + code:20" }, -- ±300 px horizontal
+  { from = "SUPER + CTRL + code:21", to = "SUPER + CTRL + ALT + code:21" },
+  { from = "SUPER + CTRL + SHIFT + code:20", to = "SUPER + CTRL + ALT + SHIFT + code:20" }, -- ±300 px vertical
+  { from = "SUPER + CTRL + SHIFT + code:21", to = "SUPER + CTRL + ALT + SHIFT + code:21" },
 
-  { from = "SUPER + SLASH", to = "CTRL + ALT + SLASH" }, -- Monitor scaling up (⌘/: comment)
-  { from = "SUPER + ALT + SLASH", to = "CTRL + ALT + SHIFT + SLASH" }, -- Monitor scaling down
+  { from = "SUPER + SLASH", to = "CTRL + ALT + slash" }, -- Monitor scaling up (⌘/: comment)
+  { from = "SUPER + ALT + SLASH", to = "CTRL + ALT + SHIFT + slash" }, -- Monitor scaling down
   { from = "SUPER + BACKSPACE", to = "CTRL + ALT + BACKSPACE" }, -- Toggle window transparency (⌘⌫)
   { from = "SUPER + SHIFT + BACKSPACE", to = "CTRL + ALT + SHIFT + BACKSPACE" }, -- Toggle window gaps
   { from = "SUPER + ALT + code:34", to = "CTRL + ALT + code:34" }, -- Webcam overlay smaller (⌘⌥[: fold)
   { from = "SUPER + ALT + code:35", to = "CTRL + ALT + code:35" }, -- Webcam overlay larger
 
   -- Spaces (§6.2): numbers on ⌃ like macOS, arrows on ⌃⌥.
-  -- spaces.lua adds ⌃⌥↑/↓ and the ⌃⌥⇧ arrows.
+  -- shortcuts.lua (Spaces) adds ⌃⌥↑/↓ and the ⌃⌥⇧ arrows.
   { from = "SUPER + TAB", to = "CTRL + ALT + RIGHT" }, -- Next workspace (⌘Tab: switch window)
   { from = "SUPER + SHIFT + TAB", to = "CTRL + ALT + LEFT" }, -- Previous workspace
 
   -- §6.3 Launchers → ⌃⌥⌘ + Omarchy's letter, ⌃⌥⌘⇧ for the SUPER+SHIFT+ALT
   -- variants. Frees ⌘⏎ and ⌘⇧ + letters for apps.
-  { from = "SUPER + RETURN", to = "CTRL + ALT + SUPER + RETURN" }, -- Terminal
-  { from = "SUPER + SHIFT + RETURN", to = "CTRL + ALT + SUPER + SHIFT + RETURN" }, -- Browser
-  { from = "SUPER + SHIFT + F", to = "CTRL + ALT + SUPER + F" }, -- File manager
-  { from = "SUPER + ALT + SHIFT + F", to = "CTRL + ALT + SUPER + SHIFT + F" }, -- File manager (cwd)
-  { from = "SUPER + SHIFT + B", to = "CTRL + ALT + SUPER + B" }, -- Browser
-  { from = "SUPER + SHIFT + ALT + B", to = "CTRL + ALT + SUPER + SHIFT + B" }, -- Browser (private)
-  { from = "SUPER + SHIFT + N", to = "CTRL + ALT + SUPER + N" }, -- Editor
+  { from = "SUPER + RETURN", to = "SUPER + CTRL + ALT + RETURN" }, -- Terminal
+  { from = "SUPER + SHIFT + RETURN", to = "SUPER + CTRL + ALT + SHIFT + RETURN" }, -- Browser
+  { from = "SUPER + SHIFT + F", to = "SUPER + CTRL + ALT + F" }, -- File manager
+  { from = "SUPER + ALT + SHIFT + F", to = "SUPER + CTRL + ALT + SHIFT + F" }, -- File manager (cwd)
+  { from = "SUPER + SHIFT + B", to = "SUPER + CTRL + ALT + B" }, -- Browser
+  { from = "SUPER + SHIFT + ALT + B", to = "SUPER + CTRL + ALT + SHIFT + B" }, -- Browser (private)
+  { from = "SUPER + SHIFT + N", to = "SUPER + CTRL + ALT + N" }, -- Editor
 
   -- Preinstalled apps and web apps (only when omarchy_preinstalled_bindings is on).
-  { from = "SUPER + SHIFT + M", to = "CTRL + ALT + SUPER + M", optional = true }, -- Music
-  { from = "SUPER + SHIFT + ALT + M", to = "CTRL + ALT + SUPER + SHIFT + M", optional = true }, -- Music TUI
-  { from = "SUPER + SHIFT + D", to = "CTRL + ALT + SUPER + D", optional = true }, -- Docker
-  { from = "SUPER + SHIFT + G", to = "CTRL + ALT + SUPER + G", optional = true }, -- Signal
-  { from = "SUPER + SHIFT + ALT + G", to = "CTRL + ALT + SUPER + SHIFT + G", optional = true }, -- WhatsApp
-  { from = "SUPER + SHIFT + O", to = "CTRL + ALT + SUPER + O", optional = true }, -- Obsidian
-  { from = "SUPER + SHIFT + W", to = "CTRL + ALT + SUPER + W", optional = true }, -- Omawrite
-  { from = "SUPER + SHIFT + SLASH", to = "CTRL + ALT + SUPER + SLASH", optional = true }, -- Passwords (frees ⌘?)
-  { from = "SUPER + SHIFT + A", to = "CTRL + ALT + SUPER + A", optional = true }, -- ChatGPT
-  { from = "SUPER + SHIFT + ALT + A", to = "CTRL + ALT + SUPER + SHIFT + A", optional = true }, -- Grok
-  { from = "SUPER + SHIFT + C", to = "CTRL + ALT + SUPER + C", optional = true }, -- Calendar
-  { from = "SUPER + SHIFT + E", to = "CTRL + ALT + SUPER + E", optional = true }, -- Email
-  { from = "SUPER + SHIFT + ALT + E", to = "CTRL + ALT + SUPER + SHIFT + E", optional = true }, -- New email
-  { from = "SUPER + SHIFT + Y", to = "CTRL + ALT + SUPER + Y", optional = true }, -- YouTube
-  { from = "SUPER + SHIFT + P", to = "CTRL + ALT + SUPER + P", optional = true }, -- Google Photos
-  { from = "SUPER + SHIFT + S", to = "CTRL + ALT + SUPER + S", optional = true }, -- Google Maps
-  { from = "SUPER + SHIFT + X", to = "CTRL + ALT + SUPER + X", optional = true }, -- X
-  { from = "SUPER + SHIFT + ALT + X", to = "CTRL + ALT + SUPER + SHIFT + X", optional = true }, -- X Post
+  { from = "SUPER + SHIFT + M", to = "SUPER + CTRL + ALT + M", optional = true }, -- Music
+  { from = "SUPER + SHIFT + ALT + M", to = "SUPER + CTRL + ALT + SHIFT + M", optional = true }, -- Music TUI
+  { from = "SUPER + SHIFT + D", to = "SUPER + CTRL + ALT + D", optional = true }, -- Docker
+  { from = "SUPER + SHIFT + G", to = "SUPER + CTRL + ALT + G", optional = true }, -- Signal
+  { from = "SUPER + SHIFT + ALT + G", to = "SUPER + CTRL + ALT + SHIFT + G", optional = true }, -- WhatsApp
+  { from = "SUPER + SHIFT + O", to = "SUPER + CTRL + ALT + O", optional = true }, -- Obsidian
+  { from = "SUPER + SHIFT + W", to = "SUPER + CTRL + ALT + W", optional = true }, -- Omawrite
+  { from = "SUPER + SHIFT + SLASH", to = "SUPER + CTRL + ALT + slash", optional = true }, -- Passwords (frees ⌘?)
+  { from = "SUPER + SHIFT + A", to = "SUPER + CTRL + ALT + A", optional = true }, -- ChatGPT
+  { from = "SUPER + SHIFT + ALT + A", to = "SUPER + CTRL + ALT + SHIFT + A", optional = true }, -- Grok
+  { from = "SUPER + SHIFT + C", to = "SUPER + CTRL + ALT + C", optional = true }, -- Calendar
+  { from = "SUPER + SHIFT + E", to = "SUPER + CTRL + ALT + E", optional = true }, -- Email
+  { from = "SUPER + SHIFT + ALT + E", to = "SUPER + CTRL + ALT + SHIFT + E", optional = true }, -- New email
+  { from = "SUPER + SHIFT + Y", to = "SUPER + CTRL + ALT + Y", optional = true }, -- YouTube
+  { from = "SUPER + SHIFT + P", to = "SUPER + CTRL + ALT + P", optional = true }, -- Google Photos
+  { from = "SUPER + SHIFT + S", to = "SUPER + CTRL + ALT + S", optional = true }, -- Google Maps
+  { from = "SUPER + SHIFT + X", to = "SUPER + CTRL + ALT + X", optional = true }, -- X
+  { from = "SUPER + SHIFT + ALT + X", to = "SUPER + CTRL + ALT + SHIFT + X", optional = true }, -- X Post
 
   -- Omarchy info popups → ⌃⌘⇧ T/B/W/D. B, W and D collide with launcher
   -- letters; time moves with them to keep the group together. ⌃⌥⌘R/Z/Delete
   -- stay next to their ⌃⌘ siblings (show reminders, reset zoom, mirroring).
-  { from = "SUPER + CTRL + ALT + T", to = "CTRL + SUPER + SHIFT + T" }, -- Show time
-  { from = "SUPER + CTRL + ALT + B", to = "CTRL + SUPER + SHIFT + B" }, -- Show battery remaining
-  { from = "SUPER + CTRL + ALT + W", to = "CTRL + SUPER + SHIFT + W" }, -- Toggle weather
-  { from = "SUPER + CTRL + ALT + D", to = "CTRL + SUPER + SHIFT + D" }, -- Calendar panel
+  { from = "SUPER + CTRL + ALT + T", to = "SUPER + CTRL + SHIFT + T" }, -- Show time
+  { from = "SUPER + CTRL + ALT + B", to = "SUPER + CTRL + SHIFT + B" }, -- Show battery remaining
+  { from = "SUPER + CTRL + ALT + W", to = "SUPER + CTRL + SHIFT + W" }, -- Toggle weather
+  { from = "SUPER + CTRL + ALT + D", to = "SUPER + CTRL + SHIFT + D" }, -- Calendar panel
 
   -- Utilities & help (§6.4).
-  { from = "SUPER + K", to = "SUPER + SHIFT + SLASH" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps
+  { from = "SUPER + K", to = "SUPER + SHIFT + slash" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps
   -- Next to ⌘⇧, (dismiss all) and the ⌃⌘⇧ info popups; ⌘, is preferences.
   -- xkbcommon names the keysym "comma"; upper-case "COMMA" does not match.
-  { from = "SUPER + comma", to = "CTRL + SUPER + SHIFT + comma" }, -- Dismiss last notification
-  { from = "SUPER + CTRL + Q", to = "CTRL + ALT + SUPER + Q" }, -- Calculator (⌃⌘Q: lock screen)
-  { from = "SUPER + CTRL + SPACE", to = "CTRL + ALT + SUPER + SPACE" }, -- Background switcher (⌃⌘Space: emoji)
+  { from = "SUPER + comma", to = "SUPER + CTRL + SHIFT + comma" }, -- Dismiss last notification
+  { from = "SUPER + CTRL + Q", to = "SUPER + CTRL + ALT + Q" }, -- Calculator (⌃⌘Q: lock screen)
+  { from = "SUPER + CTRL + SPACE", to = "SUPER + CTRL + ALT + SPACE" }, -- Background switcher (⌃⌘Space: emoji)
 }
 
 -- Workspaces 1–10 (Omarchy binds digits by keycode: code:10 = 1 … code:19 = 0).

@@ -14,7 +14,7 @@
 -- apps that have no entry.
 --
 --   mac({
---     id = "line-start", category = "Cursor", mac = "⌘←",
+--     id = "line-start",
 --     keys = "SUPER + LEFT", desc = "Line start", repeating = true,
 --     actions = {
 --       default = send.tap("", "Home"),  -- function: run it
@@ -27,7 +27,7 @@
 --   } })
 --
 --   mac({
---     id = "close-window", category = "Windows", mac = "⌘⇧W",
+--     id = "close-window",
 --     keys = "SUPER + SHIFT + W", desc = "Close window",
 --     action = hl.dsp.window.close(),    -- a dispatcher is bound natively
 --   })
@@ -37,6 +37,12 @@
 -- what it does (lib/action.lua): send.tap / send.seq make their own, and
 -- does("text", fn_or_dispatcher) adds one. build() rejects an action without
 -- a text.
+--
+-- `keys` is written the one way keys.canonical() gives (modifiers SUPER, CTRL,
+-- ALT, SHIFT; see lib/keys.lua); build() rejects any other spelling, so users
+-- can hl.unbind the string the docs show. The Mac glyph (`mac`, "⇧⌘[") is
+-- derived from it; only a key with no glyph (a mouse button, an XF86 key)
+-- spells it out: mac = "⌘-click".
 --
 -- A spec is declared but not bound when `enabled = false`, when
 -- `setting = "<option>"` names a false user option (settings.lua), or when
@@ -78,6 +84,7 @@ function M.mac(spec)
     spec.actions = {}
   end
   spec.file = spec.file or source_file(2)
+  spec.mac = spec.mac or keys.glyph(spec.keys)
   table.insert(M.registry, spec)
   return spec
 end
@@ -113,8 +120,8 @@ function M.catchall(decl)
   for _, variant in ipairs(decl.variants) do
     for _, key in ipairs(keys.list) do
       if covers[key.kind] or covers[key.name] then
-        local chord = variant.keys .. " + " .. key.name
-        local name = variant.glyph .. key.glyph
+        local chord = keys.canonical(variant.keys .. " + " .. key.name)
+        local name = variant.glyph .. key.glyph -- in descriptions and ids, as written
 
         local desc, default = name .. " sent as " .. variant.text .. key.label, tap(variant.sends, key.name)
         if consumed[keys.normalize(chord)] then
@@ -125,7 +132,7 @@ function M.catchall(decl)
           id = "catchall-" .. variant.glyph .. key.name,
           category = decl.category,
           file = file,
-          mac = name,
+          mac = keys.glyph(chord),
           keys = chord,
           desc = desc,
           actions = { default = default },
@@ -166,6 +173,9 @@ local function problem(spec)
     if spec[field] == nil then
       return "needs '" .. field .. "'"
     end
+  end
+  if spec.keys ~= keys.canonical(spec.keys) then
+    return "should write its keys \"" .. keys.canonical(spec.keys) .. "\" (not \"" .. spec.keys .. "\")"
   end
   if spec.action ~= nil and spec.actions ~= nil then
     return "has both 'action' and 'actions'"
@@ -248,6 +258,13 @@ function M.build()
   local valid, taken, claimed = {}, {}, {}
 
   profiles.build(M.errors)
+
+  for _, relocation in ipairs(relocate.relocations) do
+    if relocation.to and relocation.to ~= keys.canonical(relocation.to) then
+      table.insert(M.errors, "relocation of '" .. relocation.from .. "' should move it to \""
+        .. keys.canonical(relocation.to) .. "\" (not \"" .. relocation.to .. "\")")
+    end
+  end
 
   local function fail(spec, message)
     table.insert(M.errors, "'" .. tostring(spec.id or spec.keys) .. "' " .. message)

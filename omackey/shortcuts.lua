@@ -23,7 +23,6 @@ local tap, seq = send.tap, send.seq
 group("Text", {
   mac({
     id = "line-start",
-    mac = "⌘←",
     keys = "SUPER + LEFT",
     desc = "Line start",
     repeating = true,
@@ -34,7 +33,6 @@ group("Text", {
 
   mac({
     id = "line-end",
-    mac = "⌘→",
     keys = "SUPER + RIGHT",
     desc = "Line end",
     repeating = true,
@@ -45,7 +43,6 @@ group("Text", {
 
   mac({
     id = "select-line-start",
-    mac = "⌘⇧←",
     keys = "SUPER + SHIFT + LEFT",
     desc = "Select to line start",
     repeating = true,
@@ -56,7 +53,6 @@ group("Text", {
 
   mac({
     id = "select-line-end",
-    mac = "⌘⇧→",
     keys = "SUPER + SHIFT + RIGHT",
     desc = "Select to line end",
     repeating = true,
@@ -67,7 +63,6 @@ group("Text", {
 
   mac({
     id = "word-left",
-    mac = "⌥←",
     keys = "ALT + LEFT",
     desc = "Word left",
     repeating = true,
@@ -78,7 +73,6 @@ group("Text", {
 
   mac({
     id = "word-right",
-    mac = "⌥→",
     keys = "ALT + RIGHT",
     desc = "Word right",
     repeating = true,
@@ -89,7 +83,6 @@ group("Text", {
 
   mac({
     id = "select-word-left",
-    mac = "⌥⇧←",
     keys = "ALT + SHIFT + LEFT",
     desc = "Select word left",
     repeating = true,
@@ -100,7 +93,6 @@ group("Text", {
 
   mac({
     id = "select-word-right",
-    mac = "⌥⇧→",
     keys = "ALT + SHIFT + RIGHT",
     desc = "Select word right",
     repeating = true,
@@ -111,7 +103,6 @@ group("Text", {
 
   mac({
     id = "document-start",
-    mac = "⌘↑",
     keys = "SUPER + UP",
     desc = "Document start",
     repeating = true,
@@ -122,7 +113,6 @@ group("Text", {
 
   mac({
     id = "document-end",
-    mac = "⌘↓",
     keys = "SUPER + DOWN",
     desc = "Document end",
     repeating = true,
@@ -133,7 +123,6 @@ group("Text", {
 
   mac({
     id = "select-document-start",
-    mac = "⌘⇧↑",
     keys = "SUPER + SHIFT + UP",
     desc = "Select to document start",
     repeating = true,
@@ -144,7 +133,6 @@ group("Text", {
 
   mac({
     id = "select-document-end",
-    mac = "⌘⇧↓",
     keys = "SUPER + SHIFT + DOWN",
     desc = "Select to document end",
     repeating = true,
@@ -155,7 +143,6 @@ group("Text", {
 
   mac({
     id = "delete-word-left",
-    mac = "⌥⌫",
     keys = "ALT + BACKSPACE",
     desc = "Delete word left",
     repeating = true,
@@ -166,7 +153,6 @@ group("Text", {
 
   mac({
     id = "delete-word-right",
-    mac = "⌥⌦",
     keys = "ALT + DELETE",
     desc = "Delete word right",
     repeating = true,
@@ -177,7 +163,6 @@ group("Text", {
 
   mac({
     id = "delete-line-start",
-    mac = "⌘⌫",
     keys = "SUPER + BACKSPACE",
     desc = "Delete to line start",
     repeating = true,
@@ -188,7 +173,6 @@ group("Text", {
 
   mac({
     id = "delete-line-end",
-    mac = "⌘⌦",
     keys = "SUPER + DELETE",
     desc = "Delete to line end",
     repeating = true,
@@ -205,7 +189,6 @@ group("Text", {
 group("Editing", {
   mac({
     id = "copy",
-    mac = "⌘C",
     keys = "SUPER + C",
     desc = "Copy",
     actions = {
@@ -215,7 +198,6 @@ group("Editing", {
 
   mac({
     id = "paste",
-    mac = "⌘V",
     keys = "SUPER + V",
     desc = "Paste",
     actions = {
@@ -225,7 +207,6 @@ group("Editing", {
 
   mac({
     id = "cut",
-    mac = "⌘X",
     keys = "SUPER + X",
     desc = "Cut",
     actions = {
@@ -235,7 +216,6 @@ group("Editing", {
 
   mac({
     id = "paste-plain",
-    mac = "⌘⇧V",
     keys = "SUPER + SHIFT + V",
     desc = "Paste without formatting",
     actions = {
@@ -247,14 +227,12 @@ group("Editing", {
   -- is the way to the dialog. Elsewhere ⌘⌥V reaches the app as a raw chord.
   mac({
     id = "paste-special",
-    mac = "⌘⌥V",
     keys = "SUPER + ALT + V",
     desc = "Paste special (LibreOffice)",
   }),
 
   mac({
     id = "undo",
-    mac = "⌘Z",
     keys = "SUPER + Z",
     desc = "Undo",
     repeating = true,
@@ -265,7 +243,6 @@ group("Editing", {
 
   mac({
     id = "redo",
-    mac = "⌘⇧Z",
     keys = "SUPER + SHIFT + Z",
     desc = "Redo",
     repeating = true,
@@ -278,7 +255,6 @@ group("Editing", {
   -- (Ctrl+Shift+U starts Unicode input in GTK and fcitx5).
   mac({
     id = "redo-selection",
-    mac = "⌘⇧U",
     keys = "SUPER + SHIFT + U",
     desc = "Redo selection (Obsidian)",
     actions = {
@@ -288,7 +264,6 @@ group("Editing", {
 
   mac({
     id = "select-all",
-    mac = "⌘A",
     keys = "SUPER + A",
     desc = "Select all",
     actions = {
@@ -298,7 +273,6 @@ group("Editing", {
 
   mac({
     id = "save",
-    mac = "⌘S",
     keys = "SUPER + S",
     desc = "Save",
     actions = {
@@ -308,7 +282,6 @@ group("Editing", {
 
   mac({
     id = "save-as",
-    mac = "⌘⇧S",
     keys = "SUPER + SHIFT + S",
     desc = "Save as",
     actions = {
@@ -318,7 +291,6 @@ group("Editing", {
 
   mac({
     id = "bold",
-    mac = "⌘B",
     keys = "SUPER + B",
     desc = "Bold",
     actions = {
@@ -328,7 +300,6 @@ group("Editing", {
 
   mac({
     id = "italic",
-    mac = "⌘I",
     keys = "SUPER + I",
     desc = "Italic",
     actions = {
@@ -338,7 +309,6 @@ group("Editing", {
 
   mac({
     id = "underline",
-    mac = "⌘U",
     keys = "SUPER + U",
     desc = "Underline",
     actions = {
@@ -350,7 +320,6 @@ group("Editing", {
   -- interrupt (Ctrl+C, like Terminal.app); in VS Code it is Quick Fix.
   mac({
     id = "cancel",
-    mac = "⌘.",
     keys = "SUPER + period",
     desc = "Cancel (Escape)",
     actions = {
@@ -366,7 +335,6 @@ group("Editing", {
 group("Find", {
   mac({
     id = "find",
-    mac = "⌘F",
     keys = "SUPER + F",
     desc = "Find",
     actions = {
@@ -377,7 +345,6 @@ group("Find", {
   -- F3 / Shift+F3 work in Chromium, Firefox, VS Code and GTK.
   mac({
     id = "find-next",
-    mac = "⌘G",
     keys = "SUPER + G",
     desc = "Find next",
     repeating = true,
@@ -388,7 +355,6 @@ group("Find", {
 
   mac({
     id = "find-previous",
-    mac = "⌘⇧G",
     keys = "SUPER + SHIFT + G",
     desc = "Find previous",
     repeating = true,
@@ -400,7 +366,6 @@ group("Find", {
   -- Omarchy's "Full width" is on ⌃⌥⏎.
   mac({
     id = "replace",
-    mac = "⌘⌥F",
     keys = "SUPER + ALT + F",
     desc = "Replace",
   }),
@@ -409,28 +374,24 @@ group("Find", {
   -- browsers' inspect key (Developer tools).
   mac({
     id = "find-whole-word",
-    mac = "⌘⌥W",
     keys = "SUPER + ALT + W",
     desc = "Find: match whole word",
   }),
 
   mac({
     id = "find-regex",
-    mac = "⌘⌥R",
     keys = "SUPER + ALT + R",
     desc = "Find: use regular expression",
   }),
 
   mac({
     id = "find-in-selection",
-    mac = "⌘⌥L",
     keys = "SUPER + ALT + L",
     desc = "Find: in selection",
   }),
 
   mac({
     id = "find-preserve-case",
-    mac = "⌘⌥P",
     keys = "SUPER + ALT + P",
     desc = "Replace: preserve case",
   }),
@@ -443,8 +404,7 @@ group("Find", {
 group("Code editing", {
   mac({
     id = "toggle-comment",
-    mac = "⌘/",
-    keys = "SUPER + SLASH",
+    keys = "SUPER + slash",
     desc = "Toggle comment",
     actions = {
       default = tap("CTRL", "slash"),
@@ -453,14 +413,12 @@ group("Code editing", {
 
   mac({
     id = "block-comment",
-    mac = "⌥⇧A",
     keys = "ALT + SHIFT + A",
     desc = "Toggle block comment",
   }),
 
   mac({
     id = "add-cursor-above",
-    mac = "⌘⌥↑",
     keys = "SUPER + ALT + UP",
     desc = "Add cursor above",
     repeating = true,
@@ -468,7 +426,6 @@ group("Code editing", {
 
   mac({
     id = "add-cursor-below",
-    mac = "⌘⌥↓",
     keys = "SUPER + ALT + DOWN",
     desc = "Add cursor below",
     repeating = true,
@@ -476,7 +433,6 @@ group("Code editing", {
 
   mac({
     id = "copy-line-up",
-    mac = "⌥⇧↑",
     keys = "ALT + SHIFT + UP",
     desc = "Copy line up",
     repeating = true,
@@ -484,7 +440,6 @@ group("Code editing", {
 
   mac({
     id = "copy-line-down",
-    mac = "⌥⇧↓",
     keys = "ALT + SHIFT + DOWN",
     desc = "Copy line down",
     repeating = true,
@@ -493,21 +448,18 @@ group("Code editing", {
   -- Omarchy's webcam size binds for these keys are on ⌃⌥.
   mac({
     id = "fold",
-    mac = "⌘⌥[",
     keys = "SUPER + ALT + bracketleft",
     desc = "Fold code",
   }),
 
   mac({
     id = "unfold",
-    mac = "⌘⌥]",
     keys = "SUPER + ALT + bracketright",
     desc = "Unfold code",
   }),
 
   mac({
     id = "shrink-selection",
-    mac = "⌃⇧⌘←",
     keys = "SUPER + CTRL + SHIFT + LEFT",
     desc = "Shrink selection",
     repeating = true,
@@ -515,7 +467,6 @@ group("Code editing", {
 
   mac({
     id = "expand-selection",
-    mac = "⌃⇧⌘→",
     keys = "SUPER + CTRL + SHIFT + RIGHT",
     desc = "Expand selection",
     repeating = true,
@@ -527,7 +478,6 @@ group("Code editing", {
 group("Tabs", {
   mac({
     id = "new-tab",
-    mac = "⌘T",
     keys = "SUPER + T",
     desc = "New tab",
     actions = {
@@ -537,7 +487,6 @@ group("Tabs", {
 
   mac({
     id = "reopen-tab",
-    mac = "⌘⇧T",
     keys = "SUPER + SHIFT + T",
     desc = "Reopen closed tab",
     actions = {
@@ -548,7 +497,6 @@ group("Tabs", {
   -- Omarchy's "Close window" is on ⌃⌥W (relocations.lua).
   mac({
     id = "close-tab",
-    mac = "⌘W",
     keys = "SUPER + W",
     desc = "Close tab or window",
     actions = {
@@ -560,8 +508,7 @@ group("Tabs", {
   -- workspace binds are on ⌃1–0.
   mac({
     id = "tab-1",
-    mac = "⌘1",
-    keys = "SUPER + 1",
+    keys = "SUPER + code:10",
     desc = "Go to tab 1",
     actions = {
       default = tap("CTRL", "1"),
@@ -570,8 +517,7 @@ group("Tabs", {
 
   mac({
     id = "tab-2",
-    mac = "⌘2",
-    keys = "SUPER + 2",
+    keys = "SUPER + code:11",
     desc = "Go to tab 2",
     actions = {
       default = tap("CTRL", "2"),
@@ -580,8 +526,7 @@ group("Tabs", {
 
   mac({
     id = "tab-3",
-    mac = "⌘3",
-    keys = "SUPER + 3",
+    keys = "SUPER + code:12",
     desc = "Go to tab 3",
     actions = {
       default = tap("CTRL", "3"),
@@ -590,8 +535,7 @@ group("Tabs", {
 
   mac({
     id = "tab-4",
-    mac = "⌘4",
-    keys = "SUPER + 4",
+    keys = "SUPER + code:13",
     desc = "Go to tab 4",
     actions = {
       default = tap("CTRL", "4"),
@@ -600,8 +544,7 @@ group("Tabs", {
 
   mac({
     id = "tab-5",
-    mac = "⌘5",
-    keys = "SUPER + 5",
+    keys = "SUPER + code:14",
     desc = "Go to tab 5",
     actions = {
       default = tap("CTRL", "5"),
@@ -610,8 +553,7 @@ group("Tabs", {
 
   mac({
     id = "tab-6",
-    mac = "⌘6",
-    keys = "SUPER + 6",
+    keys = "SUPER + code:15",
     desc = "Go to tab 6",
     actions = {
       default = tap("CTRL", "6"),
@@ -620,8 +562,7 @@ group("Tabs", {
 
   mac({
     id = "tab-7",
-    mac = "⌘7",
-    keys = "SUPER + 7",
+    keys = "SUPER + code:16",
     desc = "Go to tab 7",
     actions = {
       default = tap("CTRL", "7"),
@@ -630,8 +571,7 @@ group("Tabs", {
 
   mac({
     id = "tab-8",
-    mac = "⌘8",
-    keys = "SUPER + 8",
+    keys = "SUPER + code:17",
     desc = "Go to tab 8",
     actions = {
       default = tap("CTRL", "8"),
@@ -640,8 +580,7 @@ group("Tabs", {
 
   mac({
     id = "tab-9",
-    mac = "⌘9",
-    keys = "SUPER + 9",
+    keys = "SUPER + code:18",
     desc = "Go to tab 9",
     actions = {
       default = tap("CTRL", "9"),
@@ -652,7 +591,6 @@ group("Tabs", {
   -- VS Code and Nautilus take. Omarchy's group moves (⌘⌥←/→) are on ⌃⌥⌘.
   mac({
     id = "previous-tab",
-    mac = "⌘⇧[",
     keys = "SUPER + SHIFT + bracketleft",
     desc = "Previous tab",
     actions = {
@@ -662,7 +600,6 @@ group("Tabs", {
 
   mac({
     id = "next-tab",
-    mac = "⌘⇧]",
     keys = "SUPER + SHIFT + bracketright",
     desc = "Next tab",
     actions = {
@@ -672,7 +609,6 @@ group("Tabs", {
 
   mac({
     id = "previous-tab-arrow",
-    mac = "⌘⌥←",
     keys = "SUPER + ALT + LEFT",
     desc = "Previous tab",
     actions = {
@@ -682,7 +618,6 @@ group("Tabs", {
 
   mac({
     id = "next-tab-arrow",
-    mac = "⌘⌥→",
     keys = "SUPER + ALT + RIGHT",
     desc = "Next tab",
     actions = {
@@ -696,7 +631,6 @@ group("Tabs", {
 group("Windows and apps", {
   mac({
     id = "new-window",
-    mac = "⌘N",
     keys = "SUPER + N",
     desc = "New window",
     actions = {
@@ -707,7 +641,6 @@ group("Windows and apps", {
   -- Private window in browsers, new folder in file managers.
   mac({
     id = "new-window-private",
-    mac = "⌘⇧N",
     keys = "SUPER + SHIFT + N",
     desc = "New private window or folder",
     actions = {
@@ -721,7 +654,6 @@ group("Windows and apps", {
   -- ⌃⌥⌘W.
   mac({
     id = "close-window",
-    mac = "⌘⇧W",
     keys = "SUPER + SHIFT + W",
     desc = "Close window",
     action = does("Close the window", hl.dsp.window.close()),
@@ -729,7 +661,6 @@ group("Windows and apps", {
 
   mac({
     id = "quit-app",
-    mac = "⌘Q",
     keys = "SUPER + Q",
     desc = "Quit app (close all its windows)",
     action = does("Close every window of the app", windows.quit_app), -- terminals too, as Terminal.app does
@@ -740,7 +671,6 @@ group("Windows and apps", {
   -- keys is on ⌃⌥← / ⌃⌥→; ⌥Tab still cycles windows in layout order.
   mac({
     id = "switch-app",
-    mac = "⌘Tab",
     keys = "SUPER + TAB",
     desc = "Switch app",
     action = does("Switch to the next app, most recently used first", function()
@@ -750,7 +680,6 @@ group("Windows and apps", {
 
   mac({
     id = "switch-app-back",
-    mac = "⌘⇧Tab",
     keys = "SUPER + SHIFT + TAB",
     desc = "Switch app backwards",
     action = does("Switch to the previous app in the recency list", function()
@@ -762,7 +691,6 @@ group("Windows and apps", {
   -- window nothing happens.
   mac({
     id = "next-app-window",
-    mac = "⌘`",
     keys = "SUPER + grave",
     desc = "Next window of this app",
     action = does("Focus the next window of the app", function()
@@ -772,7 +700,6 @@ group("Windows and apps", {
 
   mac({
     id = "previous-app-window",
-    mac = "⌘⇧`",
     keys = "SUPER + SHIFT + grave",
     desc = "Previous window of this app",
     action = does("Focus the previous window of the app", function()
@@ -789,7 +716,6 @@ group("Navigation", {
   -- ⌘O/⌘P/⌘R/⌘L: Omarchy's pop, pseudo and layout binds are on ⌃⌥.
   mac({
     id = "open",
-    mac = "⌘O",
     keys = "SUPER + O",
     desc = "Open",
     actions = {
@@ -799,7 +725,6 @@ group("Navigation", {
 
   mac({
     id = "print",
-    mac = "⌘P",
     keys = "SUPER + P",
     desc = "Print or quick open",
     actions = {
@@ -809,7 +734,6 @@ group("Navigation", {
 
   mac({
     id = "reload",
-    mac = "⌘R",
     keys = "SUPER + R",
     desc = "Reload",
     actions = {
@@ -819,7 +743,6 @@ group("Navigation", {
 
   mac({
     id = "location",
-    mac = "⌘L",
     keys = "SUPER + L",
     desc = "Focus address bar",
     actions = {
@@ -831,7 +754,6 @@ group("Navigation", {
   -- back and forward in browsers and Nautilus. Omarchy's webcam binds are on ⌃⌥.
   mac({
     id = "back",
-    mac = "⌘[",
     keys = "SUPER + bracketleft",
     desc = "Back or outdent",
     actions = {
@@ -841,7 +763,6 @@ group("Navigation", {
 
   mac({
     id = "forward",
-    mac = "⌘]",
     keys = "SUPER + bracketright",
     desc = "Forward or indent",
     actions = {
@@ -856,7 +777,6 @@ group("Navigation", {
   -- settings stay unmapped (§7).
   mac({
     id = "preferences",
-    mac = "⌘,",
     keys = "SUPER + comma",
     desc = "Preferences",
     actions = {
@@ -866,7 +786,6 @@ group("Navigation", {
 
   mac({
     id = "history",
-    mac = "⌘Y",
     keys = "SUPER + Y",
     desc = "History",
     actions = {
@@ -877,7 +796,6 @@ group("Navigation", {
   -- Chrome's downloads page; Firefox follows the same key (user's choice).
   mac({
     id = "downloads",
-    mac = "⌘⇧J",
     keys = "SUPER + SHIFT + J",
     desc = "Downloads",
     actions = {
@@ -887,7 +805,6 @@ group("Navigation", {
 
   mac({
     id = "bookmark-manager",
-    mac = "⌘⌥B",
     keys = "SUPER + ALT + B",
     desc = "Bookmark manager",
   }),
@@ -895,7 +812,6 @@ group("Navigation", {
   -- Omarchy's "Toggle window gaps" is on ⌃⌥⇧⌫.
   mac({
     id = "clear-browsing-data",
-    mac = "⌘⇧⌫",
     keys = "SUPER + SHIFT + BACKSPACE",
     desc = "Clear browsing data",
   }),
@@ -908,7 +824,6 @@ group("View", {
   -- the same chords for font size. ⌘+ is ⌘⇧= and zooms in like ⌘=.
   mac({
     id = "zoom-in",
-    mac = "⌘=",
     keys = "SUPER + equal",
     desc = "Zoom in (app)",
     actions = {
@@ -918,7 +833,6 @@ group("View", {
 
   mac({
     id = "zoom-in-plus",
-    mac = "⌘+",
     keys = "SUPER + SHIFT + equal",
     desc = "Zoom in (app)",
     actions = {
@@ -928,7 +842,6 @@ group("View", {
 
   mac({
     id = "zoom-out",
-    mac = "⌘-",
     keys = "SUPER + minus",
     desc = "Zoom out (app)",
     actions = {
@@ -940,7 +853,6 @@ group("View", {
   -- like the catch-all.
   mac({
     id = "zoom-out-shifted",
-    mac = "⌘⇧-",
     keys = "SUPER + SHIFT + minus",
     desc = "Zoom out (VS Code)",
     actions = {
@@ -950,8 +862,7 @@ group("View", {
 
   mac({
     id = "zoom-reset",
-    mac = "⌘0",
-    keys = "SUPER + 0",
+    keys = "SUPER + code:19",
     desc = "Actual size (app zoom)",
     actions = {
       default = tap("CTRL", "0"),
@@ -962,7 +873,6 @@ group("View", {
   -- catch-all.
   mac({
     id = "show-hidden-files",
-    mac = "⌘⇧.",
     keys = "SUPER + SHIFT + period",
     desc = "Show hidden files (Files)",
     actions = {
@@ -979,7 +889,6 @@ group("Developer tools", {
   -- DevTools. Obsidian toggles its on Ctrl+Shift+I too, so every GUI app gets it.
   mac({
     id = "devtools",
-    mac = "⌘⌥I",
     keys = "SUPER + ALT + I",
     desc = "Developer tools",
     actions = {
@@ -990,21 +899,18 @@ group("Developer tools", {
   -- Chrome's JavaScript console; Firefox's Browser Console, same key on Linux.
   mac({
     id = "devtools-console",
-    mac = "⌘⌥J",
     keys = "SUPER + ALT + J",
     desc = "Developer console",
   }),
 
   mac({
     id = "devtools-inspect",
-    mac = "⌘⌥C",
     keys = "SUPER + ALT + C",
     desc = "Inspect element",
   }),
 
   mac({
     id = "view-source",
-    mac = "⌘⌥U",
     keys = "SUPER + ALT + U",
     desc = "View page source",
   }),
@@ -1019,7 +925,6 @@ group("Terminal", {
   -- only clears the visible screen, so the scrollback stays (§7).
   mac({
     id = "clear-screen",
-    mac = "⌘K",
     keys = "SUPER + K",
     desc = "Clear terminal screen",
     actions = {
@@ -1031,7 +936,6 @@ group("Terminal", {
   -- command, foot has none).
   mac({
     id = "split-right",
-    mac = "⌘D",
     keys = "SUPER + D",
     desc = "Split terminal right",
     actions = {
@@ -1041,7 +945,6 @@ group("Terminal", {
 
   mac({
     id = "split-down",
-    mac = "⌘⇧D",
     keys = "SUPER + SHIFT + D",
     desc = "Split terminal down",
     actions = {
@@ -1066,7 +969,6 @@ group("Terminal", {
 group("Spaces", {
   mac({
     id = "workspace-previous-up",
-    mac = "⌃⌥↑",
     keys = "CTRL + ALT + UP",
     desc = "Previous workspace",
     action = does("Focus the previous workspace", hl.dsp.focus({ workspace = "e-1" })),
@@ -1074,7 +976,6 @@ group("Spaces", {
 
   mac({
     id = "workspace-next-down",
-    mac = "⌃⌥↓",
     keys = "CTRL + ALT + DOWN",
     desc = "Next workspace",
     action = does("Focus the next workspace", hl.dsp.focus({ workspace = "e+1" })),
@@ -1082,7 +983,6 @@ group("Spaces", {
 
   mac({
     id = "window-to-previous-workspace-left",
-    mac = "⌃⌥⇧←",
     keys = "CTRL + ALT + SHIFT + LEFT",
     desc = "Move window to previous workspace",
     action = does("Move the window to the previous workspace", hl.dsp.window.move({ workspace = "e-1" })),
@@ -1090,7 +990,6 @@ group("Spaces", {
 
   mac({
     id = "window-to-previous-workspace-up",
-    mac = "⌃⌥⇧↑",
     keys = "CTRL + ALT + SHIFT + UP",
     desc = "Move window to previous workspace",
     action = does("Move the window to the previous workspace", hl.dsp.window.move({ workspace = "e-1" })),
@@ -1098,7 +997,6 @@ group("Spaces", {
 
   mac({
     id = "window-to-next-workspace-right",
-    mac = "⌃⌥⇧→",
     keys = "CTRL + ALT + SHIFT + RIGHT",
     desc = "Move window to next workspace",
     action = does("Move the window to the next workspace", hl.dsp.window.move({ workspace = "e+1" })),
@@ -1106,7 +1004,6 @@ group("Spaces", {
 
   mac({
     id = "window-to-next-workspace-down",
-    mac = "⌃⌥⇧↓",
     keys = "CTRL + ALT + SHIFT + DOWN",
     desc = "Move window to next workspace",
     action = does("Move the window to the next workspace", hl.dsp.window.move({ workspace = "e+1" })),
@@ -1119,8 +1016,7 @@ group("Spaces", {
 group("System", {
   mac({
     id = "lock-screen",
-    mac = "⌃⌘Q",
-    keys = "CTRL + SUPER + Q",
+    keys = "SUPER + CTRL + Q",
     desc = "Lock screen",
     action = does("Lock the screen", hl.dsp.exec_cmd("omarchy-system-lock")),
   }),
@@ -1129,7 +1025,6 @@ group("System", {
   -- the clipboard; ⌘⇧3 / ⌃⌘⇧3 are code:12 (digits are bound by keycode).
   mac({
     id = "screenshot-screen-file",
-    mac = "⌘⇧3",
     keys = "SUPER + SHIFT + code:12",
     desc = "Screenshot of the screen to file",
     action = does("Save a screenshot of the screen to a file", hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen save")),
@@ -1137,7 +1032,6 @@ group("System", {
 
   mac({
     id = "screenshot-screen-clipboard",
-    mac = "⌃⌘⇧3",
     keys = "SUPER + CTRL + SHIFT + code:12",
     desc = "Screenshot of the screen to clipboard",
     action = does("Copy a screenshot of the screen to the clipboard", hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen copy")),
@@ -1147,7 +1041,6 @@ group("System", {
   -- cursor, which is close to the Mac's Space.
   mac({
     id = "screenshot-region-file",
-    mac = "⌘⇧4",
     keys = "SUPER + SHIFT + code:13",
     desc = "Screenshot of a region to file",
     action = does("Save a screenshot of a region to a file", hl.dsp.exec_cmd("omarchy-capture-screenshot region save")),
@@ -1155,7 +1048,6 @@ group("System", {
 
   mac({
     id = "screenshot-region-clipboard",
-    mac = "⌃⌘⇧4",
     keys = "SUPER + CTRL + SHIFT + code:13",
     desc = "Screenshot of a region to clipboard",
     action = does("Copy a screenshot of a region to the clipboard", hl.dsp.exec_cmd("omarchy-capture-screenshot region copy")),
@@ -1164,7 +1056,6 @@ group("System", {
   -- Capture menu: Omarchy's, which also covers screen recording.
   mac({
     id = "capture-menu",
-    mac = "⌘⇧5",
     keys = "SUPER + SHIFT + code:14",
     desc = "Capture menu",
     action = does("Open Omarchy's capture menu", hl.dsp.exec_cmd("omarchy-menu toggle capture")),
@@ -1174,7 +1065,6 @@ group("System", {
   -- process is killed (SIGKILL) at once, with no confirmation.
   mac({
     id = "force-quit",
-    mac = "⌘⌥Esc",
     keys = "SUPER + ALT + ESCAPE",
     desc = "Force quit the active window",
     action = does("Kill the window's process", hl.dsp.window.kill()),
@@ -1183,7 +1073,6 @@ group("System", {
   -- Emoji & symbols: Omarchy's picker (it also stays on ⌃⌘E).
   mac({
     id = "emoji-picker",
-    mac = "⌃⌘Space",
     keys = "SUPER + CTRL + SPACE",
     desc = "Emoji and symbols",
     action = does("Open the emoji picker", hl.dsp.exec_cmd("omarchy-shell shell toggle omarchy.emojis")),
@@ -1192,7 +1081,6 @@ group("System", {
   -- Show/hide the Dock: Omarchy's top bar (it also stays on ⌘⇧Space).
   mac({
     id = "toggle-bar",
-    mac = "⌥⌘D",
     keys = "SUPER + ALT + D",
     desc = "Toggle top bar (Dock)",
     action = does("Show or hide the status bar", hl.dsp.exec_cmd("omarchy-toggle-bar")),
@@ -1270,7 +1158,7 @@ group("Mouse", {
 
   mac({
     id = "click-shift",
-    mac = "⌘⇧-click",
+    mac = "⇧⌘-click",
     keys = "SUPER + SHIFT + mouse:272",
     desc = "⌘⇧-click sent as Ctrl+Shift-click",
     action = click.press("CTRL + SHIFT"),
@@ -1289,7 +1177,7 @@ group("Mouse", {
 
   mac({
     id = "click-release-shift",
-    mac = "⌘⇧-click release",
+    mac = "⇧⌘-click release",
     keys = "SUPER + SHIFT + mouse:272",
     desc = "⌘⇧-click release",
     release = true,
@@ -1344,7 +1232,6 @@ group("Mouse", {
 group("Emacs keys", {
   mac({
     id = "emacs-line-start",
-    mac = "⌃A",
     keys = "CTRL + A",
     desc = "Line start (Emacs key)",
     repeating = true,
@@ -1356,7 +1243,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-line-end",
-    mac = "⌃E",
     keys = "CTRL + E",
     desc = "Line end (Emacs key)",
     repeating = true,
@@ -1368,7 +1254,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-char-right",
-    mac = "⌃F",
     keys = "CTRL + F",
     desc = "Cursor right (Emacs key)",
     repeating = true,
@@ -1380,7 +1265,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-char-left",
-    mac = "⌃B",
     keys = "CTRL + B",
     desc = "Cursor left (Emacs key)",
     repeating = true,
@@ -1392,7 +1276,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-line-down",
-    mac = "⌃N",
     keys = "CTRL + N",
     desc = "Cursor down (Emacs key)",
     repeating = true,
@@ -1404,7 +1287,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-line-up",
-    mac = "⌃P",
     keys = "CTRL + P",
     desc = "Cursor up (Emacs key)",
     repeating = true,
@@ -1416,7 +1298,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-delete-right",
-    mac = "⌃D",
     keys = "CTRL + D",
     desc = "Delete right (Emacs key)",
     repeating = true,
@@ -1428,7 +1309,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-delete-left",
-    mac = "⌃H",
     keys = "CTRL + H",
     desc = "Delete left (Emacs key)",
     repeating = true,
@@ -1440,7 +1320,6 @@ group("Emacs keys", {
 
   mac({
     id = "emacs-kill-line",
-    mac = "⌃K",
     keys = "CTRL + K",
     desc = "Delete to line end (Emacs key)",
     repeating = true,
@@ -1467,11 +1346,11 @@ catchall({
   },
   -- Consumed everywhere: nothing is sent.
   consumed = {
-    "SUPER + h", -- ⌘H, ⌘M: no hide or minimize on Omarchy (D13), and Ctrl+H /
-    "SUPER + m", -- Ctrl+M are browser history and Enter in a terminal.
-    "SUPER + SHIFT + q", -- Ctrl+Shift+Q quits Chrome.
-    "SUPER + SHIFT + i", -- Ctrl+Shift+I is Format Document in VS Code; DevTools has ⌘⌥I.
-    "SUPER + SHIFT + u", -- Ctrl+Shift+U starts Unicode input in GTK and fcitx5.
-    "SUPER + SHIFT + h", -- Ctrl+Shift+H is not Chrome's home page (user's choice).
+    "SUPER + H", -- ⌘H, ⌘M: no hide or minimize on Omarchy (D13), and Ctrl+H /
+    "SUPER + M", -- Ctrl+M are browser history and Enter in a terminal.
+    "SUPER + SHIFT + Q", -- Ctrl+Shift+Q quits Chrome.
+    "SUPER + SHIFT + I", -- Ctrl+Shift+I is Format Document in VS Code; DevTools has ⌘⌥I.
+    "SUPER + SHIFT + U", -- Ctrl+Shift+U starts Unicode input in GTK and fcitx5.
+    "SUPER + SHIFT + H", -- Ctrl+Shift+H is not Chrome's home page (user's choice).
   },
 })

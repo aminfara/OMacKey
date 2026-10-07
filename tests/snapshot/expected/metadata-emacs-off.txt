@@ -1,11 +1,11 @@
-key add-cursor-above  SUPER+ALT+up  category="Code editing"  mac="⌘⌥↑"  profiles={obsidian,vscode}  file=shortcuts.lua  text={obsidian="Ctrl+Alt+Up", vscode="Ctrl+Shift+Up"}
-key add-cursor-below  SUPER+ALT+down  category="Code editing"  mac="⌘⌥↓"  profiles={obsidian,vscode}  file=shortcuts.lua  text={obsidian="Ctrl+Alt+Down", vscode="Ctrl+Shift+Down"}
+key add-cursor-above  SUPER+ALT+up  category="Code editing"  mac="⌥⌘↑"  profiles={obsidian,vscode}  file=shortcuts.lua  text={obsidian="Ctrl+Alt+Up", vscode="Ctrl+Shift+Up"}
+key add-cursor-below  SUPER+ALT+down  category="Code editing"  mac="⌥⌘↓"  profiles={obsidian,vscode}  file=shortcuts.lua  text={obsidian="Ctrl+Alt+Down", vscode="Ctrl+Shift+Down"}
 key back  SUPER+bracketleft  category="Navigation"  mac="⌘["  profiles={browser,default,nautilus,terminal}  file=shortcuts.lua  text={browser="Alt+Left", default="Ctrl+[", nautilus="Alt+Left", terminal="Nothing: the key does nothing"}
 key block-comment  ALT+SHIFT+a  category="Code editing"  mac="⌥⇧A"  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+A"}
 key bold  SUPER+b  category="Editing"  mac="⌘B"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+B", terminal="Nothing: the key does nothing"}
-key bookmark-manager  SUPER+ALT+b  category="Navigation"  mac="⌘⌥B"  profiles={browser,vscode}  file=shortcuts.lua  text={browser="Ctrl+Shift+O", vscode="Ctrl+Alt+B"}
+key bookmark-manager  SUPER+ALT+b  category="Navigation"  mac="⌥⌘B"  profiles={browser,vscode}  file=shortcuts.lua  text={browser="Ctrl+Shift+O", vscode="Ctrl+Alt+B"}
 key cancel  SUPER+period  category="Editing"  mac="⌘."  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Esc", terminal="Ctrl+C", vscode="Ctrl+."}
-key capture-menu  SUPER+SHIFT+5  category="System"  mac="⌘⇧5"  action  file=shortcuts.lua  text="Open Omarchy's capture menu"
+key capture-menu  SUPER+SHIFT+5  category="System"  mac="⇧⌘5"  action  file=shortcuts.lua  text="Open Omarchy's capture menu"
 key catchall-⌘apostrophe  SUPER+apostrophe  category="Catch-all"  mac="⌘'"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+'", terminal="Nothing: the key does nothing"}
 key catchall-⌘backslash  SUPER+backslash  category="Catch-all"  mac="⌘\\"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+\\", terminal="Nothing: the key does nothing"}
 key catchall-⌘e  SUPER+e  category="Catch-all"  mac="⌘E"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+E", terminal="Nothing: the key does nothing"}
@@ -14,36 +14,36 @@ key catchall-⌘j  SUPER+j  category="Catch-all"  mac="⌘J"  profiles={default,
 key catchall-⌘m  SUPER+m  category="Catch-all"  mac="⌘M"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
 key catchall-⌘return  SUPER+return  category="Catch-all"  mac="⌘⏎"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Return", terminal="Nothing: the key does nothing"}
 key catchall-⌘semicolon  SUPER+semicolon  category="Catch-all"  mac="⌘;"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+;", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧a  SUPER+SHIFT+a  category="Catch-all"  mac="⌘⇧A"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+A", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧apostrophe  SUPER+SHIFT+apostrophe  category="Catch-all"  mac="⌘⇧'"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+'", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧b  SUPER+SHIFT+b  category="Catch-all"  mac="⌘⇧B"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+B", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧backslash  SUPER+SHIFT+backslash  category="Catch-all"  mac="⌘⇧\\"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+\\", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧c  SUPER+SHIFT+c  category="Catch-all"  mac="⌘⇧C"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+C", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧e  SUPER+SHIFT+e  category="Catch-all"  mac="⌘⇧E"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+E", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧f  SUPER+SHIFT+f  category="Catch-all"  mac="⌘⇧F"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+F", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧h  SUPER+SHIFT+h  category="Catch-all"  mac="⌘⇧H"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧i  SUPER+SHIFT+i  category="Catch-all"  mac="⌘⇧I"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧k  SUPER+SHIFT+k  category="Catch-all"  mac="⌘⇧K"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+K", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧l  SUPER+SHIFT+l  category="Catch-all"  mac="⌘⇧L"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+L", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧m  SUPER+SHIFT+m  category="Catch-all"  mac="⌘⇧M"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+M", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧o  SUPER+SHIFT+o  category="Catch-all"  mac="⌘⇧O"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+O", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧p  SUPER+SHIFT+p  category="Catch-all"  mac="⌘⇧P"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+P", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧q  SUPER+SHIFT+q  category="Catch-all"  mac="⌘⇧Q"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧r  SUPER+SHIFT+r  category="Catch-all"  mac="⌘⇧R"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+R", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧return  SUPER+SHIFT+return  category="Catch-all"  mac="⌘⇧⏎"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Return", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧semicolon  SUPER+SHIFT+semicolon  category="Catch-all"  mac="⌘⇧;"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+;", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧x  SUPER+SHIFT+x  category="Catch-all"  mac="⌘⇧X"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+X", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧y  SUPER+SHIFT+y  category="Catch-all"  mac="⌘⇧Y"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Y", terminal="Nothing: the key does nothing"}
-key clear-browsing-data  SUPER+SHIFT+backspace  category="Navigation"  mac="⌘⇧⌫"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+Shift+Delete"}
+key catchall-⌘⇧a  SUPER+SHIFT+a  category="Catch-all"  mac="⇧⌘A"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+A", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧apostrophe  SUPER+SHIFT+apostrophe  category="Catch-all"  mac="⇧⌘'"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+'", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧b  SUPER+SHIFT+b  category="Catch-all"  mac="⇧⌘B"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+B", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧backslash  SUPER+SHIFT+backslash  category="Catch-all"  mac="⇧⌘\\"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+\\", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧c  SUPER+SHIFT+c  category="Catch-all"  mac="⇧⌘C"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+C", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧e  SUPER+SHIFT+e  category="Catch-all"  mac="⇧⌘E"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+E", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧f  SUPER+SHIFT+f  category="Catch-all"  mac="⇧⌘F"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+F", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧h  SUPER+SHIFT+h  category="Catch-all"  mac="⇧⌘H"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧i  SUPER+SHIFT+i  category="Catch-all"  mac="⇧⌘I"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧k  SUPER+SHIFT+k  category="Catch-all"  mac="⇧⌘K"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+K", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧l  SUPER+SHIFT+l  category="Catch-all"  mac="⇧⌘L"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+L", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧m  SUPER+SHIFT+m  category="Catch-all"  mac="⇧⌘M"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+M", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧o  SUPER+SHIFT+o  category="Catch-all"  mac="⇧⌘O"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+O", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧p  SUPER+SHIFT+p  category="Catch-all"  mac="⇧⌘P"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+P", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧q  SUPER+SHIFT+q  category="Catch-all"  mac="⇧⌘Q"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧r  SUPER+SHIFT+r  category="Catch-all"  mac="⇧⌘R"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+R", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧return  SUPER+SHIFT+return  category="Catch-all"  mac="⇧⌘⏎"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Return", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧semicolon  SUPER+SHIFT+semicolon  category="Catch-all"  mac="⇧⌘;"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+;", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧x  SUPER+SHIFT+x  category="Catch-all"  mac="⇧⌘X"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+X", terminal="Nothing: the key does nothing"}
+key catchall-⌘⇧y  SUPER+SHIFT+y  category="Catch-all"  mac="⇧⌘Y"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Y", terminal="Nothing: the key does nothing"}
+key clear-browsing-data  SUPER+SHIFT+backspace  category="Navigation"  mac="⇧⌘⌫"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+Shift+Delete"}
 key clear-screen  SUPER+k  category="Terminal"  mac="⌘K"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+K", terminal="Ctrl+L"}
 key click  SUPER+mouse:272  category="Mouse"  mac="⌘-click"  action  file=shortcuts.lua  text="Left click with Ctrl held instead of ⌘"
 key click-release  SUPER+mouse:272 (release)  category="Mouse"  mac="⌘-click release"  action  file=shortcuts.lua  text="End the synthetic click; any other release passes through"
 key click-release-after-cmd  mouse:272 (release)  category="Mouse"  mac="click release after ⌘"  action  file=shortcuts.lua  text="End the synthetic click; any other release passes through"
 key click-release-after-cmd-shift  SHIFT+mouse:272 (release)  category="Mouse"  mac="click release after ⌘ with ⇧"  action  file=shortcuts.lua  text="End the synthetic click; any other release passes through"
-key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac="⌘⇧-click release"  action  file=shortcuts.lua  text="End the synthetic click; any other release passes through"
-key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⌘⇧-click"  action  file=shortcuts.lua  text="Left click with Ctrl+Shift held instead of ⌘"
+key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac="⇧⌘-click release"  action  file=shortcuts.lua  text="End the synthetic click; any other release passes through"
+key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⇧⌘-click"  action  file=shortcuts.lua  text="Left click with Ctrl+Shift held instead of ⌘"
 key close-tab  SUPER+w  category="Tabs"  mac="⌘W"  profiles={default,ghostty,kitty,no-tabs,terminal}  file=shortcuts.lua  text={default="Ctrl+W", ghostty="Ctrl+Shift+W", kitty="Ctrl+Shift+W", no-tabs="Close the window", terminal="Close the window"}
-key close-window  SUPER+SHIFT+w  category="Windows and apps"  mac="⌘⇧W"  action  file=shortcuts.lua  text="Close the window"
+key close-window  SUPER+SHIFT+w  category="Windows and apps"  mac="⇧⌘W"  action  file=shortcuts.lua  text="Close the window"
 key copy  SUPER+c  category="Editing"  mac="⌘C"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+C", terminal="Ctrl+Insert", vscode="Ctrl+Insert"}
 key copy-line-down  ALT+SHIFT+down  category="Code editing"  mac="⌥⇧↓"  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+Alt+Down"}
 key copy-line-up  ALT+SHIFT+up  category="Code editing"  mac="⌥⇧↑"  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+Alt+Up"}
@@ -52,16 +52,16 @@ key delete-line-end  SUPER+delete  category="Text"  mac="⌘⌦"  profiles={defa
 key delete-line-start  SUPER+backspace  category="Text"  mac="⌘⌫"  profiles={default,nautilus,terminal}  file=shortcuts.lua  text={default="Shift+Home, then Backspace", nautilus="Delete", terminal="Ctrl+U"}
 key delete-word-left  ALT+backspace  category="Text"  mac="⌥⌫"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Backspace", terminal="Nothing: the key reaches the app unchanged"}
 key delete-word-right  ALT+delete  category="Text"  mac="⌥⌦"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Delete", terminal="Alt+D"}
-key devtools  SUPER+ALT+i  category="Developer tools"  mac="⌘⌥I"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+Shift+I", terminal="Nothing: the key does nothing", vscode="Nothing: the key does nothing"}
-key devtools-console  SUPER+ALT+j  category="Developer tools"  mac="⌘⌥J"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+Shift+J"}
-key devtools-inspect  SUPER+ALT+c  category="Developer tools"  mac="⌘⌥C"  profiles={browser,vscode}  file=shortcuts.lua  text={browser="Ctrl+Shift+C", vscode="Alt+C"}
+key devtools  SUPER+ALT+i  category="Developer tools"  mac="⌥⌘I"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+Shift+I", terminal="Nothing: the key does nothing", vscode="Nothing: the key does nothing"}
+key devtools-console  SUPER+ALT+j  category="Developer tools"  mac="⌥⌘J"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+Shift+J"}
+key devtools-inspect  SUPER+ALT+c  category="Developer tools"  mac="⌥⌘C"  profiles={browser,vscode}  file=shortcuts.lua  text={browser="Ctrl+Shift+C", vscode="Alt+C"}
 key dictation-start  xf86voicecommand  category="System"  mac="F5"  action  file=shortcuts.lua  text="Start voxtype recording"
 key dictation-stop  xf86voicecommand (release)  category="System"  mac="F5 (release)"  action  file=shortcuts.lua  text="Stop voxtype recording and type the text"
 key dictation-toggle  SHIFT+xf86voicecommand  category="System"  mac="⇧F5"  action  file=shortcuts.lua  text="Start or stop voxtype recording"
 key do-not-disturb  xf86donotdisturb  category="System"  mac="F6"  action  file=shortcuts.lua  text="Silence or restore notifications"
 key document-end  SUPER+down  category="Text"  mac="⌘↓"  profiles={default,ghostty,kitty,nautilus,terminal}  file=shortcuts.lua  text={default="Ctrl+End", ghostty="Ctrl+Shift+Page Down", kitty="Ctrl+Shift+Page Down", nautilus="Return", terminal="Shift+Page Down"}
 key document-start  SUPER+up  category="Text"  mac="⌘↑"  profiles={default,ghostty,kitty,nautilus,terminal}  file=shortcuts.lua  text={default="Ctrl+Home", ghostty="Ctrl+Shift+Page Up", kitty="Ctrl+Shift+Page Up", nautilus="Alt+Up", terminal="Shift+Page Up"}
-key downloads  SUPER+SHIFT+j  category="Navigation"  mac="⌘⇧J"  profiles={browser,default,firefox,terminal}  file=shortcuts.lua  text={browser="Ctrl+J", default="Ctrl+Shift+J", firefox="Ctrl+Shift+Y", terminal="Nothing: the key does nothing"}
+key downloads  SUPER+SHIFT+j  category="Navigation"  mac="⇧⌘J"  profiles={browser,default,firefox,terminal}  file=shortcuts.lua  text={browser="Ctrl+J", default="Ctrl+Shift+J", firefox="Ctrl+Shift+Y", terminal="Nothing: the key does nothing"}
 key emacs-char-left  CTRL+b  category="Emacs keys"  mac="⌃B"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua  text={default="Left", terminal="Nothing: the key reaches the app unchanged"}
 key emacs-char-right  CTRL+f  category="Emacs keys"  mac="⌃F"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua  text={default="Right", terminal="Nothing: the key reaches the app unchanged"}
 key emacs-delete-left  CTRL+h  category="Emacs keys"  mac="⌃H"  profiles={default,terminal}  NOT BOUND  file=shortcuts.lua  text={default="Backspace", terminal="Nothing: the key reaches the app unchanged"}
@@ -74,14 +74,14 @@ key emacs-line-up  CTRL+p  category="Emacs keys"  mac="⌃P"  profiles={default,
 key emoji-picker  SUPER+CTRL+space  category="System"  mac="⌃⌘Space"  action  file=shortcuts.lua  text="Open the emoji picker"
 key expand-selection  SUPER+CTRL+SHIFT+right  category="Code editing"  mac="⌃⇧⌘→"  profiles={vscode}  file=shortcuts.lua  text={vscode="Shift+Alt+Right"}
 key find  SUPER+f  category="Find"  mac="⌘F"  profiles={default,foot,ghostty,kitty,terminal}  file=shortcuts.lua  text={default="Ctrl+F", foot="Ctrl+Shift+R", ghostty="Ctrl+Shift+F", kitty="Ctrl+Shift+/", terminal="Nothing: the key does nothing"}
-key find-in-selection  SUPER+ALT+l  category="Find"  mac="⌘⌥L"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+L"}
+key find-in-selection  SUPER+ALT+l  category="Find"  mac="⌥⌘L"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+L"}
 key find-next  SUPER+g  category="Find"  mac="⌘G"  profiles={default,libreoffice,terminal}  file=shortcuts.lua  text={default="F3", libreoffice="Ctrl+F, then Return, then Esc", terminal="Nothing: the key does nothing"}
-key find-preserve-case  SUPER+ALT+p  category="Find"  mac="⌘⌥P"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+P"}
-key find-previous  SUPER+SHIFT+g  category="Find"  mac="⌘⇧G"  profiles={default,libreoffice,nautilus,terminal}  file=shortcuts.lua  text={default="Shift+F3", libreoffice="Ctrl+F, then Shift+Return, then Esc", nautilus="Ctrl+L", terminal="Nothing: the key does nothing"}
-key find-regex  SUPER+ALT+r  category="Find"  mac="⌘⌥R"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+R"}
-key find-whole-word  SUPER+ALT+w  category="Find"  mac="⌘⌥W"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+W"}
-key fold  SUPER+ALT+bracketleft  category="Code editing"  mac="⌘⌥["  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+["}
-key force-quit  SUPER+ALT+escape  category="System"  mac="⌘⌥Esc"  action  file=shortcuts.lua  text="Kill the window's process"
+key find-preserve-case  SUPER+ALT+p  category="Find"  mac="⌥⌘P"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+P"}
+key find-previous  SUPER+SHIFT+g  category="Find"  mac="⇧⌘G"  profiles={default,libreoffice,nautilus,terminal}  file=shortcuts.lua  text={default="Shift+F3", libreoffice="Ctrl+F, then Shift+Return, then Esc", nautilus="Ctrl+L", terminal="Nothing: the key does nothing"}
+key find-regex  SUPER+ALT+r  category="Find"  mac="⌥⌘R"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+R"}
+key find-whole-word  SUPER+ALT+w  category="Find"  mac="⌥⌘W"  profiles={vscode}  file=shortcuts.lua  text={vscode="Alt+W"}
+key fold  SUPER+ALT+bracketleft  category="Code editing"  mac="⌥⌘["  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+["}
+key force-quit  SUPER+ALT+escape  category="System"  mac="⌥⌘Esc"  action  file=shortcuts.lua  text="Kill the window's process"
 key forward  SUPER+bracketright  category="Navigation"  mac="⌘]"  profiles={browser,default,nautilus,terminal}  file=shortcuts.lua  text={browser="Alt+Right", default="Ctrl+]", nautilus="Alt+Right", terminal="Nothing: the key does nothing"}
 key history  SUPER+y  category="Navigation"  mac="⌘Y"  profiles={browser,default,terminal}  file=shortcuts.lua  text={browser="Ctrl+H", default="Ctrl+Y", terminal="Nothing: the key does nothing"}
 key italic  SUPER+i  category="Editing"  mac="⌘I"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+I", terminal="Nothing: the key does nothing"}
@@ -89,49 +89,49 @@ key line-end  SUPER+right  category="Text"  mac="⌘→"  profiles={default}  fi
 key line-start  SUPER+left  category="Text"  mac="⌘←"  profiles={default}  file=shortcuts.lua  text={default="Home"}
 key location  SUPER+l  category="Navigation"  mac="⌘L"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+L", terminal="Nothing: the key does nothing"}
 key lock-screen  SUPER+CTRL+q  category="System"  mac="⌃⌘Q"  action  file=shortcuts.lua  text="Lock the screen"
-key mac-mode  SUPER+CTRL+SHIFT+m  category="System"  mac="⌃⌘⇧M"  action  file=mode.lua  text="Switch OMacKey on or off, then reload the config"
+key mac-mode  SUPER+CTRL+SHIFT+m  category="System"  mac="⌃⇧⌘M"  action  file=mode.lua  text="Switch OMacKey on or off, then reload the config"
 key new-tab  SUPER+t  category="Tabs"  mac="⌘T"  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua  text={default="Ctrl+T", ghostty="Ctrl+Shift+T", kitty="Ctrl+Shift+T", terminal="Ctrl+Shift+N"}
 key new-window  SUPER+n  category="Windows and apps"  mac="⌘N"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+N", terminal="Ctrl+Shift+N"}
-key new-window-private  SUPER+SHIFT+n  category="Windows and apps"  mac="⌘⇧N"  profiles={default,firefox,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+N", firefox="Ctrl+Shift+P", terminal="Nothing: the key does nothing"}
+key new-window-private  SUPER+SHIFT+n  category="Windows and apps"  mac="⇧⌘N"  profiles={default,firefox,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+N", firefox="Ctrl+Shift+P", terminal="Nothing: the key does nothing"}
 key next-app-window  SUPER+grave  category="Windows and apps"  mac="⌘`"  action  file=shortcuts.lua  text="Focus the next window of the app"
-key next-tab  SUPER+SHIFT+bracketright  category="Tabs"  mac="⌘⇧]"  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Down", ghostty="Ctrl+Page Down", kitty="Ctrl+Shift+Right", terminal="Nothing: the key does nothing"}
-key next-tab-arrow  SUPER+ALT+right  category="Tabs"  mac="⌘⌥→"  profiles={default,ghostty,kitty,obsidian,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Down", ghostty="Ctrl+Page Down", kitty="Ctrl+Shift+Right", obsidian="Ctrl+Alt+Right", terminal="Nothing: the key does nothing"}
+key next-tab  SUPER+SHIFT+bracketright  category="Tabs"  mac="⇧⌘]"  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Down", ghostty="Ctrl+Page Down", kitty="Ctrl+Shift+Right", terminal="Nothing: the key does nothing"}
+key next-tab-arrow  SUPER+ALT+right  category="Tabs"  mac="⌥⌘→"  profiles={default,ghostty,kitty,obsidian,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Down", ghostty="Ctrl+Page Down", kitty="Ctrl+Shift+Right", obsidian="Ctrl+Alt+Right", terminal="Nothing: the key does nothing"}
 key open  SUPER+o  category="Navigation"  mac="⌘O"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+O", terminal="Nothing: the key does nothing"}
 key paste  SUPER+v  category="Editing"  mac="⌘V"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+V", terminal="Shift+Insert", vscode="Shift+Insert"}
-key paste-plain  SUPER+SHIFT+v  category="Editing"  mac="⌘⇧V"  profiles={default,libreoffice,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+V", libreoffice="Ctrl+Alt+Shift+V", terminal="Shift+Insert"}
-key paste-special  SUPER+ALT+v  category="Editing"  mac="⌘⌥V"  profiles={libreoffice}  file=shortcuts.lua  text={libreoffice="Ctrl+Shift+V"}
+key paste-plain  SUPER+SHIFT+v  category="Editing"  mac="⇧⌘V"  profiles={default,libreoffice,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+V", libreoffice="Ctrl+Alt+Shift+V", terminal="Shift+Insert"}
+key paste-special  SUPER+ALT+v  category="Editing"  mac="⌥⌘V"  profiles={libreoffice}  file=shortcuts.lua  text={libreoffice="Ctrl+Shift+V"}
 key preferences  SUPER+comma  category="Navigation"  mac="⌘,"  profiles={default,firefox,ghostty,kitty,libreoffice,terminal}  file=shortcuts.lua  text={default="Ctrl+,", firefox="Open about:preferences in Firefox", ghostty="Open Ghostty's config file in Omarchy's editor", kitty="Ctrl+Shift+F2", libreoffice="Alt+F12", terminal="Nothing: the key does nothing"}
-key previous-app-window  SUPER+SHIFT+grave  category="Windows and apps"  mac="⌘⇧`"  action  file=shortcuts.lua  text="Focus the previous window of the app"
-key previous-tab  SUPER+SHIFT+bracketleft  category="Tabs"  mac="⌘⇧["  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Up", ghostty="Ctrl+Page Up", kitty="Ctrl+Shift+Left", terminal="Nothing: the key does nothing"}
-key previous-tab-arrow  SUPER+ALT+left  category="Tabs"  mac="⌘⌥←"  profiles={default,ghostty,kitty,obsidian,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Up", ghostty="Ctrl+Page Up", kitty="Ctrl+Shift+Left", obsidian="Ctrl+Alt+Left", terminal="Nothing: the key does nothing"}
+key previous-app-window  SUPER+SHIFT+grave  category="Windows and apps"  mac="⇧⌘`"  action  file=shortcuts.lua  text="Focus the previous window of the app"
+key previous-tab  SUPER+SHIFT+bracketleft  category="Tabs"  mac="⇧⌘["  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Up", ghostty="Ctrl+Page Up", kitty="Ctrl+Shift+Left", terminal="Nothing: the key does nothing"}
+key previous-tab-arrow  SUPER+ALT+left  category="Tabs"  mac="⌥⌘←"  profiles={default,ghostty,kitty,obsidian,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Up", ghostty="Ctrl+Page Up", kitty="Ctrl+Shift+Left", obsidian="Ctrl+Alt+Left", terminal="Nothing: the key does nothing"}
 key print  SUPER+p  category="Navigation"  mac="⌘P"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+P", terminal="Nothing: the key does nothing"}
 key quit-app  SUPER+q  category="Windows and apps"  mac="⌘Q"  action  file=shortcuts.lua  text="Close every window of the app"
-key redo  SUPER+SHIFT+z  category="Editing"  mac="⌘⇧Z"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Z", terminal="Nothing: the key does nothing"}
-key redo-selection  SUPER+SHIFT+u  category="Editing"  mac="⌘⇧U"  profiles={default,obsidian,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", obsidian="Alt+U", terminal="Nothing: the key does nothing"}
+key redo  SUPER+SHIFT+z  category="Editing"  mac="⇧⌘Z"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Z", terminal="Nothing: the key does nothing"}
+key redo-selection  SUPER+SHIFT+u  category="Editing"  mac="⇧⌘U"  profiles={default,obsidian,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", obsidian="Alt+U", terminal="Nothing: the key does nothing"}
 key reload  SUPER+r  category="Navigation"  mac="⌘R"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+R", terminal="Nothing: the key does nothing"}
-key reopen-tab  SUPER+SHIFT+t  category="Tabs"  mac="⌘⇧T"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+T", terminal="Nothing: the key does nothing"}
-key replace  SUPER+ALT+f  category="Find"  mac="⌘⌥F"  profiles={obsidian,vscode}  file=shortcuts.lua  text={obsidian="Ctrl+H", vscode="Ctrl+H"}
+key reopen-tab  SUPER+SHIFT+t  category="Tabs"  mac="⇧⌘T"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+T", terminal="Nothing: the key does nothing"}
+key replace  SUPER+ALT+f  category="Find"  mac="⌥⌘F"  profiles={obsidian,vscode}  file=shortcuts.lua  text={obsidian="Ctrl+H", vscode="Ctrl+H"}
 key save  SUPER+s  category="Editing"  mac="⌘S"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+S", terminal="Nothing: the key does nothing"}
-key save-as  SUPER+SHIFT+s  category="Editing"  mac="⌘⇧S"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+S", terminal="Nothing: the key does nothing"}
-key screenshot-region-clipboard  SUPER+CTRL+SHIFT+4  category="System"  mac="⌃⌘⇧4"  action  file=shortcuts.lua  text="Copy a screenshot of a region to the clipboard"
-key screenshot-region-file  SUPER+SHIFT+4  category="System"  mac="⌘⇧4"  action  file=shortcuts.lua  text="Save a screenshot of a region to a file"
-key screenshot-screen-clipboard  SUPER+CTRL+SHIFT+3  category="System"  mac="⌃⌘⇧3"  action  file=shortcuts.lua  text="Copy a screenshot of the screen to the clipboard"
-key screenshot-screen-file  SUPER+SHIFT+3  category="System"  mac="⌘⇧3"  action  file=shortcuts.lua  text="Save a screenshot of the screen to a file"
+key save-as  SUPER+SHIFT+s  category="Editing"  mac="⇧⌘S"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+S", terminal="Nothing: the key does nothing"}
+key screenshot-region-clipboard  SUPER+CTRL+SHIFT+4  category="System"  mac="⌃⇧⌘4"  action  file=shortcuts.lua  text="Copy a screenshot of a region to the clipboard"
+key screenshot-region-file  SUPER+SHIFT+4  category="System"  mac="⇧⌘4"  action  file=shortcuts.lua  text="Save a screenshot of a region to a file"
+key screenshot-screen-clipboard  SUPER+CTRL+SHIFT+3  category="System"  mac="⌃⇧⌘3"  action  file=shortcuts.lua  text="Copy a screenshot of the screen to the clipboard"
+key screenshot-screen-file  SUPER+SHIFT+3  category="System"  mac="⇧⌘3"  action  file=shortcuts.lua  text="Save a screenshot of the screen to a file"
 key scroll-down  SUPER+mouse_down  category="Mouse"  mac="⌘-scroll down"  action  file=shortcuts.lua  text="Scroll with Ctrl held (zooms in apps that zoom on Ctrl + wheel)"
 key scroll-up  SUPER+mouse_up  category="Mouse"  mac="⌘-scroll up"  action  file=shortcuts.lua  text="Scroll with Ctrl held (zooms in apps that zoom on Ctrl + wheel)"
 key select-all  SUPER+a  category="Editing"  mac="⌘A"  profiles={default,ghostty,terminal}  file=shortcuts.lua  text={default="Ctrl+A", ghostty="Ctrl+Shift+A", terminal="Nothing: the key does nothing"}
-key select-document-end  SUPER+SHIFT+down  category="Text"  mac="⌘⇧↓"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+End", terminal="Nothing: the key does nothing"}
-key select-document-start  SUPER+SHIFT+up  category="Text"  mac="⌘⇧↑"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Home", terminal="Nothing: the key does nothing"}
-key select-line-end  SUPER+SHIFT+right  category="Text"  mac="⌘⇧→"  profiles={default,terminal}  file=shortcuts.lua  text={default="Shift+End", terminal="Nothing: the key does nothing"}
-key select-line-start  SUPER+SHIFT+left  category="Text"  mac="⌘⇧←"  profiles={default,terminal}  file=shortcuts.lua  text={default="Shift+Home", terminal="Nothing: the key does nothing"}
+key select-document-end  SUPER+SHIFT+down  category="Text"  mac="⇧⌘↓"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+End", terminal="Nothing: the key does nothing"}
+key select-document-start  SUPER+SHIFT+up  category="Text"  mac="⇧⌘↑"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Home", terminal="Nothing: the key does nothing"}
+key select-line-end  SUPER+SHIFT+right  category="Text"  mac="⇧⌘→"  profiles={default,terminal}  file=shortcuts.lua  text={default="Shift+End", terminal="Nothing: the key does nothing"}
+key select-line-start  SUPER+SHIFT+left  category="Text"  mac="⇧⌘←"  profiles={default,terminal}  file=shortcuts.lua  text={default="Shift+Home", terminal="Nothing: the key does nothing"}
 key select-word-left  ALT+SHIFT+left  category="Text"  mac="⌥⇧←"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Left", terminal="Nothing: the key does nothing"}
 key select-word-right  ALT+SHIFT+right  category="Text"  mac="⌥⇧→"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Right", terminal="Nothing: the key does nothing"}
-key show-hidden-files  SUPER+SHIFT+period  category="View"  mac="⌘⇧."  profiles={default,nautilus,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+.", nautilus="Ctrl+H", terminal="Nothing: the key does nothing"}
+key show-hidden-files  SUPER+SHIFT+period  category="View"  mac="⇧⌘."  profiles={default,nautilus,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+.", nautilus="Ctrl+H", terminal="Nothing: the key does nothing"}
 key shrink-selection  SUPER+CTRL+SHIFT+left  category="Code editing"  mac="⌃⇧⌘←"  profiles={vscode}  file=shortcuts.lua  text={vscode="Shift+Alt+Left"}
-key split-down  SUPER+SHIFT+d  category="Terminal"  mac="⌘⇧D"  profiles={default,ghostty,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+D", ghostty="Ctrl+Shift+E", terminal="Nothing: the key does nothing"}
+key split-down  SUPER+SHIFT+d  category="Terminal"  mac="⇧⌘D"  profiles={default,ghostty,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+D", ghostty="Ctrl+Shift+E", terminal="Nothing: the key does nothing"}
 key split-right  SUPER+d  category="Terminal"  mac="⌘D"  profiles={default,ghostty,terminal}  file=shortcuts.lua  text={default="Ctrl+D", ghostty="Ctrl+Shift+O", terminal="Nothing: the key does nothing"}
-key switch-app  SUPER+tab  category="Windows and apps"  mac="⌘Tab"  action  file=shortcuts.lua  text="Switch to the next app, most recently used first"
-key switch-app-back  SUPER+SHIFT+tab  category="Windows and apps"  mac="⌘⇧Tab"  action  file=shortcuts.lua  text="Switch to the previous app in the recency list"
+key switch-app  SUPER+tab  category="Windows and apps"  mac="⌘⇥"  action  file=shortcuts.lua  text="Switch to the next app, most recently used first"
+key switch-app-back  SUPER+SHIFT+tab  category="Windows and apps"  mac="⇧⌘⇥"  action  file=shortcuts.lua  text="Switch to the previous app in the recency list"
 key tab-1  SUPER+1  category="Tabs"  mac="⌘1"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua  text={default="Ctrl+1", ghostty="Alt+1", nautilus="Ctrl+2", terminal="Nothing: the key does nothing"}
 key tab-2  SUPER+2  category="Tabs"  mac="⌘2"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua  text={default="Ctrl+2", ghostty="Alt+2", nautilus="Ctrl+1", terminal="Nothing: the key does nothing"}
 key tab-3  SUPER+3  category="Tabs"  mac="⌘3"  profiles={default,ghostty,nautilus,terminal}  file=shortcuts.lua  text={default="Ctrl+3", ghostty="Alt+3", nautilus="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
@@ -145,8 +145,8 @@ key toggle-bar  SUPER+ALT+d  category="System"  mac="⌥⌘D"  action  file=shor
 key toggle-comment  SUPER+slash  category="Code editing"  mac="⌘/"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+/", terminal="Nothing: the key does nothing"}
 key underline  SUPER+u  category="Editing"  mac="⌘U"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+U", terminal="Nothing: the key does nothing"}
 key undo  SUPER+z  category="Editing"  mac="⌘Z"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Z", terminal="Nothing: the key does nothing"}
-key unfold  SUPER+ALT+bracketright  category="Code editing"  mac="⌘⌥]"  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+]"}
-key view-source  SUPER+ALT+u  category="Developer tools"  mac="⌘⌥U"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+U"}
+key unfold  SUPER+ALT+bracketright  category="Code editing"  mac="⌥⌘]"  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+]"}
+key view-source  SUPER+ALT+u  category="Developer tools"  mac="⌥⌘U"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+U"}
 key window-to-next-workspace-down  CTRL+ALT+SHIFT+down  category="Spaces"  mac="⌃⌥⇧↓"  action  file=shortcuts.lua  text="Move the window to the next workspace"
 key window-to-next-workspace-right  CTRL+ALT+SHIFT+right  category="Spaces"  mac="⌃⌥⇧→"  action  file=shortcuts.lua  text="Move the window to the next workspace"
 key window-to-previous-workspace-left  CTRL+ALT+SHIFT+left  category="Spaces"  mac="⌃⌥⇧←"  action  file=shortcuts.lua  text="Move the window to the previous workspace"
@@ -156,9 +156,9 @@ key word-right  ALT+right  category="Text"  mac="⌥→"  profiles={default}  fi
 key workspace-next-down  CTRL+ALT+down  category="Spaces"  mac="⌃⌥↓"  action  file=shortcuts.lua  text="Focus the next workspace"
 key workspace-previous-up  CTRL+ALT+up  category="Spaces"  mac="⌃⌥↑"  action  file=shortcuts.lua  text="Focus the previous workspace"
 key zoom-in  SUPER+equal  category="View"  mac="⌘="  profiles={default,kitty}  file=shortcuts.lua  text={default="Ctrl+=", kitty="Ctrl+Shift+="}
-key zoom-in-plus  SUPER+SHIFT+equal  category="View"  mac="⌘+"  profiles={default,kitty}  file=shortcuts.lua  text={default="Ctrl+=", kitty="Ctrl+Shift+="}
+key zoom-in-plus  SUPER+SHIFT+equal  category="View"  mac="⇧⌘="  profiles={default,kitty}  file=shortcuts.lua  text={default="Ctrl+=", kitty="Ctrl+Shift+="}
 key zoom-out  SUPER+minus  category="View"  mac="⌘-"  profiles={default,kitty}  file=shortcuts.lua  text={default="Ctrl+-", kitty="Ctrl+Shift+-"}
-key zoom-out-shifted  SUPER+SHIFT+minus  category="View"  mac="⌘⇧-"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+Shift+-", terminal="Nothing: the key does nothing", vscode="Ctrl+-"}
+key zoom-out-shifted  SUPER+SHIFT+minus  category="View"  mac="⇧⌘-"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+Shift+-", terminal="Nothing: the key does nothing", vscode="Ctrl+-"}
 key zoom-reset  SUPER+0  category="View"  mac="⌘0"  profiles={default,kitty,vscode}  file=shortcuts.lua  text={default="Ctrl+0", kitty="Ctrl+Shift+Backspace", vscode="Ctrl+Keypad 0"}
 relocated SUPER+w → CTRL+ALT+w  "Close window"
 relocated SUPER+j → CTRL+ALT+j  "Toggle window split"

@@ -8,6 +8,7 @@ local keys = require("hypr.omackey.lib.keys")
 local relocations = require("hypr.omackey.relocations")
 
 local M = {
+  relocations = relocations, -- the rows of relocations.lua
   applied = {}, -- { from, to, description } for every bind that was moved
   dropped = {}, -- { from, description } for every bind that was not registered
   claimed = {}, -- normalized key string → true, for every key Omarchy registered

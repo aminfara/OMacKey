@@ -18,7 +18,7 @@ end
 
 M.dir = state_home .. "/omackey"
 M.file = M.dir .. "/off"
-M.key = "CTRL + SUPER + SHIFT + M" -- ⌃⌘⇧M, free in Omarchy
+M.key = "SUPER + CTRL + SHIFT + M" -- ⌃⇧⌘M, free in Omarchy
 
 function M.enabled()
   local handle = io.open(M.file, "r")
@@ -53,7 +53,6 @@ function M.declare()
   bind.group("System", {
     bind.mac({
       id = "mac-mode",
-      mac = "⌃⌘⇧M",
       keys = M.key,
       desc = "OMacKey on/off (Mac mode)",
       plain = true,

@@ -1,4 +1,4 @@
-key mac-mode  SUPER+CTRL+SHIFT+m  category="System"  mac="⌃⌘⇧M"  action  file=mode.lua  text="Switch OMacKey on or off, then reload the config"
+key mac-mode  SUPER+CTRL+SHIFT+m  category="System"  mac="⌃⇧⌘M"  action  file=mode.lua  text="Switch OMacKey on or off, then reload the config"
 dropped SUPER+c  "nil"
 dropped SUPER+v  "nil"
 dropped SUPER+x  "nil"

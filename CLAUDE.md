@@ -157,7 +157,8 @@ replay the config the way the help menu does. Extract the Lua heredoc from
 - **Moving or replacing an Omarchy bind:** add a row to
   `omackey/relocations.lua`, with `from` exactly as written in Omarchy's file
   (matching ignores modifier order and case, and `code:N` matches its key
-  name). Use `to = "<new key>"` to move it, or `drop = true` when an OMacKey
+  name). Use `to = "<new key>"` (canonical form, keeping Omarchy's keycode
+  where it uses one) to move it, or `drop = true` when an OMacKey
   bind replaces it on the same key (⌘C / ⌘V / ⌘X). Don't `hl.unbind` and
   redeclare it. Add `optional = true` when
   Omarchy only registers that bind under a condition, such as
@@ -182,6 +183,13 @@ replay the config the way the help menu does. Extract the Lua heredoc from
       `send.seq` make theirs ("Ctrl+Shift+F"); wrap anything else with
       `does("Close every window of the app", fn_or_dispatcher)`
       (`bind.does`). `build()` rejects an action without a text.
+    - `keys` is written in the canonical form (`keys.canonical()` in
+      `lib/keys.lua`): modifiers `SUPER + CTRL + ALT + SHIFT` in that order,
+      letters and named keys upper-case (`A`, `RETURN`, `LEFT`), punctuation
+      by lower-case xkb name (`comma`, `bracketleft`), digits by keycode
+      (`code:10`). `build()` reports any other spelling. The Mac glyph is
+      derived from it in Apple's order (`⇧⌘[`); write `mac = "…"` only for a
+      key with no glyph (mouse buttons, XF86 keys).
     - `enabled = <bool>`, `setting = "<option>"` or `requires = "<command>"`
       declare a spec that is bound only when enabled, when the user option
       is on, or when the command is on PATH. `plain = true` binds a function

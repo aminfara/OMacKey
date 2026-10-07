@@ -836,3 +836,39 @@ One entry per phase: date, commits, snapshot result, tests, anything learned.
     on and off has the same entries as before. Physical test (user): ⌃⌘⇧M
     turns OMacKey off (Omarchy keys back, notification), and again turns it
     on.
+- **2026-10-07 — R7 done** (snapshot update approved by the user).
+  - `lib/keys.lua`: `canonical(keys)` gives the one written form (modifiers
+    `SUPER + CTRL + ALT + SHIFT`; letters and named keys upper-case;
+    punctuation by lower-case xkb name; digits by keycode); `glyph(keys)` gives
+    the Mac form in Apple's order (⌃⌥⇧⌘), or nil for a key with no glyph.
+    `normalize()` shares its parser.
+  - **Deviation (user's choice):** a punctuation keycode stays a keycode.
+    Omarchy binds −, =, [ and ] by keycode, and the 12 relocation targets
+    that move those binds keep `code:20/21/34/35`. On a US-first layout the
+    name and the keycode are the same key (`resolve_binds_by_sym` is off), but
+    on another first layout (German) the name would be a different physical
+    key.
+  - Rewritten by a throwaway script: 68 key strings in `shortcuts.lua` and
+    `relocations.lua` (⌘1–⌘0 → `code:10…19`, `SLASH` → `slash`, `CTRL +
+    ALT + SUPER` → `SUPER + CTRL + ALT`), the toggle (`SUPER + CTRL + SHIFT +
+    M`), the catch-all's chords (`SUPER + E`, `SUPER + RETURN`) and its
+    consumed list.
+  - `mac{}` derives `mac` from `keys`; 121 hand-written glyphs and the
+    toggle's are gone. Kept where no key chord exists: ⌘-click and its
+    releases, ⌘-scroll, F5 / ⇧F5 / F5 (release), F6 (now `⇧⌘-click` order
+    there too). The catch-all's ids and descriptions keep `⌘⇧` (frozen).
+    ⌘+ (zoom-in-plus) is now `⇧⌘=`, the key actually pressed.
+  - Validation: `build()` reports a spec whose `keys`, or a relocation whose
+    `to`, isn't canonical (planted: both reported, the rest loads; the
+    relocation is still applied).
+  - Snapshot: frozen files identical in all five variants. Reported diffs as
+    declared and nothing else: `strings-*.txt` (85 strings in `main`, 1 in
+    `mode-off`) and the glyph column of `metadata-*.txt` (69 glyphs).
+    Self-test passes. `check.sh` three ✓.
+  - Live help menu: same 386 entries; 26 lines differ only in case, the
+    catch-all's keys (`SUPER + e` → `SUPER + E`, `return` → `RETURN`), now
+    shown like every other letter. Live `hyprctl binds`: only `key:` case
+    differs (41 binds: the catch-all's and `SLASH` → `slash`), apart
+    from Lua callback ref numbers.
+  - Physical tests (user): ⌘1 / ⌘2 in Brave, ⌘/ in VS Code, ⇧⌘/ (help menu),
+    ⌃⌥⌘⏎, ⌃⌘F, ⌘E and ⌘H in Brave, ⌃⇧⌘M off and on all pass.

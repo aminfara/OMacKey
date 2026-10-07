@@ -85,13 +85,13 @@ end
 
 local MODIFIER_ORDER = { SUPER = 1, CTRL = 2, ALT = 3, SHIFT = 4 }
 local MODIFIER_ALIASES = { CONTROL = "CTRL" }
+-- Mac glyphs in Apple's order (⌃⌥⇧⌘), as menus and Apple's shortcut pages
+-- write them.
+local GLYPHS = { { "CTRL", "⌃" }, { "ALT", "⌥" }, { "SHIFT", "⇧" }, { "SUPER", "⌘" } }
 
--- A key string in one form, for comparing chords however they are written:
--- modifiers upper-case in a fixed order, the key lower-case, and a keycode of
--- a key in this table by its name, so "super + code:10" and "SUPER + 1" match.
---   "SUPER + ALT + SHIFT + F", "super + shift + alt + f" → "SUPER + ALT + SHIFT + f"
-function M.normalize(keys)
-  local modifiers, key = {}, ""
+-- Splits a key string into its modifiers (a set) and its key as written.
+local function parse(keys)
+  local modifiers, key = {}, nil
 
   for part in tostring(keys):gmatch("[^+]+") do
     local trimmed = part:match("^%s*(.-)%s*$")
@@ -99,23 +99,105 @@ function M.normalize(keys)
     upper = MODIFIER_ALIASES[upper] or upper
 
     if MODIFIER_ORDER[upper] then
-      table.insert(modifiers, upper)
+      modifiers[upper] = true
     else
-      key = trimmed:lower()
+      key = trimmed
     end
   end
 
-  local code = tonumber(key:match("^code:(%d+)$"))
-  if code and M.by_code[code] then
-    key = M.by_code[code].name
-  end
+  return modifiers, key
+end
 
-  table.sort(modifiers, function(a, b)
+local function sorted_modifiers(modifiers)
+  local list = {}
+  for modifier in pairs(modifiers) do
+    table.insert(list, modifier)
+  end
+  table.sort(list, function(a, b)
     return MODIFIER_ORDER[a] < MODIFIER_ORDER[b]
   end)
-  table.insert(modifiers, key)
+  return list
+end
 
-  return table.concat(modifiers, " + ")
+-- The table entry for a key as written ("f", "F", "comma", "code:59"), or nil.
+local function entry_of(key)
+  local lower = key:lower()
+  local code = tonumber(lower:match("^code:(%d+)$"))
+  if code then
+    return M.by_code[code]
+  end
+  return M.by_name[lower]
+end
+
+-- A key string in one form, for comparing chords however they are written:
+-- modifiers upper-case in a fixed order, the key lower-case, and a keycode of
+-- a key in this table by its name, so "super + code:10" and "SUPER + 1" match.
+--   "SUPER + ALT + SHIFT + F", "super + shift + alt + f" → "SUPER + ALT + SHIFT + f"
+function M.normalize(keys)
+  local modifiers, key = parse(keys)
+  key = key and key:lower() or ""
+
+  local entry = entry_of(key)
+  if entry then
+    key = entry.name
+  end
+
+  local parts = sorted_modifiers(modifiers)
+  table.insert(parts, key)
+  return table.concat(parts, " + ")
+end
+
+-- The one way OMacKey writes a key string, so a user's hl.unbind("<string>")
+-- can be read off the docs: modifiers in the order SUPER, CTRL, ALT, SHIFT;
+-- letters and named keys upper-case as Omarchy writes them; punctuation by
+-- its lower-case xkb name (upper-case "COMMA" doesn't match), or by keycode
+-- where it is written as one (a relocated Omarchy bind keeps Omarchy's
+-- keycode, which stays on the same physical key in any layout); digits by
+-- keycode, as Omarchy binds them. A key not in the table (mouse:272,
+-- XF86VoiceCommand) stays as written.
+--   "CTRL + SUPER + SHIFT + m" → "SUPER + CTRL + SHIFT + M"
+--   "SUPER + 1" → "SUPER + code:10",   "SUPER + SLASH" → "SUPER + slash"
+function M.canonical(keys)
+  local modifiers, key = parse(keys)
+  local parts = sorted_modifiers(modifiers)
+
+  if key then
+    local entry = entry_of(key)
+    if not entry then
+      table.insert(parts, key)
+    elseif entry.kind == "digit" or (entry.kind == "punctuation" and key:match("^code:")) then
+      table.insert(parts, "code:" .. entry.code)
+    elseif entry.kind == "punctuation" then
+      table.insert(parts, entry.name)
+    else
+      table.insert(parts, entry.name:upper())
+    end
+  end
+
+  return table.concat(parts, " + ")
+end
+
+-- The Mac form of a key string, modifiers in Apple's order, or nil for a key
+-- the table doesn't know (mouse buttons, XF86 keys):
+--   "SUPER + SHIFT + bracketleft" → "⇧⌘[",   "SUPER + ALT + ESCAPE" → "⌥⌘Esc"
+function M.glyph(keys)
+  if keys == nil then
+    return nil
+  end
+
+  local modifiers, key = parse(keys)
+  local entry = key and entry_of(key)
+  if not entry then
+    return nil
+  end
+
+  local text = ""
+  for _, pair in ipairs(GLYPHS) do
+    if modifiers[pair[1]] then
+      text = text .. pair[2]
+    end
+  end
+  return text .. entry.glyph
 end
 
 return M
