@@ -178,6 +178,11 @@ bindings that changed and which of them sit on a key OMacKey uses, and
 
 ## Contributing
 
+Tools for contributors (Arch: `pacman -S lua shellcheck luacheck`): `lua5.5`
+and `luac5.5` (the snapshot, the docs generator and the lint), `shellcheck` and
+`luacheck` (optional: `scripts/lint.sh` skips them when missing, but run it
+with both before a pull request), and a running Hyprland for `scripts/check.sh`.
+
 Issues and pull requests are welcome. Keep changes small: one key or one group
 of related keys at a time, with a description on every bind. Before you open a
 pull request, run `scripts/lint.sh`, `scripts/check.sh`, `scripts/snapshot.sh` and

@@ -65,7 +65,7 @@ end)
 -- Which optional commands exist is part of the variant, not of the machine:
 -- wtype (⌘-scroll) and voxtype (dictation) are present except in "bare".
 local real_open = io.open
-io.open = function(path, ...)
+io.open = function(path, ...) -- luacheck: ignore 122
   if type(path) == "string" and (path:match("/wtype$") or path:match("/voxtype$")) then
     if variant == "bare" then
       return nil, path .. ": hidden by the snapshot variant"
@@ -78,7 +78,7 @@ end
 local base_path = package.path
 local state -- the current load's mock state
 
-print = function(...)
+print = function(...) -- luacheck: ignore 121
   local parts = {}
   for i = 1, select("#", ...) do
     parts[i] = tostring((select(i, ...)))
@@ -250,11 +250,11 @@ else
   for _, spec in ipairs(registry) do
     local row = { id = spec.id, keys = spec.keys, mac = spec.mac, category = spec.category, file = spec.file,
       flags = { release = spec.release }, bound = spec.bound ~= false, apps = {}, has_action = spec.action ~= nil }
-    local names = {}
+    local app_names = {}
     for name in pairs(spec.actions or {}) do
-      table.insert(names, name)
+      table.insert(app_names, name)
     end
-    row.profiles = names
+    row.profiles = app_names
     table.insert(rows, row)
   end
 end

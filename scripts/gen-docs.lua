@@ -20,13 +20,13 @@ local target = repo .. "/docs/KEYBINDINGS.md"
 
 -- Machine-independent: no user settings file, no state file, commands present.
 local real_getenv, real_open = os.getenv, io.open
-os.getenv = function(name)
+os.getenv = function(name) -- luacheck: ignore 122
   if name == "XDG_CONFIG_HOME" or name == "XDG_STATE_HOME" then
     return "/nonexistent-omackey-gen-docs"
   end
   return real_getenv(name)
 end
-io.open = function(path, ...)
+io.open = function(path, ...) -- luacheck: ignore 122
   if type(path) == "string" and (path:match("/wtype$") or path:match("/voxtype$")) then
     return real_open("/dev/null", ...)
   end
@@ -48,7 +48,8 @@ table.insert(package.searchers, 2, function(name)
   end, path
 end)
 
-print = function() end -- the config must not print, and nothing here needs to
+-- The config must not print, and nothing here needs to.
+print = function() end -- luacheck: ignore 121
 
 local hl, state = mock.new()
 _G.hl = hl

@@ -14,7 +14,7 @@ local switcher = require("hypr.omackey.lib.switcher")
 local windows = require("hypr.omackey.lib.windows")
 
 local mac, group, catchall, does = bind.mac, bind.group, bind.catchall, bind.does
-local PASS, CONSUME = bind.PASS, bind.CONSUME
+local CONSUME = bind.CONSUME
 local tap, seq = send.tap, send.seq
 
 -- Text ------------------------------------------------------------------------
@@ -1028,14 +1028,20 @@ group("System", {
     id = "screenshot-screen-file",
     keys = "SUPER + SHIFT + code:12",
     desc = "Screenshot of the screen to file",
-    action = does("Save a screenshot of the screen to a file", hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen save")),
+    action = does(
+      "Save a screenshot of the screen to a file",
+      hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen save")
+    ),
   }),
 
   mac({
     id = "screenshot-screen-clipboard",
     keys = "SUPER + CTRL + SHIFT + code:12",
     desc = "Screenshot of the screen to clipboard",
-    action = does("Copy a screenshot of the screen to the clipboard", hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen copy")),
+    action = does(
+      "Copy a screenshot of the screen to the clipboard",
+      hl.dsp.exec_cmd("omarchy-capture-screenshot fullscreen copy")
+    ),
   }),
 
   -- Region capture uses Omarchy's picker: Return captures the window under the
@@ -1051,7 +1057,10 @@ group("System", {
     id = "screenshot-region-clipboard",
     keys = "SUPER + CTRL + SHIFT + code:13",
     desc = "Screenshot of a region to clipboard",
-    action = does("Copy a screenshot of a region to the clipboard", hl.dsp.exec_cmd("omarchy-capture-screenshot region copy")),
+    action = does(
+      "Copy a screenshot of a region to the clipboard",
+      hl.dsp.exec_cmd("omarchy-capture-screenshot region copy")
+    ),
   }),
 
   -- Capture menu: Omarchy's, which also covers screen recording.

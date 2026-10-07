@@ -16,7 +16,7 @@ local M = {}
 
 -- Timer handles must stay referenced until they fire: a garbage-collected timer
 -- never runs, the release is never sent, and the key repeats in the app.
-local pending = {}
+local pending = {} -- luacheck: ignore 241 (written only, to keep the handles alive)
 local next_id = 0
 
 local function key_state(mods, code, state)

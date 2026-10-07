@@ -32,7 +32,7 @@ about: a later Omarchy adding `Super + Grave`). Exit 1 means drift.
 **8.4 Lint.** Done: `scripts/lint.sh` checks the syntax of every Lua file, flags
 unknown globals (typos and missing `local`, via `luac5.5 -l`), forbids `print`
 in `omackey/`, runs `bash -n` on the shell scripts, and runs `luacheck` and
-`shellcheck` too when they are installed (neither is, here). Loading under the
+`shellcheck` too when they are installed (`.luacheckrc` holds the settings). Loading under the
 mock is covered by every `scripts/snapshot.sh` run.
 
 ## Optional

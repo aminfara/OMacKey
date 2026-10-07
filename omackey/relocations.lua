@@ -144,7 +144,8 @@ for code = 10, 19 do
   local key = "code:" .. code
   table.insert(relocations, { from = "SUPER + " .. key, to = "CTRL + " .. key }) -- Switch to workspace
   table.insert(relocations, { from = "SUPER + SHIFT + " .. key, to = "CTRL + SHIFT + " .. key }) -- Move window
-  table.insert(relocations, { from = "SUPER + SHIFT + ALT + " .. key, to = "CTRL + ALT + SHIFT + " .. key }) -- … silently
+  -- … silently
+  table.insert(relocations, { from = "SUPER + SHIFT + ALT + " .. key, to = "CTRL + ALT + SHIFT + " .. key })
 end
 
 return relocations

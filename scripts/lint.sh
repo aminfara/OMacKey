@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Lint pass (docs/ROADMAP.md 8.4). Needs only luac5.5 and bash; luacheck and
-# shellcheck run too when they are installed.
+# Lint pass (docs/ROADMAP.md 8.4). Needs only luac5.5 and bash; the luacheck
+# and shellcheck tools are used too when installed.
 #
 #   scripts/lint.sh
 #
@@ -39,7 +39,7 @@ done
 prints=$(grep -rnE '(^|[^.:_[:alnum:]])print\(' omackey --include='*.lua' || true)
 if [[ -n $prints ]]; then
   bad "print in omackey/ (no stdout at load):"
-  echo "$prints" | sed 's/^/    /'
+  printf '    %s\n' "${prints//$'\n'/$'\n    '}"
 else
   echo "✓ no print in omackey/"
 fi

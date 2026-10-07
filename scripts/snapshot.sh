@@ -102,7 +102,7 @@ if [[ $mode == update ]]; then
   rm -rf "$expected"
   mkdir -p "$expected"
   cp "$current"/* "$expected"/
-  echo "snapshot: wrote $(ls "$expected" | wc -l) files to tests/snapshot/expected"
+  echo "snapshot: wrote $(find "$expected" -type f | wc -l) files to tests/snapshot/expected"
   exit 0
 fi
 
