@@ -275,7 +275,7 @@ Contents:
   `Super + Grave` and `Super + Shift + Grave` for the scratchpad. The installed
   4.0.4 has only `SUPER + S` / `SUPER + ALT + S` (checked in `tiling.lua`).
   If a later Omarchy adds the Grave binds they collide with ⌘\` / ⌘⇧\` and need
-  a relocation (the drift check in 8.3 should flag it).
+  a relocation (`scripts/drift.sh` flags it).
 
 ## F8 — Screenshot CLI (2026-10-03)
 

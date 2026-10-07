@@ -14,18 +14,20 @@ after changing a shortcut, an app, a relocation or a setting.
 manual), what it touches and how to remove it, customizing, limits,
 troubleshooting, contributing (with agents), acknowledgements and a disclaimer.
 
-**8.3 Drift check after `omarchy update`.** It warns when Omarchy's bindings
-change and shows what changed:
+**8.3 Drift check after `omarchy update`.** Done: `scripts/drift.sh` renders
+Omarchy's defaults alone under the snapshot's fake Hyprland and compares them
+with `expected/binds-mode-off.txt`. It lists the Omarchy binds that are new,
+changed or gone, and marks the ones on a key OMacKey uses (the case F7 warns
+about: a later Omarchy adding `Super + Grave`). Exit 1 means drift.
 
-- Already in place:
+- Related checks that were already there:
   - `omackey.status()` reports relocation rows whose Omarchy key is gone
     (`unused_relocations`);
   - `scripts/snapshot.sh` stops when its hash of Omarchy's files
-    (`tests/snapshot/expected/omarchy.sha256`) no longer matches;
+    (`tests/snapshot/expected/omarchy.sha256`) no longer matches, and now
+    points to `scripts/drift.sh`;
   - `scripts/check.sh` finds duplicate binds.
-- To add: list the Omarchy binds that are new since the last snapshot,
-  especially ones on keys OMacKey uses. For example, the online manual lists
-  `Super + Grave` for the scratchpad, which would collide with ⌘\` (F7).
+- It is a manual step after `omarchy update`; no hook runs it.
 
 **8.4 Lint (optional).** A syntax and lint pass over every module under the
 mock, plus `luacheck` if it is installed.

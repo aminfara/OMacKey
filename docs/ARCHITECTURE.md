@@ -222,6 +222,7 @@ OMacKey/
 ├── scripts/
 │   ├── check.sh           reload, configerrors, omackey.status(), duplicate binds, help-menu search
 │   ├── snapshot.sh        behaviour snapshot under a fake Hyprland (TESTING.md)
+│   ├── drift.sh           what `omarchy update` changed in Omarchy's binds, and which sit on OMacKey keys
 │   ├── gen-docs.lua       renders docs/KEYBINDINGS.md from lib/catalog.lua under the same fake Hyprland
 │   ├── omackey-mode       on / off / toggle / status from a terminal
 │   └── keylog.py          GTK4 key-event logger used as the test app

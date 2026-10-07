@@ -93,8 +93,10 @@ tests/snapshot/selftest.sh          # prove the harness can see changes (about t
   - `strings-<variant>.txt`: the exact key strings.
 - **`omarchy.sha256`**: a hash of the Omarchy files the snapshot depends on. If
   Omarchy changed, the runner stops (exit 2) instead of reporting a misleading
-  diff. Then render the last good commit with `--against <rev>` to see what
-  the update changed, and record the new baseline with `--update`.
+  diff. Run `scripts/drift.sh` first: it lists the Omarchy binds that are new,
+  changed or gone, and which of them sit on a key OMacKey uses. Then render
+  the last good commit with `--against <rev>` to see what the update did to
+  OMacKey, and record the new baseline with `--update`.
 
 **A deliberate change** of behaviour or metadata:
 

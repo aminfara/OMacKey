@@ -128,7 +128,7 @@ if [[ -n $against ]]; then
 else
   [[ -d $expected ]] || die "no tests/snapshot/expected yet (run with --update)"
   if [[ $(cat "$expected/omarchy.sha256" 2>/dev/null) != $(omarchy_hash) ]]; then
-    die "Omarchy's files changed since tests/snapshot/expected was made; compare with --against <rev> instead"
+    die "Omarchy's files changed since tests/snapshot/expected was made; run scripts/drift.sh to see what changed, then compare with --against <rev>"
   fi
   baseline="$expected"
   label="expected"

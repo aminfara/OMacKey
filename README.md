@@ -172,8 +172,9 @@ More in [docs/TESTING.md](docs/TESTING.md#6-recovery).
 
 Omarchy 4.0.4 with Hyprland 0.56 (Lua config, scrolling layout), a NuPhy
 Air75 V2 in Mac mode (⌘ is Super), foot and Brave. Other Omarchy or Hyprland
-versions may differ: `scripts/snapshot.sh` stops when Omarchy's bindings change
-under it, and `omackey.status()` reports relocations that no longer match.
+versions may differ: after `omarchy update`, `scripts/drift.sh` lists the Omarchy
+bindings that changed and which of them sit on a key OMacKey uses, and
+`omackey.status()` reports relocations that no longer match.
 
 ## Contributing
 
