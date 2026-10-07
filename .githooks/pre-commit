@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Refuse a commit when docs/KEYBINDINGS.md no longer matches the code.
+# Enabled by ./install.sh (git config core.hooksPath .githooks).
+repo="$(git rev-parse --show-toplevel)"
+command -v lua5.5 >/dev/null || exit 0 # nothing to check with
+lua5.5 "$repo/scripts/gen-docs.lua" --check || {
+  echo "Run: lua5.5 scripts/gen-docs.lua && git add docs/KEYBINDINGS.md" >&2
+  exit 1
+}

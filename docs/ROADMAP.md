@@ -5,23 +5,10 @@ sessions: one key or one item first, then a group of related ones.
 
 ## 8 — Docs generator, README, maintenance
 
-**8.1 Generated key documentation.** `scripts/gen-docs.lua` loads the config
-under the snapshot's fake Hyprland (`tests/snapshot/mock.lua`) and renders
-`docs/KEYBINDINGS.md` from `lib/catalog.lua` (ARCHITECTURE.md §9). The output:
-
-- **Shortcuts:** a table per category with the Mac glyph, the exact key string
-  (for `hl.unbind`, D12), the description, and the default action text.
-- **Per-app actions:** a table per app, listing the keys that act differently
-  there.
-- **Relocated Omarchy binds:** the Omarchy key, its new key or "dropped", and
-  Omarchy's description.
-- **Opt-in keys:** keys behind a setting or a required command.
-- **Settings:** each option with its default and doc string.
-- A pointer to LIMITATIONS.md.
-
-The catalog already holds all of this. Until 8.1 exists,
-`tests/snapshot/expected/metadata-main.txt` and `behaviour-main.txt` are the
-reference for what every key does.
+**8.1 Generated key documentation.** Done: `lua5.5 scripts/gen-docs.lua` renders
+`docs/KEYBINDINGS.md` from `lib/catalog.lua` under the snapshot's fake Hyprland
+(`--check` fails when the file is out of date, `--stdout` prints it). Run it
+after changing a shortcut, an app, a relocation or a setting.
 
 **8.2 README.** It covers:
 
@@ -34,7 +21,7 @@ reference for what every key does.
 - the opt-out recipe: `hl.unbind("<exact key string>")` in
   `~/.config/hypr/bindings.lua`;
 - `wtype` for ⌘-scroll and `voxtype` for the F5 dictation keys;
-- troubleshooting (TESTING.md, Recovery), and links to the generated docs.
+- troubleshooting (TESTING.md, Recovery), and a link to `docs/KEYBINDINGS.md`.
 
 **8.3 Drift check after `omarchy update`.** It warns when Omarchy's bindings
 change and shows what changed:

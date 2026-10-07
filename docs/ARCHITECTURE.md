@@ -176,8 +176,8 @@ dropped (`drop = true` in `relocations.lua`).
 nothing creates it.
 
 **RD4 — Documentation.** This file plus TESTING, FINDINGS, LIMITATIONS and
-ROADMAP. Per-key tables are generated from the code (ROADMAP.md, 8.1), not
-written by hand.
+ROADMAP. Per-key tables are generated from the code (`docs/KEYBINDINGS.md`, by
+`scripts/gen-docs.lua`), not written by hand.
 
 **RD5 — Specific apps override their family.** An app's entry wins over its
 family's, which wins over `default`: Firefox over the generic browser entry,
@@ -196,7 +196,7 @@ OMacKey/
 ├── install.sh             symlink + marker-delimited loader lines in ~/.config/hypr/hyprland.lua, then scripts/check.sh
 ├── uninstall.sh           removes both (backs up hyprland.lua first)
 ├── .luarc.json            LuaLS: Lua 5.5, Hyprland stubs, globals hl, o, omackey
-├── docs/                  this file, TESTING, FINDINGS, LIMITATIONS, ROADMAP
+├── docs/                  this file, TESTING, FINDINGS, LIMITATIONS, ROADMAP, and the generated KEYBINDINGS.md
 ├── omackey/               → symlinked to ~/.config/hypr/omackey (Lua module prefix hypr.omackey)
 │   ├── load.lua           entry points pre() / init() (install.sh writes these names into hyprland.lua)
 │   ├── init.lua           the manifest: MODULES (shortcuts) and APPS (in match order); declares them
@@ -222,6 +222,7 @@ OMacKey/
 ├── scripts/
 │   ├── check.sh           reload, configerrors, omackey.status(), duplicate binds, help-menu search
 │   ├── snapshot.sh        behaviour snapshot under a fake Hyprland (TESTING.md)
+│   ├── gen-docs.lua       renders docs/KEYBINDINGS.md from lib/catalog.lua under the same fake Hyprland
 │   ├── omackey-mode       on / off / toggle / status from a terminal
 │   └── keylog.py          GTK4 key-event logger used as the test app
 └── tests/snapshot/        the snapshot harness: mock, fixtures, scenarios, render, expected output

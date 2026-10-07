@@ -3,6 +3,7 @@
 #   - link this repo's omackey/ to ~/.config/hypr/omackey
 #   - add two guarded loader blocks around require("default.hypr.omarchy") in
 #     ~/.config/hypr/hyprland.lua (backed up first)
+#   - in a git checkout, enable .githooks (the pre-commit docs check)
 #   - reload Hyprland and run scripts/check.sh
 #
 # Usage: ./install.sh [--no-reload]
@@ -66,6 +67,11 @@ else
   fi
 
   echo "Added loader lines to $conf (backup: $backup)"
+fi
+
+if git -C "$repo" rev-parse --git-dir >/dev/null 2>&1; then
+  git -C "$repo" config core.hooksPath .githooks
+  echo "Enabled git hooks from $repo/.githooks (pre-commit: docs/KEYBINDINGS.md is current)"
 fi
 
 if ((reload)); then
