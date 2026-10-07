@@ -10,18 +10,9 @@ sessions: one key or one item first, then a group of related ones.
 (`--check` fails when the file is out of date, `--stdout` prints it). Run it
 after changing a shortcut, an app, a relocation or a setting.
 
-**8.2 README.** It covers:
-
-- what OMacKey is, and the modifier model (ARCHITECTURE.md §2);
-- install and uninstall, and that `omarchy refresh hyprland` removes the
-  loader lines, so re-run `./install.sh` afterwards;
-- the Mac-mode toggle (⌃⇧⌘M, `scripts/omackey-mode`);
-- the settings file and its options (`emacs_keys`, `release_ms`,
-  `close_window_classes`);
-- the opt-out recipe: `hl.unbind("<exact key string>")` in
-  `~/.config/hypr/bindings.lua`;
-- `wtype` for ⌘-scroll and `voxtype` for the F5 dictation keys;
-- troubleshooting (TESTING.md, Recovery), and a link to `docs/KEYBINDINGS.md`.
+**8.2 README.** Done: what it is, the modifier model, install (script and
+manual), what it touches and how to remove it, customizing, limits,
+troubleshooting, contributing (with agents), acknowledgements and a disclaimer.
 
 **8.3 Drift check after `omarchy update`.** It warns when Omarchy's bindings
 change and shows what changed:

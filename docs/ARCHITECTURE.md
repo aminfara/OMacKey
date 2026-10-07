@@ -191,7 +191,7 @@ is derived from it.
 
 ```text
 OMacKey/
-├── CLAUDE.md              guide for coding agents
+├── CLAUDE.md              guide for coding agents (AGENTS.md is a symlink to it)
 ├── README.md              user-facing introduction
 ├── install.sh             symlink + marker-delimited loader lines in ~/.config/hypr/hyprland.lua, then scripts/check.sh
 ├── uninstall.sh           removes both (backs up hyprland.lua first)
