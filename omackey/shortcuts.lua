@@ -1170,7 +1170,7 @@ group("Mouse", {
     id = "click-shift",
     mac = "⇧⌘-click",
     keys = "SUPER + SHIFT + mouse:272",
-    desc = "⌘⇧-click sent as Ctrl+Shift-click",
+    desc = "⇧⌘-click sent as Ctrl+Shift-click",
     action = click.press("CTRL + SHIFT"),
   }),
 
@@ -1189,7 +1189,7 @@ group("Mouse", {
     id = "click-release-shift",
     mac = "⇧⌘-click release",
     keys = "SUPER + SHIFT + mouse:272",
-    desc = "⌘⇧-click release",
+    desc = "⇧⌘-click release",
     release = true,
     action = click.release,
   }),
@@ -1352,7 +1352,7 @@ catchall({
   covers = { "letter", "punctuation", "return" },
   variants = {
     { keys = "SUPER", sends = "CTRL", glyph = "⌘", text = "Ctrl+" },
-    { keys = "SUPER + SHIFT", sends = "CTRL + SHIFT", glyph = "⌘⇧", text = "Ctrl+Shift+" },
+    { keys = "SUPER + SHIFT", sends = "CTRL + SHIFT", glyph = "⇧⌘", text = "Ctrl+Shift+" },
   },
   -- Consumed everywhere: nothing is sent.
   consumed = {

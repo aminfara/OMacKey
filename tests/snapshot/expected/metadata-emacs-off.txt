@@ -6,6 +6,26 @@ key bold  SUPER+b  category="Editing"  mac="⌘B"  profiles={default,terminal}  
 key bookmark-manager  SUPER+ALT+b  category="Navigation"  mac="⌥⌘B"  profiles={browser,vscode}  file=shortcuts.lua  text={browser="Ctrl+Shift+O", vscode="Ctrl+Alt+B"}
 key cancel  SUPER+period  category="Editing"  mac="⌘."  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Esc", terminal="Ctrl+C", vscode="Ctrl+."}
 key capture-menu  SUPER+SHIFT+5  category="System"  mac="⇧⌘5"  action  file=shortcuts.lua  text="Open Omarchy's capture menu"
+key catchall-⇧⌘a  SUPER+SHIFT+a  category="Catch-all"  mac="⇧⌘A"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+A", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘apostrophe  SUPER+SHIFT+apostrophe  category="Catch-all"  mac="⇧⌘'"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+'", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘b  SUPER+SHIFT+b  category="Catch-all"  mac="⇧⌘B"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+B", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘backslash  SUPER+SHIFT+backslash  category="Catch-all"  mac="⇧⌘\\"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+\\", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘c  SUPER+SHIFT+c  category="Catch-all"  mac="⇧⌘C"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+C", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘e  SUPER+SHIFT+e  category="Catch-all"  mac="⇧⌘E"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+E", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘f  SUPER+SHIFT+f  category="Catch-all"  mac="⇧⌘F"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+F", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘h  SUPER+SHIFT+h  category="Catch-all"  mac="⇧⌘H"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘i  SUPER+SHIFT+i  category="Catch-all"  mac="⇧⌘I"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘k  SUPER+SHIFT+k  category="Catch-all"  mac="⇧⌘K"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+K", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘l  SUPER+SHIFT+l  category="Catch-all"  mac="⇧⌘L"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+L", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘m  SUPER+SHIFT+m  category="Catch-all"  mac="⇧⌘M"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+M", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘o  SUPER+SHIFT+o  category="Catch-all"  mac="⇧⌘O"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+O", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘p  SUPER+SHIFT+p  category="Catch-all"  mac="⇧⌘P"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+P", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘q  SUPER+SHIFT+q  category="Catch-all"  mac="⇧⌘Q"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘r  SUPER+SHIFT+r  category="Catch-all"  mac="⇧⌘R"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+R", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘return  SUPER+SHIFT+return  category="Catch-all"  mac="⇧⌘⏎"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Return", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘semicolon  SUPER+SHIFT+semicolon  category="Catch-all"  mac="⇧⌘;"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+;", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘x  SUPER+SHIFT+x  category="Catch-all"  mac="⇧⌘X"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+X", terminal="Nothing: the key does nothing"}
+key catchall-⇧⌘y  SUPER+SHIFT+y  category="Catch-all"  mac="⇧⌘Y"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Y", terminal="Nothing: the key does nothing"}
 key catchall-⌘apostrophe  SUPER+apostrophe  category="Catch-all"  mac="⌘'"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+'", terminal="Nothing: the key does nothing"}
 key catchall-⌘backslash  SUPER+backslash  category="Catch-all"  mac="⌘\\"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+\\", terminal="Nothing: the key does nothing"}
 key catchall-⌘e  SUPER+e  category="Catch-all"  mac="⌘E"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+E", terminal="Nothing: the key does nothing"}
@@ -14,26 +34,6 @@ key catchall-⌘j  SUPER+j  category="Catch-all"  mac="⌘J"  profiles={default,
 key catchall-⌘m  SUPER+m  category="Catch-all"  mac="⌘M"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
 key catchall-⌘return  SUPER+return  category="Catch-all"  mac="⌘⏎"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Return", terminal="Nothing: the key does nothing"}
 key catchall-⌘semicolon  SUPER+semicolon  category="Catch-all"  mac="⌘;"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+;", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧a  SUPER+SHIFT+a  category="Catch-all"  mac="⇧⌘A"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+A", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧apostrophe  SUPER+SHIFT+apostrophe  category="Catch-all"  mac="⇧⌘'"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+'", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧b  SUPER+SHIFT+b  category="Catch-all"  mac="⇧⌘B"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+B", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧backslash  SUPER+SHIFT+backslash  category="Catch-all"  mac="⇧⌘\\"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+\\", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧c  SUPER+SHIFT+c  category="Catch-all"  mac="⇧⌘C"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+C", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧e  SUPER+SHIFT+e  category="Catch-all"  mac="⇧⌘E"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+E", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧f  SUPER+SHIFT+f  category="Catch-all"  mac="⇧⌘F"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+F", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧h  SUPER+SHIFT+h  category="Catch-all"  mac="⇧⌘H"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧i  SUPER+SHIFT+i  category="Catch-all"  mac="⇧⌘I"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧k  SUPER+SHIFT+k  category="Catch-all"  mac="⇧⌘K"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+K", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧l  SUPER+SHIFT+l  category="Catch-all"  mac="⇧⌘L"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+L", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧m  SUPER+SHIFT+m  category="Catch-all"  mac="⇧⌘M"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+M", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧o  SUPER+SHIFT+o  category="Catch-all"  mac="⇧⌘O"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+O", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧p  SUPER+SHIFT+p  category="Catch-all"  mac="⇧⌘P"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+P", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧q  SUPER+SHIFT+q  category="Catch-all"  mac="⇧⌘Q"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧r  SUPER+SHIFT+r  category="Catch-all"  mac="⇧⌘R"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+R", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧return  SUPER+SHIFT+return  category="Catch-all"  mac="⇧⌘⏎"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Return", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧semicolon  SUPER+SHIFT+semicolon  category="Catch-all"  mac="⇧⌘;"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+;", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧x  SUPER+SHIFT+x  category="Catch-all"  mac="⇧⌘X"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+X", terminal="Nothing: the key does nothing"}
-key catchall-⌘⇧y  SUPER+SHIFT+y  category="Catch-all"  mac="⇧⌘Y"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+Y", terminal="Nothing: the key does nothing"}
 key clear-browsing-data  SUPER+SHIFT+backspace  category="Navigation"  mac="⇧⌘⌫"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+Shift+Delete"}
 key clear-screen  SUPER+k  category="Terminal"  mac="⌘K"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+K", terminal="Ctrl+L"}
 key click  SUPER+mouse:272  category="Mouse"  mac="⌘-click"  action  file=shortcuts.lua  text="Left click with Ctrl held instead of ⌘"

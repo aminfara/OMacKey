@@ -256,43 +256,43 @@ SUPER+CTRL+z "Zoom in"  {}  lua
 SUPER+SHIFT+3 "Screenshot of the screen to file"  {}  exec_cmd("omarchy-capture-screenshot fullscreen save")
 SUPER+SHIFT+4 "Screenshot of a region to file"  {}  exec_cmd("omarchy-capture-screenshot region save")
 SUPER+SHIFT+5 "Capture menu"  {}  exec_cmd("omarchy-menu toggle capture")
-SUPER+SHIFT+a "⌘⇧A sent as Ctrl+Shift+A"  { auto_consuming = true }  lua
-SUPER+SHIFT+apostrophe "⌘⇧' sent as Ctrl+Shift+'"  { auto_consuming = true }  lua
-SUPER+SHIFT+b "⌘⇧B sent as Ctrl+Shift+B"  { auto_consuming = true }  lua
-SUPER+SHIFT+backslash "⌘⇧\\ sent as Ctrl+Shift+\\"  { auto_consuming = true }  lua
+SUPER+SHIFT+a "⇧⌘A sent as Ctrl+Shift+A"  { auto_consuming = true }  lua
+SUPER+SHIFT+apostrophe "⇧⌘' sent as Ctrl+Shift+'"  { auto_consuming = true }  lua
+SUPER+SHIFT+b "⇧⌘B sent as Ctrl+Shift+B"  { auto_consuming = true }  lua
+SUPER+SHIFT+backslash "⇧⌘\\ sent as Ctrl+Shift+\\"  { auto_consuming = true }  lua
 SUPER+SHIFT+backspace "Clear browsing data"  { auto_consuming = true }  lua
 SUPER+SHIFT+bracketleft "Previous tab"  { auto_consuming = true }  lua
 SUPER+SHIFT+bracketright "Next tab"  { auto_consuming = true }  lua
-SUPER+SHIFT+c "⌘⇧C sent as Ctrl+Shift+C"  { auto_consuming = true }  lua
+SUPER+SHIFT+c "⇧⌘C sent as Ctrl+Shift+C"  { auto_consuming = true }  lua
 SUPER+SHIFT+code:201 "Omarchy menu"  {}  exec_cmd("omarchy-menu toggle root")
 SUPER+SHIFT+comma "Dismiss all notifications"  {}  exec_cmd("omarchy-shell notifications dismissAll")
 SUPER+SHIFT+d "Split terminal down"  { auto_consuming = true }  lua
 SUPER+SHIFT+down "Select to document end"  { auto_consuming = true, repeating = true }  lua
-SUPER+SHIFT+e "⌘⇧E sent as Ctrl+Shift+E"  { auto_consuming = true }  lua
+SUPER+SHIFT+e "⇧⌘E sent as Ctrl+Shift+E"  { auto_consuming = true }  lua
 SUPER+SHIFT+equal "Zoom in (app)"  { auto_consuming = true }  lua
-SUPER+SHIFT+f "⌘⇧F sent as Ctrl+Shift+F"  { auto_consuming = true }  lua
+SUPER+SHIFT+f "⇧⌘F sent as Ctrl+Shift+F"  { auto_consuming = true }  lua
 SUPER+SHIFT+g "Find previous"  { auto_consuming = true, repeating = true }  lua
 SUPER+SHIFT+grave "Previous window of this app"  { auto_consuming = true }  lua
-SUPER+SHIFT+h "⌘⇧H not mapped"  { auto_consuming = true }  lua
-SUPER+SHIFT+i "⌘⇧I not mapped"  { auto_consuming = true }  lua
+SUPER+SHIFT+h "⇧⌘H not mapped"  { auto_consuming = true }  lua
+SUPER+SHIFT+i "⇧⌘I not mapped"  { auto_consuming = true }  lua
 SUPER+SHIFT+j "Downloads"  { auto_consuming = true }  lua
-SUPER+SHIFT+k "⌘⇧K sent as Ctrl+Shift+K"  { auto_consuming = true }  lua
-SUPER+SHIFT+l "⌘⇧L sent as Ctrl+Shift+L"  { auto_consuming = true }  lua
+SUPER+SHIFT+k "⇧⌘K sent as Ctrl+Shift+K"  { auto_consuming = true }  lua
+SUPER+SHIFT+l "⇧⌘L sent as Ctrl+Shift+L"  { auto_consuming = true }  lua
 SUPER+SHIFT+left "Select to line start"  { auto_consuming = true, repeating = true }  lua
-SUPER+SHIFT+m "⌘⇧M sent as Ctrl+Shift+M"  { auto_consuming = true }  lua
+SUPER+SHIFT+m "⇧⌘M sent as Ctrl+Shift+M"  { auto_consuming = true }  lua
 SUPER+SHIFT+minus "Zoom out (VS Code)"  { auto_consuming = true }  lua
-SUPER+SHIFT+mouse:272 "⌘⇧-click sent as Ctrl+Shift-click"  { auto_consuming = true }  lua
-SUPER+SHIFT+mouse:272 (release) "⌘⇧-click release"  { auto_consuming = true }  lua
+SUPER+SHIFT+mouse:272 "⇧⌘-click sent as Ctrl+Shift-click"  { auto_consuming = true }  lua
+SUPER+SHIFT+mouse:272 (release) "⇧⌘-click release"  { auto_consuming = true }  lua
 SUPER+SHIFT+n "New private window or folder"  { auto_consuming = true }  lua
-SUPER+SHIFT+o "⌘⇧O sent as Ctrl+Shift+O"  { auto_consuming = true }  lua
-SUPER+SHIFT+p "⌘⇧P sent as Ctrl+Shift+P"  { auto_consuming = true }  lua
+SUPER+SHIFT+o "⇧⌘O sent as Ctrl+Shift+O"  { auto_consuming = true }  lua
+SUPER+SHIFT+p "⇧⌘P sent as Ctrl+Shift+P"  { auto_consuming = true }  lua
 SUPER+SHIFT+period "Show hidden files (Files)"  { auto_consuming = true }  lua
-SUPER+SHIFT+q "⌘⇧Q not mapped"  { auto_consuming = true }  lua
-SUPER+SHIFT+r "⌘⇧R sent as Ctrl+Shift+R"  { auto_consuming = true }  lua
-SUPER+SHIFT+return "⌘⇧⏎ sent as Ctrl+Shift+Return"  { auto_consuming = true }  lua
+SUPER+SHIFT+q "⇧⌘Q not mapped"  { auto_consuming = true }  lua
+SUPER+SHIFT+r "⇧⌘R sent as Ctrl+Shift+R"  { auto_consuming = true }  lua
+SUPER+SHIFT+return "⇧⌘⏎ sent as Ctrl+Shift+Return"  { auto_consuming = true }  lua
 SUPER+SHIFT+right "Select to line end"  { auto_consuming = true, repeating = true }  lua
 SUPER+SHIFT+s "Save as"  { auto_consuming = true }  lua
-SUPER+SHIFT+semicolon "⌘⇧; sent as Ctrl+Shift+;"  { auto_consuming = true }  lua
+SUPER+SHIFT+semicolon "⇧⌘; sent as Ctrl+Shift+;"  { auto_consuming = true }  lua
 SUPER+SHIFT+slash "Keybindings"  {}  exec_cmd("omarchy-menu-keybindings")
 SUPER+SHIFT+space "Toggle top bar"  {}  exec_cmd("omarchy-toggle-bar")
 SUPER+SHIFT+t "Reopen closed tab"  { auto_consuming = true }  lua
@@ -301,8 +301,8 @@ SUPER+SHIFT+u "Redo selection (Obsidian)"  { auto_consuming = true }  lua
 SUPER+SHIFT+up "Select to document start"  { auto_consuming = true, repeating = true }  lua
 SUPER+SHIFT+v "Paste without formatting"  { auto_consuming = true }  lua
 SUPER+SHIFT+w "Close window"  {}  window.close()
-SUPER+SHIFT+x "⌘⇧X sent as Ctrl+Shift+X"  { auto_consuming = true }  lua
-SUPER+SHIFT+y "⌘⇧Y sent as Ctrl+Shift+Y"  { auto_consuming = true }  lua
+SUPER+SHIFT+x "⇧⌘X sent as Ctrl+Shift+X"  { auto_consuming = true }  lua
+SUPER+SHIFT+y "⇧⌘Y sent as Ctrl+Shift+Y"  { auto_consuming = true }  lua
 SUPER+SHIFT+z "Redo"  { auto_consuming = true, repeating = true }  lua
 SUPER+a "Select all"  { auto_consuming = true }  lua
 SUPER+apostrophe "⌘' sent as Ctrl+'"  { auto_consuming = true }  lua

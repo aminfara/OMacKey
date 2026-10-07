@@ -425,7 +425,7 @@ app({
 - It covers ⌘ and ⇧⌘ + every letter, `` ` - = [ ] \ ; ' , . / `` and ⏎.
 - Every covered chord that no spec and no Omarchy key claims becomes a spec
   sending Ctrl / Ctrl+Shift + the same key, by keycode. Its ids are
-  `catchall-⌘e`, `catchall-⌘⇧p`, `catchall-⌘backslash` (glyph plus key
+  `catchall-⌘e`, `catchall-⇧⌘p`, `catchall-⌘backslash` (glyph plus key
   name), with descriptions such as "⌘E sent as Ctrl+E".
 - Its `consumed` list (⌘H, ⌘M, ⇧⌘Q, ⇧⌘I, ⇧⌘U, ⇧⌘H) does nothing, with the
   description "not mapped".

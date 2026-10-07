@@ -198,9 +198,9 @@ something else (see [Per-app actions](#per-app-actions)).
 | Mac | Key | Description | Action | Differs in | Flags |
 | --- | --- | --- | --- | --- | --- |
 | ⌘-click | `SUPER + mouse:272` | ⌘-click sent as Ctrl-click | Left click with Ctrl held instead of ⌘ |  |  |
-| ⇧⌘-click | `SUPER + SHIFT + mouse:272` | ⌘⇧-click sent as Ctrl+Shift-click | Left click with Ctrl+Shift held instead of ⌘ |  |  |
+| ⇧⌘-click | `SUPER + SHIFT + mouse:272` | ⇧⌘-click sent as Ctrl+Shift-click | Left click with Ctrl+Shift held instead of ⌘ |  |  |
 | ⌘-click release | `SUPER + mouse:272` | ⌘-click release | End the synthetic click; any other release passes through |  | on release |
-| ⇧⌘-click release | `SUPER + SHIFT + mouse:272` | ⌘⇧-click release | End the synthetic click; any other release passes through |  | on release |
+| ⇧⌘-click release | `SUPER + SHIFT + mouse:272` | ⇧⌘-click release | End the synthetic click; any other release passes through |  | on release |
 | click release after ⌘ | `mouse:272` | Click release after ⌘ was let go | End the synthetic click; any other release passes through |  | on release |
 | click release after ⌘ with ⇧ | `SHIFT + mouse:272` | Click release after ⌘ was let go (⇧ held) | End the synthetic click; any other release passes through |  | on release |
 
@@ -219,26 +219,26 @@ same key. A few are deliberately not mapped (see [LIMITATIONS.md](LIMITATIONS.md
 | ⌘; | `SUPER + semicolon` | ⌘; sent as Ctrl+; | Ctrl+; | terminal |  |
 | ⌘' | `SUPER + apostrophe` | ⌘' sent as Ctrl+' | Ctrl+' | terminal |  |
 | ⌘⏎ | `SUPER + RETURN` | ⌘⏎ sent as Ctrl+Return | Ctrl+Return | terminal |  |
-| ⇧⌘A | `SUPER + SHIFT + A` | ⌘⇧A sent as Ctrl+Shift+A | Ctrl+Shift+A | terminal |  |
-| ⇧⌘B | `SUPER + SHIFT + B` | ⌘⇧B sent as Ctrl+Shift+B | Ctrl+Shift+B | terminal |  |
-| ⇧⌘C | `SUPER + SHIFT + C` | ⌘⇧C sent as Ctrl+Shift+C | Ctrl+Shift+C | terminal |  |
-| ⇧⌘E | `SUPER + SHIFT + E` | ⌘⇧E sent as Ctrl+Shift+E | Ctrl+Shift+E | terminal |  |
-| ⇧⌘F | `SUPER + SHIFT + F` | ⌘⇧F sent as Ctrl+Shift+F | Ctrl+Shift+F | terminal |  |
-| ⇧⌘H | `SUPER + SHIFT + H` | ⌘⇧H not mapped | Nothing: the key does nothing | terminal |  |
-| ⇧⌘I | `SUPER + SHIFT + I` | ⌘⇧I not mapped | Nothing: the key does nothing | terminal |  |
-| ⇧⌘K | `SUPER + SHIFT + K` | ⌘⇧K sent as Ctrl+Shift+K | Ctrl+Shift+K | terminal |  |
-| ⇧⌘L | `SUPER + SHIFT + L` | ⌘⇧L sent as Ctrl+Shift+L | Ctrl+Shift+L | terminal |  |
-| ⇧⌘M | `SUPER + SHIFT + M` | ⌘⇧M sent as Ctrl+Shift+M | Ctrl+Shift+M | terminal |  |
-| ⇧⌘O | `SUPER + SHIFT + O` | ⌘⇧O sent as Ctrl+Shift+O | Ctrl+Shift+O | terminal |  |
-| ⇧⌘P | `SUPER + SHIFT + P` | ⌘⇧P sent as Ctrl+Shift+P | Ctrl+Shift+P | terminal |  |
-| ⇧⌘Q | `SUPER + SHIFT + Q` | ⌘⇧Q not mapped | Nothing: the key does nothing | terminal |  |
-| ⇧⌘R | `SUPER + SHIFT + R` | ⌘⇧R sent as Ctrl+Shift+R | Ctrl+Shift+R | terminal |  |
-| ⇧⌘X | `SUPER + SHIFT + X` | ⌘⇧X sent as Ctrl+Shift+X | Ctrl+Shift+X | terminal |  |
-| ⇧⌘Y | `SUPER + SHIFT + Y` | ⌘⇧Y sent as Ctrl+Shift+Y | Ctrl+Shift+Y | terminal |  |
-| ⇧⌘\ | `SUPER + SHIFT + backslash` | ⌘⇧\ sent as Ctrl+Shift+\ | Ctrl+Shift+\ | terminal |  |
-| ⇧⌘; | `SUPER + SHIFT + semicolon` | ⌘⇧; sent as Ctrl+Shift+; | Ctrl+Shift+; | terminal |  |
-| ⇧⌘' | `SUPER + SHIFT + apostrophe` | ⌘⇧' sent as Ctrl+Shift+' | Ctrl+Shift+' | terminal |  |
-| ⇧⌘⏎ | `SUPER + SHIFT + RETURN` | ⌘⇧⏎ sent as Ctrl+Shift+Return | Ctrl+Shift+Return | terminal |  |
+| ⇧⌘A | `SUPER + SHIFT + A` | ⇧⌘A sent as Ctrl+Shift+A | Ctrl+Shift+A | terminal |  |
+| ⇧⌘B | `SUPER + SHIFT + B` | ⇧⌘B sent as Ctrl+Shift+B | Ctrl+Shift+B | terminal |  |
+| ⇧⌘C | `SUPER + SHIFT + C` | ⇧⌘C sent as Ctrl+Shift+C | Ctrl+Shift+C | terminal |  |
+| ⇧⌘E | `SUPER + SHIFT + E` | ⇧⌘E sent as Ctrl+Shift+E | Ctrl+Shift+E | terminal |  |
+| ⇧⌘F | `SUPER + SHIFT + F` | ⇧⌘F sent as Ctrl+Shift+F | Ctrl+Shift+F | terminal |  |
+| ⇧⌘H | `SUPER + SHIFT + H` | ⇧⌘H not mapped | Nothing: the key does nothing | terminal |  |
+| ⇧⌘I | `SUPER + SHIFT + I` | ⇧⌘I not mapped | Nothing: the key does nothing | terminal |  |
+| ⇧⌘K | `SUPER + SHIFT + K` | ⇧⌘K sent as Ctrl+Shift+K | Ctrl+Shift+K | terminal |  |
+| ⇧⌘L | `SUPER + SHIFT + L` | ⇧⌘L sent as Ctrl+Shift+L | Ctrl+Shift+L | terminal |  |
+| ⇧⌘M | `SUPER + SHIFT + M` | ⇧⌘M sent as Ctrl+Shift+M | Ctrl+Shift+M | terminal |  |
+| ⇧⌘O | `SUPER + SHIFT + O` | ⇧⌘O sent as Ctrl+Shift+O | Ctrl+Shift+O | terminal |  |
+| ⇧⌘P | `SUPER + SHIFT + P` | ⇧⌘P sent as Ctrl+Shift+P | Ctrl+Shift+P | terminal |  |
+| ⇧⌘Q | `SUPER + SHIFT + Q` | ⇧⌘Q not mapped | Nothing: the key does nothing | terminal |  |
+| ⇧⌘R | `SUPER + SHIFT + R` | ⇧⌘R sent as Ctrl+Shift+R | Ctrl+Shift+R | terminal |  |
+| ⇧⌘X | `SUPER + SHIFT + X` | ⇧⌘X sent as Ctrl+Shift+X | Ctrl+Shift+X | terminal |  |
+| ⇧⌘Y | `SUPER + SHIFT + Y` | ⇧⌘Y sent as Ctrl+Shift+Y | Ctrl+Shift+Y | terminal |  |
+| ⇧⌘\ | `SUPER + SHIFT + backslash` | ⇧⌘\ sent as Ctrl+Shift+\ | Ctrl+Shift+\ | terminal |  |
+| ⇧⌘; | `SUPER + SHIFT + semicolon` | ⇧⌘; sent as Ctrl+Shift+; | Ctrl+Shift+; | terminal |  |
+| ⇧⌘' | `SUPER + SHIFT + apostrophe` | ⇧⌘' sent as Ctrl+Shift+' | Ctrl+Shift+' | terminal |  |
+| ⇧⌘⏎ | `SUPER + SHIFT + RETURN` | ⇧⌘⏎ sent as Ctrl+Shift+Return | Ctrl+Shift+Return | terminal |  |
 
 ## Per-app actions
 

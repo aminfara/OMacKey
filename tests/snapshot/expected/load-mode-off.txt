@@ -1,4 +1,4 @@
-status: off (Omarchy defaults; toggle: ⌃⌘⇧M or scripts/omackey-mode on)
+status: off (Omarchy defaults; toggle: ⌃⇧⌘M or scripts/omackey-mode on)
 subscribed at load: hyprland.start ×1
 subscribed at load: layer.closed ×1
 subscribed at load: layer.opened ×1

@@ -15,7 +15,7 @@ function M.install(omackey)
   -- One-line summary for scripts/check.sh.
   function omackey.status()
     if omackey.off then
-      return "off (Omarchy defaults; toggle: ⌃⌘⇧M or scripts/omackey-mode on)"
+      return "off (Omarchy defaults; toggle: ⌃⇧⌘M or scripts/omackey-mode on)"
     end
 
     local relocate = package.loaded["hypr.omackey.lib.relocate"]
