@@ -4,7 +4,8 @@
 #   scripts/check.sh            reload, config errors, OMacKey status, duplicate binds
 #   scripts/check.sh <text>     also search Omarchy's keybindings menu for <text>
 #
-# Exits non-zero when something needs attention.
+# Exits non-zero when something needs attention. What each bind does is checked
+# offline, without Hyprland, by scripts/snapshot.sh (docs/TESTING.md).
 
 set -uo pipefail
 

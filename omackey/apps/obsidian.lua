@@ -1,7 +1,7 @@
 -- Obsidian (class md.obsidian.Obsidian here). Its hotkeys use "Mod" (Ctrl on
 -- Linux, ⌘ on the Mac), so most Mac keys work through the generic entries.
--- These are the few that differ. Read from the installed app.js (PLAN.md §9
--- F16).
+-- These are the few that differ. Read from the installed app.js
+-- (docs/FINDINGS.md F16).
 
 local app = require("hypr.omackey.lib.profiles").app
 local tap = require("hypr.omackey.lib.send").tap

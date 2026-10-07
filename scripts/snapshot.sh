@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Behaviour snapshot of OMacKey (REFACTOR.md R0). Loads Omarchy's defaults plus
+# Behaviour snapshot of OMacKey (docs/TESTING.md). Loads Omarchy's defaults plus
 # an OMacKey tree under a fake Hyprland (tests/snapshot/mock.lua), presses every
 # bind in every test app and writes down what it does; then compares that with
 # the expected output. Needs lua5.5 and Omarchy's files; Hyprland need not run.
@@ -143,7 +143,7 @@ for name in "${frozen[@]}" "${reported[@]}"; do
         echo "✗ $file differs (frozen):"
         status=1
       else
-        echo "• $file differs (reported, allowed when the phase declares it):"
+        echo "• $file differs (reported: allowed, review it before --update):"
       fi
       cat "$scratch/diff"
     fi

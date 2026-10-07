@@ -1,5 +1,5 @@
 -- Holds a virtual Ctrl for a moment, so a physical ⌘ + scroll tick reaches the
--- app as Ctrl + scroll (browser zoom, Phase 7g, PLAN.md §9 F19–F20).
+-- app as Ctrl + scroll (browser zoom; docs/FINDINGS.md F19, F20, F24).
 --
 -- Hyprland can't give a pointer event a modifier of its own, but `wtype -M ctrl
 -- -s MS` presses Ctrl on a virtual keyboard for MS milliseconds and releases it

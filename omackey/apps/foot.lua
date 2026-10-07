@@ -1,4 +1,4 @@
--- foot. Shortcuts from foot.ini(5) (PLAN.md §9 F10). foot has no tabs or
+-- foot. Shortcuts from foot.ini(5) (docs/FINDINGS.md F10). foot has no tabs or
 -- splits; everything not listed here falls back to apps/terminal.lua.
 
 local app = require("hypr.omackey.lib.profiles").app

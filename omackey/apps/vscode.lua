@@ -2,7 +2,7 @@
 -- Its Mac keybindings use ⌘ where the Linux ones use Ctrl, so most keys work
 -- through the generic entries. These are the keys whose Linux chord differs
 -- from the Mac's. Read from the installed workbench.desktop.main.js, Mac and
--- Linux keymaps compared (PLAN.md §9 F13, F15).
+-- Linux keymaps compared (docs/FINDINGS.md F13, F15).
 --
 -- Hyprland sees one window for the editor and its integrated terminal, so
 -- keys that would break the terminal use terminal-safe chords or pass (F12).
@@ -32,7 +32,7 @@ app({
     ["zoom-out-shifted"] = tap("CTRL", "minus"),
     -- Browser keys with a VS Code meaning
     -- Ctrl+Shift+I is Format Document whenever the editor has focus, so DevTools
-    -- would reformat the file instead (§9 F11).
+    -- would reformat the file instead (F11).
     ["devtools"] = CONSUME,
     ["devtools-inspect"] = tap("ALT", "C"), -- ⌘⌥C: find widget, match case
     ["bookmark-manager"] = tap("CTRL + ALT", "B"), -- ⌘⌥B: toggle the secondary side bar

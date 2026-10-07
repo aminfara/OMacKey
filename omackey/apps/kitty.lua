@@ -1,5 +1,5 @@
 -- kitty. Shortcuts from kitty's effective keymap, dumped with `kitty +runpy`
--- (PLAN.md §9 F10). Everything not listed here falls back to
+-- (docs/FINDINGS.md F10). Everything not listed here falls back to
 -- apps/terminal.lua.
 
 local app = require("hypr.omackey.lib.profiles").app

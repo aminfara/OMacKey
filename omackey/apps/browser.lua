@@ -1,5 +1,6 @@
 -- Browsers: the Chromium family, and Firefox where it agrees. Shortcuts from
--- Chrome's keyboard-shortcut page, Mac and Linux columns (PLAN.md §9 F11).
+-- Chrome's keyboard-shortcut page, Mac and Linux columns (docs/FINDINGS.md
+-- F11).
 
 local app = require("hypr.omackey.lib.profiles").app
 local tap = require("hypr.omackey.lib.send").tap

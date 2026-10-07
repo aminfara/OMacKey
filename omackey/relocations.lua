@@ -1,5 +1,5 @@
 -- Omarchy default binds moved off keys that macOS needs, or dropped where
--- OMacKey's own bind replaces them (PLAN.md §6).
+-- OMacKey's own bind replaces them.
 --
 -- `from` is Omarchy's key as written in
 -- /usr/share/omarchy/default/hypr/bindings/*.lua (matching ignores modifier
@@ -19,7 +19,7 @@ local relocations = {
   { from = "SUPER + V", drop = true }, -- Universal paste
   { from = "SUPER + X", drop = true }, -- Universal cut
 
-  -- Window management → ⌃⌥ (PLAN.md §6.1)
+  -- Window management → ⌃⌥
   { from = "SUPER + W", to = "CTRL + ALT + W" }, -- Close window (⌘W: close tab)
   { from = "SUPER + J", to = "CTRL + ALT + J" }, -- Toggle window split
   { from = "SUPER + P", to = "CTRL + ALT + P" }, -- Pseudo window
@@ -41,8 +41,8 @@ local relocations = {
 
   -- Arrows: ⌃ moves focus and ⌃⇧ takes the window along, within the
   -- workspace (the most frequent tiling actions get the cheapest chord);
-  -- ⌃⌥ / ⌃⌥⇧ do the same one level up, between workspaces (§6.2; the
-  -- Spaces section of shortcuts.lua).
+  -- ⌃⌥ / ⌃⌥⇧ do the same one level up, between workspaces (the arrow rule,
+  -- docs/ARCHITECTURE.md §2; the Spaces section of shortcuts.lua).
   { from = "SUPER + LEFT", to = "CTRL + LEFT" }, -- Focus window
   { from = "SUPER + RIGHT", to = "CTRL + RIGHT" },
   { from = "SUPER + UP", to = "CTRL + UP" },
@@ -86,12 +86,12 @@ local relocations = {
   { from = "SUPER + ALT + code:34", to = "CTRL + ALT + code:34" }, -- Webcam overlay smaller (⌘⌥[: fold)
   { from = "SUPER + ALT + code:35", to = "CTRL + ALT + code:35" }, -- Webcam overlay larger
 
-  -- Spaces (§6.2): numbers on ⌃ like macOS, arrows on ⌃⌥.
+  -- Spaces: numbers on ⌃ like macOS, arrows on ⌃⌥.
   -- shortcuts.lua (Spaces) adds ⌃⌥↑/↓ and the ⌃⌥⇧ arrows.
   { from = "SUPER + TAB", to = "CTRL + ALT + RIGHT" }, -- Next workspace (⌘Tab: switch window)
   { from = "SUPER + SHIFT + TAB", to = "CTRL + ALT + LEFT" }, -- Previous workspace
 
-  -- §6.3 Launchers → ⌃⌥⌘ + Omarchy's letter, ⌃⌥⌘⇧ for the SUPER+SHIFT+ALT
+  -- Launchers → ⌃⌥⌘ + Omarchy's letter, ⌃⌥⌘⇧ for the SUPER+SHIFT+ALT
   -- variants. Frees ⌘⏎ and ⌘⇧ + letters for apps.
   { from = "SUPER + RETURN", to = "SUPER + CTRL + ALT + RETURN" }, -- Terminal
   { from = "SUPER + SHIFT + RETURN", to = "SUPER + CTRL + ALT + SHIFT + RETURN" }, -- Browser
@@ -129,7 +129,7 @@ local relocations = {
   { from = "SUPER + CTRL + ALT + W", to = "SUPER + CTRL + SHIFT + W" }, -- Toggle weather
   { from = "SUPER + CTRL + ALT + D", to = "SUPER + CTRL + SHIFT + D" }, -- Calendar panel
 
-  -- Utilities & help (§6.4).
+  -- Utilities & help.
   { from = "SUPER + K", to = "SUPER + SHIFT + slash" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps
   -- Next to ⌘⇧, (dismiss all) and the ⌃⌘⇧ info popups; ⌘, is preferences.
   -- xkbcommon names the keysym "comma"; upper-case "COMMA" does not match.

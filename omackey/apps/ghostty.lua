@@ -1,5 +1,5 @@
 -- Ghostty. Shortcuts from `ghostty +list-keybinds --default` (Linux) and the
--- macOS defaults in Ghostty's src/config/Config.zig (PLAN.md §9 F10).
+-- macOS defaults in Ghostty's src/config/Config.zig (docs/FINDINGS.md F10).
 -- Everything not listed here falls back to apps/terminal.lua.
 
 local app = require("hypr.omackey.lib.profiles").app
@@ -15,11 +15,11 @@ local actions = {
   -- Editing
   ["select-all"] = tap("CTRL + SHIFT", "A"),
   -- Scrollback search. ⌘G / ⌘⇧G stay consumed: they only mean something while
-  -- a search is open, which Hyprland can't tell (§9 F10).
+  -- a search is open, which Hyprland can't tell (F10).
   ["find"] = tap("CTRL + SHIFT", "F"),
   -- Windows and tabs
   -- Close the tab (the last one closes the window); it also closes a whole tab
-  -- of splits (§9 F10).
+  -- of splits (F10).
   ["close-tab"] = tap("CTRL + SHIFT", "W"),
   ["new-tab"] = tap("CTRL + SHIFT", "T"),
   ["previous-tab"] = tap("CTRL", "Page_Up"),
@@ -27,7 +27,7 @@ local actions = {
   ["previous-tab-arrow"] = tap("CTRL", "Page_Up"),
   ["next-tab-arrow"] = tap("CTRL", "Page_Down"),
   -- Ghostty's own Ctrl+, runs xdg-open, which starts nvim without a terminal
-  -- and shows nothing (§9 F10), so ⌘, opens the config in Omarchy's editor.
+  -- and shows nothing (F10), so ⌘, opens the config in Omarchy's editor.
   ["preferences"] = does("Open Ghostty's config file in Omarchy's editor", function()
     hl.dispatch(hl.dsp.exec_cmd('omarchy-launch-editor "$HOME/.config/ghostty/config"'))
   end),

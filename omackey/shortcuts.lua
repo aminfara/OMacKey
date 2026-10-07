@@ -1,5 +1,5 @@
 -- Every Mac shortcut OMacKey adds, declared once, one section per group of
--- Mac meaning (PLAN.md §5). Each spec says what the key does in a generic app
+-- Mac meaning. Each spec says what the key does in a generic app
 -- (`default`, or `action` when it is the same in every app); apps/*.lua add
 -- per-app entries by id. The section a spec sits in is its category.
 --
@@ -774,7 +774,7 @@ group("Navigation", {
   -- Obsidian and Nautilus open their settings on Ctrl+, . The Chromium family has
   -- no settings key and turns a chrome:// URL given on the command line into a
   -- blank tab, so there ⌘, sends the generic Ctrl+, (some web apps use it) and
-  -- settings stay unmapped (§7).
+  -- settings stay unmapped (docs/LIMITATIONS.md).
   mac({
     id = "preferences",
     keys = "SUPER + comma",
@@ -922,7 +922,8 @@ group("Developer tools", {
 
 group("Terminal", {
   -- Clear screen. Ghostty on the Mac clears the screen and all scrollback; Ctrl+L
-  -- only clears the visible screen, so the scrollback stays (§7).
+  -- only clears the visible screen, so the scrollback stays
+  -- (docs/LIMITATIONS.md).
   mac({
     id = "clear-screen",
     keys = "SUPER + K",
@@ -954,7 +955,7 @@ group("Terminal", {
 })
 
 -- Spaces ----------------------------------------------------------------------
--- Workspaces (Mac "Spaces"), PLAN.md §6.2. The same in every app.
+-- Workspaces (Mac "Spaces"). The same in every app.
 --
 -- Arrow rule: ⌃ moves focus between windows and ⌃⇧ takes the window along
 -- (relocations.lua); ⌥ steps up a level to workspaces, so ⌃⌥ switches
@@ -1011,7 +1012,7 @@ group("Spaces", {
 })
 
 -- System ----------------------------------------------------------------------
--- OS controls (PLAN.md §5). The same in every app.
+-- OS controls. The same in every app.
 
 group("System", {
   mac({
@@ -1087,8 +1088,8 @@ group("System", {
   }),
 
   -- Mac F-row keys that Omarchy leaves unbound. The keysyms are what the NuPhy
-  -- sends in Mac mode (PLAN §9 F9). The rest of the row (brightness, media,
-  -- volume) already works through Omarchy's XF86 binds.
+  -- sends in Mac mode (docs/FINDINGS.md F9). The rest of the row (brightness,
+  -- media, volume) already works through Omarchy's XF86 binds.
 
   -- F6: Do Not Disturb.
   mac({
@@ -1133,8 +1134,8 @@ group("System", {
 
 -- Mouse -----------------------------------------------------------------------
 -- ⌘ + click and ⌘ + scroll reach apps as Ctrl + click and Ctrl + scroll
--- (⌘-click: new tab, multi-select, go to definition; ⌘ + scroll: zoom), PLAN.md
--- §5. Omarchy's own ⌘ + mouse binds are on ⌃⌥ (relocations.lua).
+-- (⌘-click: new tab, multi-select, go to definition; ⌘ + scroll: zoom).
+-- Omarchy's own ⌘ + mouse binds are on ⌃⌥ (relocations.lua).
 --
 -- Click: the real ⌘ + press and its release are consumed, and the same button
 -- events are sent again with explicit Ctrl in `mods` (a synthetic event carries
@@ -1222,7 +1223,7 @@ group("Mouse", {
 })
 
 -- Emacs keys ------------------------------------------------------------------
--- Emacs-style ⌃ keys for text fields (PLAN.md §5), as in every Mac text field.
+-- Emacs-style ⌃ keys for text fields, as in every Mac text field.
 -- Controlled by the `emacs_keys` setting (settings.lua): declared either way,
 -- bound only when it is on.
 --

@@ -1,5 +1,6 @@
--- LibreOffice. Accelerators from share/registry/main.xcd (PLAN.md §9 F17):
--- the generic F3 / Shift+F3 and a few Ctrl chords mean something else here.
+-- LibreOffice. Accelerators from share/registry/main.xcd (docs/FINDINGS.md
+-- F17, F23): the generic F3 / Shift+F3 and a few Ctrl chords mean something
+-- else here.
 -- Its dialogs (Options, Paste Special) have class `soffice`.
 
 local app = require("hypr.omackey.lib.profiles").app

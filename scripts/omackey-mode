@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Switch OMacKey on or off without uninstalling it (PLAN.md 7d).
+# Switch OMacKey on or off without uninstalling it (lib/mode.lua).
 #
 #   scripts/omackey-mode off      Omarchy's own keys come back
 #   scripts/omackey-mode on       the Mac keys come back

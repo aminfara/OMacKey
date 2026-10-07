@@ -1,4 +1,4 @@
--- Nautilus (Files): where its keys differ from Finder's (PLAN.md §9 F5).
+-- Nautilus (Files): where its keys differ from Finder's (docs/FINDINGS.md F5).
 
 local app = require("hypr.omackey.lib.profiles").app
 local bind = require("hypr.omackey.lib.bind")

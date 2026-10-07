@@ -5,7 +5,7 @@
 #
 # Usage: tests/snapshot/selftest.sh      (takes about two minutes)
 #
-# The edits find their target by a text pattern. When a refactoring phase moves
+# The edits find their target by a text pattern. When a change moves
 # or rewrites that text, the case reports "pattern not found": update the case
 # so it still makes the same kind of change.
 
