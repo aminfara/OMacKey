@@ -4,8 +4,8 @@
 --
 -- A terminal has no ⌘ chords of its own, and most Ctrl chords mean something
 -- else there (readline, job control, flow control), so a Mac shortcut either
--- gets the terminal's own equivalent or is consumed (D5). That includes every
--- catch-all key.
+-- gets the terminal's own equivalent (⌘←/→ Home/End, ⌥←/→ Ctrl+←/→, ⌘=/-/0
+-- Ctrl+=/-/0) or is consumed (D5). Every catch-all key is consumed.
 
 local bind = require("hypr.omackey.lib.bind")
 local app = require("hypr.omackey.lib.profiles").app

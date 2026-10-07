@@ -29,7 +29,7 @@
 --   mac({
 --     id = "close-window",
 --     keys = "SUPER + SHIFT + W", desc = "Close window",
---     action = hl.dsp.window.close(),    -- a dispatcher is bound natively
+--     action = does("Close the window", hl.dsp.window.close()), -- bound natively
 --   })
 --
 -- An action is a function (it may return { ok = false } to pass the key

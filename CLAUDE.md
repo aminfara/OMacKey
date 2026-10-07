@@ -75,7 +75,7 @@ keys. Don't run ahead into later roadmap items.
   Reading them is encouraged; they're the real reference for the defaults and
   the API.
 - **The user's `~/.config/hypr`** is touched only by `install.sh` /
-  `uninstall.sh`: marker-delimited lines in `hyprland.lua` plus the
+  `uninstall.sh`: marker-delimited loader blocks in `hyprland.lua` plus the
   `~/.config/hypr/omackey` symlink.
   - Ask before editing any other user config: `input.lua`, `bindings.lua`,
     terminal configs, VS Code or Firefox settings, the OMacKey settings file.

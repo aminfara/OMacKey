@@ -23,7 +23,7 @@ are tired of translating shortcuts in their head.
 | --- | --- |
 | ⌘ | app shortcuts and text navigation |
 | ⌥ | word navigation (Meta keeps working in bash, tmux and nvim) |
-| ⌃ | passes through to apps; ⌃ + arrows move focus, ⌃1–0 pick a workspace |
+| ⌃ | passes through to apps; ⌃ + arrows move focus, ⌃1–0 pick a workspace; Emacs keys (⌃A/E/F/B/N/P/D/H/K) in text fields, on by default |
 | ⌃⌥ | window management: resize, float, fullscreen, workspaces |
 | ⌃⌘ | Omarchy utilities |
 | ⌃⌥⌘ | app launchers, on Omarchy's own letters |
@@ -104,7 +104,7 @@ blocks. Run `./install.sh` again afterwards.
 The key then reaches your apps again:
 
 ```lua
-hl.unbind("SUPER + CTRL + UP")
+hl.unbind("CTRL + UP")
 ```
 
 **Settings.** An optional file, `~/.config/omackey/settings.lua`, returns the

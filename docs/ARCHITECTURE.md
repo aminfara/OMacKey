@@ -65,12 +65,12 @@ between a work Mac and an Omarchy machine needs no mental remapping.
 | Mac key | Linux mod | Role in OMacKey |
 | --- | --- | --- |
 | ⌘ | `SUPER` | App shortcuts, translated to Ctrl (Ctrl+Shift or Insert variants in terminals). Text navigation (⌘ arrows, ⌘⌫). A few Mac system shortcuts: ⌘Space, ⌘Tab, ⌘\`, ⌘Q, ⇧⌘3/4/5, ⌘? |
-| ⌥ | `ALT` | Word navigation and deletion (⌥←/→, ⌥⇧←/→, ⌥⌫, ⌥⌦). Everything else passes through, so Meta keeps working in bash, tmux and nvim. No Mac special characters |
+| ⌥ | `ALT` | Word navigation and deletion (⌥←/→, ⌥⇧←/→, ⌥⌫, ⌥⌦). Only VS Code also binds ⌥⇧A and ⌥⇧↑/↓ (block comment, copy line); they pass through elsewhere. Everything else passes through, so Meta keeps working in bash, tmux and nvim. No Mac special characters |
 | ⌃ | `CTRL` | Passes through to apps (⌃C in terminals, ⌃Tab, ⌃G in VS Code), except ⌃ + arrows (focus window), ⌃⇧ + arrows (swap window), ⌃1–0 / ⌃⇧1–0 (go to / move to workspace N, as macOS ⌃1–9), and the opt-in Emacs keys (`emacs_keys`, on by default) |
 | ⌃⌥ | `CTRL + ALT` | Window management, Rectangle/Magnet style: resize, float, fullscreen variants, groups, scratchpad, layout toggle, close; ⌃⌥-drag moves and ⌃⌥-right-drag resizes a window. One level up from ⌃: ⌃⌥ + arrows switch workspace, ⌃⌥⇧ + arrows take the window along |
 | ⌃⌘ | `SUPER + CTRL` | Omarchy system utilities, panels and toggles (mostly unchanged), plus the Mac ⌃⌘ shortcuts: ⌃⌘F full screen, ⌃⌘Q lock, ⌃⌘Space emoji |
 | ⌃⌥⌘ | `SUPER + CTRL + ALT` | App launchers, keeping Omarchy's letters (B browser, F files, N editor …); ⌃⌥⇧⌘ holds the variants that were `SUPER + SHIFT + ALT` |
-| ⌃⇧⌘ | `SUPER + CTRL + SHIFT` | Omarchy's info popups that collided with launcher letters (battery, weather, calendar, time), Omarchy's own ⌃⇧⌘ binds (theme menu, agent, reminders), and the Mac-mode toggle ⌃⇧⌘M |
+| ⌃⇧⌘ | `SUPER + CTRL + SHIFT` | Omarchy's info popups that collided with launcher letters (battery, weather, calendar, time), Omarchy's own ⌃⇧⌘ binds (theme menu, agent, reminders), ⌃⇧⌘3 / ⌃⇧⌘4 (screenshot to clipboard), ⌃⇧⌘←/→ (shrink / expand selection, VS Code), and the Mac-mode toggle ⌃⇧⌘M |
 
 **The arrow rule** (user's decision, 2026-10-02):
 
@@ -106,8 +106,10 @@ key names except for digits and the punctuation keys Omarchy binds by keycode.
 
 **D5 — Terminals.** They are detected by Omarchy's `terminal` window tag.
 ⌘C / ⌘V send Ctrl+Insert / Shift+Insert, as Omarchy does. ⌘Z and ⌘X are never
-sent as Ctrl+Z (SIGTSTP) or Ctrl+X. Any ⌘ chord without a terminal action is
-consumed, as on macOS, where ⌘ never reaches the shell.
+sent as Ctrl+Z (SIGTSTP) or Ctrl+X. Catch-all chords (⌘ / ⇧⌘ + a key that no
+spec claims) are consumed in terminals, as on macOS, where ⌘ never reaches the
+shell. Named shortcuts get the terminal's own equivalent where there is one:
+⌘←/→ send Home/End, ⌥←/→ send Ctrl+←/→, ⌘= / ⌘- / ⌘0 send Ctrl+= / - / 0.
 
 **D6 — One global bind per key.** At press time the bind works out the active
 window's app and runs that app's action. An action can return `{ ok = false }`
@@ -119,7 +121,7 @@ bound or unbound on focus changes.
 moved from `SUPER + K` to ⌘? (`SUPER + SHIFT + slash`), because apps need ⌘K.
 
 **D8 — Install.** `install.sh` symlinks the repo's `omackey/` to
-`~/.config/hypr/omackey` and adds two marker-delimited loader lines to
+`~/.config/hypr/omackey` and adds two marker-delimited loader blocks (three lines each) to
 `~/.config/hypr/hyprland.lua`; `uninstall.sh` removes both. OMacKey loads after
 Omarchy's defaults and before the user's `hypr.bindings`, so the user's own
 overrides still win.
@@ -144,7 +146,7 @@ asks (ROADMAP.md).
 
 - A user opts *out* of an OMacKey default by unbinding it in
   `~/.config/hypr/bindings.lua`, which loads after OMacKey:
-  `hl.unbind("SUPER + CTRL + UP")`. The key then reaches apps again.
+  `hl.unbind("CTRL + UP")`. The key then reaches apps again.
 - Options are only for opt-*in* extras or tuning (`settings.lua`, §8). There
   are no options for removing defaults.
 - So the docs must show the exact key string of every bind: `hl.unbind`
@@ -418,8 +420,8 @@ app({
 - It covers ⌘ and ⇧⌘ + every letter, `` ` - = [ ] \ ; ' , . / `` and ⏎.
 - Every covered chord that no spec and no Omarchy key claims becomes a spec
   sending Ctrl / Ctrl+Shift + the same key, by keycode. Its ids are
-  `catchall-⌘E`, `catchall-⌘⇧P`, with descriptions such as "⌘E sent as
-  Ctrl+E".
+  `catchall-⌘e`, `catchall-⌘⇧p`, `catchall-⌘backslash` (glyph plus key
+  name), with descriptions such as "⌘E sent as Ctrl+E".
 - Its `consumed` list (⌘H, ⌘M, ⇧⌘Q, ⇧⌘I, ⇧⌘U, ⇧⌘H) does nothing, with the
   description "not mapped".
 - ⌘ digits are claimed by the tab keys; ⇧⌘ digits are not covered (⇧⌘3/4/5
@@ -492,16 +494,21 @@ The relocated groups, in file order:
 
 - dropped ⌘C / ⌘V / ⌘X (RD2);
 - window management → ⌃⌥;
-- focus and swap → ⌃ / ⌃⇧ arrows;
-- workspaces → ⌃ digits and ⌃⌥ arrows;
+- mouse → ⌃⌥ (drag, scroll) and ⌃⌥⌘ (group scroll);
+- arrows: focus and swap → ⌃ / ⌃⇧; move into group → ⌃⌥⌘; move workspace to
+  monitor → ⌃⌥⇧⌘;
+- groups (⌘G, ⌥⌘G) and scratchpad (⌘S, ⌥⌘S) → ⌃⌥ / ⌃⌥⇧;
+- resize ±100 px → ⌃⌥ / ⌃⌥⇧, ±300 px → ⌃⌥⌘ / ⌃⌥⇧⌘; monitor scaling,
+  transparency, gaps and webcam overlay → ⌃⌥ / ⌃⌥⇧;
+- ⌘Tab / ⇧⌘Tab (next / previous workspace) → ⌃⌥ arrows;
 - launchers → ⌃⌥⌘ + Omarchy's letter;
 - info popups → ⌃⇧⌘;
-- help → ⌘?;
-- the Omarchy utilities that sat on Mac keys;
-- mouse → ⌃⌥.
+- help → ⌘?, dismiss last notification (⌘,) → ⌃⇧⌘, calculator and background
+  switcher → ⌃⌥⌘ (frees ⌃⌘Q lock and ⌃⌘Space emoji);
+- workspace digits (⌘1–0, ⇧⌘1–0, ⌥⇧⌘1–0) → ⌃ / ⌃⇧ / ⌃⌥⇧.
 
-Omarchy's ±25 px resize (⌥⌘-/=), group keys, notification keys, PRINT, media
-and power keys don't collide and stay (D9).
+Omarchy's ±25 px resize (⌥⌘-/=), PRINT, media and power keys don't collide and
+stay (D9).
 
 ## 8. Settings and the Mac-mode toggle
 
