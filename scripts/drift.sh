@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Drift check after `omarchy update` (docs/ROADMAP.md 8.3): shows how Omarchy's
+# Drift check after `omarchy update` (docs/TESTING.md §1): shows how Omarchy's
 # own bindings differ from the ones tests/snapshot/expected was recorded
 # against, and which new or changed ones sit on a key OMacKey uses.
 #

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Lint pass (docs/ROADMAP.md 8.4). Needs only luac5.5 and bash; the luacheck
+# Lint pass (docs/TESTING.md §2). Needs only luac5.5 and bash; the luacheck
 # and shellcheck tools are used too when installed.
 #
 #   scripts/lint.sh

@@ -10,7 +10,7 @@ Related documents:
 - [FINDINGS.md](FINDINGS.md): facts learned about Hyprland, Omarchy and the
   apps (F0–F26).
 - [LIMITATIONS.md](LIMITATIONS.md): what is not mapped, and why.
-- [ROADMAP.md](ROADMAP.md): what is left to build.
+- [ROADMAP.md](ROADMAP.md): what is left to build (only optional items).
 
 Notation:
 
