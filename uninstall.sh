@@ -35,6 +35,11 @@ elif [[ -e $link ]]; then
   echo "Left $link in place: it is not a symlink created by install.sh" >&2
 fi
 
+if [[ $(git -C "$(dirname "$0")" config --get core.hooksPath 2>/dev/null) == .githooks ]]; then
+  git -C "$(dirname "$0")" config --unset core.hooksPath
+  echo "Disabled git hooks (core.hooksPath)"
+fi
+
 if ((reload)) && command -v hyprctl >/dev/null; then
   hyprctl reload >/dev/null
   errors=$(hyprctl configerrors)

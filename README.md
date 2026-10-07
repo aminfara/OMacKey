@@ -82,7 +82,9 @@ The script does two things, and you can do them yourself.
 ## What it touches, and how to remove it
 
 - **It adds** one symlink (`~/.config/hypr/omackey`) and the two marker-delimited
-  blocks above in `hyprland.lua`.
+  blocks above in `hyprland.lua`. In a git checkout it also sets
+  `core.hooksPath` to `.githooks` (the pre-commit docs check); `uninstall.sh`
+  unsets it.
 - **It never edits** anything under `/usr/share/omarchy` or `/usr/share/hypr`,
   and it runs no daemon.
 - **Your files win.** Your own `~/.config/hypr/bindings.lua` loads after

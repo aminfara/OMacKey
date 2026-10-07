@@ -188,7 +188,7 @@ local function problem(spec)
   end
   for profile, action in pairs(spec.actions or {}) do
     if profile ~= "default" and not profiles.by_name[profile] then
-      return "has an unknown app profile '" .. tostring(profile) .. "'"
+      return "has an unknown app '" .. tostring(profile) .. "'"
     end
     if flaw(action) then
       return "has an action for " .. profile .. " that " .. flaw(action)
@@ -339,7 +339,7 @@ local function run(spec)
     end
   end
 
-  -- No action for any profile: behave as if the bind did not exist.
+  -- No action for any app in the chain: behave as if the bind did not exist.
   return { ok = false }
 end
 

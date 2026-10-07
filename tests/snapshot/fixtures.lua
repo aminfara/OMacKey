@@ -1,5 +1,5 @@
 -- Fake windows for the snapshot harness. Written independently of OMacKey's
--- app profiles, so matching a window to its profile is under test too. Tags
+-- app profiles, so matching a window to its app is under test too. Tags
 -- are in the form Hyprland reports them: dynamic tags end in "*".
 
 local M = {}

@@ -126,6 +126,7 @@ scripts/lint.sh                        # syntax, unknown globals, no print at lo
 scripts/check.sh                       # reload, configerrors, omackey.status(), duplicate binds
 scripts/check.sh "line start"          # … plus a help-menu (omarchy menu keybindings) search
 scripts/snapshot.sh                    # behaviour snapshot
+lua5.5 scripts/gen-docs.lua            # regenerate docs/KEYBINDINGS.md (pre-commit hook blocks a stale one)
 hyprctl binds | grep -B8 -A4 'description: Line start'   # flags: e=repeat a=auto_consuming d=desc
 ```
 
@@ -163,7 +164,7 @@ receives: keysym, keycode, modifiers, cursor and selection.
    `DBUS_SESSION_BUS_ADDRESS=disabled: scripts/keylog.py --log <scratchpad>/keylog.txt &`.
    keylog is single-instance, so a plain second launch would only focus the
    user's open one and log nothing. The private copy's class is `keylog.py`
-   (F2).
+   (F3; the single-instance fact is F2).
 2. Focus it by pid: `hyprctl dispatch 'hl.dsp.focus({ window = "pid:<pid>" })'`.
 3. **Check focus and trigger in one command.** Focus jumps back to VS Code
    between tool calls, and stray keys would land in the user's editor:

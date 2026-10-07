@@ -2,7 +2,8 @@
 
 Facts learned while building OMacKey: spike results, Hyprland and Omarchy
 behaviour, app quirks, and test recipes. Each entry is dated. Phase labels in
-the headings (6a, 7g …) are the build phases in ARCHITECTURE.md §13. Code
+the headings (6a, 7g …) are historical sub-phase labels of the build (Phases
+0–7 in ARCHITECTURE.md §13; the sub-phases are not listed there). Code
 comments cite entries by number (F10), so numbers are never reused: a new
 finding gets the next number.
 
@@ -344,14 +345,14 @@ Contents:
   Omarchy's editor (`omarchy-launch-editor`) in a second window of the same
   process. Lesson: a terminal action that spawns another program needs a test
   that watches `ps` and the window list, not only a "handled" result.
-- **The profile chain** `{ "ghostty", "terminal", "default" }`: Ghostty,
+- **The app chain** `{ "ghostty", "terminal", "default" }`: Ghostty,
   kitty and foot each have `family = "terminal"` (`lib/profiles.lua`). Omarchy's TUI
   windows (`org.omarchy.*`) run in whichever terminal is the default but keep
-  the generic profile.
+  the generic action.
 - **Test recipes** (throwaway windows, pid-guarded, each launched and killed by
   the test):
   - `ghostty --gtk-single-instance=false -e bash -c '…'` is its own process
-    with the normal class, so the profile matches. A first command that sets the
+    with the normal class, so the app matches. A first command that sets the
     title with `printf '\033]2;ONE\a'` makes the active tab readable from
     `hyprctl clients -j` (a new tab's shell shows its cwd): used for ⌘T, ⌘1–9,
     ⌘⇧[ ], ⌘⌥← →, ⌘W.
@@ -400,7 +401,7 @@ Contents:
   Format Document (`kbExpr: editorTextFocus`, `linux: { primary: 3111 }`), and
   it wins with the editor focused. Read from the installed
   `workbench.desktop.main.js`. So the synthetic key would reformat the file, not
-  open DevTools. VS Code now consumes ⌘⌥I (profile `vscode`); DevTools stay on
+  open DevTools. VS Code now consumes ⌘⌥I (app `vscode`); DevTools stay on
   the command palette (`Developer: Toggle Developer Tools`) or Help menu.
 - **Test recipes.** Chromium: `chromium --user-data-dir=DIR --no-first-run
   --remote-debugging-port=PORT`; `curl localhost:PORT/json` lists the tabs, so
@@ -412,11 +413,11 @@ Contents:
 
 ## F12 — VS Code's integrated terminal (found by the user, 2026-10-05)
 
-Hyprland sees one `com.microsoft.VSCode` window, so a profile can't tell the
+Hyprland sees one `com.microsoft.VSCode` window, so an app can't tell the
 editor from the integrated terminal. `Ctrl+C` there is SIGINT and `Ctrl+V` a
 literal-next. `Ctrl+Insert` / `Shift+Insert` are VS Code's Windows/Linux
 copy/paste defaults in the editor and also work in the terminal, so ⌘C / ⌘V
-use them under profile `vscode`. Other ⌘ keys still reach the terminal as
+use them under app `vscode`. Other ⌘ keys still reach the terminal as
 Ctrl chords (LIMITATIONS.md).
 
 ## F13 — VS Code keys (6c, 2026-10-05)
@@ -447,7 +448,7 @@ Ctrl chords (LIMITATIONS.md).
   instead of using a fixed list.
 - **`hl` has no bind-listing call** at load time (`hl.get_keybinds` is nil),
   so the claimed set comes from the `hl.bind` wrapper.
-- **A test trap:** changing a profile in memory (`terminal` classes) persists in
+- **A test trap:** changing an app in memory (`terminal` classes) persists in
   the live Lua state until `hyprctl reload`. After the "as terminal" check the
   next GUI check silently saw the terminal rules (no keys, "ok"). Reload between
   such tests.
@@ -470,10 +471,10 @@ Ctrl chords (LIMITATIONS.md).
 - **Same physical chord, different command** (the dangerous kind, since ⌥ and
   ⌃ pass through): ⌥⇧↑ / ↓ (Mac copy line, Linux add cursor), ⌥⇧A (Mac block
   comment, Linux nothing). The other differing chords were Emacs ⌃ keys (7c).
-- **Catch-all gap found by the audit:** keys claimed by a profile-only entry
-  passed the raw ⌘ chord outside that profile (⌘K in VS Code, so every ⌘K chord
+- **Catch-all gap found by the audit:** keys claimed by an app-only entry
+  passed the raw ⌘ chord outside that app (⌘K in VS Code, so every ⌘K chord
   failed). Fixed: those specs now have a `default` of their own (Ctrl chord,
-  consumed in terminals), written in `shortcuts.lua`; F14 lists the keys.
+  consumed in terminals), written in `shortcuts.lua`; those keys are the `default` entries in `shortcuts.lua`, not F14's list of live claims.
 - **Zoom:** the Mac also zooms out on ⌘⇧-; Linux has `Ctrl+Shift+-` as
   Navigate Forward, which the catch-all would have sent.
 
@@ -510,7 +511,7 @@ Ctrl chords (LIMITATIONS.md).
 - **The generic F3 / Shift+F3 were harmful** in LibreOffice (AutoText, change
   case); they are replaced or consumed.
 - **Window classes:** `libreoffice-<module>`; its dialogs (Options, Paste
-  Special) use class `soffice`, so the profile lists it too.
+  Special) use class `soffice`, so the app lists it too.
 - **Test trap:** synthetic keys sometimes did nothing for a while after the find
   bar or a dialog had focus, and plain letters sent by keycode never typed
   (`wtype` did); Ctrl chords worked once the document had focus again. Use cut /

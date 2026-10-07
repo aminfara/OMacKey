@@ -77,6 +77,8 @@ keys. Don't run ahead into later roadmap items.
 - **The user's `~/.config/hypr`** is touched only by `install.sh` /
   `uninstall.sh`: marker-delimited loader blocks in `hyprland.lua` plus the
   `~/.config/hypr/omackey` symlink.
+  - `install.sh` also sets `core.hooksPath` to `.githooks` in this repo's git
+    config (the pre-commit docs check); `uninstall.sh` unsets it.
   - Ask before editing any other user config: `input.lua`, `bindings.lua`,
     terminal configs, VS Code or Firefox settings, the OMacKey settings file.
   - Load the `omarchy` skill before touching anything in `~/.config/hypr`.
@@ -102,11 +104,15 @@ scripts/lint.sh                        # syntax, unknown globals, no print at lo
 scripts/check.sh                       # reload, configerrors, omackey.status(), duplicate binds
 scripts/check.sh "line start"          # … plus a help-menu (omarchy menu keybindings) search
 scripts/snapshot.sh                    # behaviour snapshot vs tests/snapshot/expected
+lua5.5 scripts/gen-docs.lua            # regenerate docs/KEYBINDINGS.md (the pre-commit hook blocks a stale one)
 hyprctl binds | grep -B8 -A4 'description: Line start'   # flags: e=repeat a=auto_consuming d=desc
 ```
 
 - `check.sh` must print three ✓ lines. It reloads Hyprland, because files
   behind the symlink may not trigger the auto-reload.
+- After any change to a key, regenerate `docs/KEYBINDINGS.md` with
+  `lua5.5 scripts/gen-docs.lua` (`--check` verifies); the pre-commit hook
+  refuses a commit with a stale file.
 - `snapshot.sh` must print its ✓ line. It presses every bind in every test app
   under a fake Hyprland and compares what happens with
   `tests/snapshot/expected/`.

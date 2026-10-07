@@ -1,4 +1,4 @@
--- App profiles: app{} declares an app (or a family of apps), how its windows
+-- Apps (the module keeps its old name, "profiles"): app{} declares an app (or a family of apps), how its windows
 -- are recognised, and its actions on Mac shortcuts by key id. The key specs
 -- say what a shortcut does in a generic app (`default`); an app's actions are
 -- overlaid on them when the config is built (lib/bind.lua).

@@ -1,4 +1,4 @@
--- The manifest: declares the Mac shortcuts (MODULES) and the app profiles
+-- The manifest: declares the Mac shortcuts (MODULES) and the apps
 -- (APPS). load.lua then validates and binds them in one pass (lib/bind.lua),
 -- after Omarchy's defaults.
 --

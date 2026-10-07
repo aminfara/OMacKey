@@ -122,7 +122,9 @@ moved from `SUPER + K` to ⌘? (`SUPER + SHIFT + slash`), because apps need ⌘K
 
 **D8 — Install.** `install.sh` symlinks the repo's `omackey/` to
 `~/.config/hypr/omackey` and adds two marker-delimited loader blocks (three lines each) to
-`~/.config/hypr/hyprland.lua`; `uninstall.sh` removes both. OMacKey loads after
+`~/.config/hypr/hyprland.lua`; `uninstall.sh` removes both. In a git checkout `install.sh` also sets the
+repo's `core.hooksPath` to `.githooks` (the pre-commit docs check), and
+`uninstall.sh` unsets it. OMacKey loads after
 Omarchy's defaults and before the user's `hypr.bindings`, so the user's own
 overrides still win.
 
@@ -198,6 +200,9 @@ OMacKey/
 ├── install.sh             symlink + marker-delimited loader lines in ~/.config/hypr/hyprland.lua, then scripts/check.sh
 ├── uninstall.sh           removes both (backs up hyprland.lua first)
 ├── .luarc.json            LuaLS: Lua 5.5, Hyprland stubs, globals hl, o, omackey
+├── .luacheckrc            luacheck config (scripts/lint.sh)
+├── .githooks/pre-commit   refuses a commit when docs/KEYBINDINGS.md is stale (enabled by install.sh)
+├── .gitignore             editor and OS leftovers
 ├── docs/                  this file, TESTING, FINDINGS, LIMITATIONS, ROADMAP, and the generated KEYBINDINGS.md
 ├── omackey/               → symlinked to ~/.config/hypr/omackey (Lua module prefix hypr.omackey)
 │   ├── load.lua           entry points pre() / init() (install.sh writes these names into hyprland.lua)
@@ -212,7 +217,7 @@ OMacKey/
 │       ├── action.lua     self-describing actions: does(), PASS, CONSUME
 │       ├── send.lua       tap(), seq(), button(), after(): synthetic keys with retained timers
 │       ├── bind.lua       mac{}, group(), catchall{}; build() validates and expands; apply() binds; registry
-│       ├── profiles.lua   app{}; match index and chains, built once at load
+│       ├── profiles.lua   app{} (the module's historical name); match index and chains, built once at load
 │       ├── relocate.lua   the hl.bind hook: moved and dropped Omarchy binds, claimed keys
 │       ├── windows.lua    window queries shared by ⌘Q, ⌘` and ⌘Tab
 │       ├── switcher.lua   ⌘Tab app switching by recency
@@ -441,7 +446,8 @@ is left out:
 - a key string or relocation target that isn't canonical (a relocation is
   still applied);
 - an invalid action, or an action without a text;
-- in an app: an unknown key id or profile, an entry on an `action =` spec, the
+- a `setting =` that names an unknown or non-boolean option;
+- in an app: an unknown key id, an app without a `name`, an entry on an `action =` spec, the
   same key set twice, an app declared twice, an unknown family.
 
 **Sending keys** (`lib/send.lua`):

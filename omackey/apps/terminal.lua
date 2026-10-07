@@ -1,6 +1,7 @@
 -- Terminals: every window with Omarchy's `terminal` tag. Ghostty, kitty and
 -- foot add their own entries on top (apps/ghostty.lua …); this covers the rest
 -- (Alacritty, wezterm, Omarchy's TUI windows) and whatever those leave out.
+-- Where the terminals' shortcuts were read from: F10.
 --
 -- A terminal has no ⌘ chords of its own, and most Ctrl chords mean something
 -- else there (readline, job control, flow control), so a Mac shortcut either
