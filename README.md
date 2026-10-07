@@ -1,5 +1,10 @@
 # OMacKey
 
+> **Alpha.** OMacKey works day to day on the author's machine (Omarchy 4.0.4,
+> Hyprland 0.56.2), but it is young: it has had little testing on other setups,
+> and shortcuts may still move or change between versions. Expect rough edges,
+> and please report what you find.
+
 macOS keyboard shortcuts for [Omarchy](https://omarchy.org): ⌘C, ⌘V, ⌘T, ⌘W,
 ⌘Tab, ⌘← and about 160 shortcuts in all, written as plain Hyprland Lua.
 
@@ -213,8 +218,11 @@ responsible for what you submit: read the diff and test the keys.
 
 - [Omarchy](https://omarchy.org) and [Hyprland](https://hypr.land), which this
   builds on.
-- The **r/omarchy community**, whose "macOS like bindings" thread showed that
-  keycodes, retained timers and Ctrl forwarding work in Hyprland's Lua config.
+- [u/Think-Accident-1337](https://www.reddit.com/user/Think-Accident-1337) and
+  the **r/omarchy community**: their
+  ["macOS like bindings"](https://www.reddit.com/r/omarchy/comments/1vyvd41/macos_like_bindings/)
+  post showed that keycodes, retained timers and Ctrl forwarding work in
+  Hyprland's Lua config.
 - The **Omarchy + keyd discussion**
   ([#175](https://github.com/omacom/omarchy/discussions/175)), for the minimal
   "must work" set and the terminal copy and paste pitfalls.
