@@ -180,7 +180,7 @@ bindings that changed and which of them sit on a key OMacKey uses, and
 
 Issues and pull requests are welcome. Keep changes small: one key or one group
 of related keys at a time, with a description on every bind. Before you open a
-pull request, run `scripts/check.sh`, `scripts/snapshot.sh` and
+pull request, run `scripts/lint.sh`, `scripts/check.sh`, `scripts/snapshot.sh` and
 `lua5.5 scripts/gen-docs.lua` (`install.sh` enables a pre-commit hook that
 checks the generated docs). Say in the pull request which keys you pressed
 yourself: synthetic input cannot trigger Hyprland binds, so the last test is

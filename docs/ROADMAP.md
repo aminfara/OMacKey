@@ -3,7 +3,7 @@
 What is left to build, in the order it is planned. Work goes in small
 sessions: one key or one item first, then a group of related ones.
 
-## 8 — Docs generator, README, maintenance
+## 8 — Docs generator, README, maintenance (all done)
 
 **8.1 Generated key documentation.** Done: `lua5.5 scripts/gen-docs.lua` renders
 `docs/KEYBINDINGS.md` from `lib/catalog.lua` under the snapshot's fake Hyprland
@@ -29,8 +29,11 @@ about: a later Omarchy adding `Super + Grave`). Exit 1 means drift.
   - `scripts/check.sh` finds duplicate binds.
 - It is a manual step after `omarchy update`; no hook runs it.
 
-**8.4 Lint (optional).** A syntax and lint pass over every module under the
-mock, plus `luacheck` if it is installed.
+**8.4 Lint.** Done: `scripts/lint.sh` checks the syntax of every Lua file, flags
+unknown globals (typos and missing `local`, via `luac5.5 -l`), forbids `print`
+in `omackey/`, runs `bash -n` on the shell scripts, and runs `luacheck` and
+`shellcheck` too when they are installed (neither is, here). Loading under the
+mock is covered by every `scripts/snapshot.sh` run.
 
 ## Optional
 

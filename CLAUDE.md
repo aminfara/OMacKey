@@ -19,8 +19,8 @@ daily between a work Mac and an Omarchy machine.
 - **`docs/FINDINGS.md`**: facts about Hyprland, Omarchy and the apps (F0–F26).
   Code comments cite them by number.
 - **`docs/LIMITATIONS.md`**: what is not mapped, why, and what to use instead.
-- **`docs/ROADMAP.md`**: what is left (Phase 8, the optional ⌘Tab overlay,
-  deferred tests).
+- **`docs/ROADMAP.md`**: what is left (the optional ⌘Tab overlay, deferred
+  tests; Phase 8 is done).
 
 Read the relevant parts before changing anything. After a context compaction,
 re-read this file and ARCHITECTURE.md in full.
@@ -98,7 +98,7 @@ keys. Don't run ahead into later roadmap items.
 ## Validate after every change
 
 ```bash
-for f in $(find omackey -name '*.lua'); do luac5.5 -p "$f"; done  # syntax first
+scripts/lint.sh                        # syntax, unknown globals, no print at load
 scripts/check.sh                       # reload, configerrors, omackey.status(), duplicate binds
 scripts/check.sh "line start"          # … plus a help-menu (omarchy menu keybindings) search
 scripts/snapshot.sh                    # behaviour snapshot vs tests/snapshot/expected

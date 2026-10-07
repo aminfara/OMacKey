@@ -222,6 +222,7 @@ OMacKey/
 ├── scripts/
 │   ├── check.sh           reload, configerrors, omackey.status(), duplicate binds, help-menu search
 │   ├── snapshot.sh        behaviour snapshot under a fake Hyprland (TESTING.md)
+│   ├── lint.sh            syntax, unknown globals, print at load, shell syntax (luacheck / shellcheck if installed)
 │   ├── drift.sh           what `omarchy update` changed in Omarchy's binds, and which sit on OMacKey keys
 │   ├── gen-docs.lua       renders docs/KEYBINDINGS.md from lib/catalog.lua under the same fake Hyprland
 │   ├── omackey-mode       on / off / toggle / status from a terminal
@@ -690,3 +691,6 @@ in `shortcuts.lua`.
   --against dc3b0a9` compares the pre-refactor tree. Two fixes found during
   the refactor changed behaviour on purpose: VS Code ⌘0 (F22) and
   LibreOffice ⌘G / ⇧⌘G (F23).
+- **Phase 8 (2026-10-07)** finished the project's tooling: the generated key
+  docs (`docs/KEYBINDINGS.md`), the README, the drift check after
+  `omarchy update` (`scripts/drift.sh`) and the lint pass (`scripts/lint.sh`).

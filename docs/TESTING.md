@@ -122,7 +122,7 @@ The cases find their target by a text pattern. When code moves, a case reports
 After every change:
 
 ```bash
-for f in $(find omackey -name '*.lua'); do luac5.5 -p "$f"; done  # syntax first
+scripts/lint.sh                        # syntax, unknown globals, no print at load
 scripts/check.sh                       # reload, configerrors, omackey.status(), duplicate binds
 scripts/check.sh "line start"          # … plus a help-menu (omarchy menu keybindings) search
 scripts/snapshot.sh                    # behaviour snapshot
