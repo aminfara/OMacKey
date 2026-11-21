@@ -19,6 +19,7 @@ Contents:
 - F21 Synthetic mouse button · F22 NumLock and explicit mods
 - F23 LibreOffice's find bar · F24 ⌘-scroll and the bind
 - F25 Keysyms, keycodes and the written key · F26 Refactor details
+- F27 Omarchy 4.5 key changes · F28 Claude Desktop's terminal
 
 ---
 
@@ -276,7 +277,11 @@ Contents:
   `Super + Grave` and `Super + Shift + Grave` for the scratchpad. The installed
   4.0.4 has only `SUPER + S` / `SUPER + ALT + S` (checked in `tiling.lua`).
   If a later Omarchy adds the Grave binds they collide with ⌘\` / ⇧⌘\` and need
-  a relocation (`scripts/drift.sh` flags it).
+  a relocation (`scripts/drift.sh` flags it). Omarchy 4.5 added them as a Quake
+  console; see F27.
+- **Update (Omarchy 4.5, F27).** `omarchy-hyprland-window-minimize` and ⌘M now
+  exist, but only for floating workspaces (it exits silently elsewhere). On the
+  scrolling and dwindle layouts there is still no minimize, so D13 stands.
 
 ## F8 — Screenshot CLI (2026-10-03)
 
@@ -661,3 +666,86 @@ Ctrl chords (LIMITATIONS.md).
   under `pcall`, so the error skips the rest of that module only.
 - **`o.bind` ignores `hl.bind`'s return value**, so the relocation hook can
   return nothing for a dropped bind.
+
+## F27 — Omarchy 4.5 key changes (2026-11-22)
+
+The repo was built against Omarchy 4.0.4; the machine runs 4.5.0-3. Sources:
+the GitHub release notes (4.0.5, 4.0.6, 4.5.0-rc1…rc3, 4.5.0; 4.0.5 and 4.0.6
+change no keys), <https://omarchy.org/manual/hotkeys/>, and
+`/usr/share/omarchy/default/hypr/bindings/*.lua`.
+
+- **Omarchy's chord planes (the hotkeys page).** `Super + key` is the system
+  plane (windows, workspaces, layouts, core menus), `Super + Shift + key` the
+  apps plane, `Super + Ctrl + key` panels and system menus, and
+  `Super + Ctrl + Alt + key` quick actions and notices. Print, media keys,
+  `Alt + Tab` and `Ctrl + Alt + Del` work as everywhere else. macOS gives
+  `⌘ + Shift` to variants of app commands, so the apps plane and the quick
+  actions plane keep colliding with Mac keys.
+- **Moved in 4.5.** Calculator `Super + Ctrl + Q` → `Super + Shift + Q`;
+  Activity `Super + Ctrl + T` → `Super + Shift + T` (`Super + Ctrl + T` is now
+  themes); Network `Super + Ctrl + W` → `Super + Ctrl + N` (`Super + Ctrl + W`
+  is now backgrounds; Night light lost its key); notifications: `Super + ,`
+  acts on the newest card, `Super + Alt + ,` dismisses it, `Super + Ctrl + ,`
+  hands over the keyboard, `Super + Ctrl + Alt + ,` silences.
+- **New in 4.5.** `Super + Q` (second close-window chord), `Super + A` (select
+  all), `Super + M` (minimize to the dock), `Super + Grave` and
+  `Super + Shift + Grave` (Quake console), `Super + Alt + L` (previous
+  layout), `Super + Shift + Ctrl + Arrows` (move window to the monitor in that
+  direction), `Super + Ctrl + Alt + C` (screenshot), `Super + Ctrl + Alt + E`
+  (world clock), `Super + Ctrl + Alt + F` (full-screen desktop),
+  `Super + I` / `Super + Shift + I` (switch input language, with the CJK input
+  methods), `Right Alt` held (push-to-talk dictation).
+- **Changed behaviour, no key change.** Workspaces are per monitor, so
+  `Super + 1–0`, `Super + Tab` and the scroll wheel act on the current
+  monitor; `Super + L` cycles dwindle, scrolling and floating;
+  in a terminal Omarchy's `Super + C` / `Super + V` send `Ctrl + Shift + C / V`
+  (OMacKey drops them, RD2). Omarchy also added `o.rebind` for replacing a
+  default; OMacKey's relocation table does the same job and the snapshot depends
+  on it, so it was not adopted.
+- **Resolution** (relocations.lua): the quick actions on ⌃⌥⌘ C / E / F move to
+  ⌃⇧⌘ (the launcher letters win ⌃⌥⌘); Calculator and Activity follow the
+  launchers to ⌃⌥⌘; Quake console goes to ⌃⌥\` / ⌃⌥⇧\` beside the scratchpad;
+  layout-back to ⌃⌥⇧L; `Super + Q` and `Super + A` are dropped (OMacKey's ⌘Q
+  and ⌘A replace them); move-window-to-monitor is dropped (one monitor, and
+  ⌃⇧⌘←/→ are shrink / expand selection); the input-language switch is dropped
+  for now (ROADMAP.md, pending decision).
+- **One action per key.** `relocate.lua` records every key Omarchy registers
+  after relocation and reports a second bind on it (`omackey.status()`, in the
+  build errors). The only exceptions are `Alt + Tab` and `Alt + Shift + Tab`,
+  which Omarchy binds twice on purpose (cycle the window, then raise or lower
+  it). `scripts/check.sh` checks the live binds the same way.
+- **⌘M.** `Super + M` is Omarchy's minimize, which only acts on a floating
+  workspace (F7). The catch-all leaves keys Omarchy claims alone, so ⌘M is
+  Omarchy's now.
+
+## F28 — Claude Desktop's terminal (2026-11-22)
+
+Read from the installed app (`/usr/lib/claude-desktop`, version 45.3.3, class
+`com.anthropic.Claude`, run with `--ozone-platform=wayland`): the chat UI is
+`resources/ion-dist.asar`, the shell is node-pty in `app.asar`. Nothing was
+launched or pressed; the facts below come from the bundled code.
+
+- The Code tab's terminal pane is xterm.js in the same window as the chat, so,
+  as in VS Code (F12), Hyprland can't tell which one has focus.
+- Its shortcut table lists `cmd+…` keys; on Linux the handler tests
+  `ctrlKey` instead of `metaKey`, so those are the Ctrl chords OMacKey's
+  generic ⌘ → Ctrl keys already send (⌘F find, ⌘S save, ⌘T, ⌘P, ⌘Z, ⇧⌘D diff,
+  ⇧⌘T reopen session …). Terminal toggling is `` Ctrl+` `` (new terminal
+  `` Ctrl+Shift+` ``, next / previous `Ctrl+PageDown / PageUp`): ⌃ passes
+  through, so those work raw. `Alt+Up / Down` jump between prompts and also
+  pass through.
+- The terminal's key handler keeps only a few chords from the shell (toggle,
+  new, next and previous terminal, reopen, attach selection, find, `Ctrl+Tab`,
+  F11, `Ctrl+Alt+Shift+O`). Every other Ctrl chord is sent to the shell: Ctrl+C
+  is SIGINT, Ctrl+V a literal-next, Ctrl+Z SIGTSTP, Ctrl+A / E / K … readline.
+  On Linux only `Ctrl+Shift+C` copies a selection (it writes the clipboard
+  itself); the Windows-style `Ctrl+C` / `Ctrl+V` branch is not active.
+- So the generic ⌘C → Ctrl+C would interrupt the shell. `apps/claude-desktop.lua`
+  sends `Ctrl+Insert` / `Shift+Insert` as VS Code does. Chromium's editing
+  commands handle them in the chat and prompt box; xterm.js does not turn
+  `Ctrl+Insert` or `Shift+Insert` into an escape sequence, so they should reach
+  the browser's copy and paste in the terminal as well. **Unverified: the
+  physical test (TESTING.md §4) must confirm both in the terminal pane.**
+  Fallback if they fail: `Ctrl+Shift+C` / `Ctrl+Shift+V`.
+- Same limit as VS Code: the other ⌘ keys reach the terminal pane as Ctrl
+  chords (LIMITATIONS.md). ⌃D stays raw for end of input.

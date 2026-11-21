@@ -27,6 +27,7 @@ M.apps = {
   { "firefox", "firefox", FIREFOX },
   { "vscode", "com.microsoft.VSCode", PLAIN },
   { "code-oss", "code-oss", PLAIN },
+  { "claude-desktop", "com.anthropic.Claude", PLAIN },
   { "obsidian", "md.obsidian.Obsidian", PLAIN },
   { "nautilus", "org.gnome.Nautilus", PLAIN },
   { "libreoffice", "libreoffice-writer", PLAIN },

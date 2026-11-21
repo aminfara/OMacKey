@@ -11,8 +11,11 @@ the details behind the F-numbers.
 | --- | --- | --- |
 | ⌃↑ Mission Control, ⌃↓ App Exposé, and the F3 Mission Control key (`XF86LaunchA`) | Hyprland has no built-in overview and Omarchy ships none. ⌃↑ / ⌃↓ focus windows instead (the arrow rule) | ⌘\` cycles the active app's windows; ⌃⌥ + arrows switch workspace |
 | ⌘Tab overlay (app icons and names) | Hyprland has no switcher UI; the focus change is the feedback, and intermediate stops visibly flip workspaces. A QuickShell overlay is an optional idea (ROADMAP.md) | ⌘Tab / ⇧⌘Tab step through apps while ⌘ is held; ⌥Tab cycles windows in layout order; ⌘\` cycles the active app's windows |
-| ⌘M minimize, ⌘H hide app, ⌥⌘H hide others, ⌥⌘M minimize all | D13: Hyprland and Omarchy have no minimize or hide, and with no dock a hidden window is easy to lose (F7). The catch-all consumes ⌘M and ⌘H | Omarchy's scratchpad (⌃⌥⇧S moves the window there, ⌃⌥S shows it), or park it on a workspace with ⌃⇧1–0 |
-| ⇧⌘Q log out | no instant logout wanted; Omarchy's system menu is not one. The catch-all consumes ⇧⌘Q, because `Ctrl+Shift+Q` quits Chrome | ⌘Esc opens the system menu |
+| ⌘H hide app, ⌥⌘H hide others, ⌥⌘M minimize all. ⌘M minimizes only on a floating workspace | D13: Hyprland has no minimize or hide. Omarchy 4.5's `Super + M` (⌘M) minimizes to its dock, but only on floating workspaces; on the scrolling and dwindle layouts it does nothing (F7, F27). The catch-all consumes ⌘H | Omarchy's scratchpad (⌃⌥⇧S moves the window there, ⌃⌥S shows it), or park it on a workspace with ⌃⇧1–0 |
+| ⇧⌘Q log out | no instant logout wanted; Omarchy's system menu is not one. The catch-all consumes ⇧⌘Q, because `Ctrl+Shift+Q` quits Chrome (Omarchy's calculator moved to ⌃⌥⌘Q) | ⌘Esc opens the system menu |
+| Omarchy 4.5 `Super + Q` (close window) and `Super + A` (select all) | dropped: OMacKey's ⌘Q quits the app (all its windows) and ⌘A selects all, and two binds on one key would both fire | ⌃⌥W closes one window |
+| Omarchy 4.5 input-language switch (`Super + I`, `Super + Shift + I`) | dropped for now: ⌘I is italic and ⇧⌘I is consumed. Which key replaces it is a pending decision (ROADMAP.md) | `omarchy-input-method cycle` from a terminal, or fcitx5's own trigger |
+| Omarchy 4.5 move window to monitor (`Super + Shift + Ctrl` + arrows) | dropped: ⌃⇧⌘←/→ are shrink / expand selection, and this machine has one monitor | ⌃⌥⇧⌘ + arrows move the whole workspace to another monitor |
 | Physical ⌃← / ⌃→ word jump in Linux apps | ⌃← / ⌃→ focus windows (the arrow rule) | ⌥← / ⌥→ |
 | Trackpad gestures (3- and 4-finger swipes, pinch) | the user's machine is a desktop with no trackpad, so nothing could be tested | Hyprland's `gesture` options in the user's own config |
 | PC keyboards (Alt next to the space bar) | an xkb Alt/Super swap (`altwin:swap_lalt_lwin`) was considered and skipped; it would edit the user's `input.lua` | set it in `~/.config/hypr/input.lua` yourself |
@@ -72,6 +75,14 @@ the details behind the F-numbers.
 | ⇧⌘U (toggle output) | no Linux key exists, and the catch-all consumes ⇧⌘U (Unicode input) | the command palette |
 | Physical ⌃- / ⌃⇧- (navigate back / forward) | not mapped: it would take physical Ctrl from one app | a bind in your own `bindings.lua` |
 | ⌃Space (suggest) | fcitx5's default trigger is Ctrl+Space and may take it first | change fcitx5's trigger key |
+
+## Claude Desktop
+
+| Item | Why | Instead |
+| --- | --- | --- |
+| The Code tab's terminal: every ⌘ key except ⌘C / ⌘V | Hyprland sees one window, so the chat's `Ctrl+Z` / `Ctrl+A` / `Ctrl+X` … reach the terminal pane as readline and job-control keys. Only ⌘C / ⌘V have a chord that works in both (`Ctrl+Insert` / `Shift+Insert`, F28) | the terminal's own `Ctrl+Shift+C` / `Ctrl+Shift+V`, or move focus to the chat |
+| Emacs ⌃D | passes through: the terminal pane needs the raw ⌃D (end of input). The other Emacs keys are translated there (⌃K sends `Shift+End`, `Delete`) | Delete in the chat |
+| ⌘\` toggling the terminal pane | ⌘\` cycles the app's windows; Claude Desktop's own key is `Ctrl+\`` | raw ⌃\` (passes through) |
 
 ## Other apps
 

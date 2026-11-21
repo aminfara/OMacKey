@@ -50,7 +50,7 @@ tests/snapshot/selftest.sh          # prove the harness can see changes (about t
   - no window, an empty class, a plain GTK app (keylog);
   - terminals: foot (both app ids), Ghostty, kitty, Alacritty, an Omarchy TUI;
   - browsers: Brave Origin, Chromium, Chrome, Firefox;
-  - VS Code (two classes), Obsidian, Nautilus, LibreOffice Writer, `soffice`,
+  - VS Code (two classes), Claude Desktop, Obsidian, Nautilus, LibreOffice Writer, `soffice`,
     an Omarchy web app.
 
   They carry tags as Hyprland reports them and are written independently of
@@ -210,7 +210,7 @@ steps for the exact keys that changed, and wait for their results:
   `data:text/html,<textarea autofocus style="width:100%;height:95vh"></textarea>`;
 - VS Code with a scratch file, and foot with bash;
 - per app: Ghostty, kitty, Google Chrome, Firefox, Nautilus, Obsidian,
-  LibreOffice Writer.
+  LibreOffice Writer, Claude Desktop (Code tab: chat, prompt box and terminal pane).
 
 ## 5. Recipes
 

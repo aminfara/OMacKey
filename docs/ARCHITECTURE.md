@@ -8,7 +8,7 @@ Related documents:
 - [TESTING.md](TESTING.md): the snapshot harness, handler tests, physical tests
   and recovery.
 - [FINDINGS.md](FINDINGS.md): facts learned about Hyprland, Omarchy and the
-  apps (F0–F26).
+  apps (F0–F28).
 - [LIMITATIONS.md](LIMITATIONS.md): what is not mapped, and why.
 - [ROADMAP.md](ROADMAP.md): what is left to build (only optional items).
 
@@ -67,10 +67,10 @@ between a work Mac and an Omarchy machine needs no mental remapping.
 | ⌘ | `SUPER` | App shortcuts, translated to Ctrl (Ctrl+Shift or Insert variants in terminals). Text navigation (⌘ arrows, ⌘⌫). A few Mac system shortcuts: ⌘Space, ⌘Tab, ⌘\`, ⌘Q, ⇧⌘3/4/5, ⌘? |
 | ⌥ | `ALT` | Word navigation and deletion (⌥←/→, ⌥⇧←/→, ⌥⌫, ⌥⌦). Only VS Code also binds ⌥⇧A and ⌥⇧↑/↓ (block comment, copy line); they pass through elsewhere. Everything else passes through, so Meta keeps working in bash, tmux and nvim. No Mac special characters |
 | ⌃ | `CTRL` | Passes through to apps (⌃C in terminals, ⌃Tab, ⌃G in VS Code), except ⌃ + arrows (focus window), ⌃⇧ + arrows (swap window), ⌃1–0 / ⌃⇧1–0 (go to / move to workspace N, as macOS ⌃1–9), and the opt-in Emacs keys (`emacs_keys`, on by default) |
-| ⌃⌥ | `CTRL + ALT` | Window management, Rectangle/Magnet style: resize, float, fullscreen variants, groups, scratchpad, layout toggle, close; ⌃⌥-drag moves and ⌃⌥-right-drag resizes a window. One level up from ⌃: ⌃⌥ + arrows switch workspace, ⌃⌥⇧ + arrows take the window along |
+| ⌃⌥ | `CTRL + ALT` | Window management, Rectangle/Magnet style: resize, float, fullscreen variants, groups, scratchpad and Quake console, layout toggle (⌃⌥⇧L back), close; ⌃⌥-drag moves and ⌃⌥-right-drag resizes a window. One level up from ⌃: ⌃⌥ + arrows switch workspace, ⌃⌥⇧ + arrows take the window along |
 | ⌃⌘ | `SUPER + CTRL` | Omarchy system utilities, panels and toggles (mostly unchanged), plus the Mac ⌃⌘ shortcuts: ⌃⌘F full screen, ⌃⌘Q lock, ⌃⌘Space emoji |
 | ⌃⌥⌘ | `SUPER + CTRL + ALT` | App launchers, keeping Omarchy's letters (B browser, F files, N editor …); ⌃⌥⇧⌘ holds the variants that were `SUPER + SHIFT + ALT` |
-| ⌃⇧⌘ | `SUPER + CTRL + SHIFT` | Omarchy's info popups that collided with launcher letters (battery, weather, calendar, time), Omarchy's own ⌃⇧⌘ binds (theme menu, agent, reminders), ⌃⇧⌘3 / ⌃⇧⌘4 (screenshot to clipboard), ⌃⇧⌘←/→ (shrink / expand selection, VS Code), and the Mac-mode toggle ⌃⇧⌘M |
+| ⌃⇧⌘ | `SUPER + CTRL + SHIFT` | Omarchy's quick actions and info popups that collided with launcher letters (battery, weather, calendar, time, screenshot, world clock, full-screen desktop), Omarchy's own ⌃⇧⌘ binds (theme menu, agent, reminders), ⌃⇧⌘3 / ⌃⇧⌘4 (screenshot to clipboard), ⌃⇧⌘←/→ (shrink / expand selection, VS Code), and the Mac-mode toggle ⌃⇧⌘M |
 
 **The arrow rule** (user's decision, 2026-10-02):
 
@@ -138,7 +138,7 @@ where they are, which keeps Omarchy muscle memory and the diff small.
   wezterm and Omarchy's TUI windows get the generic terminal rules.
 - Browsers: Brave, Brave Origin, Chromium and Google Chrome; Firefox
   best-effort.
-- VS Code, Nautilus, Obsidian and LibreOffice.
+- VS Code, Claude Desktop, Nautilus, Obsidian and LibreOffice.
 
 **D11 — Persian (deferred by the user).** Keys are sent by keycode (D4) so
 non-Latin layouts are likely to work, but Persian is not tested until the user
@@ -155,10 +155,13 @@ asks (ROADMAP.md).
   matches the original string exactly, including case. The canonical form
   (§6) makes that string predictable.
 
-**D13 — No minimize or hide.** ⌘M, ⌘H, ⌥⌘H (hide others) and ⌥⌘M (minimize
-all) are not mapped; the catch-all consumes ⌘M and ⌘H.
+**D13 — No minimize or hide.** ⌘H, ⌥⌘H (hide others) and ⌥⌘M (minimize all) are
+not mapped; the catch-all consumes ⌘H. ⌘M is Omarchy's own `Super + M` since 4.5
+(minimize to the dock), which only acts on a floating workspace (F27); on the
+tiling layouts it does nothing.
 
-- Neither Omarchy nor Hyprland has minimize or hide (FINDINGS.md F7).
+- Hyprland has no minimize or hide, and Omarchy's only exists for floating
+  workspaces (FINDINGS.md F7, F27).
 - There is no dock or taskbar to bring a hidden window back, so it is easy to
   lose, and tiling layouts re-flow around it.
 - Omarchy's scratchpad is the native equivalent: ⌃⌥⇧S moves a window there and
@@ -211,7 +214,7 @@ OMacKey/
 │   ├── relocations.lua    every displaced Omarchy bind: moved (`to`) or dropped (`drop`)
 │   ├── shortcuts.lua      every Mac shortcut, declared once, generic behaviour only, one group per Mac meaning
 │   ├── apps/              one file per app or family: match rules, family, per-app actions by key id
-│   │     ghostty kitty foot terminal firefox browser vscode libreoffice obsidian nautilus no-tabs
+│   │     ghostty kitty foot terminal firefox browser vscode claude-desktop libreoffice obsidian nautilus no-tabs
 │   └── lib/
 │       ├── keys.lua       the key table (name ↔ keycode ↔ glyph), normalize(), canonical(), glyph()
 │       ├── action.lua     self-describing actions: does(), PASS, CONSUME
@@ -427,7 +430,7 @@ app({
   sending Ctrl / Ctrl+Shift + the same key, by keycode. Its ids are
   `catchall-⌘e`, `catchall-⇧⌘p`, `catchall-⌘backslash` (glyph plus key
   name), with descriptions such as "⌘E sent as Ctrl+E".
-- Its `consumed` list (⌘H, ⌘M, ⇧⌘Q, ⇧⌘I, ⇧⌘U, ⇧⌘H) does nothing, with the
+- Its `consumed` list (⌘H, ⇧⌘Q, ⇧⌘I, ⇧⌘U, ⇧⌘H) does nothing, with the
   description "not mapped".
 - ⌘ digits are claimed by the tab keys; ⇧⌘ digits are not covered (⇧⌘3/4/5
   are screenshots).
@@ -442,6 +445,10 @@ is left out:
 - a missing field, or a duplicate id;
 - two OMacKey binds on the same chord and release flag;
 - a chord Omarchy still holds;
+- a key Omarchy itself binds twice once relocated (`Alt + Tab` and
+  `Alt + Shift + Tab` are the deliberate exceptions): `relocate.lua` records
+  it, so a relocation that lands on another Omarchy bind, or a new Omarchy
+  default on a relocated key, is reported (F27);
 - `action` and `actions` both given;
 - a key string or relocation target that isn't canonical (a relocation is
   still applied);
@@ -503,14 +510,19 @@ The relocated groups, in file order:
 - mouse → ⌃⌥ (drag, scroll) and ⌃⌥⌘ (group scroll);
 - arrows: focus and swap → ⌃ / ⌃⇧; move into group → ⌃⌥⌘; move workspace to
   monitor → ⌃⌥⇧⌘;
-- groups (⌘G, ⌥⌘G) and scratchpad (⌘S, ⌥⌘S) → ⌃⌥ / ⌃⌥⇧;
+- groups (⌘G, ⌥⌘G) and scratchpad (⌘S, ⌥⌘S) → ⌃⌥ / ⌃⌥⇧; Quake console (⌘\`, ⇧⌘\`) → ⌃⌥ / ⌃⌥⇧ and
+  previous layout (⌥⌘L) → ⌃⌥⇧L;
 - resize ±100 px → ⌃⌥ / ⌃⌥⇧, ±300 px → ⌃⌥⌘ / ⌃⌥⇧⌘; monitor scaling,
   transparency, gaps and webcam overlay → ⌃⌥ / ⌃⌥⇧;
 - ⌘Tab / ⇧⌘Tab (next / previous workspace) → ⌃⌥ arrows;
-- launchers → ⌃⌥⌘ + Omarchy's letter;
-- info popups → ⌃⇧⌘;
-- help → ⌘?, dismiss last notification (⌘,) → ⌃⇧⌘, calculator and background
+- launchers (and Activity) → ⌃⌥⌘ + Omarchy's letter;
+- quick actions and info popups → ⌃⇧⌘ (time, battery, weather, calendar,
+  screenshot, world clock, full-screen desktop);
+- help → ⌘?, the notification action (⌘,) → ⌃⇧⌘, calculator and background
   switcher → ⌃⌥⌘ (frees ⌃⌘Q lock and ⌃⌘Space emoji);
+- dropped (4.5): `Super + Q`, `Super + A` (OMacKey's ⌘Q, ⌘A replace them),
+  the input-language switch (`Super + I`, `Super + Shift + I`; pending decision,
+  ROADMAP.md) and move-window-to-monitor (`Super + Shift + Ctrl` + arrows);
 - workspace digits (⌘1–0, ⇧⌘1–0, ⌥⇧⌘1–0) → ⌃ / ⌃⇧ / ⌃⌥⇧.
 
 Omarchy's ±25 px resize (⌥⌘-/=), PRINT, media and power keys don't collide and

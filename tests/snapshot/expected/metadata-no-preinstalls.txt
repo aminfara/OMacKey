@@ -31,7 +31,6 @@ key catchall-⌘backslash  SUPER+backslash  category="Catch-all"  mac="⌘\\"  p
 key catchall-⌘e  SUPER+e  category="Catch-all"  mac="⌘E"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+E", terminal="Nothing: the key does nothing"}
 key catchall-⌘h  SUPER+h  category="Catch-all"  mac="⌘H"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
 key catchall-⌘j  SUPER+j  category="Catch-all"  mac="⌘J"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+J", terminal="Nothing: the key does nothing"}
-key catchall-⌘m  SUPER+m  category="Catch-all"  mac="⌘M"  profiles={default,terminal}  file=shortcuts.lua  text={default="Nothing: the key does nothing", terminal="Nothing: the key does nothing"}
 key catchall-⌘return  SUPER+return  category="Catch-all"  mac="⌘⏎"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+Return", terminal="Nothing: the key does nothing"}
 key catchall-⌘semicolon  SUPER+semicolon  category="Catch-all"  mac="⌘;"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+;", terminal="Nothing: the key does nothing"}
 key clear-browsing-data  SUPER+SHIFT+backspace  category="Navigation"  mac="⇧⌘⌫"  profiles={browser}  file=shortcuts.lua  text={browser="Ctrl+Shift+Delete"}
@@ -44,7 +43,7 @@ key click-release-shift  SUPER+SHIFT+mouse:272 (release)  category="Mouse"  mac=
 key click-shift  SUPER+SHIFT+mouse:272  category="Mouse"  mac="⇧⌘-click"  action  file=shortcuts.lua  text="Left click with Ctrl+Shift held instead of ⌘"
 key close-tab  SUPER+w  category="Tabs"  mac="⌘W"  profiles={default,ghostty,kitty,no-tabs,terminal}  file=shortcuts.lua  text={default="Ctrl+W", ghostty="Ctrl+Shift+W", kitty="Ctrl+Shift+W", no-tabs="Close the window", terminal="Close the window"}
 key close-window  SUPER+SHIFT+w  category="Windows and apps"  mac="⇧⌘W"  action  file=shortcuts.lua  text="Close the window"
-key copy  SUPER+c  category="Editing"  mac="⌘C"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+C", terminal="Ctrl+Insert", vscode="Ctrl+Insert"}
+key copy  SUPER+c  category="Editing"  mac="⌘C"  profiles={claude-desktop,default,terminal,vscode}  file=shortcuts.lua  text={claude-desktop="Ctrl+Insert", default="Ctrl+C", terminal="Ctrl+Insert", vscode="Ctrl+Insert"}
 key copy-line-down  ALT+SHIFT+down  category="Code editing"  mac="⌥⇧↓"  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+Alt+Down"}
 key copy-line-up  ALT+SHIFT+up  category="Code editing"  mac="⌥⇧↑"  profiles={vscode}  file=shortcuts.lua  text={vscode="Ctrl+Shift+Alt+Up"}
 key cut  SUPER+x  category="Editing"  mac="⌘X"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+X", terminal="Nothing: the key does nothing"}
@@ -65,7 +64,7 @@ key downloads  SUPER+SHIFT+j  category="Navigation"  mac="⇧⌘J"  profiles={br
 key emacs-char-left  CTRL+b  category="Emacs keys"  mac="⌃B"  profiles={default,terminal}  file=shortcuts.lua  text={default="Left", terminal="Nothing: the key reaches the app unchanged"}
 key emacs-char-right  CTRL+f  category="Emacs keys"  mac="⌃F"  profiles={default,terminal}  file=shortcuts.lua  text={default="Right", terminal="Nothing: the key reaches the app unchanged"}
 key emacs-delete-left  CTRL+h  category="Emacs keys"  mac="⌃H"  profiles={default,terminal}  file=shortcuts.lua  text={default="Backspace", terminal="Nothing: the key reaches the app unchanged"}
-key emacs-delete-right  CTRL+d  category="Emacs keys"  mac="⌃D"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Delete", terminal="Nothing: the key reaches the app unchanged", vscode="Nothing: the key reaches the app unchanged"}
+key emacs-delete-right  CTRL+d  category="Emacs keys"  mac="⌃D"  profiles={claude-desktop,default,terminal,vscode}  file=shortcuts.lua  text={claude-desktop="Nothing: the key reaches the app unchanged", default="Delete", terminal="Nothing: the key reaches the app unchanged", vscode="Nothing: the key reaches the app unchanged"}
 key emacs-kill-line  CTRL+k  category="Emacs keys"  mac="⌃K"  profiles={default,terminal}  file=shortcuts.lua  text={default="Shift+End, then Delete", terminal="Nothing: the key reaches the app unchanged"}
 key emacs-line-down  CTRL+n  category="Emacs keys"  mac="⌃N"  profiles={default,terminal}  file=shortcuts.lua  text={default="Down", terminal="Nothing: the key reaches the app unchanged"}
 key emacs-line-end  CTRL+e  category="Emacs keys"  mac="⌃E"  profiles={default,terminal}  file=shortcuts.lua  text={default="End", terminal="Nothing: the key reaches the app unchanged"}
@@ -97,7 +96,7 @@ key next-app-window  SUPER+grave  category="Windows and apps"  mac="⌘`"  actio
 key next-tab  SUPER+SHIFT+bracketright  category="Tabs"  mac="⇧⌘]"  profiles={default,ghostty,kitty,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Down", ghostty="Ctrl+Page Down", kitty="Ctrl+Shift+Right", terminal="Nothing: the key does nothing"}
 key next-tab-arrow  SUPER+ALT+right  category="Tabs"  mac="⌥⌘→"  profiles={default,ghostty,kitty,obsidian,terminal}  file=shortcuts.lua  text={default="Ctrl+Page Down", ghostty="Ctrl+Page Down", kitty="Ctrl+Shift+Right", obsidian="Ctrl+Alt+Right", terminal="Nothing: the key does nothing"}
 key open  SUPER+o  category="Navigation"  mac="⌘O"  profiles={default,terminal}  file=shortcuts.lua  text={default="Ctrl+O", terminal="Nothing: the key does nothing"}
-key paste  SUPER+v  category="Editing"  mac="⌘V"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+V", terminal="Shift+Insert", vscode="Shift+Insert"}
+key paste  SUPER+v  category="Editing"  mac="⌘V"  profiles={claude-desktop,default,terminal,vscode}  file=shortcuts.lua  text={claude-desktop="Shift+Insert", default="Ctrl+V", terminal="Shift+Insert", vscode="Shift+Insert"}
 key paste-plain  SUPER+SHIFT+v  category="Editing"  mac="⇧⌘V"  profiles={default,libreoffice,terminal}  file=shortcuts.lua  text={default="Ctrl+Shift+V", libreoffice="Ctrl+Alt+Shift+V", terminal="Shift+Insert"}
 key paste-special  SUPER+ALT+v  category="Editing"  mac="⌥⌘V"  profiles={libreoffice}  file=shortcuts.lua  text={libreoffice="Ctrl+Shift+V"}
 key preferences  SUPER+comma  category="Navigation"  mac="⌘,"  profiles={default,firefox,ghostty,kitty,libreoffice,terminal}  file=shortcuts.lua  text={default="Ctrl+,", firefox="Open about:preferences in Firefox", ghostty="Open Ghostty's config file in Omarchy's editor", kitty="Ctrl+Shift+F2", libreoffice="Alt+F12", terminal="Nothing: the key does nothing"}
@@ -168,7 +167,8 @@ relocated SUPER+f → SUPER+CTRL+f  "Full screen"
 relocated SUPER+CTRL+f → CTRL+ALT+f  "Tiled full screen"
 relocated SUPER+ALT+f → CTRL+ALT+return  "Full width"
 relocated SUPER+o → CTRL+ALT+o  "Pop window out (float & pin)"
-relocated SUPER+l → CTRL+ALT+l  "Toggle workspace layout"
+relocated SUPER+l → CTRL+ALT+l  "Cycle workspace layout"
+relocated SUPER+ALT+l → CTRL+ALT+SHIFT+l  "Cycle workspace layout back"
 relocated SUPER+left → CTRL+left  "Focus on left window"
 relocated SUPER+right → CTRL+right  "Focus on right window"
 relocated SUPER+up → CTRL+up  "Focus on above window"
@@ -205,6 +205,8 @@ relocated SUPER+SHIFT+0 → CTRL+SHIFT+0  "Move window to workspace 10"
 relocated SUPER+ALT+SHIFT+0 → CTRL+ALT+SHIFT+0  "Move window silently to workspace 10"
 relocated SUPER+s → CTRL+ALT+s  "Toggle scratchpad"
 relocated SUPER+ALT+s → CTRL+ALT+SHIFT+s  "Move window to scratchpad"
+relocated SUPER+grave → CTRL+ALT+grave  "Toggle Quake console"
+relocated SUPER+SHIFT+grave → CTRL+ALT+SHIFT+grave  "Move window to Quake console"
 relocated SUPER+tab → CTRL+ALT+right  "Next workspace"
 relocated SUPER+SHIFT+tab → CTRL+ALT+left  "Previous workspace"
 relocated SUPER+ALT+SHIFT+left → SUPER+CTRL+ALT+SHIFT+left  "Move workspace to left monitor"
@@ -238,17 +240,20 @@ relocated SUPER+ALT+mouse_up → SUPER+CTRL+ALT+mouse_up  "Previous window in gr
 relocated SUPER+slash → CTRL+ALT+slash  "Monitor scaling up"
 relocated SUPER+ALT+slash → CTRL+ALT+SHIFT+slash  "Monitor scaling down"
 relocated SUPER+k → SUPER+SHIFT+slash  "Keybindings"
-relocated SUPER+CTRL+q → SUPER+CTRL+ALT+q  "Calculator"
 relocated SUPER+CTRL+space → SUPER+CTRL+ALT+space  "Background switcher"
-relocated SUPER+backspace → CTRL+ALT+backspace  "Toggle window transparency"
+relocated SUPER+backspace → CTRL+ALT+backspace  "Toggle transparency on a window"
 relocated SUPER+SHIFT+backspace → CTRL+ALT+SHIFT+backspace  "Toggle window gaps"
-relocated SUPER+comma → SUPER+CTRL+SHIFT+comma  "Dismiss last notification"
+relocated SUPER+CTRL+ALT+f → SUPER+CTRL+SHIFT+f  "Toggle full screen desktop"
+relocated SUPER+comma → SUPER+CTRL+SHIFT+comma  "Dismiss, invoke, or focus last notification"
+relocated SUPER+CTRL+ALT+c → SUPER+CTRL+SHIFT+c  "Screenshot"
 relocated SUPER+ALT+bracketleft → CTRL+ALT+bracketleft  "Make webcam overlay smaller"
 relocated SUPER+ALT+bracketright → CTRL+ALT+bracketright  "Make webcam overlay larger"
 relocated SUPER+CTRL+ALT+t → SUPER+CTRL+SHIFT+t  "Show time"
 relocated SUPER+CTRL+ALT+b → SUPER+CTRL+SHIFT+b  "Show battery remaining"
 relocated SUPER+CTRL+ALT+w → SUPER+CTRL+SHIFT+w  "Toggle weather"
 relocated SUPER+CTRL+ALT+d → SUPER+CTRL+SHIFT+d  "Calendar"
+relocated SUPER+CTRL+ALT+e → SUPER+CTRL+SHIFT+e  "World clock"
+relocated SUPER+SHIFT+t → SUPER+CTRL+ALT+t  "Activity"
 relocated SUPER+return → SUPER+CTRL+ALT+return  "Terminal"
 relocated SUPER+SHIFT+return → SUPER+CTRL+ALT+SHIFT+return  "Browser"
 relocated SUPER+SHIFT+f → SUPER+CTRL+ALT+f  "File manager"
@@ -259,6 +264,14 @@ relocated SUPER+SHIFT+n → SUPER+CTRL+ALT+n  "Editor"
 dropped SUPER+c  "Universal copy"
 dropped SUPER+v  "Universal paste"
 dropped SUPER+x  "Universal cut"
+dropped SUPER+q  "Close window"
+dropped SUPER+a  "Select all"
+dropped SUPER+i  "Switch input language"
+dropped SUPER+SHIFT+i  "Switch input language back"
+dropped SUPER+CTRL+SHIFT+left  "Move window to left monitor"
+dropped SUPER+CTRL+SHIFT+right  "Move window to right monitor"
+dropped SUPER+CTRL+SHIFT+up  "Move window to up monitor"
+dropped SUPER+CTRL+SHIFT+down  "Move window to down monitor"
 app ghostty  family=terminal  classes={com.mitchellh.ghostty}  tags={}  catchall=none
 app kitty  family=terminal  classes={kitty}  tags={}  catchall=none
 app foot  family=terminal  classes={foot,org.codeberg.dnkl.foot}  tags={}  catchall=none
@@ -266,6 +279,7 @@ app terminal  family=nil  classes={}  tags={terminal}  catchall="Nothing: the ke
 app firefox  family=browser  classes={}  tags={firefox-based-browser}  catchall=none
 app browser  family=nil  classes={brave-origin}  tags={chromium-based-browser,firefox-based-browser}  catchall=none
 app vscode  family=nil  classes={com.microsoft.VSCode,code,code-oss,Code}  tags={}  catchall=none
+app claude-desktop  family=nil  classes={com.anthropic.Claude}  tags={}  catchall=none
 app libreoffice  family=nil  classes={libreoffice-writer,libreoffice-calc,libreoffice-impress,libreoffice-draw,libreoffice-math,libreoffice-base,libreoffice-startcenter,soffice}  tags={}  catchall=none
 app obsidian  family=nil  classes={md.obsidian.Obsidian,obsidian}  tags={}  catchall=none
 app nautilus  family=nil  classes={org.gnome.Nautilus}  tags={}  catchall=none

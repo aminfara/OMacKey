@@ -351,6 +351,16 @@ function M.new()
     return nil
   end
 
+  -- Omarchy 4.5's Quake console (default/hypr/qconsole.lua) sizes itself from
+  -- the monitor at load: a monitor that can't be read makes it do nothing.
+  function hl.get_workspace()
+    return nil
+  end
+
+  function hl.get_active_monitor()
+    return nil
+  end
+
   hl.notification = setmetatable({
     create = function(spec)
       table.insert(state.notifications, type(spec) == "table" and tostring(spec.text) or tostring(spec))

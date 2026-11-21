@@ -16,7 +16,7 @@ daily between a work Mac and an Omarchy machine.
   - references and history.
 - **`docs/TESTING.md`**: the snapshot harness, live validation, handler tests,
   the physical protocol, test recipes, recovery.
-- **`docs/FINDINGS.md`**: facts about Hyprland, Omarchy and the apps (F0–F26).
+- **`docs/FINDINGS.md`**: facts about Hyprland, Omarchy and the apps (F0–F28).
   Code comments cite them by number.
 - **`docs/LIMITATIONS.md`**: what is not mapped, why, and what to use instead.
 - **`docs/ROADMAP.md`**: what is left (the optional ⌘Tab overlay and the
@@ -47,7 +47,8 @@ keys. Don't run ahead into later roadmap items.
 
 ## Environment (user's machine, as of 2026-10-07)
 
-- **Software:** Omarchy 4.0.4, Hyprland 0.56.2 with Lua config. The default
+- **Software:** Omarchy 4.5.0-3 (the project was built on 4.0.4; FINDINGS F27 lists
+  what 4.5 changed), Hyprland 0.56.2 with Lua config. The default
   layout is **scrolling**; dwindle must work too.
 - **Hardware:** NuPhy Air75 V2 keyboard in Mac mode (⌘ = Super, next to the
   space bar), Logitech G305 mouse. Desktop PC: no trackpad, no lid.
@@ -59,7 +60,9 @@ keys. Don't run ahead into later roadmap items.
 - **Apps:**
   - foot (default terminal, bash) and Brave Origin (default browser, class
     `brave-origin`);
-  - Chromium, VS Code (class `com.microsoft.VSCode`), Obsidian, Nautilus,
+  - Chromium, VS Code (class `com.microsoft.VSCode`), Claude Desktop (class
+    `com.anthropic.Claude`, the Code tab's terminal needs VS Code's treatment,
+    F28), Obsidian, Nautilus,
     LibreOffice, Ghostty, kitty, Firefox;
   - Google Chrome must be supported too, but may need installing for testing.
   - `wtype` (⌘-scroll) and `voxtype` (F5 dictation) are installed.

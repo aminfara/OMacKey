@@ -1,5 +1,17 @@
-status: bindings=157 relocated=114
-subscribed at load: hyprland.start ×1
+status: bindings=156 relocated=121
+subscribed at load: config.reloaded ×2
+subscribed at load: hyprland.start ×2
 subscribed at load: layer.closed ×1
 subscribed at load: layer.opened ×1
+subscribed at load: monitor.added ×1
+subscribed at load: monitor.focused ×1
+subscribed at load: monitor.layout_changed ×1
+subscribed at load: monitor.removed ×1
 subscribed at load: window.active ×1
+subscribed at load: window.destroy ×1
+subscribed at load: window.move_to_workspace ×2
+subscribed at load: window.open ×1
+subscribed at load: window.update_rules ×1
+subscribed at load: workspace.created ×2
+subscribed at load: workspace.move_to_monitor ×1
+subscribed at load: workspace.special_active ×1

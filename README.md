@@ -1,7 +1,7 @@
 # OMacKey
 
-> **Alpha.** OMacKey works day to day on the author's machine (Omarchy 4.0.4,
-> Hyprland 0.56.2), but it is young: it has had little testing on other setups,
+> **Alpha.** OMacKey works day to day on the author's machine (Omarchy 4.5,
+> Hyprland 0.56.2; built on 4.0.4), but it is young: it has had little testing on other setups,
 > and shortcuts may still move or change between versions. Expect rough edges,
 > and please report what you find.
 
@@ -177,7 +177,7 @@ More in [docs/TESTING.md](docs/TESTING.md#6-recovery).
 
 ## Tested on
 
-Omarchy 4.0.4 with Hyprland 0.56 (Lua config, scrolling layout), a NuPhy
+Omarchy 4.5 (built on 4.0.4) with Hyprland 0.56 (Lua config, scrolling layout), a NuPhy
 Air75 V2 in Mac mode (⌘ is Super), foot and Brave. Other Omarchy or Hyprland
 versions may differ: after `omarchy update`, `scripts/drift.sh` lists the Omarchy
 bindings that changed and which of them sit on a key OMacKey uses, and

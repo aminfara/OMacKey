@@ -266,6 +266,11 @@ function M.build()
     end
   end
 
+  for _, duplicate in ipairs(relocate.duplicates) do
+    table.insert(M.errors, "Omarchy binds " .. duplicate.chord .. " twice: '" .. duplicate.first
+      .. "' and '" .. duplicate.second .. "' (relocations.lua needs a row)")
+  end
+
   local function fail(spec, message)
     table.insert(M.errors, "'" .. tostring(spec.id or spec.keys) .. "' " .. message)
   end

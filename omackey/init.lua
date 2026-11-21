@@ -24,6 +24,7 @@ local APPS = {
   "firefox",
   "browser",
   "vscode",
+  "claude-desktop",
   "libreoffice",
   "obsidian",
   "nautilus",

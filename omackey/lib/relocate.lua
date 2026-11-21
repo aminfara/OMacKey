@@ -12,7 +12,17 @@ local M = {
   applied = {}, -- { from, to, description } for every bind that was moved
   dropped = {}, -- { from, description } for every bind that was not registered
   claimed = {}, -- normalized key string → true, for every key Omarchy registered
+  duplicates = {}, -- { chord, first, second }: a key Omarchy (after relocation) binds twice
 }
+
+-- Omarchy binds these twice on purpose: cycle the window, then raise it (or
+-- lower the one it leaves). It is one gesture, so it is not reported.
+local deliberate = {
+  [keys.normalize("ALT + TAB")] = true,
+  [keys.normalize("ALT + SHIFT + TAB")] = true,
+}
+
+local seen = {} -- normalized key (+ release flag) → description of the first bind
 
 local original_bind
 local index
@@ -43,7 +53,16 @@ function M.hook()
       table.insert(M.applied, { from = chord, to = relocation.to, description = description })
       chord = relocation.to
     end
-    M.claimed[keys.normalize(chord)] = true
+    local normalized = keys.normalize(chord)
+    M.claimed[normalized] = true
+
+    -- One action per key: a relocation that lands on another Omarchy bind, or a
+    -- new Omarchy default on a relocated key, would make both fire.
+    local id = normalized .. ((opts and opts.release) and " (release)" or "")
+    if seen[id] and not deliberate[normalized] then
+      table.insert(M.duplicates, { chord = chord, first = seen[id], second = description or "?" })
+    end
+    seen[id] = seen[id] or description or "?"
 
     return original_bind(chord, dispatcher, opts)
   end

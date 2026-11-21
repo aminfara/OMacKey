@@ -44,8 +44,8 @@ something else (see [Per-app actions](#per-app-actions)).
 
 | Mac | Key | Description | Action | Differs in | Flags |
 | --- | --- | --- | --- | --- | --- |
-| ⌘C | `SUPER + C` | Copy | Ctrl+C | terminal, vscode |  |
-| ⌘V | `SUPER + V` | Paste | Ctrl+V | terminal, vscode |  |
+| ⌘C | `SUPER + C` | Copy | Ctrl+C | claude-desktop, terminal, vscode |  |
+| ⌘V | `SUPER + V` | Paste | Ctrl+V | claude-desktop, terminal, vscode |  |
 | ⌘X | `SUPER + X` | Cut | Ctrl+X | terminal |  |
 | ⇧⌘V | `SUPER + SHIFT + V` | Paste without formatting | Ctrl+Shift+V | libreoffice, terminal |  |
 | ⌥⌘V | `SUPER + ALT + V` | Paste special (LibreOffice) | The key reaches the app unchanged | libreoffice |  |
@@ -214,7 +214,6 @@ same key. A few are deliberately not mapped (see [LIMITATIONS.md](LIMITATIONS.md
 | ⌘E | `SUPER + E` | ⌘E sent as Ctrl+E | Ctrl+E | terminal |  |
 | ⌘H | `SUPER + H` | ⌘H not mapped | Nothing: the key does nothing | terminal |  |
 | ⌘J | `SUPER + J` | ⌘J sent as Ctrl+J | Ctrl+J | terminal |  |
-| ⌘M | `SUPER + M` | ⌘M not mapped | Nothing: the key does nothing | terminal |  |
 | ⌘\ | `SUPER + backslash` | ⌘\ sent as Ctrl+\ | Ctrl+\ | terminal |  |
 | ⌘; | `SUPER + semicolon` | ⌘; sent as Ctrl+; | Ctrl+; | terminal |  |
 | ⌘' | `SUPER + apostrophe` | ⌘' sent as Ctrl+' | Ctrl+' | terminal |  |
@@ -255,6 +254,7 @@ for that key only.
 | firefox | browser | tag `firefox-based-browser` |
 | browser |  | class `brave-origin`, tag `chromium-based-browser`, tag `firefox-based-browser` |
 | vscode |  | class `com.microsoft.VSCode`, class `code`, class `code-oss`, class `Code` |
+| claude-desktop |  | class `com.anthropic.Claude` |
 | libreoffice |  | class `libreoffice-writer`, class `libreoffice-calc`, class `libreoffice-impress`, class `libreoffice-draw`, class `libreoffice-math`, class `libreoffice-base`, class `libreoffice-startcenter`, class `soffice` |
 | obsidian |  | class `md.obsidian.Obsidian`, class `obsidian` |
 | nautilus |  | class `org.gnome.Nautilus` |
@@ -441,6 +441,14 @@ Every catch-all key: Nothing: the key does nothing.
 | ⌥⌘C | `SUPER + ALT + C` | Alt+C | passes through |
 | ⌃D | `CTRL + D` | Nothing: the key reaches the app unchanged | Delete |
 
+### claude-desktop
+
+| Mac | Key | Action here | Generic action |
+| --- | --- | --- | --- |
+| ⌘C | `SUPER + C` | Ctrl+Insert | Ctrl+C |
+| ⌘V | `SUPER + V` | Shift+Insert | Ctrl+V |
+| ⌃D | `CTRL + D` | Nothing: the key reaches the app unchanged | Delete |
+
 ### libreoffice
 
 | Mac | Key | Action here | Generic action |
@@ -520,6 +528,14 @@ changed. A dropped bind is replaced by an OMacKey shortcut.
 | `SUPER + C` | ⌘C | dropped |  | Universal copy |
 | `SUPER + V` | ⌘V | dropped |  | Universal paste |
 | `SUPER + X` | ⌘X | dropped |  | Universal cut |
+| `SUPER + Q` | ⌘Q | dropped |  | Close window |
+| `SUPER + A` | ⌘A | dropped |  | Select all |
+| `SUPER + I` | ⌘I | dropped |  | Switch input language |
+| `SUPER + SHIFT + I` | ⇧⌘I | dropped |  | Switch input language back |
+| `SUPER + SHIFT + CTRL + LEFT` | ⌃⇧⌘← | dropped |  | Move window to left monitor |
+| `SUPER + SHIFT + CTRL + RIGHT` | ⌃⇧⌘→ | dropped |  | Move window to right monitor |
+| `SUPER + SHIFT + CTRL + UP` | ⌃⇧⌘↑ | dropped |  | Move window to up monitor |
+| `SUPER + SHIFT + CTRL + DOWN` | ⌃⇧⌘↓ | dropped |  | Move window to down monitor |
 | `SUPER + W` | ⌘W | `CTRL + ALT + W` | ⌃⌥W | Close window |
 | `SUPER + J` | ⌘J | `CTRL + ALT + J` | ⌃⌥J | Toggle window split |
 | `SUPER + P` | ⌘P | `CTRL + ALT + P` | ⌃⌥P | Pseudo window |
@@ -528,7 +544,10 @@ changed. A dropped bind is replaced by an OMacKey shortcut.
 | `SUPER + CTRL + F` | ⌃⌘F | `CTRL + ALT + F` | ⌃⌥F | Tiled full screen |
 | `SUPER + ALT + F` | ⌥⌘F | `CTRL + ALT + RETURN` | ⌃⌥⏎ | Full width |
 | `SUPER + O` | ⌘O | `CTRL + ALT + O` | ⌃⌥O | Pop window out (float & pin) |
-| `SUPER + L` | ⌘L | `CTRL + ALT + L` | ⌃⌥L | Toggle workspace layout |
+| `SUPER + L` | ⌘L | `CTRL + ALT + L` | ⌃⌥L | Cycle workspace layout |
+| `SUPER + ALT + L` | ⌥⌘L | `CTRL + ALT + SHIFT + L` | ⌃⌥⇧L | Cycle workspace layout back |
+| `SUPER + grave` | ⌘\` | `CTRL + ALT + grave` | ⌃⌥\` | Toggle Quake console |
+| `SUPER + SHIFT + grave` | ⇧⌘\` | `CTRL + ALT + SHIFT + grave` | ⌃⌥⇧\` | Move window to Quake console |
 | `SUPER + mouse:272` | nil | `CTRL + ALT + mouse:272` | nil | Move window |
 | `SUPER + mouse:273` | nil | `CTRL + ALT + mouse:273` | nil | Resize window |
 | `SUPER + mouse_down` | nil | `CTRL + ALT + mouse_down` | nil | Scroll active workspace forward |
@@ -565,7 +584,7 @@ changed. A dropped bind is replaced by an OMacKey shortcut.
 | `SUPER + CTRL + SHIFT + code:21` | ⌃⇧⌘= | `SUPER + CTRL + ALT + SHIFT + code:21` | ⌃⌥⇧⌘= | Expand window down a lot |
 | `SUPER + SLASH` | ⌘/ | `CTRL + ALT + slash` | ⌃⌥/ | Monitor scaling up |
 | `SUPER + ALT + SLASH` | ⌥⌘/ | `CTRL + ALT + SHIFT + slash` | ⌃⌥⇧/ | Monitor scaling down |
-| `SUPER + BACKSPACE` | ⌘⌫ | `CTRL + ALT + BACKSPACE` | ⌃⌥⌫ | Toggle window transparency |
+| `SUPER + BACKSPACE` | ⌘⌫ | `CTRL + ALT + BACKSPACE` | ⌃⌥⌫ | Toggle transparency on a window |
 | `SUPER + SHIFT + BACKSPACE` | ⇧⌘⌫ | `CTRL + ALT + SHIFT + BACKSPACE` | ⌃⌥⇧⌫ | Toggle window gaps |
 | `SUPER + ALT + code:34` | ⌥⌘[ | `CTRL + ALT + code:34` | ⌃⌥[ | Make webcam overlay smaller |
 | `SUPER + ALT + code:35` | ⌥⌘] | `CTRL + ALT + code:35` | ⌃⌥] | Make webcam overlay larger |
@@ -578,6 +597,7 @@ changed. A dropped bind is replaced by an OMacKey shortcut.
 | `SUPER + SHIFT + B` | ⇧⌘B | `SUPER + CTRL + ALT + B` | ⌃⌥⌘B | Browser |
 | `SUPER + SHIFT + ALT + B` | ⌥⇧⌘B | `SUPER + CTRL + ALT + SHIFT + B` | ⌃⌥⇧⌘B | Browser (private) |
 | `SUPER + SHIFT + N` | ⇧⌘N | `SUPER + CTRL + ALT + N` | ⌃⌥⌘N | Editor |
+| `SUPER + SHIFT + T` | ⇧⌘T | `SUPER + CTRL + ALT + T` | ⌃⌥⌘T | Activity |
 | `SUPER + SHIFT + M` | ⇧⌘M | `SUPER + CTRL + ALT + M` | ⌃⌥⌘M | Music |
 | `SUPER + SHIFT + ALT + M` | ⌥⇧⌘M | `SUPER + CTRL + ALT + SHIFT + M` | ⌃⌥⇧⌘M | Music TUI |
 | `SUPER + SHIFT + D` | ⇧⌘D | `SUPER + CTRL + ALT + D` | ⌃⌥⌘D | Docker |
@@ -600,9 +620,12 @@ changed. A dropped bind is replaced by an OMacKey shortcut.
 | `SUPER + CTRL + ALT + B` | ⌃⌥⌘B | `SUPER + CTRL + SHIFT + B` | ⌃⇧⌘B | Show battery remaining |
 | `SUPER + CTRL + ALT + W` | ⌃⌥⌘W | `SUPER + CTRL + SHIFT + W` | ⌃⇧⌘W | Toggle weather |
 | `SUPER + CTRL + ALT + D` | ⌃⌥⌘D | `SUPER + CTRL + SHIFT + D` | ⌃⇧⌘D | Calendar |
+| `SUPER + CTRL + ALT + C` | ⌃⌥⌘C | `SUPER + CTRL + SHIFT + C` | ⌃⇧⌘C | Screenshot |
+| `SUPER + CTRL + ALT + E` | ⌃⌥⌘E | `SUPER + CTRL + SHIFT + E` | ⌃⇧⌘E | World clock |
+| `SUPER + CTRL + ALT + F` | ⌃⌥⌘F | `SUPER + CTRL + SHIFT + F` | ⌃⇧⌘F | Toggle full screen desktop |
 | `SUPER + K` | ⌘K | `SUPER + SHIFT + slash` | ⇧⌘/ | Keybindings |
-| `SUPER + comma` | ⌘, | `SUPER + CTRL + SHIFT + comma` | ⌃⇧⌘, | Dismiss last notification |
-| `SUPER + CTRL + Q` | ⌃⌘Q | `SUPER + CTRL + ALT + Q` | ⌃⌥⌘Q | Calculator |
+| `SUPER + comma` | ⌘, | `SUPER + CTRL + SHIFT + comma` | ⌃⇧⌘, | Dismiss, invoke, or focus last notification |
+| `SUPER + SHIFT + Q` | ⇧⌘Q | `SUPER + CTRL + ALT + Q` | ⌃⌥⌘Q | Calculator |
 | `SUPER + CTRL + SPACE` | ⌃⌘Space | `SUPER + CTRL + ALT + SPACE` | ⌃⌥⌘Space | Background switcher |
 | `SUPER + code:10` | ⌘1 | `CTRL + code:10` | ⌃1 | Switch to workspace 1 |
 | `SUPER + SHIFT + code:10` | ⇧⌘1 | `CTRL + SHIFT + code:10` | ⌃⇧1 | Move window to workspace 1 |

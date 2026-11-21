@@ -19,6 +19,25 @@ local relocations = {
   { from = "SUPER + V", drop = true }, -- Universal paste
   { from = "SUPER + X", drop = true }, -- Universal cut
 
+  -- Dropped (Omarchy 4.5): OMacKey's own binds replace Omarchy's new duplicates
+  -- of Mac shortcuts, so each key keeps one action.
+  { from = "SUPER + Q", drop = true }, -- Close window (⌘Q quits the app: all its windows)
+  { from = "SUPER + A", drop = true }, -- Select all (OMacKey's ⌘A: terminals consume it)
+
+  -- Dropped for now (Omarchy 4.5, input methods): ⌘I is italic and ⇧⌘I is
+  -- consumed. A key for switching the input language is a pending decision
+  -- (docs/ROADMAP.md).
+  { from = "SUPER + I", drop = true }, -- Switch input language
+  { from = "SUPER + SHIFT + I", drop = true }, -- Switch input language back
+
+  -- Dropped (Omarchy 4.5): move window to the monitor in that direction. Its
+  -- ⌃⇧⌘ arrows are OMacKey's shrink / expand selection, and this machine has
+  -- one monitor. ⌃⌥⇧⌘ + arrows (move workspace to monitor) stay.
+  { from = "SUPER + SHIFT + CTRL + LEFT", drop = true },
+  { from = "SUPER + SHIFT + CTRL + RIGHT", drop = true },
+  { from = "SUPER + SHIFT + CTRL + UP", drop = true },
+  { from = "SUPER + SHIFT + CTRL + DOWN", drop = true },
+
   -- Window management → ⌃⌥
   { from = "SUPER + W", to = "CTRL + ALT + W" }, -- Close window (⌘W: close tab)
   { from = "SUPER + J", to = "CTRL + ALT + J" }, -- Toggle window split
@@ -28,7 +47,11 @@ local relocations = {
   { from = "SUPER + CTRL + F", to = "CTRL + ALT + F" }, -- Tiled full screen
   { from = "SUPER + ALT + F", to = "CTRL + ALT + RETURN" }, -- Full width (Rectangle "maximize")
   { from = "SUPER + O", to = "CTRL + ALT + O" }, -- Pop window out
-  { from = "SUPER + L", to = "CTRL + ALT + L" }, -- Toggle workspace layout
+  { from = "SUPER + L", to = "CTRL + ALT + L" }, -- Cycle workspace layout
+  { from = "SUPER + ALT + L", to = "CTRL + ALT + SHIFT + L" }, -- Cycle workspace layout back (⌥⌘L: find in selection)
+  -- Quake console (4.5), next to the scratchpad pair below; ⌘` cycles an app's windows.
+  { from = "SUPER + grave", to = "CTRL + ALT + grave" }, -- Toggle Quake console
+  { from = "SUPER + SHIFT + grave", to = "CTRL + ALT + SHIFT + grave" }, -- Move window to Quake console
 
   -- Mouse: ⌘ + click and ⌘ + scroll become Ctrl + click / scroll in apps, so
   -- Omarchy's window mouse controls move to ⌃⌥ like its other window management.
@@ -100,6 +123,7 @@ local relocations = {
   { from = "SUPER + SHIFT + B", to = "SUPER + CTRL + ALT + B" }, -- Browser
   { from = "SUPER + SHIFT + ALT + B", to = "SUPER + CTRL + ALT + SHIFT + B" }, -- Browser (private)
   { from = "SUPER + SHIFT + N", to = "SUPER + CTRL + ALT + N" }, -- Editor
+  { from = "SUPER + SHIFT + T", to = "SUPER + CTRL + ALT + T" }, -- Activity (⇧⌘T: reopen tab; 4.5)
 
   -- Preinstalled apps and web apps (only when omarchy_preinstalled_bindings is on).
   { from = "SUPER + SHIFT + M", to = "SUPER + CTRL + ALT + M", optional = true }, -- Music
@@ -121,20 +145,27 @@ local relocations = {
   { from = "SUPER + SHIFT + X", to = "SUPER + CTRL + ALT + X", optional = true }, -- X
   { from = "SUPER + SHIFT + ALT + X", to = "SUPER + CTRL + ALT + SHIFT + X", optional = true }, -- X Post
 
-  -- Omarchy info popups → ⌃⇧⌘ T/B/W/D. B, W and D collide with launcher
-  -- letters; time moves with them to keep the group together. ⌃⌥⌘R/Z/Delete
-  -- stay next to their ⌃⌘ siblings (show reminders, reset zoom, mirroring).
+  -- Omarchy quick actions and info popups → ⌃⇧⌘ T/B/W/D/C/E/F. These letters
+  -- collide with launcher letters; time moves with them to keep the group
+  -- together. ⌃⌥⌘R/Z/Delete stay next to their ⌃⌘ siblings (show reminders,
+  -- reset zoom, mirroring).
   { from = "SUPER + CTRL + ALT + T", to = "SUPER + CTRL + SHIFT + T" }, -- Show time
   { from = "SUPER + CTRL + ALT + B", to = "SUPER + CTRL + SHIFT + B" }, -- Show battery remaining
   { from = "SUPER + CTRL + ALT + W", to = "SUPER + CTRL + SHIFT + W" }, -- Toggle weather
   { from = "SUPER + CTRL + ALT + D", to = "SUPER + CTRL + SHIFT + D" }, -- Calendar panel
+  { from = "SUPER + CTRL + ALT + C", to = "SUPER + CTRL + SHIFT + C" }, -- Screenshot (4.5)
+  { from = "SUPER + CTRL + ALT + E", to = "SUPER + CTRL + SHIFT + E" }, -- World clock (4.5)
+  { from = "SUPER + CTRL + ALT + F", to = "SUPER + CTRL + SHIFT + F" }, -- Toggle full screen desktop (4.5)
 
   -- Utilities & help.
   { from = "SUPER + K", to = "SUPER + SHIFT + slash" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps
   -- Next to ⇧⌘, (dismiss all) and the ⌃⇧⌘ info popups; ⌘, is preferences.
   -- xkbcommon names the keysym "comma"; upper-case "COMMA" does not match.
-  { from = "SUPER + comma", to = "SUPER + CTRL + SHIFT + comma" }, -- Dismiss last notification
-  { from = "SUPER + CTRL + Q", to = "SUPER + CTRL + ALT + Q" }, -- Calculator (⌃⌘Q: lock screen)
+  -- Since 4.5 it acts on the newest notification (dismiss, open, press its
+  -- button or hand over the keyboard); ⌥⌘, dismisses the last one.
+  { from = "SUPER + comma", to = "SUPER + CTRL + SHIFT + comma" }, -- Act on the newest notification
+  -- Calculator moved from ⌃⌘Q to ⇧⌘Q in 4.5 (⇧⌘Q: log out); only with the preinstalled apps.
+  { from = "SUPER + SHIFT + Q", to = "SUPER + CTRL + ALT + Q", optional = true }, -- Calculator
   { from = "SUPER + CTRL + SPACE", to = "SUPER + CTRL + ALT + SPACE" }, -- Background switcher (⌃⌘Space: emoji)
 }
 

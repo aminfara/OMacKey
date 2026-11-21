@@ -1,33 +1,219 @@
-SUPER+CTRL+ALT+z "Reset zoom"  {}
-  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+CTRL+space "Direct input for the terminal prefix"  { non_consuming = true }
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
     → handled
+SUPER+0 "Switch to workspace 10"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+1 "Switch to workspace 1"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+2 "Switch to workspace 2"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+3 "Switch to workspace 3"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+4 "Switch to workspace 4"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+5 "Switch to workspace 5"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+6 "Switch to workspace 6"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+7 "Switch to workspace 7"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+8 "Switch to workspace 8"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+9 "Switch to workspace 9"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+0 "Move window silently to workspace 10"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+1 "Move window silently to workspace 1"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+2 "Move window silently to workspace 2"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+3 "Move window silently to workspace 3"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+4 "Move window silently to workspace 4"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+5 "Move window silently to workspace 5"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+6 "Move window silently to workspace 6"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+7 "Move window silently to workspace 7"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+8 "Move window silently to workspace 8"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+9 "Move window silently to workspace 9"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+ALT+SHIFT+down "Move workspace to down monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
+SUPER+ALT+SHIFT+left "Move workspace to left monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
+SUPER+ALT+SHIFT+right "Move workspace to right monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
+SUPER+ALT+SHIFT+up "Move workspace to up monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
+SUPER+CTRL+ALT+z "Reset zoom"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+CTRL+SHIFT+down "Move window to down monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
+SUPER+CTRL+SHIFT+left "Move window to left monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
 SUPER+CTRL+SHIFT+m "OMacKey on/off (Mac mode)"  {}
-  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
     +0 exec_cmd("rm -f '$XDG_STATE_HOME/omackey/off' && notify-send -a OMacKey 'OMacKey is on: Mac keys' ; hyprctl reload")
     → handled
+SUPER+CTRL+SHIFT+right "Move window to right monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
+SUPER+CTRL+SHIFT+up "Move window to up monitor"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → ERROR attempt to concatenate a table value (field 'label')
 SUPER+CTRL+z "Zoom in"  {}
-  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+0 "Move window to workspace 10"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+1 "Move window to workspace 1"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+2 "Move window to workspace 2"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+3 "Move window to workspace 3"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+4 "Move window to workspace 4"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+5 "Move window to workspace 5"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+6 "Move window to workspace 6"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+7 "Move window to workspace 7"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+8 "Move window to workspace 8"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+SHIFT+9 "Move window to workspace 9"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    → handled
+SUPER+a "Select all"  {}
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
+    +0 send_key_state({ key = "A", mods = "CTRL", state = "down" })
+    +50 send_key_state({ key = "A", mods = "CTRL", state = "up" })
     → handled
 SUPER+c "Universal copy"  {}
-  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
     +0 send_key_state({ key = "C", mods = "CTRL", state = "down" })
     +50 send_key_state({ key = "C", mods = "CTRL", state = "up" })
     → handled
   foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
-    +0 send_key_state({ key = "Insert", mods = "CTRL", state = "down" })
-    +50 send_key_state({ key = "Insert", mods = "CTRL", state = "up" })
+    +0 send_key_state({ key = "C", mods = "CTRL SHIFT", state = "down" })
+    +50 send_key_state({ key = "C", mods = "CTRL SHIFT", state = "up" })
+    → handled
+SUPER+return "Terminal"  {}
+  none:
+    +0 exec_cmd "omarchy-launch-terminal"
+    → handled
+  empty-class:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1881"
+    → handled
+  keylog:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1882"
+    → handled
+  foot:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1883"
+    → handled
+  foot-alt:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1884"
+    → handled
+  ghostty:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1885"
+    → handled
+  kitty:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1886"
+    → handled
+  alacritty:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1887"
+    → handled
+  omarchy-tui:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1888"
+    → handled
+  brave-origin:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1889"
+    → handled
+  chromium:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1890"
+    → handled
+  google-chrome:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1891"
+    → handled
+  firefox:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1892"
+    → handled
+  vscode:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1893"
+    → handled
+  code-oss:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1894"
+    → handled
+  claude-desktop:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1895"
+    → handled
+  obsidian:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1896"
+    → handled
+  nautilus:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1897"
+    → handled
+  libreoffice:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1898"
+    → handled
+  soffice:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1899"
+    → handled
+  webapp:
+    +0 exec_cmd "omarchy-launch-terminal --pid=1900"
     → handled
 SUPER+v "Universal paste"  {}
-  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+  none, empty-class, keylog, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
     +0 send_key_state({ key = "V", mods = "CTRL", state = "down" })
     +50 send_key_state({ key = "V", mods = "CTRL", state = "up" })
     → handled
   foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui:
-    +0 send_key_state({ key = "Insert", mods = "SHIFT", state = "down" })
-    +50 send_key_state({ key = "Insert", mods = "SHIFT", state = "up" })
+    +0 send_key_state({ key = "V", mods = "CTRL SHIFT", state = "down" })
+    +50 send_key_state({ key = "V", mods = "CTRL SHIFT", state = "up" })
     → handled
 SUPER+x "Universal cut"  {}
-  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, obsidian, nautilus, libreoffice, soffice, webapp:
+  none, empty-class, keylog, foot, foot-alt, ghostty, kitty, alacritty, omarchy-tui, brave-origin, chromium, google-chrome, firefox, vscode, code-oss, claude-desktop, obsidian, nautilus, libreoffice, soffice, webapp:
     +0 send_key_state({ key = "X", mods = "CTRL", state = "down" })
     +50 send_key_state({ key = "X", mods = "CTRL", state = "up" })
     → handled

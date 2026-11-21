@@ -3,6 +3,16 @@
 What is left to build, in the order it is planned. Work goes in small
 sessions: one key or one item first, then a group of related ones.
 
+## Pending decisions
+
+- **A key for switching the input language** (needed once Persian is tested,
+  D11). Omarchy 4.5 binds it to `Super + I` / `Super + Shift + I`
+  (`omarchy-input-method cycle` and `cycle back`); OMacKey dropped both for now
+  because ⌘I is italic and ⇧⌘I is consumed (relocations.lua, LIMITATIONS.md).
+  Options: relocate them to a ⌃⌘ or ⌃⌥⌘ chord, or use fcitx5's own trigger.
+  Mac uses ⌃Space / ⌃⌥Space, but Omarchy owns `Ctrl + Space` as a terminal
+  prefix pass-through.
+
 ## Optional
 
 **⌘Tab overlay.** A QuickShell indicator that shows the app icons while ⌘ is

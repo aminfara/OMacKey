@@ -1356,8 +1356,8 @@ catchall({
   },
   -- Consumed everywhere: nothing is sent.
   consumed = {
-    "SUPER + H", -- ⌘H, ⌘M: no hide or minimize on Omarchy (D13), and Ctrl+H /
-    "SUPER + M", -- Ctrl+M are browser history and Enter in a terminal.
+    "SUPER + H", -- ⌘H: no hide on Omarchy (D13), and Ctrl+H is browser history. (⌘M is
+    -- Omarchy's own minimize since 4.5, so the catch-all leaves it alone.)
     "SUPER + SHIFT + Q", -- Ctrl+Shift+Q quits Chrome.
     "SUPER + SHIFT + I", -- Ctrl+Shift+I is Format Document in VS Code; DevTools has ⌥⌘I.
     "SUPER + SHIFT + U", -- Ctrl+Shift+U starts Unicode input in GTK and fcitx5.
