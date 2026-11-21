@@ -159,6 +159,8 @@ key zoom-in-plus  SUPER+SHIFT+equal  category="View"  mac="⇧⌘="  profiles={d
 key zoom-out  SUPER+minus  category="View"  mac="⌘-"  profiles={default,kitty}  file=shortcuts.lua  text={default="Ctrl+-", kitty="Ctrl+Shift+-"}
 key zoom-out-shifted  SUPER+SHIFT+minus  category="View"  mac="⇧⌘-"  profiles={default,terminal,vscode}  file=shortcuts.lua  text={default="Ctrl+Shift+-", terminal="Nothing: the key does nothing", vscode="Ctrl+-"}
 key zoom-reset  SUPER+0  category="View"  mac="⌘0"  profiles={default,kitty,vscode}  file=shortcuts.lua  text={default="Ctrl+0", kitty="Ctrl+Shift+Backspace", vscode="Ctrl+Keypad 0"}
+relocated SUPER+i → CTRL+ALT+space  "Switch input language"
+relocated SUPER+SHIFT+i → CTRL+ALT+SHIFT+space  "Switch input language back"
 relocated SUPER+w → CTRL+ALT+w  "Close window"
 relocated SUPER+j → CTRL+ALT+j  "Toggle window split"
 relocated SUPER+p → CTRL+ALT+p  "Pseudo window"
@@ -285,8 +287,6 @@ dropped SUPER+v  "Universal paste"
 dropped SUPER+x  "Universal cut"
 dropped SUPER+q  "Close window"
 dropped SUPER+a  "Select all"
-dropped SUPER+i  "Switch input language"
-dropped SUPER+SHIFT+i  "Switch input language back"
 dropped SUPER+CTRL+SHIFT+left  "Move window to left monitor"
 dropped SUPER+CTRL+SHIFT+right  "Move window to right monitor"
 dropped SUPER+CTRL+SHIFT+up  "Move window to up monitor"

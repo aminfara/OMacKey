@@ -521,8 +521,9 @@ The relocated groups, in file order:
 - help → ⌘?, the notification action (⌘,) → ⌃⇧⌘, calculator and background
   switcher → ⌃⌥⌘ (frees ⌃⌘Q lock and ⌃⌘Space emoji);
 - dropped (4.5): `Super + Q`, `Super + A` (OMacKey's ⌘Q, ⌘A replace them),
-  the input-language switch (`Super + I`, `Super + Shift + I`; pending decision,
-  ROADMAP.md) and move-window-to-monitor (`Super + Shift + Ctrl` + arrows);
+  and move-window-to-monitor (`Super + Shift + Ctrl` + arrows);
+- the input-language switch (`Super + I`, `Super + Shift + I`) → ⌃⌥Space /
+  ⌃⌥⇧Space;
 - workspace digits (⌘1–0, ⇧⌘1–0, ⌥⇧⌘1–0) → ⌃ / ⌃⇧ / ⌃⌥⇧.
 
 Omarchy's ±25 px resize (⌥⌘-/=), PRINT, media and power keys don't collide and

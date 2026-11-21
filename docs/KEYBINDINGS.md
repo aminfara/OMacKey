@@ -530,8 +530,8 @@ changed. A dropped bind is replaced by an OMacKey shortcut.
 | `SUPER + X` | ⌘X | dropped |  | Universal cut |
 | `SUPER + Q` | ⌘Q | dropped |  | Close window |
 | `SUPER + A` | ⌘A | dropped |  | Select all |
-| `SUPER + I` | ⌘I | dropped |  | Switch input language |
-| `SUPER + SHIFT + I` | ⇧⌘I | dropped |  | Switch input language back |
+| `SUPER + I` | ⌘I | `CTRL + ALT + SPACE` | ⌃⌥Space | Switch input language |
+| `SUPER + SHIFT + I` | ⇧⌘I | `CTRL + ALT + SHIFT + SPACE` | ⌃⌥⇧Space | Switch input language back |
 | `SUPER + SHIFT + CTRL + LEFT` | ⌃⇧⌘← | dropped |  | Move window to left monitor |
 | `SUPER + SHIFT + CTRL + RIGHT` | ⌃⇧⌘→ | dropped |  | Move window to right monitor |
 | `SUPER + SHIFT + CTRL + UP` | ⌃⇧⌘↑ | dropped |  | Move window to up monitor |

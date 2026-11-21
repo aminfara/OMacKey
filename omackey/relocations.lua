@@ -19,24 +19,26 @@ local relocations = {
   { from = "SUPER + V", drop = true }, -- Universal paste
   { from = "SUPER + X", drop = true }, -- Universal cut
 
-  -- Dropped (Omarchy 4.5): OMacKey's own binds replace Omarchy's new duplicates
-  -- of Mac shortcuts, so each key keeps one action.
-  { from = "SUPER + Q", drop = true }, -- Close window (⌘Q quits the app: all its windows)
-  { from = "SUPER + A", drop = true }, -- Select all (OMacKey's ⌘A: terminals consume it)
+  -- Omarchy 4.5 binds (all `optional`: an older Omarchy doesn't have them).
+  --
+  -- Dropped: OMacKey's own binds replace Omarchy's new duplicates of Mac
+  -- shortcuts, so each key keeps one action.
+  { from = "SUPER + Q", drop = true, optional = true }, -- Close window (⌘Q quits the app: all its windows)
+  { from = "SUPER + A", drop = true, optional = true }, -- Select all (OMacKey's ⌘A: terminals consume it)
 
-  -- Dropped for now (Omarchy 4.5, input methods): ⌘I is italic and ⇧⌘I is
-  -- consumed. A key for switching the input language is a pending decision
-  -- (docs/ROADMAP.md).
-  { from = "SUPER + I", drop = true }, -- Switch input language
-  { from = "SUPER + SHIFT + I", drop = true }, -- Switch input language back
+  -- Input source: the Mac's ⌃⌥Space selects the next one (⌃Space, the previous
+  -- one, is Omarchy's terminal-prefix pass-through). ⌘I stays italic.
+  { from = "SUPER + I", to = "CTRL + ALT + SPACE", optional = true }, -- Switch input language
+  { from = "SUPER + SHIFT + I", to = "CTRL + ALT + SHIFT + SPACE", optional = true }, -- Switch input language back
 
-  -- Dropped (Omarchy 4.5): move window to the monitor in that direction. Its
-  -- ⌃⇧⌘ arrows are OMacKey's shrink / expand selection, and this machine has
-  -- one monitor. ⌃⌥⇧⌘ + arrows (move workspace to monitor) stay.
-  { from = "SUPER + SHIFT + CTRL + LEFT", drop = true },
-  { from = "SUPER + SHIFT + CTRL + RIGHT", drop = true },
-  { from = "SUPER + SHIFT + CTRL + UP", drop = true },
-  { from = "SUPER + SHIFT + CTRL + DOWN", drop = true },
+  -- Dropped: move window to the monitor in that direction. Its ⌃⇧⌘ arrows are
+  -- OMacKey's shrink / expand selection, ⌃⌥⌘ arrows move a window into a
+  -- group, and this machine has one monitor. ⌃⌥⇧⌘ + arrows (move workspace to
+  -- monitor) stay. Multi-monitor users need a free chord (LIMITATIONS.md).
+  { from = "SUPER + SHIFT + CTRL + LEFT", drop = true, optional = true },
+  { from = "SUPER + SHIFT + CTRL + RIGHT", drop = true, optional = true },
+  { from = "SUPER + SHIFT + CTRL + UP", drop = true, optional = true },
+  { from = "SUPER + SHIFT + CTRL + DOWN", drop = true, optional = true },
 
   -- Window management → ⌃⌥
   { from = "SUPER + W", to = "CTRL + ALT + W" }, -- Close window (⌘W: close tab)
@@ -48,10 +50,10 @@ local relocations = {
   { from = "SUPER + ALT + F", to = "CTRL + ALT + RETURN" }, -- Full width (Rectangle "maximize")
   { from = "SUPER + O", to = "CTRL + ALT + O" }, -- Pop window out
   { from = "SUPER + L", to = "CTRL + ALT + L" }, -- Cycle workspace layout
-  { from = "SUPER + ALT + L", to = "CTRL + ALT + SHIFT + L" }, -- Cycle workspace layout back (⌥⌘L: find in selection)
+  { from = "SUPER + ALT + L", to = "CTRL + ALT + SHIFT + L", optional = true }, -- Layout back (⌥⌘L: find in selection)
   -- Quake console (4.5), next to the scratchpad pair below; ⌘` cycles an app's windows.
-  { from = "SUPER + grave", to = "CTRL + ALT + grave" }, -- Toggle Quake console
-  { from = "SUPER + SHIFT + grave", to = "CTRL + ALT + SHIFT + grave" }, -- Move window to Quake console
+  { from = "SUPER + grave", to = "CTRL + ALT + grave", optional = true }, -- Toggle Quake console
+  { from = "SUPER + SHIFT + grave", to = "CTRL + ALT + SHIFT + grave", optional = true }, -- To Quake console
 
   -- Mouse: ⌘ + click and ⌘ + scroll become Ctrl + click / scroll in apps, so
   -- Omarchy's window mouse controls move to ⌃⌥ like its other window management.
@@ -123,7 +125,7 @@ local relocations = {
   { from = "SUPER + SHIFT + B", to = "SUPER + CTRL + ALT + B" }, -- Browser
   { from = "SUPER + SHIFT + ALT + B", to = "SUPER + CTRL + ALT + SHIFT + B" }, -- Browser (private)
   { from = "SUPER + SHIFT + N", to = "SUPER + CTRL + ALT + N" }, -- Editor
-  { from = "SUPER + SHIFT + T", to = "SUPER + CTRL + ALT + T" }, -- Activity (⇧⌘T: reopen tab; 4.5)
+  { from = "SUPER + SHIFT + T", to = "SUPER + CTRL + ALT + T", optional = true }, -- Activity (⇧⌘T: reopen tab; 4.5)
 
   -- Preinstalled apps and web apps (only when omarchy_preinstalled_bindings is on).
   { from = "SUPER + SHIFT + M", to = "SUPER + CTRL + ALT + M", optional = true }, -- Music
@@ -153,9 +155,9 @@ local relocations = {
   { from = "SUPER + CTRL + ALT + B", to = "SUPER + CTRL + SHIFT + B" }, -- Show battery remaining
   { from = "SUPER + CTRL + ALT + W", to = "SUPER + CTRL + SHIFT + W" }, -- Toggle weather
   { from = "SUPER + CTRL + ALT + D", to = "SUPER + CTRL + SHIFT + D" }, -- Calendar panel
-  { from = "SUPER + CTRL + ALT + C", to = "SUPER + CTRL + SHIFT + C" }, -- Screenshot (4.5)
-  { from = "SUPER + CTRL + ALT + E", to = "SUPER + CTRL + SHIFT + E" }, -- World clock (4.5)
-  { from = "SUPER + CTRL + ALT + F", to = "SUPER + CTRL + SHIFT + F" }, -- Toggle full screen desktop (4.5)
+  { from = "SUPER + CTRL + ALT + C", to = "SUPER + CTRL + SHIFT + C", optional = true }, -- Screenshot (4.5)
+  { from = "SUPER + CTRL + ALT + E", to = "SUPER + CTRL + SHIFT + E", optional = true }, -- World clock (4.5)
+  { from = "SUPER + CTRL + ALT + F", to = "SUPER + CTRL + SHIFT + F", optional = true }, -- Full screen desktop (4.5)
 
   -- Utilities & help.
   { from = "SUPER + K", to = "SUPER + SHIFT + slash" }, -- Keybindings → ⌘? (Mac Help); ⌘K is for apps

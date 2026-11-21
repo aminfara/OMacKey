@@ -707,8 +707,12 @@ change no keys), <https://omarchy.org/manual/hotkeys/>, and
   launchers to ⌃⌥⌘; Quake console goes to ⌃⌥\` / ⌃⌥⇧\` beside the scratchpad;
   layout-back to ⌃⌥⇧L; `Super + Q` and `Super + A` are dropped (OMacKey's ⌘Q
   and ⌘A replace them); move-window-to-monitor is dropped (one monitor, and
-  ⌃⇧⌘←/→ are shrink / expand selection); the input-language switch is dropped
-  for now (ROADMAP.md, pending decision).
+  ⌃⇧⌘←/→ are shrink / expand selection); the input-language switch moves to
+  ⌃⌥Space / ⌃⌥⇧Space (the Mac's "next input source" is ⌃⌥Space; plain ⌃Space is
+  Omarchy's terminal-prefix pass-through). Every row for a 4.5-only bind is
+  `optional`, so older Omarchy still loads cleanly. Issue #1 reported the same
+  collisions; its ⌃⌥⌘←/→ target for move-window-to-monitor would have put two
+  actions on one key (move window into a group).
 - **One action per key.** `relocate.lua` records every key Omarchy registers
   after relocation and reports a second bind on it (`omackey.status()`, in the
   build errors). The only exceptions are `Alt + Tab` and `Alt + Shift + Tab`,
